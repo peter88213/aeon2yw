@@ -30,7 +30,16 @@ The path of the Aeon Timeline 2 csv export file.
 `--silent`  suppress error messages and the request to confirm overwriting
 
 
-## General
+## csv export from Aeon Timeline 2
+
+- The csv file exported by Aeon Timeline 2 must be **comma**-separated.
+- Date format is like **1940-11-27**.
+- Time format is like **17:43**.
+
+
+![Aeon 2 csv export settings](Screenshots/Aeon2_export_settings.png)
+
+## Conversion rules
 
 -   All events tagged as "Scene" are converted to regular scenes.
 -   All events not tagged as "Scene" are converted to "Notes" scenes.
