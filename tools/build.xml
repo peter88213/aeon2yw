@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="aeon2yw" basedir=".">
-	<property name="release" value="0.3.0" />
+	<property name="release" value="0.4.0" />
 	<property name="src" location="../src" />
 	<property name="test" location="../test" />
 	<property name="build" location="../build" />
@@ -31,18 +31,18 @@
 		<mkdir dir="${dist}" />
 		<mkdir dir="${build}/${release-name}" />
 
-		<!--copy file="./install.bat" todir="${build}/${release-name}" /-->
+		<copy file="./install.bat" todir="${build}/${release-name}" />
 		
 		<copy file="${test}/aeon2yw.py" todir="${build}/${release-name}" />
 		<replace encoding="utf-8" file="${build}/${release-name}/aeon2yw.py" token="@release" value="${release}" />
 
 		<copy file="../LICENSE" todir="${build}/${release-name}" />
-		<!--copy file="${docs}/usage.md" tofile="${build}/${release-name}/README.md" /-->
+		<copy file="${docs}/usage.md" tofile="${build}/${release-name}/README.md" />
 
 		<zip destfile="${dist}/${release-name}.zip" basedir="${build}/${release-name}" />
 
-		<!--copy file="${docs}/template/index.md" overwrite="True" todir="${docs}" />
-		<replace encoding="utf-8" file="${docs}/index.md" token="0.99.0" value="${release}" /-->
+		<copy file="${docs}/template/index.md" overwrite="True" todir="${docs}" />
+		<replace encoding="utf-8" file="${docs}/index.md" token="0.99.0" value="${release}" />
 
 	</target>
 

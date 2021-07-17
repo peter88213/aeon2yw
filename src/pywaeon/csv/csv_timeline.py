@@ -25,7 +25,7 @@ class CsvTimeline(CsvFile):
     SUFFIX = ''
     _SEPARATOR = ','
 
-    NARRATIVE_ARC = 'Narrative'
+    NARRATIVE = 'Scene'
     # Events assigned to the "narrative arc" become regular scenes, the others
     # become Notes scenes.
 
@@ -145,10 +145,10 @@ class CsvTimeline(CsvFile):
             i += 1
             # Color
             i += 1
-            # Tags --> tags:
+            # Tag for filtering the narrative part.
 
-            if cells[i] != '':
-                self.scenes[scId].tags = cells[i].split('|')
+            if not self.NARRATIVE in cells[i]:
+                self.scenes[scId].isNotesScene = True
 
             i += 1
             # Links
@@ -160,10 +160,10 @@ class CsvTimeline(CsvFile):
             # Summary --> scene description.
             self.scenes[scId].desc = self.convert_to_yw(cells[i])
             i += 1
-            # Arc is used as a filter.
+            # Arc --> tags.
 
-            if not self.NARRATIVE_ARC in cells[i]:
-                self.scenes[scId].isNotesScene = True
+            if cells[i] != '':
+                self.scenes[scId].tags = cells[i].split('|')
 
             i += 1
             # Location
