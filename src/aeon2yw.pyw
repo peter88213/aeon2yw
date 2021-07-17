@@ -12,7 +12,7 @@ import os
 import argparse
 
 from pywriter.ui.ui import Ui
-from pywriter.ui.ui_cmd import UiCmd
+from pywriter.ui.ui_tk import UiTk
 from pywaeon.csv.csv_converter import CsvConverter
 
 SUFFIX = ''
@@ -24,7 +24,7 @@ def run(sourcePath, silentMode=True):
         ui = Ui('')
 
     else:
-        ui = UiCmd('csv timeline to yWriter converter @release')
+        ui = UiTk('csv timeline to yWriter converter @release')
 
     converter = CsvConverter()
     converter.ui = ui

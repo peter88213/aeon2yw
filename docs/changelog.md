@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### v0.6.0 Add Tkinter GUI
+
+Based on PyWriter v3.12.9
+
 ### v0.4.0 Beta test release
 
 Based on PyWriter v3.12.9

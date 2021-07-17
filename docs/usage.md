@@ -17,7 +17,7 @@ Alternatively, you can
 - launch the program on the command line passing the yWriter project file as an argument, or
 - launch the program via a batch file.
 
-usage: `aeon2yw.py [--silent] Sourcefile`
+usage: `aeon2yw.pyw [--silent] Sourcefile`
 
 #### positional arguments:
 
@@ -50,7 +50,7 @@ The path of the Aeon Timeline 2 csv export file.
 
 ## Installation path
 
-The **install.bat** installation script installs *aeon2yw.py* in the user profile. This is the installation path: 
+The **install.bat** installation script installs *aeon2yw.pyw* in the user profile. This is the installation path: 
 
 `c:\Users\<user name>\AppData\Roaming\PyWriter\aeon2yw`
     
