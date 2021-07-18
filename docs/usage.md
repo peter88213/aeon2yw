@@ -41,7 +41,7 @@ The path of the Aeon Timeline 2 csv export file.
 
 ## Conversion rules
 
--   All events tagged as "Scene" are converted to regular scenes.
+-   All events tagged as "Scene" (case insensitive) are converted to regular scenes.
 -   All events not tagged as "Scene" are converted to "Notes" scenes.
 -   All scenes are placed in a single chapter.
 -   All scenes are sorted chronologically (Note: "BC" is not evaluated). 
