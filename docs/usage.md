@@ -41,20 +41,22 @@ The path of the Aeon Timeline 2 csv export file.
 
 ## Conversion rules
 
--   All events tagged as "Scene" (case insensitive) are converted to regular scenes.
+The column labels refer to the example timeline "Murder on the Orient Express". 
+
+-   All events tagged as "Scene" (case sensitive) are converted to regular scenes.
 -   All events not tagged as "Scene" are converted to "Notes" scenes.
 -   All scenes are placed in a single chapter.
 -   All scenes are sorted chronologically (Note: "BC" is not evaluated). 
 -   The scene status is "Outline". 
--	The event ID is used as scene ID.
 -	The event title is used as scene title.
 - 	The start date is used as scene date/time.
 -	Duration and end date are not used.
--   The summary is used as scene description.
--	Arcs are converted to scene tags.
--	Locations are imported.
--	Observers are not used.
--	Participants are imported as characters.
+-   "Descriptions" are used as scene descriptions, if any.
+-   "Notes" are used as scene notes, if any.
+-	"Arcs" are converted to scene tags, if any.
+-	"Participants" are imported as characters, if any.
+-	"Locations" are imported, if any.
+-	"Items" are imported, if any.
 
 
 ## Installation path

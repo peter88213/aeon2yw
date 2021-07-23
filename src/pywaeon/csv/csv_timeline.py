@@ -5,15 +5,16 @@ For further information see https://github.com/peter88213/paeon
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
+import csv
 
-from pywriter.csv.csv_file import CsvFile
+from pywriter.file.file_export import FileExport
 from pywriter.model.scene import Scene
 from pywriter.model.chapter import Chapter
 from pywriter.model.world_element import WorldElement
 from pywriter.model.character import Character
 
 
-class CsvTimeline(CsvFile):
+class CsvTimeline(FileExport):
     """File representation of a csv file exported by Aeon Timeline 2. 
 
     Represents a csv file with a record per scene.
@@ -21,19 +22,26 @@ class CsvTimeline(CsvFile):
     - Data fields are delimited by the _SEPARATOR character.
     """
 
+    EXTENSION = '.csv'
     DESCRIPTION = 'Timeline'
     SUFFIX = ''
     _SEPARATOR = ','
 
-    NARRATIVE = 'scene'
     # Events assigned to the "narrative arc" (case insensitive) become
     # regular scenes, the others become Notes scenes.
 
-    fileHeader = '''"EventID","Title","Start Date",''' +\
-        '''"Duration","End Date","Parent","Color",''' +\
-        '''"Tags","Links","Tension","Complete","Summary"''' +\
-        ''',"Arc","Location","Observer","Participant"
-'''
+    def __init__(self, filePath, **kwargs):
+        """Extend the superclass constructor,
+        defining instance variables.
+        """
+        FileExport.__init__(self, filePath, **kwargs)
+        self.scnLabel = kwargs['scnLabel']
+        self.dscLabel = kwargs['dscLabel']
+        self.ntsLabel = kwargs['ntsLabel']
+        self.tagLabel = kwargs['tagLabel']
+        self.locLabel = kwargs['locLabel']
+        self.itmLabel = kwargs['itmLabel']
+        self.chrLabel = kwargs['chrLabel']
 
     def read(self):
         """Parse the csv file located at filePath, 
@@ -47,6 +55,11 @@ class CsvTimeline(CsvFile):
         self.locIdsByTitle = {}
         # key = location title
         # value = location ID
+
+        self.itemCount = 0
+        self.itmIdsByTitle = {}
+        # key = item title
+        # value = item ID
 
         def get_lcIds(lcTitles):
             """Return a list of location IDs; Add new location to the project.
@@ -73,6 +86,32 @@ class CsvTimeline(CsvFile):
                     return None
 
             return lcIds
+
+        def get_itIds(itTitles):
+            """Return a list of item IDs; Add new item to the project.
+            """
+            itIds = []
+
+            for itTitle in itTitles:
+
+                if itTitle in self.itmIdsByTitle:
+                    itIds.append(self.itmIdsByTitle[itTitle])
+
+                elif itTitle:
+                    # Add a new item to the project.
+
+                    self.itemCount += 1
+                    itId = str(self.itemCount)
+                    self.itmIdsByTitle[itTitle] = itId
+                    self.items[itId] = WorldElement()
+                    self.items[itId].title = itTitle
+                    self.srtItems.append(itId)
+                    itIds.append(itId)
+
+                else:
+                    return None
+
+            return itIds
 
         self.characterCount = 0
         self.chrIdsByTitle = {}
@@ -105,83 +144,82 @@ class CsvTimeline(CsvFile):
 
             return crIds
 
-        message = CsvFile.read(self)
+        self.rows = []
 
-        if message.startswith('ERROR'):
-            return message
+        #--- Read the csv file.
 
-        chId = '1'
-        self.chapters[chId] = Chapter()
-        self.chapters[chId].title = 'Chapter 1'
-        self.srtChapters = [chId]
+        try:
+            with open(self.filePath, newline='', encoding='utf-8') as f:
+                reader = csv.DictReader(f, delimiter=self._SEPARATOR)
 
-        scIdsByDate = {}
+                chId = '1'
+                self.chapters[chId] = Chapter()
+                self.chapters[chId].title = 'Chapter 1'
+                self.srtChapters = [chId]
 
-        for cells in self.rows:
+                scIdsByDate = {}
+                sceneCount = 0
 
-            if cells[0] == 'EventID':
-                # Skip the heading row.
-                continue
+                for row in reader:
+                    sceneCount += 1
+                    scId = str(sceneCount)
+                    self.scenes[scId] = Scene()
+                    self.scenes[scId].title = row['Title']
 
-            i = 0
-            # Event ID --> scene ID.
-            scId = cells[i]
-            self.scenes[scId] = Scene()
-            i += 1
-            # Title --> scene title.
-            self.scenes[scId].title = cells[i]
-            i += 1
-            # Start Date --> Date and time:
-            scIdsByDate[cells[i]] = scId
-            dt = cells[i].split(' ')
-            self.scenes[scId].date = dt[0]
-            self.scenes[scId].time = dt[1]
-            i += 1
-            # Duration
-            i += 1
-            # End Date
-            i += 1
-            # Parent
-            i += 1
-            # Color
-            i += 1
-            # Tag for filtering the narrative part.
+                    if not row['Start Date'] in scIdsByDate:
+                        scIdsByDate[row['Start Date']] = []
 
-            if not self.NARRATIVE in cells[i].lower():
-                self.scenes[scId].isNotesScene = True
+                    scIdsByDate[row['Start Date']].append(scId)
 
-            i += 1
-            # Links
-            i += 1
-            # Tension
-            i += 1
-            # Complete
-            i += 1
-            # Summary --> scene description.
-            self.scenes[scId].desc = self.convert_to_yw(cells[i])
-            i += 1
-            # Arc --> tags.
+                    dt = row['Start Date'].split(' ')
+                    self.scenes[scId].date = dt[0]
+                    self.scenes[scId].time = dt[1]
 
-            if cells[i] != '':
-                self.scenes[scId].tags = cells[i].split('|')
+                    if not self.scnLabel in row['Tags']:
+                        self.scenes[scId].isNotesScene = True
 
-            i += 1
-            # Location
-            self.scenes[scId].locations = get_lcIds(cells[i].split('|'))
-            i += 1
-            # Observer
-            i += 1
-            # Participant
-            self.scenes[scId].characters = get_crIds(cells[i].split('|'))
+                    if self.dscLabel in row:
+                        self.scenes[scId].desc = row[self.dscLabel]
 
-            # Set scene status = "Outline".
-            self.scenes[scId].status = 1
+                    if self.ntsLabel in row:
+                        self.scenes[scId].sceneNotes = row[self.ntsLabel]
+
+                    if self.tagLabel in row and row[self.tagLabel] != '':
+                        self.scenes[scId].tags = row[self.tagLabel].split(
+                            '|')
+
+                    if self.locLabel in row:
+                        self.scenes[scId].locations = get_lcIds(
+                            row[self.locLabel].split('|'))
+
+                    if self.chrLabel in row:
+                        self.scenes[scId].characters = get_crIds(
+                            row[self.chrLabel].split('|'))
+
+                    if self.itmLabel in row:
+                        self.scenes[scId].items = get_itIds(
+                            row[self.itmLabel].split('|'))
+
+                    # Set scene status = "Outline".
+
+                    self.scenes[scId].status = 1
+
+        except(FileNotFoundError):
+            return 'ERROR: "' + os.path.normpath(self.filePath) + '" not found.'
+
+        except(KeyError):
+            return 'ERROR: Wrong csv structure.'
+
+        except:
+            return 'ERROR: Can not parse "' + os.path.normpath(self.filePath) + '".'
 
         # Sort scenes by date/time
 
         srtScenes = sorted(scIdsByDate.items())
 
-        for date, scId in srtScenes:
-            self.chapters[chId].srtScenes.append(scId)
+        for date, scList in srtScenes:
+
+            for scId in scList:
+                self.chapters[chId].srtScenes.append(scId)
 
         return 'SUCCESS: Data read from "' + os.path.normpath(self.filePath) + '".'

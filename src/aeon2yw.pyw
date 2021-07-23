@@ -26,9 +26,17 @@ def run(sourcePath, silentMode=True):
     else:
         ui = UiTk('csv timeline to yWriter converter @release')
 
+    kwargs = {'suffix': SUFFIX}
+    kwargs['scnLabel'] = 'Scene'
+    kwargs['dscLabel'] = 'Description'
+    kwargs['ntsLabel'] = 'Notes'
+    kwargs['tagLabel'] = 'Arc'
+    kwargs['locLabel'] = 'Locations'
+    kwargs['itmLabel'] = 'Items'
+    kwargs['chrLabel'] = 'Participant'
+
     converter = CsvConverter()
     converter.ui = ui
-    kwargs = {'suffix': SUFFIX}
     converter.run(sourcePath, **kwargs)
     ui.start()
 
@@ -51,10 +59,4 @@ if __name__ == '__main__':
     else:
         silentMode = False
 
-    if os.path.isfile(args.sourcePath):
-        sourcePath = args.sourcePath
-
-    else:
-        sourcePath = None
-
-    run(sourcePath, silentMode)
+    run(args.sourcePath, silentMode)
