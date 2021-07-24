@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.6.3 Allow an even more flexible csv structure
+
+- Allow an even more flexible csv structure by passing all labels as parameters.
+
+Based on PyWriter v3.12.9
+
 ### v0.6.2 Allow a flexible csv structure
 
 - Process multiple events occurring at the same time.

@@ -11,6 +11,6 @@ set PWS=powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfil
 
 %PWS% -Command "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut(%SHORTCUT%); $S.TargetPath = %TARGET%; $S.Save()"
 
-rem set cnfdir="%APPDATA%\PyWriter\%app%\config"
-rem if not exist %cnfdir% md %cnfdir%
+set cnfdir="%APPDATA%\PyWriter\%app%\config"
+if not exist %cnfdir% md %cnfdir%
 rem echo "N" | copy/-Y sample\%app%\*.* %cnfdir%

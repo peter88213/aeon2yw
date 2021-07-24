@@ -35,13 +35,16 @@ class CsvTimeline(FileExport):
         defining instance variables.
         """
         FileExport.__init__(self, filePath, **kwargs)
-        self.scnLabel = kwargs['scnLabel']
-        self.dscLabel = kwargs['dscLabel']
-        self.ntsLabel = kwargs['ntsLabel']
+        self.sceneMarker = kwargs['sceneMarker']
+        self.titleLabel = kwargs['titleLabel']
+        self.sceneLabel = kwargs['sceneLabel']
+        self.dateTimeLabel = kwargs['dateTimeLabel']
+        self.descriptionLabel = kwargs['descriptionLabel']
+        self.notesLabel = kwargs['notesLabel']
         self.tagLabel = kwargs['tagLabel']
-        self.locLabel = kwargs['locLabel']
-        self.itmLabel = kwargs['itmLabel']
-        self.chrLabel = kwargs['chrLabel']
+        self.locationLabel = kwargs['locationLabel']
+        self.itemLabel = kwargs['itemLabel']
+        self.characterLabel = kwargs['characterLabel']
 
     def read(self):
         """Parse the csv file located at filePath, 
@@ -164,41 +167,42 @@ class CsvTimeline(FileExport):
                     sceneCount += 1
                     scId = str(sceneCount)
                     self.scenes[scId] = Scene()
-                    self.scenes[scId].title = row['Title']
 
-                    if not row['Start Date'] in scIdsByDate:
-                        scIdsByDate[row['Start Date']] = []
+                    self.scenes[scId].title = row[self.titleLabel]
 
-                    scIdsByDate[row['Start Date']].append(scId)
+                    if not row[self.dateTimeLabel] in scIdsByDate:
+                        scIdsByDate[row[self.dateTimeLabel]] = []
 
-                    dt = row['Start Date'].split(' ')
+                    scIdsByDate[row[self.dateTimeLabel]].append(scId)
+
+                    dt = row[self.dateTimeLabel].split(' ')
                     self.scenes[scId].date = dt[0]
                     self.scenes[scId].time = dt[1]
 
-                    if not self.scnLabel in row['Tags']:
+                    if not self.sceneMarker in row[self.sceneLabel]:
                         self.scenes[scId].isNotesScene = True
 
-                    if self.dscLabel in row:
-                        self.scenes[scId].desc = row[self.dscLabel]
+                    if self.descriptionLabel in row:
+                        self.scenes[scId].desc = row[self.descriptionLabel]
 
-                    if self.ntsLabel in row:
-                        self.scenes[scId].sceneNotes = row[self.ntsLabel]
+                    if self.notesLabel in row:
+                        self.scenes[scId].sceneNotes = row[self.notesLabel]
 
                     if self.tagLabel in row and row[self.tagLabel] != '':
                         self.scenes[scId].tags = row[self.tagLabel].split(
                             '|')
 
-                    if self.locLabel in row:
+                    if self.locationLabel in row:
                         self.scenes[scId].locations = get_lcIds(
-                            row[self.locLabel].split('|'))
+                            row[self.locationLabel].split('|'))
 
-                    if self.chrLabel in row:
+                    if self.characterLabel in row:
                         self.scenes[scId].characters = get_crIds(
-                            row[self.chrLabel].split('|'))
+                            row[self.characterLabel].split('|'))
 
-                    if self.itmLabel in row:
+                    if self.itemLabel in row:
                         self.scenes[scId].items = get_itIds(
-                            row[self.itmLabel].split('|'))
+                            row[self.itemLabel].split('|'))
 
                     # Set scene status = "Outline".
 
