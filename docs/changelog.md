@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.6.4 Non-scene export is optional
+
+- Export of events that are not tagged as scenes is optional.
+
+Based on PyWriter v3.12.9
+
 ### v0.6.3 Allow an even more flexible csv structure
 
 - Allow an even more flexible csv structure by passing all labels as parameters.

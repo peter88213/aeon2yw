@@ -35,6 +35,7 @@ class CsvTimeline(FileExport):
         defining instance variables.
         """
         FileExport.__init__(self, filePath, **kwargs)
+        self.exportAllEvents = kwargs['exportAllEvents']
         self.sceneMarker = kwargs['sceneMarker']
         self.titleLabel = kwargs['titleLabel']
         self.sceneLabel = kwargs['sceneLabel']
@@ -161,26 +162,32 @@ class CsvTimeline(FileExport):
                 self.srtChapters = [chId]
 
                 scIdsByDate = {}
-                sceneCount = 0
+                eventCount = 0
 
                 for row in reader:
-                    sceneCount += 1
-                    scId = str(sceneCount)
-                    self.scenes[scId] = Scene()
+                    eventCount += 1
 
+                    if not self.sceneMarker in row[self.sceneLabel]:
+                        noScene = True
+
+                        if not self.exportAllEvents:
+                            continue
+
+                    else:
+                        noScene = False
+
+                    scId = str(eventCount)
+                    self.scenes[scId] = Scene()
+                    self.scenes[scId].isNotesScene = noScene
                     self.scenes[scId].title = row[self.titleLabel]
 
                     if not row[self.dateTimeLabel] in scIdsByDate:
                         scIdsByDate[row[self.dateTimeLabel]] = []
 
                     scIdsByDate[row[self.dateTimeLabel]].append(scId)
-
                     dt = row[self.dateTimeLabel].split(' ')
                     self.scenes[scId].date = dt[0]
                     self.scenes[scId].time = dt[1]
-
-                    if not self.sceneMarker in row[self.sceneLabel]:
-                        self.scenes[scId].isNotesScene = True
 
                     if self.descriptionLabel in row:
                         self.scenes[scId].desc = row[self.descriptionLabel]

@@ -28,6 +28,7 @@ def run(sourcePath, silentMode=True):
 
     kwargs = dict(
         suffix=SUFFIX,
+        exportAllEvents=True,
         sceneMarker='Scene',
         titleLabel='Title',
         sceneLabel='Tags',
