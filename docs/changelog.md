@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### v0.8.0 Read configuration file
+
+Based on PyWriter v3.14.0
+
 ### v0.6.4 Non-scene export is optional
 
 - Export of events that are not tagged as scenes is optional.

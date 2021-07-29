@@ -13,9 +13,29 @@ import argparse
 
 from pywriter.ui.ui import Ui
 from pywriter.ui.ui_tk import UiTk
+from pywriter.config.configuration import Configuration
+
 from pywaeon.csv.csv_converter import CsvConverter
 
 SUFFIX = ''
+APPNAME = 'aeon2yw'
+
+SETTINGS = dict(
+    title_label='Title',
+    scene_label='Tags',
+    scene_marker='Scene',
+    date_time_label='Start Date',
+    description_label='Description',
+    notes_label='Notes',
+    tag_label='Story',
+    location_label='Location',
+    item_label='Item',
+    character_label='Participant'
+)
+
+OPTIONS = dict(
+    export_all_events=True,
+)
 
 
 def run(sourcePath, silentMode=True):
@@ -26,20 +46,29 @@ def run(sourcePath, silentMode=True):
     else:
         ui = UiTk('csv timeline to yWriter converter @release')
 
-    kwargs = dict(
-        suffix=SUFFIX,
-        exportAllEvents=True,
-        sceneMarker='Scene',
-        titleLabel='Title',
-        sceneLabel='Tags',
-        dateTimeLabel='Start Date',
-        descriptionLabel='Description',
-        notesLabel='Notes',
-        tagLabel='Story',
-        locationLabel='Location',
-        itemLabel='Item',
-        characterLabel='Participant',
-    )
+    #--- Try to get persistent configuration data
+
+    sourceDir = os.path.dirname(sourcePath)
+
+    if sourceDir == '':
+        sourceDir = './'
+
+    else:
+        sourceDir += '/'
+
+    installDir = os.getenv('APPDATA').replace('\\', '/') + '/pyWriter/' + APPNAME + '/config/'
+    iniFileName = APPNAME + '.ini'
+    iniFiles = [installDir + iniFileName, sourceDir + iniFileName]
+
+    configuration = Configuration(SETTINGS, OPTIONS)
+
+    for iniFile in iniFiles:
+        configuration.read(iniFile)
+
+    kwargs = {'suffix': SUFFIX}
+    kwargs.update(configuration.settings)
+    kwargs.update(configuration.options)
+
     converter = CsvConverter()
     converter.ui = ui
     converter.run(sourcePath, **kwargs)
@@ -50,7 +79,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Aeon Timeline 2 csv to yWriter converter',
         epilog='')
-    parser.add_argument('sourcePath', metavar='Sourcefile',
+    parser.add_argument('sourcePath',
+                        metavar='Sourcefile',
                         help='The path of the csv timeline file.')
 
     parser.add_argument('--silent',
@@ -58,10 +88,4 @@ if __name__ == '__main__':
                         help='suppress error messages and the request to confirm overwriting')
     args = parser.parse_args()
 
-    if args.silent:
-        silentMode = True
-
-    else:
-        silentMode = False
-
-    run(args.sourcePath, silentMode)
+    run(args.sourcePath, args.silent)

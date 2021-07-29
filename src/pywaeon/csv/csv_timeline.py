@@ -35,17 +35,17 @@ class CsvTimeline(FileExport):
         defining instance variables.
         """
         FileExport.__init__(self, filePath, **kwargs)
-        self.exportAllEvents = kwargs['exportAllEvents']
-        self.sceneMarker = kwargs['sceneMarker']
-        self.titleLabel = kwargs['titleLabel']
-        self.sceneLabel = kwargs['sceneLabel']
-        self.dateTimeLabel = kwargs['dateTimeLabel']
-        self.descriptionLabel = kwargs['descriptionLabel']
-        self.notesLabel = kwargs['notesLabel']
-        self.tagLabel = kwargs['tagLabel']
-        self.locationLabel = kwargs['locationLabel']
-        self.itemLabel = kwargs['itemLabel']
-        self.characterLabel = kwargs['characterLabel']
+        self.sceneMarker = kwargs['scene_marker']
+        self.titleLabel = kwargs['title_label']
+        self.sceneLabel = kwargs['scene_label']
+        self.dateTimeLabel = kwargs['date_time_label']
+        self.descriptionLabel = kwargs['description_label']
+        self.notesLabel = kwargs['notes_label']
+        self.tagLabel = kwargs['tag_label']
+        self.locationLabel = kwargs['location_label']
+        self.itemLabel = kwargs['item_label']
+        self.characterLabel = kwargs['character_label']
+        self.exportAllEvents = kwargs['export_all_events']
 
     def read(self):
         """Parse the csv file located at filePath, 
@@ -196,20 +196,16 @@ class CsvTimeline(FileExport):
                         self.scenes[scId].sceneNotes = row[self.notesLabel]
 
                     if self.tagLabel in row and row[self.tagLabel] != '':
-                        self.scenes[scId].tags = row[self.tagLabel].split(
-                            '|')
+                        self.scenes[scId].tags = row[self.tagLabel].split('|')
 
                     if self.locationLabel in row:
-                        self.scenes[scId].locations = get_lcIds(
-                            row[self.locationLabel].split('|'))
+                        self.scenes[scId].locations = get_lcIds(row[self.locationLabel].split('|'))
 
                     if self.characterLabel in row:
-                        self.scenes[scId].characters = get_crIds(
-                            row[self.characterLabel].split('|'))
+                        self.scenes[scId].characters = get_crIds(row[self.characterLabel].split('|'))
 
                     if self.itemLabel in row:
-                        self.scenes[scId].items = get_itIds(
-                            row[self.itemLabel].split('|'))
+                        self.scenes[scId].items = get_itIds(row[self.itemLabel].split('|'))
 
                     # Set scene status = "Outline".
 
