@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.10.0 Add option to disable scene filtering
+
+- If the scene marker is left blank in the configuration, all events will be imported as normal scenes.
+
+Based on PyWriter v3.14.0
+
 ### v0.8.0 Read configuration file
 
 Based on PyWriter v3.14.0

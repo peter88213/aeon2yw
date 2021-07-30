@@ -167,7 +167,10 @@ class CsvTimeline(FileExport):
                 for row in reader:
                     eventCount += 1
 
-                    if not self.sceneMarker in row[self.sceneLabel]:
+                    if self.sceneMarker == '':
+                        noScene = False
+
+                    elif not self.sceneMarker in row[self.sceneLabel]:
                         noScene = True
 
                         if not self.exportAllEvents:
