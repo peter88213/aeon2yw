@@ -19,7 +19,8 @@ Generate a yWriter 7 project from an csv outline exported from Aeon Timeline 2.
 [Download the latest release (version 0.99.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.99.0.zip)
 
 - Unzip the downloaded zipfile "aeon2yw_v0.99.0.zip" into a new folder.
-- Move into this new folder and launch **install.bat**. This installs the script for the local user and creates a shortcut on the desktop.
+- Move into this new folder and launch **install.bat**. This installs the script for the local user.
+- Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.
 
 [Changelog](changelog)
