@@ -5,7 +5,7 @@ Version @release
 Requires Python 3.7 or above
 
 Copyright (c) 2021 Peter Triesberger
-For further information see https://github.com/peter88213/Paeon
+For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
@@ -15,7 +15,7 @@ from pywriter.ui.ui import Ui
 from pywriter.ui.ui_tk import UiTk
 from pywriter.config.configuration import Configuration
 
-from pywaeon.csv.csv_converter import CsvConverter
+from pywaeon.csv_converter import CsvConverter
 
 SUFFIX = ''
 APPNAME = 'aeon2yw'
