@@ -4,6 +4,13 @@
 
 ## Changelog
 
+
+### v0.10.4 Bugfix release
+
+- Fix a bug causing an exception when a new item is added to a scene.
+
+Based on PyWriter v3.18.1
+
 ### v0.10.3 No automatic shortcut creation
 
 - Due to sporadic security warnings, the automatic shortcut creation during installation is removed. The user is now guided to create the application shortcut manually.  
