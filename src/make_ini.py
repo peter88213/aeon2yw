@@ -11,9 +11,9 @@ import sys
 import os
 
 from pywriter.config.configuration import Configuration
-from aeon2yw import SETTINGS
-from aeon2yw import OPTIONS
-from aeon2yw import APPNAME
+from aeon2yw_ import SETTINGS
+from aeon2yw_ import OPTIONS
+from aeon2yw_ import APPNAME
 
 
 def run(iniFile):
