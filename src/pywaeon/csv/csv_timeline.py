@@ -23,7 +23,7 @@ class CsvTimeline(FileExport):
     """
 
     EXTENSION = '.csv'
-    DESCRIPTION = 'Timeline'
+    DESCRIPTION = 'Aeon Timeline CSV export'
     SUFFIX = ''
     _SEPARATOR = ','
 
