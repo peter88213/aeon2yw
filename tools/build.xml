@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="aeon2yw" basedir=".">
-	<property name="release" value="0.10.3" />
+	<property name="release" value="0.10.4" />
 	<property name="src" location="../src" />
 	<property name="test" location="../test" />
 	<property name="build" location="../build" />
@@ -37,7 +37,7 @@
 		
 		<copy file="./install.bat" todir="${build}/${release-name}" />
 		
-		<copy file="${test}/aeon2yw.pyw" todir="${build}/${release-name}" />
+		<copy file="${test}/aeon2yw.pyw" tofile="${build}/${release-name}/aeon2yw.pyw" />
 		<replace encoding="utf-8" file="${build}/${release-name}/aeon2yw.pyw" token="@release" value="${release}" />
 
 		<copy file="../LICENSE" todir="${build}/${release-name}" />
