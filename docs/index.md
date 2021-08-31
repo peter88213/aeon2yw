@@ -1,5 +1,7 @@
 Generate a yWriter 7 project from an csv outline exported from Aeon Timeline 2. 
 
+![Screenshot: Example](Screenshots/screen01.png)
+
 - Events are converted to scenes in one single chapter.
 - The scenes are sorted chronologically.
 - Events tagged "Scene" are converted to regular scenes; other events become "Notes" scenes.
