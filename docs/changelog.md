@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.12.0 compatible with Aeon Timeline version 3
+
+- Aeon Timeline 3 csv export will work the same way, but the "narrative" is not supported yet.
+- Improve error messages in case of csv structure mismatch.
+
+Based on PyWriter v3.24.3
 
 ### v0.10.4 Bugfix release
 

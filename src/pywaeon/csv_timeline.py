@@ -156,6 +156,19 @@ class CsvTimeline(FileExport):
             with open(self.filePath, newline='', encoding='utf-8') as f:
                 reader = csv.DictReader(f, delimiter=self._SEPARATOR)
 
+                for label in [self.titleLabel, self.dateTimeLabel]:
+
+                    if not label in reader.fieldnames:
+                        return 'ERROR: Label "' + label + '" is missing in the CSV file.'
+
+                if 'Type' in reader.fieldnames:
+                    aeonVersion = 3
+                    delimiter = ','
+
+                else:
+                    aeonVersion = 2
+                    delimiter = '|'
+
                 chId = '1'
                 self.chapters[chId] = Chapter()
                 self.chapters[chId].title = 'Chapter 1'
@@ -165,6 +178,10 @@ class CsvTimeline(FileExport):
                 eventCount = 0
 
                 for row in reader:
+
+                    if aeonVersion == 3 and row['Type'] != "Event":
+                        continue
+
                     eventCount += 1
 
                     if self.sceneMarker == '':
@@ -199,16 +216,16 @@ class CsvTimeline(FileExport):
                         self.scenes[scId].sceneNotes = row[self.notesLabel]
 
                     if self.tagLabel in row and row[self.tagLabel] != '':
-                        self.scenes[scId].tags = row[self.tagLabel].split('|')
+                        self.scenes[scId].tags = row[self.tagLabel].split(delimiter)
 
                     if self.locationLabel in row:
-                        self.scenes[scId].locations = get_lcIds(row[self.locationLabel].split('|'))
+                        self.scenes[scId].locations = get_lcIds(row[self.locationLabel].split(delimiter))
 
                     if self.characterLabel in row:
-                        self.scenes[scId].characters = get_crIds(row[self.characterLabel].split('|'))
+                        self.scenes[scId].characters = get_crIds(row[self.characterLabel].split(delimiter))
 
                     if self.itemLabel in row:
-                        self.scenes[scId].items = get_itIds(row[self.itemLabel].split('|'))
+                        self.scenes[scId].items = get_itIds(row[self.itemLabel].split(delimiter))
 
                     # Set scene status = "Outline".
 
