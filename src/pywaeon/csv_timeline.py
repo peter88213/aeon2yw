@@ -161,7 +161,7 @@ class CsvTimeline(FileExport):
             with open(self.filePath, newline='', encoding='utf-8') as f:
                 reader = csv.DictReader(f, delimiter=self._SEPARATOR)
 
-                for label in [self.titleLabel, self.startDateTimeLabel, self.endDateTimeLabel]:
+                for label in [self.sceneLabel, self.titleLabel, self.startDateTimeLabel, self.endDateTimeLabel]:
 
                     if not label in reader.fieldnames:
                         return 'ERROR: Label "' + label + '" is missing in the CSV file.'
@@ -261,6 +261,9 @@ class CsvTimeline(FileExport):
 
         except(KeyError):
             return 'ERROR: Wrong csv structure.'
+
+        except(ValueError):
+            return 'ERROR: Wrong date/time format.'
 
         except:
             return 'ERROR: Can not parse "' + os.path.normpath(self.filePath) + '".'
