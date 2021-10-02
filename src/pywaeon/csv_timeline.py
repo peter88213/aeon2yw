@@ -211,20 +211,30 @@ class CsvTimeline(FileExport):
 
                     scIdsByDate[row[self.startDateTimeLabel]].append(scId)
                     startDateTime = row[self.startDateTimeLabel].split(' ')
-                    self.scenes[scId].date = startDateTime[0]
-                    self.scenes[scId].time = startDateTime[1]
+                    startYear = int(startDateTime[0].split('-')[0])
 
-                    # Calculate duration of scenes that begin after 99-12-31.
+                    if startYear < 100 or 'BC' in row[self.startDateTimeLabel]:
 
-                    sceneStart = datetime.fromisoformat(row[self.startDateTimeLabel])
-                    sceneEnd = datetime.fromisoformat(row[self.endDateTimeLabel])
-                    sceneDuration = sceneEnd - sceneStart
-                    lastsHours = sceneDuration.seconds // 3600
-                    lastsMinutes = (sceneDuration.seconds % 3600) // 60
+                        # Substitute date/time, so yWriter would not prefix them with '19' or '20'.
 
-                    self.scenes[scId].lastsDays = str(sceneDuration.days)
-                    self.scenes[scId].lastsHours = str(lastsHours)
-                    self.scenes[scId].lastsMinutes = str(lastsMinutes)
+                        self.scenes[scId].date = '-0001-01-01'
+                        self.scenes[scId].time = '00:00:00'
+
+                    else:
+                        self.scenes[scId].date = startDateTime[0]
+                        self.scenes[scId].time = startDateTime[1]
+
+                        # Calculate duration of scenes that begin after 99-12-31.
+
+                        sceneStart = datetime.fromisoformat(row[self.startDateTimeLabel])
+                        sceneEnd = datetime.fromisoformat(row[self.endDateTimeLabel])
+                        sceneDuration = sceneEnd - sceneStart
+                        lastsHours = sceneDuration.seconds // 3600
+                        lastsMinutes = (sceneDuration.seconds % 3600) // 60
+
+                        self.scenes[scId].lastsDays = str(sceneDuration.days)
+                        self.scenes[scId].lastsHours = str(lastsHours)
+                        self.scenes[scId].lastsMinutes = str(lastsMinutes)
 
                     if self.descriptionLabel in row:
                         self.scenes[scId].desc = row[self.descriptionLabel]
@@ -242,12 +252,18 @@ class CsvTimeline(FileExport):
                         self.scenes[scId].characters = get_crIds(row[self.characterLabel].split(delimiter))
 
                     if self.viewpointLabel in row:
-                        vpId = get_crIds([row[self.viewpointLabel]])[0]
+                        vpIds = get_crIds([row[self.viewpointLabel]])
 
-                        if vpId in self.scenes[scId].characters:
-                            self.scenes[scId].characters.remove[vpId]
+                        if vpIds is not None:
+                            vpId = vpIds[0]
 
-                        self.scenes[scId].characters.insert(0, vpId)
+                            if self.scenes[scId].characters is None:
+                                self.scenes[scId].characters = []
+
+                            elif vpId in self.scenes[scId].characters:
+                                self.scenes[scId].characters.remove[vpId]
+
+                            self.scenes[scId].characters.insert(0, vpId)
 
                     if self.itemLabel in row:
                         self.scenes[scId].items = get_itIds(row[self.itemLabel].split(delimiter))
