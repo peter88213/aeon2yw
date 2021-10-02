@@ -7,6 +7,9 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 import csv
 
+from datetime import datetime
+from datetime import timedelta
+
 from pywriter.file.file_export import FileExport
 from pywriter.model.scene import Scene
 from pywriter.model.chapter import Chapter
@@ -38,13 +41,15 @@ class CsvTimeline(FileExport):
         self.sceneMarker = kwargs['scene_marker']
         self.titleLabel = kwargs['title_label']
         self.sceneLabel = kwargs['scene_label']
-        self.dateTimeLabel = kwargs['date_time_label']
+        self.startDateTimeLabel = kwargs['start_date_time_label']
+        self.endDateTimeLabel = kwargs['end_date_time_label']
         self.descriptionLabel = kwargs['description_label']
         self.notesLabel = kwargs['notes_label']
         self.tagLabel = kwargs['tag_label']
         self.locationLabel = kwargs['location_label']
         self.itemLabel = kwargs['item_label']
         self.characterLabel = kwargs['character_label']
+        self.viewpointLabel = kwargs['viewpoint_label']
         self.exportAllEvents = kwargs['export_all_events']
 
     def read(self):
@@ -156,7 +161,7 @@ class CsvTimeline(FileExport):
             with open(self.filePath, newline='', encoding='utf-8') as f:
                 reader = csv.DictReader(f, delimiter=self._SEPARATOR)
 
-                for label in [self.titleLabel, self.dateTimeLabel]:
+                for label in [self.titleLabel, self.startDateTimeLabel, self.endDateTimeLabel]:
 
                     if not label in reader.fieldnames:
                         return 'ERROR: Label "' + label + '" is missing in the CSV file.'
@@ -201,13 +206,25 @@ class CsvTimeline(FileExport):
                     self.scenes[scId].isNotesScene = noScene
                     self.scenes[scId].title = row[self.titleLabel]
 
-                    if not row[self.dateTimeLabel] in scIdsByDate:
-                        scIdsByDate[row[self.dateTimeLabel]] = []
+                    if not row[self.startDateTimeLabel] in scIdsByDate:
+                        scIdsByDate[row[self.startDateTimeLabel]] = []
 
-                    scIdsByDate[row[self.dateTimeLabel]].append(scId)
-                    dt = row[self.dateTimeLabel].split(' ')
-                    self.scenes[scId].date = dt[0]
-                    self.scenes[scId].time = dt[1]
+                    scIdsByDate[row[self.startDateTimeLabel]].append(scId)
+                    startDateTime = row[self.startDateTimeLabel].split(' ')
+                    self.scenes[scId].date = startDateTime[0]
+                    self.scenes[scId].time = startDateTime[1]
+
+                    # Calculate duration of scenes that begin after 99-12-31.
+
+                    sceneStart = datetime.fromisoformat(row[self.startDateTimeLabel])
+                    sceneEnd = datetime.fromisoformat(row[self.endDateTimeLabel])
+                    sceneDuration = sceneEnd - sceneStart
+                    lastsHours = sceneDuration.seconds // 3600
+                    lastsMinutes = (sceneDuration.seconds % 3600) // 60
+
+                    self.scenes[scId].lastsDays = str(sceneDuration.days)
+                    self.scenes[scId].lastsHours = str(lastsHours)
+                    self.scenes[scId].lastsMinutes = str(lastsMinutes)
 
                     if self.descriptionLabel in row:
                         self.scenes[scId].desc = row[self.descriptionLabel]
@@ -223,6 +240,14 @@ class CsvTimeline(FileExport):
 
                     if self.characterLabel in row:
                         self.scenes[scId].characters = get_crIds(row[self.characterLabel].split(delimiter))
+
+                    if self.viewpointLabel in row:
+                        vpId = get_crIds([row[self.viewpointLabel]])[0]
+
+                        if vpId in self.scenes[scId].characters:
+                            self.scenes[scId].characters.remove[vpId]
+
+                        self.scenes[scId].characters.insert(0, vpId)
 
                     if self.itemLabel in row:
                         self.scenes[scId].items = get_itIds(row[self.itemLabel].split(delimiter))

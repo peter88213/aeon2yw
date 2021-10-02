@@ -21,16 +21,18 @@ SUFFIX = ''
 APPNAME = 'aeon2yw'
 
 SETTINGS = dict(
-    scene_marker='Scene',
-    scene_label='Tags',
+    scene_marker='Yes',
+    scene_label='Scene',
     title_label='Title',
-    date_time_label='Start Date',
+    start_date_time_label='Start Date',
+    end_date_time_label='End Date',
     description_label='Description',
     notes_label='Notes',
-    tag_label='Arc',
+    tag_label='Tags',
     location_label='Location',
     item_label='Item',
-    character_label='Participant'
+    character_label='Participant',
+    viewpoint_label='Viewpoint'
 )
 
 OPTIONS = dict(
