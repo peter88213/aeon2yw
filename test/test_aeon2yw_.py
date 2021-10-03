@@ -25,7 +25,6 @@ NORMAL_V2_YW7 = TEST_DATA_PATH + 'normal_v2.yw7'
 NORMAL_V2_TL = TEST_DATA_PATH + 'normal_v2.csv'
 NORMAL_V3_YW7 = TEST_DATA_PATH + 'normal_v3.yw7'
 NORMAL_V3_TL = TEST_DATA_PATH + 'normal_v3.csv'
-INI_FILE_V3 = TEST_DATA_PATH + 'aeon2yw_v3.ini'
 DATE_LIMITS_YW7 = TEST_DATA_PATH + 'date_limits.yw7'
 DATE_LIMITS_TL = TEST_DATA_PATH + 'date_limits.csv'
 
@@ -85,10 +84,9 @@ class NormalOperation(unittest.TestCase):
 
     def test_aeon3(self):
         copyfile(NORMAL_V3_TL, TEST_TL)
-        copyfile(INI_FILE_V3, INI_FILE)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_TL, silentMode=True)
-        self.assertEqual(read_file(TEST_TL), read_file(NORMAL_V3_TL))
+        self.assertEqual(read_file(TEST_YW7), read_file(NORMAL_V3_YW7))
 
     def test_date_limits(self):
         copyfile(DATE_LIMITS_TL, TEST_TL)

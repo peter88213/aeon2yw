@@ -29,6 +29,16 @@ class CsvTimeline(FileExport):
     SUFFIX = ''
     _SEPARATOR = ','
 
+    TYPE_LABEL_V3 = 'Type'
+    TITLE_LABEL_V3 = 'Label'
+    SCENE_LABEL_V3 = 'Narrative Position'
+    DESCRIPTION_LABEL_V3 = 'Summary'
+    EVENT_MARKER_V3 = 'Event'
+    STRUCT_MARKER_V3 = 'Narrative Folder'
+    SCENE_MARKER_V3 = 'Scene'
+    CHAPTER_MARKER_V3 = 'Chapter'
+    PART_MARKER_V3 = 'Part'
+
     # Events assigned to the "narrative arc" (case insensitive) become
     # regular scenes, the others become Notes scenes.
 
@@ -160,23 +170,22 @@ class CsvTimeline(FileExport):
             with open(self.filePath, newline='', encoding='utf-8') as f:
                 reader = csv.DictReader(f, delimiter=self._SEPARATOR)
 
-                for label in [self.sceneLabel, self.titleLabel, self.startDateTimeLabel, self.endDateTimeLabel]:
-
-                    if not label in reader.fieldnames:
-                        return 'ERROR: Label "' + label + '" is missing in the CSV file.'
-
-                if 'Type' in reader.fieldnames:
+                if self.TYPE_LABEL_V3 in reader.fieldnames:
                     aeonVersion = 3
                     delimiter = ','
+                    self.titleLabel = self.TITLE_LABEL_V3
+                    self.sceneMarker = self.SCENE_MARKER_V3
+                    self.sceneLabel = self.SCENE_LABEL_V3
+                    self.descriptionLabel = self.DESCRIPTION_LABEL_V3
 
                 else:
                     aeonVersion = 2
                     delimiter = '|'
 
-                chId = '1'
-                self.chapters[chId] = Chapter()
-                self.chapters[chId].title = 'Chapter 1'
-                self.srtChapters = [chId]
+                for label in [self.sceneLabel, self.titleLabel, self.startDateTimeLabel, self.endDateTimeLabel]:
+
+                    if not label in reader.fieldnames:
+                        return 'ERROR: Label "' + label + '" is missing in the CSV file.'
 
                 scIdsByDate = {}
                 scIdsUndated = []
@@ -184,7 +193,10 @@ class CsvTimeline(FileExport):
 
                 for row in reader:
 
-                    if aeonVersion == 3 and row['Type'] != "Event":
+                    if aeonVersion == 3 and row[self.TYPE_LABEL_V3] == self.STRUCT_MARKER_V3:
+                        continue
+
+                    elif aeonVersion == 3 and row[self.TYPE_LABEL_V3] != self.EVENT_MARKER_V3:
                         continue
 
                     eventCount += 1
@@ -289,14 +301,44 @@ class CsvTimeline(FileExport):
         except:
             return 'ERROR: Can not parse "' + os.path.normpath(self.filePath) + '".'
 
-        # Sort scenes by date/time
+        #--- Create document structure
 
-        srtScenes = sorted(scIdsByDate.items())
-        self.chapters[chId].srtScenes = scIdsUndated
+        if aeonVersion == 2:
 
-        for date, scList in srtScenes:
+            # Sort scenes by date/time and place them in one single chapter.
 
-            for scId in scList:
-                self.chapters[chId].srtScenes.append(scId)
+            chId = '1'
+            self.chapters[chId] = Chapter()
+            self.chapters[chId].title = 'Chapter 1'
+            self.srtChapters = [chId]
+            srtScenes = sorted(scIdsByDate.items())
+            self.chapters[chId].srtScenes = scIdsUndated
+
+            for date, scList in srtScenes:
+
+                for scId in scList:
+                    self.chapters[chId].srtScenes.append(scId)
+
+        elif aeonVersion == 3:
+
+            # Build the chapter structure as defined with Aeon v3.
+
+            chId = '1'
+            self.chapters[chId] = Chapter()
+            self.chapters[chId].title = 'Chapter 1'
+            self.srtChapters = [chId]
+
+            # Sort scenes by date/time
+
+            srtScenes = sorted(scIdsByDate.items())
+            self.chapters[chId].srtScenes = scIdsUndated
+
+            for date, scList in srtScenes:
+
+                for scId in scList:
+                    self.chapters[chId].srtScenes.append(scId)
+
+        else:
+            return 'ERROR: Cann not recognize Aeon Timeline version.'
 
         return 'SUCCESS: Data read from "' + os.path.normpath(self.filePath) + '".'
