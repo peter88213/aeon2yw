@@ -1,5 +1,3 @@
-Generate a yWriter 7 project from an csv outline exported from Aeon Timeline 2. 
-
 [![Screenshot: Example](Screenshots/screen01.png)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/docs/Screenshots/screen01.png)
 
 - Events are converted to scenes in one single chapter.
@@ -13,7 +11,7 @@ Generate a yWriter 7 project from an csv outline exported from Aeon Timeline 2.
 - Windows.
 - [Python 3](https://www.python.org). Python 3.4 or more recent will work. However, Python 3.7 or above is highly recommended.
 - [yWriter](http://spacejock.com/yWriter7.html).
-- [Aeon Timeline 2](https://www.aeontimeline.com/). Note: Aeon Timeline 3 support is still experimental and incomplete.
+- Aeon Timeline 2.
 
 
 ## Download and install

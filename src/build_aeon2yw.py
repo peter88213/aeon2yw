@@ -28,7 +28,7 @@ def main():
         pass
 
     inliner.run(SOURCE_FILE,
-                TARGET_FILE, 'pywaeon', '../src/')
+                TARGET_FILE, 'pywaeon2', '../src/')
     inliner.run(TARGET_FILE,
                 TARGET_FILE, 'pywriter', '../../PyWriter/src/')
     print('Done.')

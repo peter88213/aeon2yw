@@ -7,7 +7,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from pywriter.converter.new_project_factory import NewProjectFactory
 
-from pywaeon.csv_timeline import CsvTimeline
+from pywaeon2.csv_timeline import CsvTimeline
 
 
 class CsvConverter(YwCnvUi):

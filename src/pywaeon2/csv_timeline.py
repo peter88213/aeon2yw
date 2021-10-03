@@ -1,4 +1,4 @@
-"""Provide a class for csv timeline representation.
+"""Provide a class for Aeon Timeline 2 csv representation.
 
 Copyright (c) 2021 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
@@ -29,17 +29,7 @@ class CsvTimeline(FileExport):
     SUFFIX = ''
     _SEPARATOR = ','
 
-    TYPE_LABEL_V3 = 'Type'
-    TITLE_LABEL_V3 = 'Label'
-    SCENE_LABEL_V3 = 'Narrative Position'
-    DESCRIPTION_LABEL_V3 = 'Summary'
-    EVENT_MARKER_V3 = 'Event'
-    STRUCT_MARKER_V3 = 'Narrative Folder'
-    SCENE_MARKER_V3 = 'Scene'
-    CHAPTER_MARKER_V3 = 'Chapter'
-    PART_MARKER_V3 = 'Part'
-
-    # Events assigned to the "narrative arc" (case insensitive) become
+    # Events marked as "Scene" become
     # regular scenes, the others become Notes scenes.
 
     def __init__(self, filePath, **kwargs):
@@ -169,18 +159,7 @@ class CsvTimeline(FileExport):
         try:
             with open(self.filePath, newline='', encoding='utf-8') as f:
                 reader = csv.DictReader(f, delimiter=self._SEPARATOR)
-
-                if self.TYPE_LABEL_V3 in reader.fieldnames:
-                    aeonVersion = 3
-                    delimiter = ','
-                    self.titleLabel = self.TITLE_LABEL_V3
-                    self.sceneMarker = self.SCENE_MARKER_V3
-                    self.sceneLabel = self.SCENE_LABEL_V3
-                    self.descriptionLabel = self.DESCRIPTION_LABEL_V3
-
-                else:
-                    aeonVersion = 2
-                    delimiter = '|'
+                internalDelimiter = '|'
 
                 for label in [self.sceneLabel, self.titleLabel, self.startDateTimeLabel, self.endDateTimeLabel]:
 
@@ -192,13 +171,6 @@ class CsvTimeline(FileExport):
                 eventCount = 0
 
                 for row in reader:
-
-                    if aeonVersion == 3 and row[self.TYPE_LABEL_V3] == self.STRUCT_MARKER_V3:
-                        continue
-
-                    elif aeonVersion == 3 and row[self.TYPE_LABEL_V3] != self.EVENT_MARKER_V3:
-                        continue
-
                     eventCount += 1
 
                     if self.sceneMarker == '':
@@ -260,13 +232,13 @@ class CsvTimeline(FileExport):
                         self.scenes[scId].sceneNotes = row[self.notesLabel]
 
                     if self.tagLabel in row and row[self.tagLabel] != '':
-                        self.scenes[scId].tags = row[self.tagLabel].split(delimiter)
+                        self.scenes[scId].tags = row[self.tagLabel].split(internalDelimiter)
 
                     if self.locationLabel in row:
-                        self.scenes[scId].locations = get_lcIds(row[self.locationLabel].split(delimiter))
+                        self.scenes[scId].locations = get_lcIds(row[self.locationLabel].split(internalDelimiter))
 
                     if self.characterLabel in row:
-                        self.scenes[scId].characters = get_crIds(row[self.characterLabel].split(delimiter))
+                        self.scenes[scId].characters = get_crIds(row[self.characterLabel].split(internalDelimiter))
 
                     if self.viewpointLabel in row:
                         vpIds = get_crIds([row[self.viewpointLabel]])
@@ -283,7 +255,7 @@ class CsvTimeline(FileExport):
                             self.scenes[scId].characters.insert(0, vpId)
 
                     if self.itemLabel in row:
-                        self.scenes[scId].items = get_itIds(row[self.itemLabel].split(delimiter))
+                        self.scenes[scId].items = get_itIds(row[self.itemLabel].split(internalDelimiter))
 
                     # Set scene status = "Outline".
 
@@ -301,44 +273,18 @@ class CsvTimeline(FileExport):
         except:
             return 'ERROR: Can not parse "' + os.path.normpath(self.filePath) + '".'
 
-        #--- Create document structure
+        # Sort scenes by date/time and place them in one single chapter.
 
-        if aeonVersion == 2:
+        chId = '1'
+        self.chapters[chId] = Chapter()
+        self.chapters[chId].title = 'Chapter 1'
+        self.srtChapters = [chId]
+        srtScenes = sorted(scIdsByDate.items())
+        self.chapters[chId].srtScenes = scIdsUndated
 
-            # Sort scenes by date/time and place them in one single chapter.
+        for date, scList in srtScenes:
 
-            chId = '1'
-            self.chapters[chId] = Chapter()
-            self.chapters[chId].title = 'Chapter 1'
-            self.srtChapters = [chId]
-            srtScenes = sorted(scIdsByDate.items())
-            self.chapters[chId].srtScenes = scIdsUndated
-
-            for date, scList in srtScenes:
-
-                for scId in scList:
-                    self.chapters[chId].srtScenes.append(scId)
-
-        elif aeonVersion == 3:
-
-            # Build the chapter structure as defined with Aeon v3.
-
-            chId = '1'
-            self.chapters[chId] = Chapter()
-            self.chapters[chId].title = 'Chapter 1'
-            self.srtChapters = [chId]
-
-            # Sort scenes by date/time
-
-            srtScenes = sorted(scIdsByDate.items())
-            self.chapters[chId].srtScenes = scIdsUndated
-
-            for date, scList in srtScenes:
-
-                for scId in scList:
-                    self.chapters[chId].srtScenes.append(scId)
-
-        else:
-            return 'ERROR: Cann not recognize Aeon Timeline version.'
+            for scId in scList:
+                self.chapters[chId].srtScenes.append(scId)
 
         return 'SUCCESS: Data read from "' + os.path.normpath(self.filePath) + '".'

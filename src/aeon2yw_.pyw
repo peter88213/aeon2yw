@@ -15,7 +15,7 @@ from pywriter.ui.ui import Ui
 from pywriter.ui.ui_tk import UiTk
 from pywriter.config.configuration import Configuration
 
-from pywaeon.csv_converter import CsvConverter
+from pywaeon2.csv_converter import CsvConverter
 
 SUFFIX = ''
 APPNAME = 'aeon2yw'
@@ -46,7 +46,7 @@ def run(sourcePath, silentMode=True, installDir=''):
         ui = Ui('')
 
     else:
-        ui = UiTk('csv timeline to yWriter converter @release')
+        ui = UiTk('Aeon Timeline 2 csv to yWriter converter @release')
 
     #--- Try to get persistent configuration data
 

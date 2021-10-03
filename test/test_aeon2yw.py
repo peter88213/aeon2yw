@@ -23,8 +23,6 @@ TEST_EXEC_PATH = TEST_PATH + '/yw7/'
 # To be placed in TEST_DATA_PATH:
 NORMAL_V2_YW7 = TEST_DATA_PATH + 'normal_v2.yw7'
 NORMAL_V2_TL = TEST_DATA_PATH + 'normal_v2.csv'
-NORMAL_V3_YW7 = TEST_DATA_PATH + 'normal_v3.yw7'
-NORMAL_V3_TL = TEST_DATA_PATH + 'normal_v3.csv'
 DATE_LIMITS_YW7 = TEST_DATA_PATH + 'date_limits.yw7'
 DATE_LIMITS_TL = TEST_DATA_PATH + 'date_limits.csv'
 
@@ -81,12 +79,6 @@ class NormalOperation(unittest.TestCase):
         os.chdir(TEST_EXEC_PATH)
         aeon2yw.run(TEST_TL, silentMode=True)
         self.assertEqual(read_file(TEST_YW7), read_file(NORMAL_V2_YW7))
-
-    def test_aeon3(self):
-        copyfile(NORMAL_V3_TL, TEST_TL)
-        os.chdir(TEST_EXEC_PATH)
-        aeon2yw.run(TEST_TL, silentMode=True)
-        self.assertEqual(read_file(TEST_TL), read_file(NORMAL_V3_TL))
 
     def test_date_limits(self):
         copyfile(DATE_LIMITS_TL, TEST_TL)
