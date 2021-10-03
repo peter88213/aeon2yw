@@ -8,7 +8,6 @@ import os
 import csv
 
 from datetime import datetime
-from datetime import timedelta
 
 from pywriter.file.file_export import FileExport
 from pywriter.model.scene import Scene
@@ -180,6 +179,7 @@ class CsvTimeline(FileExport):
                 self.srtChapters = [chId]
 
                 scIdsByDate = {}
+                scIdsUndated = []
                 eventCount = 0
 
                 for row in reader:
@@ -206,35 +206,40 @@ class CsvTimeline(FileExport):
                     self.scenes[scId].isNotesScene = noScene
                     self.scenes[scId].title = row[self.titleLabel]
 
-                    if not row[self.startDateTimeLabel] in scIdsByDate:
-                        scIdsByDate[row[self.startDateTimeLabel]] = []
+                    if row[self.startDateTimeLabel]:
 
-                    scIdsByDate[row[self.startDateTimeLabel]].append(scId)
-                    startDateTime = row[self.startDateTimeLabel].split(' ')
-                    startYear = int(startDateTime[0].split('-')[0])
+                        if not row[self.startDateTimeLabel] in scIdsByDate:
+                            scIdsByDate[row[self.startDateTimeLabel]] = []
 
-                    if len(startDateTime) > 2 or startYear < 100:
+                        scIdsByDate[row[self.startDateTimeLabel]].append(scId)
+                        startDateTime = row[self.startDateTimeLabel].split(' ')
+                        startYear = int(startDateTime[0].split('-')[0])
 
-                        # Substitute date/time, so yWriter would not prefix them with '19' or '20'.
+                        if len(startDateTime) > 2 or startYear < 100:
 
-                        self.scenes[scId].date = '-0001-01-01'
-                        self.scenes[scId].time = '00:00:00'
+                            # Substitute date/time, so yWriter would not prefix them with '19' or '20'.
+
+                            self.scenes[scId].date = '-0001-01-01'
+                            self.scenes[scId].time = '00:00:00'
+
+                        else:
+                            self.scenes[scId].date = startDateTime[0]
+                            self.scenes[scId].time = startDateTime[1]
+
+                            # Calculate duration of scenes that begin after 99-12-31.
+
+                            sceneStart = datetime.fromisoformat(row[self.startDateTimeLabel])
+                            sceneEnd = datetime.fromisoformat(row[self.endDateTimeLabel])
+                            sceneDuration = sceneEnd - sceneStart
+                            lastsHours = sceneDuration.seconds // 3600
+                            lastsMinutes = (sceneDuration.seconds % 3600) // 60
+
+                            self.scenes[scId].lastsDays = str(sceneDuration.days)
+                            self.scenes[scId].lastsHours = str(lastsHours)
+                            self.scenes[scId].lastsMinutes = str(lastsMinutes)
 
                     else:
-                        self.scenes[scId].date = startDateTime[0]
-                        self.scenes[scId].time = startDateTime[1]
-
-                        # Calculate duration of scenes that begin after 99-12-31.
-
-                        sceneStart = datetime.fromisoformat(row[self.startDateTimeLabel])
-                        sceneEnd = datetime.fromisoformat(row[self.endDateTimeLabel])
-                        sceneDuration = sceneEnd - sceneStart
-                        lastsHours = sceneDuration.seconds // 3600
-                        lastsMinutes = (sceneDuration.seconds % 3600) // 60
-
-                        self.scenes[scId].lastsDays = str(sceneDuration.days)
-                        self.scenes[scId].lastsHours = str(lastsHours)
-                        self.scenes[scId].lastsMinutes = str(lastsMinutes)
+                        scIdsUndated.append(scId)
 
                     if self.descriptionLabel in row:
                         self.scenes[scId].desc = row[self.descriptionLabel]
@@ -287,6 +292,7 @@ class CsvTimeline(FileExport):
         # Sort scenes by date/time
 
         srtScenes = sorted(scIdsByDate.items())
+        self.chapters[chId].srtScenes = scIdsUndated
 
         for date, scList in srtScenes:
 
