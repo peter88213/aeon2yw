@@ -5,13 +5,10 @@ set appdir="%APPDATA%\PyWriter\%app%"
 if not exist %appdir% md %appdir%
 copy %app%.pyw %appdir%
 
-set cnfdir="%APPDATA%\PyWriter\%app%\config"
-if not exist %cnfdir% md %cnfdir%
-
-echo "N" | copy/-Y sample\aeon2yw.ini %cnfdir%
+rmdir /s /q %appdir%\config
 
 set aeon2dir="%LOCALAPPDATA%\Scribble Code\Aeon Timeline 2\CustomTemplates"
-if exist %aeon2dir% echo "N" | copy/-Y sample\yWriter.xml %aeon2dir%
+if exist %aeon2dir% copy /Y sample\yWriter.xml %aeon2dir%
 
 if exist %USERPROFILE%\Desktop\%app%.lnk goto :end
 

@@ -3,60 +3,7 @@
 	<Name>yWriter</Name>
 	<Types>
 		<Type>
-			<GUID>05DD9DD3-C175-4374-B34B-BCE16FD1F8C0</GUID>
-			<Name>Item</Name>
-			<Icon>star</Icon>
-			<Color>iconRed</Color>
-			<Persistent>1</Persistent>
-			<SortOrder>2</SortOrder>
-			<Roles>
-				<Role>
-					<GUID>A2DC7B62-11D7-417A-8EE5-56EB2041F9D1</GUID>
-					<Name>Item</Name>
-					<Icon>square filled</Icon>
-					<MandatoryForEvent>0</MandatoryForEvent>
-					<MandatoryForEntity>0</MandatoryForEntity>
-					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
-					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
-					<AllowsPercentAllocated>0</AllowsPercentAllocated>
-					<SortOrder>0</SortOrder>
-				</Role>
-			</Roles>
-		</Type>
-		<Type>
-			<GUID>5D74051B-4A3F-49C8-B7E4-50634BD6CDA4</GUID>
-			<Name>Character</Name>
-			<Icon>person</Icon>
-			<Color>iconRed</Color>
-			<Persistent>0</Persistent>
-			<SortOrder>0</SortOrder>
-			<Roles>
-				<Role>
-					<GUID>34339588-2480-478C-AFA1-2D3732A239BC</GUID>
-					<Name>Viewpoint</Name>
-					<Icon>circle text</Icon>
-					<MandatoryForEvent>0</MandatoryForEvent>
-					<MandatoryForEntity>0</MandatoryForEntity>
-					<AllowsMultipleForEvent>0</AllowsMultipleForEvent>
-					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
-					<AllowsPercentAllocated>0</AllowsPercentAllocated>
-					<SortOrder>1</SortOrder>
-				</Role>
-				<Role>
-					<GUID>BBC05EB1-D48E-4011-B567-ADB2CFC6DD84</GUID>
-					<Name>Participant</Name>
-					<Icon>circle text</Icon>
-					<MandatoryForEvent>0</MandatoryForEvent>
-					<MandatoryForEntity>0</MandatoryForEntity>
-					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
-					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
-					<AllowsPercentAllocated>0</AllowsPercentAllocated>
-					<SortOrder>0</SortOrder>
-				</Role>
-			</Roles>
-		</Type>
-		<Type>
-			<GUID>9EBD0EBB-76CB-4414-BC06-3C67163A4220</GUID>
+			<GUID>1B8BA59C-FE21-40FE-BDAA-9E8E5EBCD872</GUID>
 			<Name>Arc</Name>
 			<Icon>book</Icon>
 			<Color>iconYellow</Color>
@@ -64,7 +11,7 @@
 			<SortOrder>3</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>238ED26E-6A42-475F-A98F-E67489BB63B7</GUID>
+					<GUID>6DCAE2CF-2CE0-432C-835A-2A5E06EDEB2C</GUID>
 					<Name>Arc</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -77,7 +24,39 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>C88D2E86-5526-46B7-86B8-190AEE683BD5</GUID>
+			<GUID>508C7CDE-A226-4FB7-B9F2-31706B6D78F4</GUID>
+			<Name>Character</Name>
+			<Icon>person</Icon>
+			<Color>iconRed</Color>
+			<Persistent>0</Persistent>
+			<SortOrder>0</SortOrder>
+			<Roles>
+				<Role>
+					<GUID>50411EA9-8195-4232-BED6-AAF50E3BE883</GUID>
+					<Name>Viewpoint</Name>
+					<Icon>circle text</Icon>
+					<MandatoryForEvent>0</MandatoryForEvent>
+					<MandatoryForEntity>0</MandatoryForEntity>
+					<AllowsMultipleForEvent>0</AllowsMultipleForEvent>
+					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
+					<AllowsPercentAllocated>0</AllowsPercentAllocated>
+					<SortOrder>1</SortOrder>
+				</Role>
+				<Role>
+					<GUID>A664963E-E1CA-4359-B55D-BE9A06FA9BA9</GUID>
+					<Name>Participant</Name>
+					<Icon>circle text</Icon>
+					<MandatoryForEvent>0</MandatoryForEvent>
+					<MandatoryForEntity>0</MandatoryForEntity>
+					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
+					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
+					<AllowsPercentAllocated>0</AllowsPercentAllocated>
+					<SortOrder>0</SortOrder>
+				</Role>
+			</Roles>
+		</Type>
+		<Type>
+			<GUID>D900A8A7-34EB-4752-AF4D-B33069895BE9</GUID>
 			<Name>Location</Name>
 			<Icon>map</Icon>
 			<Color>iconOrange</Color>
@@ -85,9 +64,30 @@
 			<SortOrder>1</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>B36EDFCE-C650-40F8-AAC2-83CC57E18F7F</GUID>
+					<GUID>95510463-6065-4687-BA76-3C265C167A44</GUID>
 					<Name>Location</Name>
 					<Icon>circle text</Icon>
+					<MandatoryForEvent>0</MandatoryForEvent>
+					<MandatoryForEntity>0</MandatoryForEntity>
+					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
+					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
+					<AllowsPercentAllocated>0</AllowsPercentAllocated>
+					<SortOrder>0</SortOrder>
+				</Role>
+			</Roles>
+		</Type>
+		<Type>
+			<GUID>E9F32869-8DED-430B-91B0-91A6D25355B8</GUID>
+			<Name>Item</Name>
+			<Icon>star</Icon>
+			<Color>iconRed</Color>
+			<Persistent>1</Persistent>
+			<SortOrder>2</SortOrder>
+			<Roles>
+				<Role>
+					<GUID>25C4FB9D-E782-43BE-A95A-DA01D5C9EEBB</GUID>
+					<Name>Item</Name>
+					<Icon>square filled</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
 					<MandatoryForEntity>0</MandatoryForEntity>
 					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
@@ -100,68 +100,57 @@
 	</Types>
 	<Colors>
 		<Color>
-			<GUID>223D9298-6312-4765-9BD2-C825141A985D</GUID>
-			<Name>Pink</Name>
-			<SwatchColor>darkPink</SwatchColor>
-			<SortOrder>6</SortOrder>
-		</Color>
-		<Color>
-			<GUID>4FB6E170-252B-450A-84B9-26EF46F1148B</GUID>
-			<Name>Blue</Name>
-			<SwatchColor>midBlue</SwatchColor>
-			<SortOrder>4</SortOrder>
-		</Color>
-		<Color>
-			<GUID>518A6A01-5F69-4328-B22A-95E5490EF526</GUID>
-			<Name>Yellow</Name>
-			<SwatchColor>yellow</SwatchColor>
-			<SortOrder>2</SortOrder>
-		</Color>
-		<Color>
-			<GUID>54427A72-9F25-40DA-AC7D-ECC500B78C9F</GUID>
-			<Name>Fuschia</Name>
-			<SwatchColor>fuschia</SwatchColor>
-			<SortOrder>7</SortOrder>
-		</Color>
-		<Color>
-			<GUID>B2965161-0ADF-4780-85B1-E4730D80DDEA</GUID>
+			<GUID>04BF60FB-82A8-4F83-82CD-07B92F91E606</GUID>
 			<Name>Red</Name>
 			<SwatchColor>red</SwatchColor>
 			<SortOrder>0</SortOrder>
 		</Color>
 		<Color>
-			<GUID>DD947203-397E-4856-972F-B2C09DCD04ED</GUID>
+			<GUID>294027F5-CCD0-4BB9-A104-0560C1072C25</GUID>
 			<Name>Orange</Name>
 			<SwatchColor>orange</SwatchColor>
 			<SortOrder>1</SortOrder>
 		</Color>
 		<Color>
-			<GUID>F1DDFD63-4EE1-4803-8046-5719664A8963</GUID>
+			<GUID>33A403D1-0189-455E-8F11-E0C2388A03EA</GUID>
+			<Name>Purple</Name>
+			<SwatchColor>lightPurple</SwatchColor>
+			<SortOrder>5</SortOrder>
+		</Color>
+		<Color>
+			<GUID>7D1276CB-BD1B-4078-9CC5-95E3E4B608E3</GUID>
+			<Name>Fuschia</Name>
+			<SwatchColor>fuschia</SwatchColor>
+			<SortOrder>7</SortOrder>
+		</Color>
+		<Color>
+			<GUID>955101D9-4F57-4F33-B4B0-D350739F5E5F</GUID>
 			<Name>Green</Name>
 			<SwatchColor>apple</SwatchColor>
 			<SortOrder>3</SortOrder>
 		</Color>
 		<Color>
-			<GUID>F33CB878-6489-4DAF-A01F-636361CD5952</GUID>
-			<Name>Purple</Name>
-			<SwatchColor>lightPurple</SwatchColor>
-			<SortOrder>5</SortOrder>
+			<GUID>C3FCF101-9FA4-4112-B114-19154B54F1CC</GUID>
+			<Name>Pink</Name>
+			<SwatchColor>darkPink</SwatchColor>
+			<SortOrder>6</SortOrder>
+		</Color>
+		<Color>
+			<GUID>FC60B516-6B41-453E-8962-1D1A34BAD3A5</GUID>
+			<Name>Yellow</Name>
+			<SwatchColor>yellow</SwatchColor>
+			<SortOrder>2</SortOrder>
+		</Color>
+		<Color>
+			<GUID>FDC8B71F-070C-4C22-B6A6-DDAD025B2C93</GUID>
+			<Name>Blue</Name>
+			<SwatchColor>midBlue</SwatchColor>
+			<SortOrder>4</SortOrder>
 		</Color>
 	</Colors>
 	<Properties>
 		<Property>
-			<GUID>080F3979-0E05-42C2-9400-5FBD988A08E9</GUID>
-			<Name>Notes</Name>
-			<Icon>tag</Icon>
-			<Type>multitext</Type>
-			<SortOrder>2</SortOrder>
-			<CalculateFromChildren>0</CalculateFromChildren>
-			<CalculationMode></CalculationMode>
-			<UseForFadingEvents>0</UseForFadingEvents>
-			<IsMandatory>0</IsMandatory>
-		</Property>
-		<Property>
-			<GUID>0E718FED-6F2C-4AAC-B6B9-41508052CAE7</GUID>
+			<GUID>88F98661-E608-41BB-813D-D2D350AA19D4</GUID>
 			<Name>Scene</Name>
 			<Icon>flag</Icon>
 			<Type>boolean</Type>
@@ -172,7 +161,18 @@
 			<IsMandatory>0</IsMandatory>
 		</Property>
 		<Property>
-			<GUID>8F8C004A-7468-4A7D-95EC-0DC0F839035A</GUID>
+			<GUID>A605EA6D-9005-4525-9EC1-CF10CFA2B9F5</GUID>
+			<Name>Notes</Name>
+			<Icon>tag</Icon>
+			<Type>multitext</Type>
+			<SortOrder>2</SortOrder>
+			<CalculateFromChildren>0</CalculateFromChildren>
+			<CalculationMode></CalculationMode>
+			<UseForFadingEvents>0</UseForFadingEvents>
+			<IsMandatory>0</IsMandatory>
+		</Property>
+		<Property>
+			<GUID>E2481C55-7C5D-4E11-84B6-D3357FEDCD46</GUID>
 			<Name>Description</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
@@ -185,7 +185,7 @@
 	</Properties>
 	<RangeProperties>
 		<RangeProperty>
-			<GUID>5D33B7E9-2F16-4485-9C6A-F3BC86D89B86</GUID>
+			<GUID>4162FEF3-966B-41F8-BFFF-6F5497BD2DBF</GUID>
 			<Name>Date</Name>
 			<Type>date</Type>
 			<MinUnitScale>day</MinUnitScale>

@@ -29,6 +29,16 @@ The path of the Aeon Timeline 2 csv export file.
 
 `--silent`  suppress error messages and the request to confirm overwriting
 
+## Prepare your timeline for export
+
+The included installation script installs a "yWriter" template in the Aeon 2 configuration folder. 
+The easiest way is to create new timelines based on this template. It provides the entities and event properties that are converted to yWriter by default.
+
+For existing timelines you have two choices:
+
+1. Add or rename the required entities and event properties in the Timeline settings.
+2. Customize the *aeon2yw* configuration to fit your timeline.
+
 
 ## csv export from Aeon Timeline 2
 
@@ -44,20 +54,11 @@ The path of the Aeon Timeline 2 csv export file.
 
 You can override the default settings by providing a configuration file. Be always aware that faulty entries may cause program errors. 
 
-### Global configuration
-
-An optional global configuration file can be placed in the configuration directory in your user profile. It is applied to any project. Its entries override aeon2yw's built-in constants. This is the path:
-`c:\Users\<user name>\AppData\Roaming\PyWriter\aeon2yw\config\aeon2yw.ini`
-  
-The **install.bat** installation script installs a sample configuration file containing aeon2yw's default values. You can modify or delete it. 
-
-### Local project configuration
-
-An optional project configuration file named `aeon2yw.ini` can be placed in your project directory, i.e. the folder containing your yWriter and Timeline project files. It is only applied to this project. Its entries override aeon2yw's built-in constants as well as the global configuration, if any.
+An optional project configuration file named `aeon2yw.ini` can be placed in your project directory, i.e. the folder containing your yWriter and Timeline project files. It is only applied to this project. Its entries override aeon2yw's built-in constants.
 
 ### How to provide/modify a configuration file
 
-The aeon2yw distribution comes with a sample configuration file located in the `sample` subfolder. It contains aeon2yw's default settings and options. This file is also automatically copied to the global configuration folder during installation. You best make a copy and edit it.
+The aeon2yw distribution comes with a sample configuration file located in the `sample` subfolder. It contains aeon2yw's default settings and options. You best make a copy and edit it.
 
 - The SETTINGS section mainly refers to "labels", i.e. The csv field contents of the first row, which denote the columns. They might have to be adapted to your specific Aeon project and export settings. If you change them, the program might behave differently than described in the description of the conversion rules below. Make sure the indicated csv fields contain data that can be processed by yWriter.
 - The OPTIONS section comprises options for regular program execution. 
@@ -68,7 +69,7 @@ This is the configuration explained:
 ```
 [SETTINGS]
 
-scene_marker = Scene
+scene_marker = Yes
 
 # String that indicates an event to be exported as normal
 # scene, if "export_all_events" is "No"
@@ -76,7 +77,7 @@ scene_marker = Scene
 # imported as normal scenes.
 # In this case, the entry looks like "scene_marker ="
 
-scene_label = Tags
+scene_label = Scene
 
 # Label of the csv field that contains the "scene_marker"
 # indicator.
@@ -86,10 +87,15 @@ title_label = Title
 # Label of the csv field whose contents are exported
 # as the scene's title to yWriter.
 
-date_time_label = Start Date
+start_date_time_label = Start Date
 
 # Label of the csv field whose contents are exported
 # as the scene's date/time to yWriter.
+
+end_date_time_label = End Date
+
+# Label of the csv field whose contents are used to
+# calculate the scene's duration.
 
 description_label = Description
 
@@ -101,7 +107,7 @@ notes_label = Notes
 # Label of the csv field whose contents are exported
 # as the scene's notes to yWriter.
 
-tag_label = Arc
+tag_label = Tags
 
 # Label of the csv field whose contents are exported
 # as the scene's tags to yWriter.
@@ -121,6 +127,11 @@ character_label = Participant
 # Label of the csv field whose contents are exported
 # as the scene's characters to yWriter.
 
+viewpoint_label = Viewpoint
+
+# Label of the csv field whose contents are exported
+# as the scene's viewpoint to yWriter.
+
 [OPTIONS]
 
 export_all_events = Yes
@@ -133,22 +144,26 @@ export_all_events = Yes
 
 ```
 
+Note: Your custom configuration file does not have to contain all the entries listed above. 
+The changed entries are sufficient. 
+
 ## Conversion rules
 
-The column labels refer to the example timeline "Murder on the Orient Express". 
+The column labels refer to timelines based on the "yWriter" template. 
 
--   All events tagged as "Scene" (*) (case sensitive) are converted to regular scenes.
--   All events not tagged as "Scene" (*) are converted to "Notes" scenes.
+-   All events with the "Scene" property ticked are converted to regular scenes (*).
+-   All events with the "Scene" property not ticked are converted to "Notes" scenes (*).
 -   All scenes are placed in a single chapter.
 -   All scenes are sorted chronologically (Note: "BC" is not evaluated). 
 -   The scene status is "Outline". 
 -	The event title is used as scene title (*).
-- 	The start date is used as scene date/time (*).
--	Duration and end date are not used.
--   "Descriptions" are used as scene descriptions, if any (*).
+- 	The start date is used as scene date/time, if the start year is 100 or above.
+-	The scene duration is calculated by the end date, if the start year is 100 or above.
+-	Event tags are converted to scene tags, if any (*).
+-   "Descriptions" are imported as scene descriptions, if any (*).
 -   "Notes" are used as scene notes, if any (*).
--	"Arcs" are converted to scene tags, if any (*).
 -	"Participants" are imported as characters, if any (*).
+-	"Viewpoints" are imported as viewpoint characters, if any (*).
 -	"Locations" are imported, if any (*).
 -	"Items" are imported, if any (*).
 

@@ -213,7 +213,7 @@ class CsvTimeline(FileExport):
                     startDateTime = row[self.startDateTimeLabel].split(' ')
                     startYear = int(startDateTime[0].split('-')[0])
 
-                    if startYear < 100 or 'BC' in row[self.startDateTimeLabel]:
+                    if len(startDateTime) > 2 or startYear < 100:
 
                         # Substitute date/time, so yWriter would not prefix them with '19' or '20'.
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<YWRITER7>
+  <PROJECT>
+    <Ver>7</Ver>
+  </PROJECT>
+  <LOCATIONS>
+    <LOCATION>
+      <ID>1</ID>
+      <Title><![CDATA[S.S. Navigator]]></Title>
+      <SortOrder>1</SortOrder>
+    </LOCATION>
+  </LOCATIONS>
+  <ITEMS>
+    <ITEM>
+      <ID>1</ID>
+      <Title><![CDATA[Tin can]]></Title>
+      <SortOrder>1</SortOrder>
+    </ITEM>
+  </ITEMS>
+  <CHARACTERS>
+    <CHARACTER>
+      <ID>1</ID>
+      <Title><![CDATA[Morton]]></Title>
+      <SortOrder>1</SortOrder>
+    </CHARACTER>
+    <CHARACTER>
+      <ID>2</ID>
+      <Title><![CDATA[Stan]]></Title>
+      <SortOrder>2</SortOrder>
+    </CHARACTER>
+    <CHARACTER>
+      <ID>3</ID>
+      <Title><![CDATA[Buster]]></Title>
+      <SortOrder>3</SortOrder>
+    </CHARACTER>
+  </CHARACTERS>
+  <SCENES>
+    <SCENE>
+      <ID>1</ID>
+      <Title><![CDATA[Scene 1]]></Title>
+      <BelongsToChID>1</BelongsToChID>
+      <Desc><![CDATA[Aboard the S.S. Navigator, Buster, Morton and Stan try to get some food.They find a big tin can.]]></Desc>
+      <SceneContent />
+      <WordCount>0</WordCount>
+      <LetterCount>0</LetterCount>
+      <Status>1</Status>
+      <Notes><![CDATA[Better let them catch a fish.]]></Notes>
+      <Tags><![CDATA[Journey]]></Tags>
+      <SpecificDateTime>2021-11-26 16:00:00</SpecificDateTime>
+      <SpecificDateMode>-1</SpecificDateMode>
+      <LastsDays>0</LastsDays>
+      <LastsHours>0</LastsHours>
+      <LastsMinutes>0</LastsMinutes>
+      <Characters>
+        <CharID>3</CharID>
+        <CharID>1</CharID>
+        <CharID>2</CharID>
+      </Characters>
+      <Locations>
+        <LocID>1</LocID>
+      </Locations>
+      <Items>
+        <ItemID>1</ItemID>
+      </Items>
+    </SCENE>
+    <SCENE>
+      <ID>2</ID>
+      <Title><![CDATA[Background event]]></Title>
+      <BelongsToChID>1</BelongsToChID>
+      <Desc><![CDATA[The S.S. Navigator returns to Portland.]]></Desc>
+      <SceneContent />
+      <WordCount>0</WordCount>
+      <LetterCount>0</LetterCount>
+      <Fields>
+        <Field_SceneType>1</Field_SceneType>
+      </Fields>
+      <Status>1</Status>
+      <Notes />
+      <SpecificDateTime>2021-11-25 00:00:00</SpecificDateTime>
+      <SpecificDateMode>-1</SpecificDateMode>
+      <LastsDays>0</LastsDays>
+      <LastsHours>0</LastsHours>
+      <LastsMinutes>0</LastsMinutes>
+    </SCENE>
+  </SCENES>
+  <CHAPTERS>
+    <CHAPTER>
+      <ID>1</ID>
+      <SortOrder>1</SortOrder>
+      <Title><![CDATA[Chapter 1]]></Title>
+      <Scenes>
+        <ScID>2</ScID>
+        <ScID>1</ScID>
+      </Scenes>
+    </CHAPTER>
+  </CHAPTERS>
+</YWRITER7>

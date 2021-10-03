@@ -13,14 +13,14 @@ Generate a yWriter 7 project from an csv outline exported from Aeon Timeline 2.
 - Windows.
 - [Python 3](https://www.python.org). Python 3.4 or more recent will work. However, Python 3.7 or above is highly recommended.
 - [yWriter](http://spacejock.com/yWriter7.html).
-- [Aeon Timeline 2](https://www.aeontimeline.com/). Aeon Timeline 3 csv export will work the same way, but the "narrative" is not supported yet.
+- [Aeon Timeline 2](https://www.aeontimeline.com/). Note: Aeon Timeline 3 support is still experimental and incomplete.
 
 
 ## Download and install
 
-[Download the latest release (version 0.13.2)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.13.2.zip)
+[Download the latest release (version 0.13.3)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.13.3.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.13.2.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.13.3.zip" into a new folder.
 - Move into this new folder and launch **install.bat**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

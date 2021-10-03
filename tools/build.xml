@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="aeon2yw" basedir=".">
-	<property name="release" value="0.13.2" />
+	<property name="release" value="0.13.3" />
 	<property name="src" location="../src" />
 	<property name="test" location="../test" />
 	<property name="build" location="../build" />
@@ -19,7 +19,7 @@
 
 	<target name="test" description="inline all library modules">
 		<exec executable="python" failonerror="true">
-		    <arg value="${test}/test_aeon2yw.pyw"/>
+		    <arg value="${test}/test_aeon2yw.py"/>
 		</exec>
 	</target>
 
