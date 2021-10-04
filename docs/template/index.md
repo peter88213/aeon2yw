@@ -9,6 +9,7 @@
 - The scenes have a start time and a duration, if the year is between 100 and 9999.
 - The scenes are sorted chronologically.
 - Characters, locations and items are imported, if any.
+- Scene tags are imported, if any.
 
  
 ## Requirements
