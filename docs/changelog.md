@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.14.1 Beta release
+
+- Restore the global configuration.
+
+Based on PyWriter v3.24.3
+
 ### v0.14.0 Beta release
 
 - Calculate scene duration.
