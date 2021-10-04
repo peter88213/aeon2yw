@@ -4,6 +4,19 @@
 
 ## Changelog
 
+### v0.14.0 Beta release
+
+- Calculate scene duration.
+- Process viewpoint, if any.
+- Copy Aeon 2 "yWriter" template on installation.
+- Adapt default settings to the "yWriter" Aeon template.
+- Abandon the global configuration.
+- Update the sample configuration file.
+- Substitute all sorts of non-"AD" date/time.
+- Abandon compatibility with Aeon Timeline version 3 (there is a new project for Aeon Timeline 3 conversion).
+
+Based on PyWriter v3.24.3
+
 ### v0.12.0 compatible with Aeon Timeline version 3
 
 - Aeon Timeline 3 csv export will work the same way, but the "narrative" is not supported yet.

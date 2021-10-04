@@ -167,7 +167,6 @@ class CsvTimeline(FileExport):
                         return 'ERROR: Label "' + label + '" is missing in the CSV file.'
 
                 scIdsByDate = {}
-                scIdsUndated = []
                 eventCount = 0
 
                 for row in reader:
@@ -190,40 +189,35 @@ class CsvTimeline(FileExport):
                     self.scenes[scId].isNotesScene = noScene
                     self.scenes[scId].title = row[self.titleLabel]
 
-                    if row[self.startDateTimeLabel]:
+                    if not row[self.startDateTimeLabel] in scIdsByDate:
+                        scIdsByDate[row[self.startDateTimeLabel]] = []
 
-                        if not row[self.startDateTimeLabel] in scIdsByDate:
-                            scIdsByDate[row[self.startDateTimeLabel]] = []
+                    scIdsByDate[row[self.startDateTimeLabel]].append(scId)
+                    startDateTime = row[self.startDateTimeLabel].split(' ')
+                    startYear = int(startDateTime[0].split('-')[0])
 
-                        scIdsByDate[row[self.startDateTimeLabel]].append(scId)
-                        startDateTime = row[self.startDateTimeLabel].split(' ')
-                        startYear = int(startDateTime[0].split('-')[0])
+                    if len(startDateTime) > 2 or startYear < 100:
 
-                        if len(startDateTime) > 2 or startYear < 100:
+                        # Substitute date/time, so yWriter would not prefix them with '19' or '20'.
 
-                            # Substitute date/time, so yWriter would not prefix them with '19' or '20'.
-
-                            self.scenes[scId].date = '-0001-01-01'
-                            self.scenes[scId].time = '00:00:00'
-
-                        else:
-                            self.scenes[scId].date = startDateTime[0]
-                            self.scenes[scId].time = startDateTime[1]
-
-                            # Calculate duration of scenes that begin after 99-12-31.
-
-                            sceneStart = datetime.fromisoformat(row[self.startDateTimeLabel])
-                            sceneEnd = datetime.fromisoformat(row[self.endDateTimeLabel])
-                            sceneDuration = sceneEnd - sceneStart
-                            lastsHours = sceneDuration.seconds // 3600
-                            lastsMinutes = (sceneDuration.seconds % 3600) // 60
-
-                            self.scenes[scId].lastsDays = str(sceneDuration.days)
-                            self.scenes[scId].lastsHours = str(lastsHours)
-                            self.scenes[scId].lastsMinutes = str(lastsMinutes)
+                        self.scenes[scId].date = '-0001-01-01'
+                        self.scenes[scId].time = '00:00:00'
 
                     else:
-                        scIdsUndated.append(scId)
+                        self.scenes[scId].date = startDateTime[0]
+                        self.scenes[scId].time = startDateTime[1]
+
+                        # Calculate duration of scenes that begin after 99-12-31.
+
+                        sceneStart = datetime.fromisoformat(row[self.startDateTimeLabel])
+                        sceneEnd = datetime.fromisoformat(row[self.endDateTimeLabel])
+                        sceneDuration = sceneEnd - sceneStart
+                        lastsHours = sceneDuration.seconds // 3600
+                        lastsMinutes = (sceneDuration.seconds % 3600) // 60
+
+                        self.scenes[scId].lastsDays = str(sceneDuration.days)
+                        self.scenes[scId].lastsHours = str(lastsHours)
+                        self.scenes[scId].lastsMinutes = str(lastsMinutes)
 
                     if self.descriptionLabel in row:
                         self.scenes[scId].desc = row[self.descriptionLabel]
@@ -280,7 +274,6 @@ class CsvTimeline(FileExport):
         self.chapters[chId].title = 'Chapter 1'
         self.srtChapters = [chId]
         srtScenes = sorted(scIdsByDate.items())
-        self.chapters[chId].srtScenes = scIdsUndated
 
         for date, scList in srtScenes:
 

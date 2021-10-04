@@ -6,6 +6,8 @@ The aeon2yw Python script creates a yWriter 7 project from a csv file exported b
 
 ## Instructions for use
 
+You might want to have a look at the [tutorial](https://peter88213.github.io/aeon2yw/tutorial)
+
 ### Intended usage
 
 The included installation script prompts you to create a shortcut on the desktop. You can launch the program by dragging a csv file and dropping it on the shortcut icon. 
@@ -36,8 +38,8 @@ The easiest way is to create new timelines based on this template. It provides t
 
 For existing timelines you have two choices:
 
-1. Add or rename the required entities and event properties in the Timeline settings.
-2. Customize the *aeon2yw* configuration to fit your timeline.
+- Option 1: Add or rename the required entities and event properties in the Timeline settings.
+- Option 2: Customize the *aeon2yw* configuration to fit your timeline (see below).
 
 
 ## csv export from Aeon Timeline 2
@@ -45,9 +47,6 @@ For existing timelines you have two choices:
 - The csv file exported by Aeon Timeline 2 must be **comma**-separated.
 - Date format is like **1940-11-27**.
 - Time format is like **17:43**.
-
-
-![Aeon 2 csv export settings](Screenshots/Aeon2_export_settings.png)
 
 
 ## Custom configuration
