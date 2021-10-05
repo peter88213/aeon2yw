@@ -66,7 +66,7 @@ An optional project configuration file named `aeon2yw.ini` can be placed in your
 
 ### How to provide/modify a configuration file
 
-The aeon2yw distribution comes with a sample configuration file located in the `sample` subfolder. It contains aeon2yw's default settings and options. This file is also automatically copied to the global configuration folder during installation. You best make a copy and edit it.
+The aeon2yw distribution comes with a sample configuration file located in the `sample` subfolder. It contains aeon2yw's default settings and options. You can copy this file to the global configuration folder and edit it.
 
 - The SETTINGS section mainly refers to "labels", i.e. The csv field contents of the first row, which denote the columns. They might have to be adapted to your specific Aeon project and export settings. If you change them, the program might behave differently than described in the description of the conversion rules below. Make sure the indicated csv fields contain data that can be processed by yWriter.
 - The OPTIONS section comprises options for regular program execution. 

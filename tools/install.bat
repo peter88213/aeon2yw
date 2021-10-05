@@ -8,7 +8,7 @@ copy %app%.pyw %appdir%
 set cnfdir="%APPDATA%\PyWriter\%app%\config"
 if not exist %cnfdir% md %cnfdir%
 
-copy /Y sample\aeon2yw.ini %cnfdir%
+rem copy /Y sample\aeon2yw.ini %cnfdir%
 
 set aeon2dir="%LOCALAPPDATA%\Scribble Code\Aeon Timeline 2\CustomTemplates"
 if exist %aeon2dir% copy /Y sample\yWriter.xml %aeon2dir%
