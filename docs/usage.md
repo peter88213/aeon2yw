@@ -58,8 +58,6 @@ You can override the default settings by providing a configuration file. Be alwa
 An optional global configuration file can be placed in the configuration directory in your user profile. It is applied to any project. Its entries override aeon2yw's built-in constants. This is the path:
 `c:\Users\<user name>\AppData\Roaming\PyWriter\aeon2yw\config\aeon2yw.ini`
   
-The **install.bat** installation script installs a sample configuration file containing aeon2yw's default values. You can modify or delete it. 
-
 ### Local project configuration
 
 An optional project configuration file named `aeon2yw.ini` can be placed in your project directory, i.e. the folder containing your yWriter and Aeon Timeline project files. It is only applied to this project. Its entries override aeon2yw's built-in constants as well as the global configuration, if any.
