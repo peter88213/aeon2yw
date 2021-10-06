@@ -36,7 +36,7 @@ SETTINGS = dict(
 )
 
 OPTIONS = dict(
-    export_all_events=True,
+    import_all_events=True,
 )
 
 

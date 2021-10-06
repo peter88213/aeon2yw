@@ -49,7 +49,7 @@ class CsvTimeline(FileExport):
         self.itemLabel = kwargs['item_label']
         self.characterLabel = kwargs['character_label']
         self.viewpointLabel = kwargs['viewpoint_label']
-        self.exportAllEvents = kwargs['export_all_events']
+        self.importAllEvents = kwargs['import_all_events']
 
     def read(self):
         """Parse the csv file located at filePath, 
@@ -178,7 +178,7 @@ class CsvTimeline(FileExport):
                     elif not self.sceneMarker in row[self.sceneLabel]:
                         noScene = True
 
-                        if not self.exportAllEvents:
+                        if not self.importAllEvents:
                             continue
 
                     else:

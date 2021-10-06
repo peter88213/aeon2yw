@@ -77,8 +77,8 @@ This is the configuration explained:
 
 scene_marker = Yes
 
-# String that indicates an event to be exported as normal
-# scene, if "export_all_events" is "No"
+# String that indicates an event to be imported as normal
+# scene, if "import_all_events" is "No"
 # If the scene marker is left blank, all events will be
 # imported as normal scenes.
 # In this case, the entry looks like "scene_marker ="
@@ -90,12 +90,12 @@ scene_label = Scene
 
 title_label = Title
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's title to yWriter.
 
 start_date_time_label = Start Date
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's date/time to yWriter.
 
 end_date_time_label = End Date
@@ -105,46 +105,46 @@ end_date_time_label = End Date
 
 description_label = Description
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's description to yWriter.
 
 notes_label = Notes
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's notes to yWriter.
 
 tag_label = Tags
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's tags to yWriter.
 
 location_label = Location
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's locations to yWriter.
 
 item_label = Item
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's items to yWriter.
 
 character_label = Participant
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's characters to yWriter.
 
 viewpoint_label = Viewpoint
 
-# Label of the csv field whose contents are exported
+# Label of the csv field whose contents are imported
 # as the scene's viewpoint to yWriter.
 
 [OPTIONS]
 
-export_all_events = Yes
+import_all_events = Yes
 
-# Yes: Export non-scene events as "Notes" type scenes
+# Yes: Import non-scene events as "Notes" type scenes
 #      to yWriter.
-# No:  Do not export non-scene events to yWriter.
+# No:  Do not import non-scene events to yWriter.
 # This option exists only if the scene marker is not
 # left blank.
 
