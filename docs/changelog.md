@@ -4,6 +4,15 @@
 
 ## Changelog
 
+
+### v0.14.2 Beta release 
+
+- Update documentation: Use the terms "export" and "import" from
+yWriter's point of view.
+- Rename the option "export_all_events" to "import_all_events".
+
+Based on PyWriter v3.24.3
+
 ### v0.14.1 Beta release
 
 - Restore the global configuration.
