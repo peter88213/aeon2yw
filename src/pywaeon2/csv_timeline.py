@@ -29,6 +29,9 @@ class CsvTimeline(FileExport):
     SUFFIX = ''
     _SEPARATOR = ','
 
+    NULL_DATE = '0001-01-01'
+    NULL_TIME = '00:00:00'
+
     # Events marked as "Scene" become
     # regular scenes, the others become Notes scenes.
 
@@ -200,8 +203,8 @@ class CsvTimeline(FileExport):
 
                         # Substitute date/time, so yWriter would not prefix them with '19' or '20'.
 
-                        self.scenes[scId].date = '-0001-01-01'
-                        self.scenes[scId].time = '00:00:00'
+                        self.scenes[scId].date = self.NULL_DATE
+                        self.scenes[scId].time = self.NULL_TIME
 
                     else:
                         self.scenes[scId].date = startDateTime[0]

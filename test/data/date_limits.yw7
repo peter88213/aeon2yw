@@ -39,7 +39,7 @@
       </Fields>
       <Status>1</Status>
       <Notes />
-      <SpecificDateTime>-0001-01-01 00:00:00</SpecificDateTime>
+      <SpecificDateTime>0001-01-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
     </SCENE>
     <SCENE>
@@ -55,7 +55,7 @@
       </Fields>
       <Status>1</Status>
       <Notes />
-      <SpecificDateTime>-0001-01-01 00:00:00</SpecificDateTime>
+      <SpecificDateTime>0001-01-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
     </SCENE>
     <SCENE>
@@ -71,7 +71,7 @@
       </Fields>
       <Status>1</Status>
       <Notes />
-      <SpecificDateTime>-0001-01-01 00:00:00</SpecificDateTime>
+      <SpecificDateTime>0001-01-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
     </SCENE>
     <SCENE>
@@ -87,7 +87,7 @@
       </Fields>
       <Status>1</Status>
       <Notes />
-      <SpecificDateTime>-0001-01-01 00:00:00</SpecificDateTime>
+      <SpecificDateTime>0001-01-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
     </SCENE>
     <SCENE>
@@ -103,7 +103,7 @@
       </Fields>
       <Status>1</Status>
       <Notes />
-      <SpecificDateTime>-0001-01-01 00:00:00</SpecificDateTime>
+      <SpecificDateTime>0001-01-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
     </SCENE>
   </SCENES>
