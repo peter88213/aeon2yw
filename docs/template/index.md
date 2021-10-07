@@ -18,7 +18,7 @@
 ## Requirements
 
 - Windows.
-- [Python 3](https://www.python.org). Python 3.4 or more recent will work. However, Python 3.7 or above is highly recommended.
+- [Python 3.7+](https://www.python.org).
 - [yWriter](http://spacejock.com/yWriter7.html).
 - Aeon Timeline 2. Note: There is now a separate [converter for Aeon Timeline 3](https://peter88213.github.io/aeon3yw). 
 
