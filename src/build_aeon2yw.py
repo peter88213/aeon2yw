@@ -27,10 +27,9 @@ def main():
     except:
         pass
 
-    inliner.run(SOURCE_FILE,
-                TARGET_FILE, 'pywaeon2', '../src/')
-    inliner.run(TARGET_FILE,
-                TARGET_FILE, 'pywriter', '../../PyWriter/src/')
+    inliner.run(SOURCE_FILE, TARGET_FILE, 'pywaeon2', '../src/')
+    inliner.run(TARGET_FILE, TARGET_FILE, 'paeon', '../../paeon/src/')
+    inliner.run(TARGET_FILE, TARGET_FILE, 'pywriter', '../../PyWriter/src/')
     print('Done.')
 
 
