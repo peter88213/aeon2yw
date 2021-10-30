@@ -2,7 +2,7 @@
 
 ------------------------------------------------------------------
 
-The aeon2yw Python script creates a yWriter 7 project from a csv file exported by Aeon Timeline 2.
+The aeon2yw Python script creates a yWriter 7 project from Aeon Timeline 2.
 
 ## Instructions for use
 
@@ -10,7 +10,7 @@ You might want to have a look at the [tutorial](https://peter88213.github.io/aeo
 
 ### Intended usage
 
-The included installation script prompts you to create a shortcut on the desktop. You can launch the program by dragging a csv file and dropping it on the shortcut icon. 
+The included installation script prompts you to create a shortcut on the desktop. You can launch the program by dragging an *aeonzip* or a * csv* file and dropping it on the shortcut icon. 
 
 ### Command line usage
 
@@ -25,7 +25,7 @@ usage: `aeon2yw.pyw [--silent] Sourcefile`
 
 `Sourcefile` 
 
-The path of the Aeon Timeline 2 csv export file.
+The path of the aeonzip or csv file.
 
 #### optional arguments:
 
@@ -42,7 +42,7 @@ For existing timelines you have two choices:
 - Option 2: Customize the *aeon2yw* configuration to fit your timeline (see below).
 
 
-## csv export from Aeon Timeline 2
+## csv export from Aeon Timeline 2 (optional)
 
 - The csv file exported by Aeon Timeline 2 must be **comma**-separated.
 - Date format is like **1940-11-27**.
@@ -67,7 +67,6 @@ An optional project configuration file named `aeon2yw.ini` can be placed in your
 The aeon2yw distribution comes with a sample configuration file located in the `sample` subfolder. It contains aeon2yw's default settings and options. You can copy this file to the global configuration folder and edit it.
 
 - The SETTINGS section mainly refers to "labels", i.e. The csv field contents of the first row, which denote the columns. They might have to be adapted to your specific Aeon project and export settings. If you change them, the program might behave differently than described in the description of the conversion rules below. Make sure the indicated csv fields contain data that can be processed by yWriter.
-- The OPTIONS section comprises options for regular program execution. 
 - Comment lines begin with a `#` number sign. In the example, they refer to the code line immediately above.
 
 This is the configuration explained: 
@@ -78,30 +77,12 @@ This is the configuration explained:
 scene_marker = Yes
 
 # String that indicates an event to be imported as normal
-# scene, if "import_all_events" is "No"
-# If the scene marker is left blank, all events will be
-# imported as normal scenes.
-# In this case, the entry looks like "scene_marker ="
+# scene from CSV (not needed when using .aeonzip).
 
 scene_label = Scene
 
 # Label of the csv field that contains the "scene_marker"
 # indicator.
-
-title_label = Title
-
-# Label of the csv field whose contents are imported
-# as the scene's title to yWriter.
-
-start_date_time_label = Start Date
-
-# Label of the csv field whose contents are imported
-# as the scene's date/time to yWriter.
-
-end_date_time_label = End Date
-
-# Label of the csv field whose contents are used to
-# calculate the scene's duration.
 
 description_label = Description
 
@@ -112,11 +93,6 @@ notes_label = Notes
 
 # Label of the csv field whose contents are imported
 # as the scene's notes to yWriter.
-
-tag_label = Tags
-
-# Label of the csv field whose contents are imported
-# as the scene's tags to yWriter.
 
 location_label = Location
 
@@ -133,20 +109,20 @@ character_label = Participant
 # Label of the csv field whose contents are imported
 # as the scene's characters to yWriter.
 
-viewpoint_label = Viewpoint
+type_character = Character
 
-# Label of the csv field whose contents are imported
-# as the scene's viewpoint to yWriter.
+# Name of the user-defined "Character" type
+# (not needed when using CSV export).
 
-[OPTIONS]
+type_location = Location
 
-import_all_events = Yes
+# Name of the user-defined "Location" type
+# (not needed when using CSV export).
 
-# Yes: Import non-scene events as "Notes" type scenes
-#      to yWriter.
-# No:  Do not import non-scene events to yWriter.
-# This option exists only if the scene marker is not
-# left blank.
+type_item = Item
+
+# Name of the user-defined "Item" type
+# (not needed when using CSV export).
 
 ```
 

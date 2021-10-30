@@ -23,21 +23,17 @@ APPNAME = 'aeon2yw'
 SETTINGS = dict(
     scene_marker='Yes',
     scene_label='Scene',
-    title_label='Title',
-    start_date_time_label='Start Date',
-    end_date_time_label='End Date',
     description_label='Description',
     notes_label='Notes',
-    tag_label='Tags',
     location_label='Location',
     item_label='Item',
     character_label='Participant',
-    viewpoint_label='Viewpoint'
+    type_character='Character',
+    type_location='Location',
+    type_item='Item',
 )
 
-OPTIONS = dict(
-    import_all_events=True,
-)
+OPTIONS = {}
 
 
 def run(sourcePath, silentMode=True, installDir=''):
@@ -78,11 +74,11 @@ def run(sourcePath, silentMode=True, installDir=''):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Aeon Timeline 2 csv to yWriter converter',
+        description='Aeon Timeline 2 to yWriter converter',
         epilog='')
     parser.add_argument('sourcePath',
                         metavar='Sourcefile',
-                        help='The path of the csv timeline file.')
+                        help='The path of the aeonzip or csv file.')
 
     parser.add_argument('--silent',
                         action="store_true",

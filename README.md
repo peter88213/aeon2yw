@@ -1,5 +1,5 @@
 # aeon2yw
-Generate a yWriter project from an Aeon Timeline 2 csv export.
+Generate a yWriter project from an Aeon Timeline 2 project.
 
 For more information, see the [project homepage](https://peter88213.github.io/aeon2yw) with description and download instructions.
 

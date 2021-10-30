@@ -21,21 +21,23 @@ TEST_DATA_PATH = TEST_PATH + '/data/'
 TEST_EXEC_PATH = TEST_PATH + '/yw7/'
 
 # To be placed in TEST_DATA_PATH:
-NORMAL_YW7 = TEST_DATA_PATH + 'normal.yw7'
+NORMAL_AEON = TEST_DATA_PATH + 'normal.aeonzip'
+NORMAL_JSON_YW7 = TEST_DATA_PATH + 'normal_json.yw7'
+
 NORMAL_CSV = TEST_DATA_PATH + 'normal.csv'
-ALL_EVENTS_YW7 = TEST_DATA_PATH + 'all_events.yw7'
-ALL_EVENTS_CSV = TEST_DATA_PATH + 'all_events.csv'
-ALL_EVENTS_INI = TEST_DATA_PATH + 'all_events.ini'
-SCENES_ONLY_YW7 = TEST_DATA_PATH + 'scenes_only.yw7'
-SCENES_ONLY_CSV = TEST_DATA_PATH + 'scenes_only.csv'
-SCENES_ONLY_INI = TEST_DATA_PATH + 'scenes_only.ini'
-DATE_LIMITS_YW7 = TEST_DATA_PATH + 'date_limits.yw7'
+NORMAL_CSV_YW7 = TEST_DATA_PATH + 'normal_csv.yw7'
+
+DATE_LIMITS_AEON = TEST_DATA_PATH + 'date_limits.aeonzip'
+DATE_LIMITS_JSON_YW7 = TEST_DATA_PATH + 'date_limits_json.yw7'
+
 DATE_LIMITS_CSV = TEST_DATA_PATH + 'date_limits.csv'
+DATE_LIMITS_CSV_YW7 = TEST_DATA_PATH + 'date_limits_csv.yw7'
 
 # Test data
 INI_FILE = TEST_EXEC_PATH + 'aeon2yw.ini'
 TEST_YW7 = TEST_EXEC_PATH + 'yw7 Sample Project.yw7'
 TEST_CSV = TEST_EXEC_PATH + 'yw7 Sample Project.csv'
+TEST_AEON = TEST_EXEC_PATH + 'yw7 Sample Project.aeonzip'
 
 
 def read_file(inputFile):
@@ -80,31 +82,29 @@ class NormalOperation(unittest.TestCase):
 
         remove_all_testfiles()
 
-    def test_aeon2(self):
+    def test_aeon2_csv(self):
         copyfile(NORMAL_CSV, TEST_CSV)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_CSV, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(NORMAL_YW7))
+        self.assertEqual(read_file(TEST_YW7), read_file(NORMAL_CSV_YW7))
 
-    def test_date_limits(self):
+    def test_date_limits_csv(self):
         copyfile(DATE_LIMITS_CSV, TEST_CSV)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_CSV, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(DATE_LIMITS_YW7))
+        self.assertEqual(read_file(TEST_YW7), read_file(DATE_LIMITS_CSV_YW7))
 
-    def test_scenes_only(self):
-        copyfile(NORMAL_CSV, TEST_CSV)
-        copyfile(SCENES_ONLY_INI, INI_FILE)
+    def test_aeon2_aeonzip(self):
+        copyfile(NORMAL_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
-        aeon2yw_.run(TEST_CSV, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(SCENES_ONLY_YW7))
+        aeon2yw_.run(TEST_AEON, silentMode=True)
+        self.assertEqual(read_file(TEST_YW7), read_file(NORMAL_JSON_YW7))
 
-    def test_all_events(self):
-        copyfile(NORMAL_CSV, TEST_CSV)
-        copyfile(ALL_EVENTS_INI, INI_FILE)
+    def test_date_limits_aeonzip(self):
+        copyfile(DATE_LIMITS_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
-        aeon2yw_.run(TEST_CSV, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(ALL_EVENTS_YW7))
+        aeon2yw_.run(TEST_AEON, silentMode=True)
+        self.assertEqual(read_file(TEST_YW7), read_file(DATE_LIMITS_JSON_YW7))
 
     def tearDown(self):
         remove_all_testfiles()

@@ -6,8 +6,9 @@
 
 - The release comes with a template for Aeon Timeline 2 that provides characters, locations and items, as well as yWriter's scene properties such as description, notes and viewpoint.
 - With this template, events get a "Scene" checkbox. Events marked as scenes are converted to regular scenes; other events become "Notes" scenes.
-- The aeon2yw Python script converts Aeon's csv export into a new yWriter project.
-- Events are converted to scenes in one single chapter.
+- The aeon2yw Python script converts Aeon's *.aeonzip* project file into a new yWriter project.
+- Events marked as scenes are converted to scenes in one single chapter.
+- Other events are converted to "Notes" scenes in another chapter.
 - The scenes have a start time and a duration, if the year is between 100 and 9999.
 - The scenes are sorted chronologically.
 - Characters, locations and items are imported, if any.

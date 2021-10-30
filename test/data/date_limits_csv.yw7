@@ -10,7 +10,7 @@
     <SCENE>
       <ID>1</ID>
       <Title><![CDATA[Event 6]]></Title>
-      <BelongsToChID>1</BelongsToChID>
+      <BelongsToChID>2</BelongsToChID>
       <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
@@ -29,7 +29,7 @@
     <SCENE>
       <ID>2</ID>
       <Title><![CDATA[Event 5]]></Title>
-      <BelongsToChID>1</BelongsToChID>
+      <BelongsToChID>2</BelongsToChID>
       <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
@@ -45,7 +45,7 @@
     <SCENE>
       <ID>3</ID>
       <Title><![CDATA[Event 2]]></Title>
-      <BelongsToChID>1</BelongsToChID>
+      <BelongsToChID>2</BelongsToChID>
       <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
@@ -61,7 +61,7 @@
     <SCENE>
       <ID>4</ID>
       <Title><![CDATA[Event 4]]></Title>
-      <BelongsToChID>1</BelongsToChID>
+      <BelongsToChID>2</BelongsToChID>
       <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
@@ -77,7 +77,7 @@
     <SCENE>
       <ID>5</ID>
       <Title><![CDATA[Event 3]]></Title>
-      <BelongsToChID>1</BelongsToChID>
+      <BelongsToChID>2</BelongsToChID>
       <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
@@ -93,7 +93,7 @@
     <SCENE>
       <ID>6</ID>
       <Title><![CDATA[Event 1]]></Title>
-      <BelongsToChID>1</BelongsToChID>
+      <BelongsToChID>2</BelongsToChID>
       <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
@@ -112,6 +112,13 @@
       <ID>1</ID>
       <SortOrder>1</SortOrder>
       <Title><![CDATA[Chapter 1]]></Title>
+      <ChapterType>0</ChapterType>
+    </CHAPTER>
+    <CHAPTER>
+      <ID>2</ID>
+      <SortOrder>2</SortOrder>
+      <Title><![CDATA[Background]]></Title>
+      <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>5</ScID>
         <ScID>6</ScID>
