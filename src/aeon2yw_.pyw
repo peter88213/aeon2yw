@@ -28,6 +28,7 @@ SETTINGS = dict(
     location_label='Location',
     item_label='Item',
     character_label='Participant',
+    viewpoint_label='Viewpoint',
     type_character='Character',
     type_location='Location',
     type_item='Item',

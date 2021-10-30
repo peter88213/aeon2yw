@@ -64,6 +64,11 @@ def remove_all_testfiles():
         pass
 
     try:
+        os.remove(TEST_AEON)
+    except:
+        pass
+
+    try:
         os.remove(INI_FILE)
     except:
         pass

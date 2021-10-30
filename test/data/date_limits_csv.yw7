@@ -3,9 +3,32 @@
   <PROJECT>
     <Ver>7</Ver>
   </PROJECT>
-  <LOCATIONS />
-  <ITEMS />
-  <CHARACTERS />
+  <LOCATIONS>
+    <LOCATION>
+      <ID>1</ID>
+      <Title><![CDATA[Santa Barbara]]></Title>
+      <SortOrder>1</SortOrder>
+    </LOCATION>
+  </LOCATIONS>
+  <ITEMS>
+    <ITEM>
+      <ID>1</ID>
+      <Title><![CDATA[Typewriter]]></Title>
+      <SortOrder>1</SortOrder>
+    </ITEM>
+  </ITEMS>
+  <CHARACTERS>
+    <CHARACTER>
+      <ID>1</ID>
+      <Title><![CDATA[B.C. Toyle]]></Title>
+      <SortOrder>1</SortOrder>
+    </CHARACTER>
+    <CHARACTER>
+      <ID>2</ID>
+      <Title><![CDATA[Poirot]]></Title>
+      <SortOrder>2</SortOrder>
+    </CHARACTER>
+  </CHARACTERS>
   <SCENES>
     <SCENE>
       <ID>1</ID>
@@ -44,6 +67,33 @@
     </SCENE>
     <SCENE>
       <ID>3</ID>
+      <Title><![CDATA[NaNoWriMo 2021]]></Title>
+      <BelongsToChID>1</BelongsToChID>
+      <Desc><![CDATA[Poirot interrogates Author B.C. Toyle at his home.]]></Desc>
+      <SceneContent />
+      <WordCount>0</WordCount>
+      <LetterCount>0</LetterCount>
+      <Status>1</Status>
+      <Notes><![CDATA[To be continued]]></Notes>
+      <Tags><![CDATA[Work]]></Tags>
+      <SpecificDateTime>2021-11-01 00:00:00</SpecificDateTime>
+      <SpecificDateMode>-1</SpecificDateMode>
+      <LastsDays>30</LastsDays>
+      <LastsHours>0</LastsHours>
+      <LastsMinutes>0</LastsMinutes>
+      <Characters>
+        <CharID>2</CharID>
+        <CharID>1</CharID>
+      </Characters>
+      <Locations>
+        <LocID>1</LocID>
+      </Locations>
+      <Items>
+        <ItemID>1</ItemID>
+      </Items>
+    </SCENE>
+    <SCENE>
+      <ID>4</ID>
       <Title><![CDATA[Event 2]]></Title>
       <BelongsToChID>2</BelongsToChID>
       <Desc />
@@ -59,7 +109,7 @@
       <SpecificDateMode>-1</SpecificDateMode>
     </SCENE>
     <SCENE>
-      <ID>4</ID>
+      <ID>5</ID>
       <Title><![CDATA[Event 4]]></Title>
       <BelongsToChID>2</BelongsToChID>
       <Desc />
@@ -75,7 +125,7 @@
       <SpecificDateMode>-1</SpecificDateMode>
     </SCENE>
     <SCENE>
-      <ID>5</ID>
+      <ID>6</ID>
       <Title><![CDATA[Event 3]]></Title>
       <BelongsToChID>2</BelongsToChID>
       <Desc />
@@ -91,7 +141,7 @@
       <SpecificDateMode>-1</SpecificDateMode>
     </SCENE>
     <SCENE>
-      <ID>6</ID>
+      <ID>7</ID>
       <Title><![CDATA[Event 1]]></Title>
       <BelongsToChID>2</BelongsToChID>
       <Desc />
@@ -113,6 +163,9 @@
       <SortOrder>1</SortOrder>
       <Title><![CDATA[Chapter 1]]></Title>
       <ChapterType>0</ChapterType>
+      <Scenes>
+        <ScID>3</ScID>
+      </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>2</ID>
@@ -120,10 +173,10 @@
       <Title><![CDATA[Background]]></Title>
       <ChapterType>1</ChapterType>
       <Scenes>
-        <ScID>5</ScID>
         <ScID>6</ScID>
-        <ScID>3</ScID>
+        <ScID>7</ScID>
         <ScID>4</ScID>
+        <ScID>5</ScID>
         <ScID>2</ScID>
         <ScID>1</ScID>
       </Scenes>
