@@ -10,7 +10,7 @@ You might want to have a look at the [tutorial](https://peter88213.github.io/aeo
 
 ### Intended usage
 
-The included installation script prompts you to create a shortcut on the desktop. You can launch the program by dragging an *aeonzip* or a * csv* file and dropping it on the shortcut icon. 
+The included installation script prompts you to create a shortcut on the desktop. You can launch the program by dragging an *aeonzip* file and dropping it on the shortcut icon. 
 
 ### Command line usage
 
@@ -25,7 +25,7 @@ usage: `aeon2yw.pyw [--silent] Sourcefile`
 
 `Sourcefile` 
 
-The path of the aeonzip or csv file.
+The path of the *.aeonzip* (or csv) file.
 
 #### optional arguments:
 
@@ -43,6 +43,8 @@ For existing timelines you have two choices:
 
 
 ## csv export from Aeon Timeline 2 (optional)
+
+*aeon2yw* also reads csv files exported by Aeon Timeline 2. 
 
 - The csv file exported by Aeon Timeline 2 must be **comma**-separated.
 - Date format is like **1940-11-27**.
@@ -66,7 +68,7 @@ An optional project configuration file named `aeon2yw.ini` can be placed in your
 
 The aeon2yw distribution comes with a sample configuration file located in the `sample` subfolder. It contains aeon2yw's default settings and options. You can copy this file to the global configuration folder and edit it.
 
-- The SETTINGS section mainly refers to "labels", i.e. The csv field contents of the first row, which denote the columns. They might have to be adapted to your specific Aeon project and export settings. If you change them, the program might behave differently than described in the description of the conversion rules below. Make sure the indicated csv fields contain data that can be processed by yWriter.
+- The SETTINGS section mainly refers to custom property, role, and type names. In csv files these settings must match the first row, which denote the columns. They might have to be adapted to your specific Aeon project and export settings. If you change them, the program might behave differently than described in the description of the conversion rules below. Make sure the indicated csv fields contain data that can be processed by yWriter.
 - Comment lines begin with a `#` number sign. In the example, they refer to the code line immediately above.
 
 This is the configuration explained: 
@@ -131,14 +133,14 @@ The changed entries are sufficient.
 
 The column labels refer to timelines based on the "yWriter" template. 
 
--   All events with the "Scene" property ticked are converted to regular scenes (*).
--   All events with the "Scene" property not ticked are converted to "Notes" scenes (*).
--   All scenes are placed in a single chapter.
--   All scenes are sorted chronologically (Note: "BC" is not evaluated). 
+-   All events with the "Scene" property ticked are converted to regular scenes and placed in a regular chapter (*).
+-   All events with the "Scene" property not ticked are converted to "Notes" scenes and placed in a "Notes" chapter (*).
+-   All scenes are sorted chronologically (Note: with csv, "BC" is not evaluated). 
 -   The scene status is "Outline". 
 -	The event title is used as scene title (*).
 - 	The start date is used as scene date/time, if the start year is 100 or above.
--	The scene duration is calculated by the end date, if the start year is 100 or above.
+-	With *.aeonzip*, the scene duration comes directly from the timeline. If an event duration is specified in years, leap years are not taken into account. 
+-	With csv, the scene duration is calculated by the end date, if the start year is 100 or above.
 -	Event tags are converted to scene tags, if any (*).
 -   "Descriptions" are imported as scene descriptions, if any (*).
 -   "Notes" are used as scene notes, if any (*).
@@ -147,7 +149,7 @@ The column labels refer to timelines based on the "yWriter" template.
 -	"Locations" are imported, if any (*).
 -	"Items" are imported, if any (*).
 
-(*) Applies to the default configuration, but can be customized. 
+(*) Applies to the default configuration, but can be customized, especially with csv export. 
 
 
 ## Installation path

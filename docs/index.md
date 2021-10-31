@@ -9,7 +9,8 @@
 - The aeon2yw Python script converts Aeon's *.aeonzip* project file into a new yWriter project.
 - Events marked as scenes are converted to scenes in one single chapter.
 - Other events are converted to "Notes" scenes in another chapter.
-- The scenes have a start time and a duration, if the year is between 100 and 9999.
+- The scenes have a start time, if the year is between 100 and 9999.
+- The scenes have a duration.
 - The scenes are sorted chronologically.
 - Characters, locations and items are imported, if any.
 - Scene descriptions and scene notes are imported, if any.
@@ -26,9 +27,9 @@
 
 ## Download and install
 
-[Download the latest release (version 0.15.2)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.15.2.zip)
+[Download the latest release (version 0.16.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.16.0.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.15.2.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.16.0.zip" into a new folder.
 - Move into this new folder and launch **install.bat**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

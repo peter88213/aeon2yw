@@ -9,7 +9,8 @@
 - The aeon2yw Python script converts Aeon's *.aeonzip* project file into a new yWriter project.
 - Events marked as scenes are converted to scenes in one single chapter.
 - Other events are converted to "Notes" scenes in another chapter.
-- The scenes have a start time and a duration, if the year is between 100 and 9999.
+- The scenes have a start time, if the year is between 100 and 9999.
+- The scenes have a duration.
 - The scenes are sorted chronologically.
 - Characters, locations and items are imported, if any.
 - Scene descriptions and scene notes are imported, if any.
