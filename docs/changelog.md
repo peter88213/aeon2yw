@@ -4,13 +4,18 @@
 
 ## Changelog
 
+### Planned features
+
+See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
+
 ### v0.16.0 Process the native .aeonzip file format
 
-- Process the Aeon Timeline 2 .aeonzip format. CSV is optional.
+- Process the Aeon Timeline 2 .aeonzip format.
 - Create different chapters for scenes and non-scene events.
-- The options are removed from the configuration.
+- Update the configuration.
+- Update the Aeon 2 "yWriter" template.
 
-Based on paeon v0.9.0 and PyWriter v3.26.1
+Based on paeon v0.10.0 and PyWriter v3.26.1
 
 ### v0.14.3 Beta release 
 
