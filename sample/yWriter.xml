@@ -3,7 +3,7 @@
 	<Name>yWriter</Name>
 	<Types>
 		<Type>
-			<GUID>02096942-CB21-4DA7-80E0-FE521300E070</GUID>
+			<GUID>1235711D-4856-4CDF-B60E-9D5B7F71B3A6</GUID>
 			<Name>Location</Name>
 			<Icon>map</Icon>
 			<Color>iconOrange</Color>
@@ -11,7 +11,7 @@
 			<SortOrder>1</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>D08DB820-9995-4655-B7C8-D60AA3C415C3</GUID>
+					<GUID>A68BA948-D821-40E5-9683-2BCD4EF66AF2</GUID>
 					<Name>Location</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -24,28 +24,17 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>0C4F6E67-9075-4C14-80D5-34284007C2E5</GUID>
-			<Name>Character</Name>
-			<Icon>person</Icon>
+			<GUID>5E098C2E-62D3-4614-B507-2E9F3CC89D21</GUID>
+			<Name>Item</Name>
+			<Icon>star</Icon>
 			<Color>iconRed</Color>
-			<Persistent>0</Persistent>
-			<SortOrder>0</SortOrder>
+			<Persistent>1</Persistent>
+			<SortOrder>2</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>D80A3B3E-C250-47D0-95A7-D23A75F2239E</GUID>
-					<Name>Viewpoint</Name>
-					<Icon>circle text</Icon>
-					<MandatoryForEvent>0</MandatoryForEvent>
-					<MandatoryForEntity>0</MandatoryForEntity>
-					<AllowsMultipleForEvent>0</AllowsMultipleForEvent>
-					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
-					<AllowsPercentAllocated>0</AllowsPercentAllocated>
-					<SortOrder>1</SortOrder>
-				</Role>
-				<Role>
-					<GUID>DF08DD1A-783A-4FAE-A00B-7B65257A4B0D</GUID>
-					<Name>Participant</Name>
-					<Icon>circle text</Icon>
+					<GUID>CB8BCDE9-0DA7-4706-9CAF-50B36B8EFC78</GUID>
+					<Name>Item</Name>
+					<Icon>square filled</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
 					<MandatoryForEntity>0</MandatoryForEntity>
 					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
@@ -56,7 +45,7 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>F29E1452-CC63-420D-8DD5-C19E2406E01E</GUID>
+			<GUID>C404D04C-C0F8-49FF-91FF-7BDC3608514D</GUID>
 			<Name>Arc</Name>
 			<Icon>book</Icon>
 			<Color>iconYellow</Color>
@@ -64,7 +53,7 @@
 			<SortOrder>3</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>5169F7F5-84E0-47E5-B394-B09D3B36CEC0</GUID>
+					<GUID>E42032F8-EAB6-46F8-9592-28BB2BF78F96</GUID>
 					<Name>Arc</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -77,17 +66,17 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>FA20A682-F1BF-47B1-ACDA-0E344D4104F3</GUID>
-			<Name>Item</Name>
-			<Icon>star</Icon>
+			<GUID>FE1F8E36-776D-4B0D-AC2B-016323CDEFB5</GUID>
+			<Name>Character</Name>
+			<Icon>person</Icon>
 			<Color>iconRed</Color>
-			<Persistent>1</Persistent>
-			<SortOrder>2</SortOrder>
+			<Persistent>0</Persistent>
+			<SortOrder>0</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>C7085A4A-9151-472B-B877-D4A1D467A5E3</GUID>
-					<Name>Item</Name>
-					<Icon>square filled</Icon>
+					<GUID>E2EAB735-C19E-4AD1-B4D6-B1B6E8CF99CB</GUID>
+					<Name>Participant</Name>
+					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
 					<MandatoryForEntity>0</MandatoryForEntity>
 					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
@@ -95,54 +84,65 @@
 					<AllowsPercentAllocated>0</AllowsPercentAllocated>
 					<SortOrder>0</SortOrder>
 				</Role>
+				<Role>
+					<GUID>EEE640C7-96CC-4D86-9D3E-AC653E42A164</GUID>
+					<Name>Viewpoint</Name>
+					<Icon>circle text</Icon>
+					<MandatoryForEvent>0</MandatoryForEvent>
+					<MandatoryForEntity>0</MandatoryForEntity>
+					<AllowsMultipleForEvent>0</AllowsMultipleForEvent>
+					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
+					<AllowsPercentAllocated>0</AllowsPercentAllocated>
+					<SortOrder>1</SortOrder>
+				</Role>
 			</Roles>
 		</Type>
 	</Types>
 	<Colors>
 		<Color>
-			<GUID>436884A4-4C45-41F5-B2E5-2F9580C1578D</GUID>
-			<Name>Orange</Name>
-			<SwatchColor>orange</SwatchColor>
-			<SortOrder>1</SortOrder>
-		</Color>
-		<Color>
-			<GUID>471ADA32-1D29-4341-88EE-ADEC31927DF1</GUID>
-			<Name>Yellow</Name>
-			<SwatchColor>yellow</SwatchColor>
-			<SortOrder>2</SortOrder>
-		</Color>
-		<Color>
-			<GUID>474ADD4D-CF4F-4E7E-AE7E-E9EB01460F92</GUID>
+			<GUID>0601AF2A-7784-4219-84AB-F6CFD7C029B3</GUID>
 			<Name>Fuschia</Name>
 			<SwatchColor>fuschia</SwatchColor>
 			<SortOrder>7</SortOrder>
 		</Color>
 		<Color>
-			<GUID>48D67A07-E036-4F16-8586-C93FCE7A07FF</GUID>
-			<Name>Red</Name>
-			<SwatchColor>red</SwatchColor>
-			<SortOrder>0</SortOrder>
+			<GUID>2EF185DC-5ED2-461E-86A7-EAD446F2F60F</GUID>
+			<Name>Yellow</Name>
+			<SwatchColor>yellow</SwatchColor>
+			<SortOrder>2</SortOrder>
 		</Color>
 		<Color>
-			<GUID>5CB21139-C963-44E3-8D7E-4D71330FD3A5</GUID>
-			<Name>Purple</Name>
-			<SwatchColor>lightPurple</SwatchColor>
-			<SortOrder>5</SortOrder>
-		</Color>
-		<Color>
-			<GUID>64118CBF-330A-4B2A-9C04-FAEE7D1A6FDF</GUID>
+			<GUID>32B568BE-BE2C-4109-B512-B3A18F6B3D8E</GUID>
 			<Name>Green</Name>
 			<SwatchColor>apple</SwatchColor>
 			<SortOrder>3</SortOrder>
 		</Color>
 		<Color>
-			<GUID>B27EB626-6FC3-4FBE-89E6-506F1ED851E2</GUID>
+			<GUID>5A09B622-C9DF-4B8B-A9FB-DDBB24B98E5D</GUID>
 			<Name>Pink</Name>
 			<SwatchColor>darkPink</SwatchColor>
 			<SortOrder>6</SortOrder>
 		</Color>
 		<Color>
-			<GUID>FAA7F5D9-63CE-45C6-A7EF-F6F3596F2AE3</GUID>
+			<GUID>60BEFD60-4C84-4C73-B461-987D79DB36D9</GUID>
+			<Name>Purple</Name>
+			<SwatchColor>lightPurple</SwatchColor>
+			<SortOrder>5</SortOrder>
+		</Color>
+		<Color>
+			<GUID>8766E7E6-547A-4B0D-A2B8-5D0EEDE91E13</GUID>
+			<Name>Red</Name>
+			<SwatchColor>red</SwatchColor>
+			<SortOrder>0</SortOrder>
+		</Color>
+		<Color>
+			<GUID>BE16B0E1-0BFF-424C-9F12-F28E85DF08DF</GUID>
+			<Name>Orange</Name>
+			<SwatchColor>orange</SwatchColor>
+			<SortOrder>1</SortOrder>
+		</Color>
+		<Color>
+			<GUID>EB5B8CD3-211B-4897-97FC-B6B5953EE57F</GUID>
 			<Name>Blue</Name>
 			<SwatchColor>midBlue</SwatchColor>
 			<SortOrder>4</SortOrder>
@@ -150,18 +150,18 @@
 	</Colors>
 	<Properties>
 		<Property>
-			<GUID>283C2F91-0DE1-4F7C-BCD0-A26FD8E739C8</GUID>
-			<Name>Notes</Name>
-			<Icon>tag</Icon>
-			<Type>multitext</Type>
-			<SortOrder>2</SortOrder>
+			<GUID>25342DF9-F51B-425C-96A0-FE037D7DA403</GUID>
+			<Name>Scene</Name>
+			<Icon>flag</Icon>
+			<Type>boolean</Type>
+			<SortOrder>0</SortOrder>
 			<CalculateFromChildren>0</CalculateFromChildren>
-			<CalculationMode></CalculationMode>
+			<CalculationMode>all</CalculationMode>
 			<UseForFadingEvents>0</UseForFadingEvents>
 			<IsMandatory>0</IsMandatory>
 		</Property>
 		<Property>
-			<GUID>7D689554-DC77-4781-9122-78CFABC810AC</GUID>
+			<GUID>6D65F5AD-9F45-4D95-96BF-E50E36A71C0E</GUID>
 			<Name>Description</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
@@ -172,23 +172,23 @@
 			<IsMandatory>0</IsMandatory>
 		</Property>
 		<Property>
-			<GUID>E7B7C2B7-1A92-4522-98D0-73C734F5F919</GUID>
-			<Name>Scene</Name>
-			<Icon>flag</Icon>
-			<Type>boolean</Type>
-			<SortOrder>0</SortOrder>
+			<GUID>F125FB53-CDA9-45C5-A65F-08852F5921C5</GUID>
+			<Name>Notes</Name>
+			<Icon>tag</Icon>
+			<Type>multitext</Type>
+			<SortOrder>2</SortOrder>
 			<CalculateFromChildren>0</CalculateFromChildren>
-			<CalculationMode>all</CalculationMode>
+			<CalculationMode></CalculationMode>
 			<UseForFadingEvents>0</UseForFadingEvents>
 			<IsMandatory>0</IsMandatory>
 		</Property>
 	</Properties>
 	<RangeProperties>
 		<RangeProperty>
-			<GUID>C8BDDA88-717F-486E-93F4-2AFB63FB36AE</GUID>
+			<GUID>F4821F96-ED3A-46F1-8CFD-22CE734F61CC</GUID>
 			<Name>Date</Name>
 			<Type>date</Type>
-			<MinUnitScale>day</MinUnitScale>
+			<MinUnitScale>hour</MinUnitScale>
 			<MaxUnitScale>century</MaxUnitScale>
 			<DefaultUnitScale>century</DefaultUnitScale>
 			<Calendar>
@@ -349,6 +349,6 @@
 	</RangeProperties>
 	<DefaultLayout>
 		<LeftColumn><Array><ArrayItem type="string">Viewpoint</ArrayItem><ArrayItem type="string">Location</ArrayItem><ArrayItem type="string">Tags</ArrayItem></Array></LeftColumn>
-		<RightColumn><Array><ArrayItem type="string">Participant</ArrayItem><ArrayItem type="string">Item</ArrayItem></Array></RightColumn>
+		<RightColumn><Array><ArrayItem type="string">Participant</ArrayItem><ArrayItem type="string">Item</ArrayItem><ArrayItem type="string">Scene</ArrayItem></Array></RightColumn>
 	</DefaultLayout>
 </Template>

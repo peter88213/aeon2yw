@@ -87,7 +87,6 @@
       <ID>1</ID>
       <Title><![CDATA[Unknown murderer enters train at Vincovci]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -105,7 +104,6 @@
       <ID>2</ID>
       <Title><![CDATA[Antonio Foscarelli sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -127,7 +125,6 @@
       <ID>3</ID>
       <Title><![CDATA[Greta Ohlsson returns to her compartment and sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -149,7 +146,6 @@
       <ID>4</ID>
       <Title><![CDATA[No one enters or leaves Rachett's apartment, according to the Conductor]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -164,7 +160,6 @@
       <ID>5</ID>
       <Title><![CDATA[Princess Dragonmiroff sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -186,7 +181,6 @@
       <ID>6</ID>
       <Title><![CDATA[Poirot interviews Colonel Arbuthnot]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -230,7 +224,6 @@
       <ID>8</ID>
       <Title><![CDATA[Princess Dragonmiroff admits the handkerchief is hers]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -250,7 +243,6 @@
       <ID>9</ID>
       <Title><![CDATA[Conductor makes the beds for The Valet and Antonio Foscarelli]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -274,7 +266,6 @@
       <ID>10</ID>
       <Title><![CDATA[Poirot discusses the case with the doctor and inspector]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -295,7 +286,6 @@
       <ID>11</ID>
       <Title><![CDATA[One of the woman passengers dresses in a kimono and walks up the corridor]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -372,7 +362,6 @@
       <ID>15</ID>
       <Title><![CDATA[Countess Andrenyi takes a sleeping draught and sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -394,7 +383,6 @@
       <ID>16</ID>
       <Title><![CDATA[Mrs Hubbard sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -435,7 +423,6 @@
       <ID>18</ID>
       <Title><![CDATA[Mary Debenham wakes and sees a women in a kimono in the corridor]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -457,7 +444,6 @@
       <ID>19</ID>
       <Title><![CDATA[Mrs Hubbard sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -479,7 +465,6 @@
       <ID>20</ID>
       <Title><![CDATA[The Valet returns to his compartment and reads]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -500,7 +485,6 @@
       <ID>21</ID>
       <Title><![CDATA[Poirot discovers Countess Andrenyi's connection to the dead man]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -520,7 +504,6 @@
       <ID>22</ID>
       <Title><![CDATA[The Valet leaves Ratchett with sleeping draught beside him]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -539,7 +522,6 @@
       <ID>23</ID>
       <Title><![CDATA[Poirot interviews Count and Countess Andrenyi]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -562,7 +544,6 @@
       <ID>24</ID>
       <Title><![CDATA[Poirot announces the solution to the murder]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -580,7 +561,6 @@
       <ID>25</ID>
       <Title><![CDATA[The passengers burn their threatening letters]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -635,7 +615,6 @@
       <ID>27</ID>
       <Title><![CDATA[Rachett's body found]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -653,7 +632,6 @@
       <ID>28</ID>
       <Title><![CDATA[Unknown murderer leaves the train]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -671,7 +649,6 @@
       <ID>29</ID>
       <Title><![CDATA[The Condutor brings mineral water to Poirot]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -694,7 +671,6 @@
       <ID>30</ID>
       <Title><![CDATA[MacQueen takes down memoranda of letters with Mr Ratchett]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -716,7 +692,6 @@
       <ID>31</ID>
       <Title><![CDATA[MacQueen calls conductor and has him make up his bed]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -739,7 +714,6 @@
       <ID>32</ID>
       <Title><![CDATA[Mary Debenham sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -761,7 +735,6 @@
       <ID>33</ID>
       <Title><![CDATA[MacQueen talks politics with Colonel Arbuthnot]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -784,7 +757,6 @@
       <ID>34</ID>
       <Title><![CDATA[Unknown person enters Mr. Ratchett's compartment and finds him dead. He rings the bell for the conductor, then panics and pretends to be Mr. Ratchett when answering]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -806,7 +778,6 @@
       <ID>35</ID>
       <Title><![CDATA[Poirot interviews Princess Drawgonmiroff]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -828,7 +799,6 @@
       <ID>36</ID>
       <Title><![CDATA[Poirot interviews Greta Ohlsson]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -869,7 +839,6 @@
       <ID>38</ID>
       <Title><![CDATA[Poirot finds kimono in his own compartment]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -891,7 +860,6 @@
       <ID>39</ID>
       <Title><![CDATA[Poirot talks to the Conductor and MacQueen about the murder]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -911,7 +879,6 @@
       <ID>40</ID>
       <Title><![CDATA[Hildegarde Schmidt returns to her compartment and sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -933,7 +900,6 @@
       <ID>41</ID>
       <Title><![CDATA[Mrs Hubbard hears someone in her compartment and rings for the conductor]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -956,7 +922,6 @@
       <ID>42</ID>
       <Title><![CDATA[Poirot discovers Antonio Foscarelli's connection to the dead man]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -975,7 +940,6 @@
       <ID>43</ID>
       <Title><![CDATA[Poirot interviews Mrs Hubbard]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -997,7 +961,6 @@
       <ID>44</ID>
       <Title><![CDATA[Hildegarde Schmidt reads aloud to Princess Dragonmiroff]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1020,7 +983,6 @@
       <ID>45</ID>
       <Title><![CDATA[Poirot interviews Cyrus Hardman]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1042,7 +1004,6 @@
       <ID>46</ID>
       <Title><![CDATA[MacQueen and Colonel Arbuthnot step out onto the platform at Vincovci ]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1065,7 +1026,6 @@
       <ID>47</ID>
       <Title><![CDATA[No one enters or leaves Rachett's apartment, according to the Conductor]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1080,7 +1040,6 @@
       <ID>48</ID>
       <Title><![CDATA[Poirot discovers Mary Debenham's connection to the dead man]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1099,7 +1058,6 @@
       <ID>49</ID>
       <Title><![CDATA[Poirot interviews Mary Debenham]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1121,7 +1079,6 @@
       <ID>50</ID>
       <Title><![CDATA[Poirot hears a noise and sees a women in a kimono in the corridor]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1140,7 +1097,6 @@
       <ID>51</ID>
       <Title><![CDATA[Mrs Hubbard thinks man is in her carriage. Rings for conductor]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1159,7 +1115,6 @@
       <ID>52</ID>
       <Title><![CDATA[The Valet lies awake with a toothache]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1181,7 +1136,6 @@
       <ID>53</ID>
       <Title><![CDATA[Mrs Hubbard finds bloody knife in her sponge-bag]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1200,7 +1154,6 @@
       <ID>54</ID>
       <Title><![CDATA[Antonio Foscarelli reads in his compartment]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1244,7 +1197,6 @@
       <ID>56</ID>
       <Title><![CDATA[Poirot interviews the Valet]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1266,7 +1218,6 @@
       <ID>57</ID>
       <Title><![CDATA[MacQueen drugs Mr. Ratchett]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1288,7 +1239,6 @@
       <ID>58</ID>
       <Title><![CDATA[Unknown murderer enters Mr. Ratchett's apartment and stabs him]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1306,7 +1256,6 @@
       <ID>59</ID>
       <Title><![CDATA[ Train leaves Vincovci (late)]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1322,7 +1271,6 @@
       <ID>60</ID>
       <Title><![CDATA[Ratchett's bell rings. Conductor answers it. Rachett replies in French]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1366,7 +1314,6 @@ Some weak, some strong
       <ID>62</ID>
       <Title><![CDATA[Poirot searches the passengers luggage]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1384,7 +1331,6 @@ Some weak, some strong
       <ID>63</ID>
       <Title><![CDATA[Poirot interviews the Conductor]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1403,7 +1349,6 @@ Some weak, some strong
       <ID>64</ID>
       <Title><![CDATA[MacQueen leaves Ratchett]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1463,7 +1408,6 @@ This explains the different times of death and the different types of stabbing
       <ID>66</ID>
       <Title><![CDATA[Greta Ohlsson enters Rachett's apartment by mistake]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1485,7 +1429,6 @@ This explains the different times of death and the different types of stabbing
       <ID>67</ID>
       <Title><![CDATA[Poirot interviews the passengers about the murder]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1516,7 +1459,6 @@ This explains the different times of death and the different types of stabbing
       <ID>68</ID>
       <Title><![CDATA[Poirot finds conductors uniform in Hildegarde Schmidt's compartment]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1538,7 +1480,6 @@ This explains the different times of death and the different types of stabbing
       <ID>69</ID>
       <Title><![CDATA[The Conductor answers the bell of Mrs Hubbard]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1561,7 +1502,6 @@ This explains the different times of death and the different types of stabbing
       <ID>70</ID>
       <Title><![CDATA[The Conductor talks with his co-workers in the adjacent carriage]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1583,7 +1523,6 @@ This explains the different times of death and the different types of stabbing
       <ID>71</ID>
       <Title><![CDATA[Poirot interviews MacQueen]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1605,7 +1544,6 @@ This explains the different times of death and the different types of stabbing
       <ID>72</ID>
       <Title><![CDATA[Poirot finds women's handkerchief with the initial 'H']]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1646,7 +1584,6 @@ This explains the different times of death and the different types of stabbing
       <ID>74</ID>
       <Title><![CDATA[Mrs Hubbard has a nightmare about a man in her compartment and rings for the conductor]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1707,7 +1644,6 @@ This explains the different times of death and the different types of stabbing
       <ID>77</ID>
       <Title><![CDATA[Mary Debenham sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1729,7 +1665,6 @@ This explains the different times of death and the different types of stabbing
       <ID>78</ID>
       <Title><![CDATA[Poirot discovers Greta Ohlsson's connection to the dead man]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1748,7 +1683,6 @@ This explains the different times of death and the different types of stabbing
       <ID>79</ID>
       <Title><![CDATA[Princess Dragonmiroff rings for her maid, Hildegard Schmidt]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1809,7 +1743,6 @@ This explains the different times of death and the different types of stabbing
       <ID>82</ID>
       <Title><![CDATA[The Conductor makes the bed for Count Andrenyi]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1832,7 +1765,6 @@ This explains the different times of death and the different types of stabbing
       <ID>83</ID>
       <Title><![CDATA[Poirot interviews Antonio Foscarelli]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1854,7 +1786,6 @@ This explains the different times of death and the different types of stabbing
       <ID>84</ID>
       <Title><![CDATA[Greta Ohlsson asks Mrs Hubbard for some aspirin]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1877,7 +1808,6 @@ This explains the different times of death and the different types of stabbing
       <ID>85</ID>
       <Title><![CDATA[Poirot discovers Princess Dragonmiroff's connection to the dead man]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1899,7 +1829,6 @@ This explains the different times of death and the different types of stabbing
       <ID>86</ID>
       <Title><![CDATA[Poirot interviews Hildegarde Schmidt]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1921,7 +1850,6 @@ This explains the different times of death and the different types of stabbing
       <ID>87</ID>
       <Title><![CDATA[Hildegare Schmidt sees an imposter conductor in the corridor]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1943,7 +1871,6 @@ This explains the different times of death and the different types of stabbing
       <ID>88</ID>
       <Title><![CDATA[MacQueen sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1965,7 +1892,6 @@ This explains the different times of death and the different types of stabbing
       <ID>89</ID>
       <Title><![CDATA[Poirot finds scrap of paper with the words "-member little Daisy Armstrong"]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -1984,7 +1910,6 @@ This explains the different times of death and the different types of stabbing
       <ID>90</ID>
       <Title><![CDATA[Hildegarde Schmidt sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -2006,7 +1931,6 @@ This explains the different times of death and the different types of stabbing
       <ID>91</ID>
       <Title><![CDATA[Colonel Arbuthnot returns to his compartment and sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -2028,7 +1952,6 @@ This explains the different times of death and the different types of stabbing
       <ID>92</ID>
       <Title><![CDATA[Poirot discovers the Valet's connection to the dead man]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -2066,7 +1989,6 @@ This explains the different times of death and the different types of stabbing
       <ID>94</ID>
       <Title><![CDATA[The Valet sleeps]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
