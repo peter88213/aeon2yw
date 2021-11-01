@@ -58,7 +58,7 @@
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
 					<MandatoryForEntity>0</MandatoryForEntity>
-					<AllowsMultipleForEvent>0</AllowsMultipleForEvent>
+					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
 					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
 					<AllowsPercentAllocated>0</AllowsPercentAllocated>
 					<SortOrder>0</SortOrder>
