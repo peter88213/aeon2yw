@@ -15,7 +15,7 @@ from pywriter.ui.ui import Ui
 from pywriter.ui.ui_tk import UiTk
 from pywriter.config.configuration import Configuration
 
-from pywaeon2.csv_converter import CsvConverter
+from pywaeon2.aeon2_converter import Aeon2Converter
 
 SUFFIX = ''
 APPNAME = 'aeon2yw'
@@ -67,7 +67,7 @@ def run(sourcePath, silentMode=True, installDir=''):
     kwargs.update(configuration.settings)
     kwargs.update(configuration.options)
 
-    converter = CsvConverter()
+    converter = Aeon2Converter()
     converter.ui = ui
     converter.run(sourcePath, **kwargs)
     ui.start()
