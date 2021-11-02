@@ -60,7 +60,7 @@
       <Status>1</Status>
       <SpecificDateTime>0100-01-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
-      <LastsDays>2</LastsDays>
+      <LastsDays>33</LastsDays>
       <LastsHours>0</LastsHours>
       <LastsMinutes>0</LastsMinutes>
     </SCENE>
@@ -75,9 +75,6 @@
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>1</Status>
-      <LastsDays>5</LastsDays>
-      <LastsHours>0</LastsHours>
-      <LastsMinutes>0</LastsMinutes>
     </SCENE>
     <SCENE>
       <ID>4</ID>
@@ -92,7 +89,7 @@
       <Tags><![CDATA[Work]]></Tags>
       <SpecificDateTime>2021-11-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
-      <LastsDays>0</LastsDays>
+      <LastsDays>30</LastsDays>
       <LastsHours>0</LastsHours>
       <LastsMinutes>0</LastsMinutes>
       <Characters>
@@ -117,9 +114,6 @@
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>1</Status>
-      <LastsDays>1</LastsDays>
-      <LastsHours>0</LastsHours>
-      <LastsMinutes>0</LastsMinutes>
     </SCENE>
     <SCENE>
       <ID>6</ID>
@@ -132,9 +126,6 @@
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>1</Status>
-      <LastsDays>4</LastsDays>
-      <LastsHours>0</LastsHours>
-      <LastsMinutes>0</LastsMinutes>
     </SCENE>
     <SCENE>
       <ID>7</ID>
@@ -147,9 +138,6 @@
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>1</Status>
-      <LastsDays>4</LastsDays>
-      <LastsHours>0</LastsHours>
-      <LastsMinutes>0</LastsMinutes>
     </SCENE>
     <SCENE>
       <ID>8</ID>
@@ -162,9 +150,6 @@
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>1</Status>
-      <LastsDays>0</LastsDays>
-      <LastsHours>0</LastsHours>
-      <LastsMinutes>0</LastsMinutes>
     </SCENE>
     <SCENE>
       <ID>9</ID>
