@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.16.2 Bugfix update
+
+- Fix a bug where scene duration specified in years/months/weeks is calculated the wrong way.
+
+Based on paeon v0.10.2 and PyWriter v3.26.1
+
 ### v0.16.1 Optional update
 
 Apply paeon update to minimize the amount of unused code.

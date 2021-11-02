@@ -139,8 +139,7 @@ The column labels refer to timelines based on the "yWriter" template.
 -   The scene status is "Outline". 
 -	The event title is used as scene title (*).
 - 	The start date is used as scene date/time, if the start year is 100 or above.
--	With *.aeonzip*, the scene duration comes directly from the timeline. If an event duration is specified in years, leap years are not taken into account. 
--	With csv, the scene duration is calculated by the end date, if the start year is 100 or above.
+-	The scene duration is calculated, if the start year is 100 or above.
 -	Event tags are converted to scene tags, if any (*).
 -   "Descriptions" are imported as scene descriptions, if any (*).
 -   "Notes" are used as scene notes, if any (*).
