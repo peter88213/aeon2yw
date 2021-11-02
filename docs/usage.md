@@ -2,7 +2,7 @@
 
 ------------------------------------------------------------------
 
-The aeon2yw Python script creates a yWriter 7 project from Aeon Timeline 2.
+The aeon2yw Python script creates a new yWriter 7 project from Aeon Timeline 2, or updates date/time7duration in an existing yWriter 7 project.
 
 ## Instructions for use
 
@@ -129,9 +129,9 @@ scene_marker = Yes
 Note: Your custom configuration file does not have to contain all the entries listed above. 
 The changed entries are sufficient. 
 
-## Conversion rules
+## Conversion rules for newly created yWriter projects
 
-The column labels refer to timelines based on the "yWriter" template. 
+The names/column labels refer to timelines based on the "yWriter" template. 
 
 -   All events with the "Scene" property ticked are converted to regular scenes and placed in a regular chapter (*).
 -   All events with the "Scene" property not ticked are converted to "Notes" scenes and placed in a "Notes" chapter (*).
@@ -149,6 +149,14 @@ The column labels refer to timelines based on the "yWriter" template.
 -	"Items" are imported, if any (*).
 
 (*) Applies to the default configuration, but can be customized, especially with csv export. 
+
+## Update rules for existing yWriter projects
+
+-   Only scenes that have the same title as an event are considered.
+-   If a scene title occurs more than once, the program aborts with an error message.
+-   Only scene date, scene time, and scene duration are updated.
+- 	The start date is overwritten, if the start year is 100 or above.
+-	The scene duration overwritten, if the start year is 100 or above.
 
 
 ## Installation path

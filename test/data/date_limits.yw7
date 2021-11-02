@@ -20,12 +20,12 @@
   <CHARACTERS>
     <CHARACTER>
       <ID>1</ID>
-      <Title><![CDATA[B.C. Toyle]]></Title>
+      <Title><![CDATA[Poirot]]></Title>
       <SortOrder>1</SortOrder>
     </CHARACTER>
     <CHARACTER>
       <ID>2</ID>
-      <Title><![CDATA[Poirot]]></Title>
+      <Title><![CDATA[B.C. Toyle]]></Title>
       <SortOrder>2</SortOrder>
     </CHARACTER>
   </CHARACTERS>
@@ -96,8 +96,8 @@
       <LastsHours>0</LastsHours>
       <LastsMinutes>0</LastsMinutes>
       <Characters>
-        <CharID>2</CharID>
         <CharID>1</CharID>
+        <CharID>2</CharID>
       </Characters>
       <Locations>
         <LocID>1</LocID>
@@ -193,9 +193,9 @@
       <Title><![CDATA[Background]]></Title>
       <ChapterType>1</ChapterType>
       <Scenes>
-        <ScID>7</ScID>
         <ScID>8</ScID>
         <ScID>5</ScID>
+        <ScID>7</ScID>
         <ScID>6</ScID>
         <ScID>3</ScID>
         <ScID>2</ScID>

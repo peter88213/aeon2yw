@@ -12,7 +12,7 @@ See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projec
 
 - Synchronize existing yWriter project: Scene date/time/duration is updated when scene titles match.
 
-Based on paeon v0.10.2 and PyWriter v3.26.1
+Based on paeon v0.10.3 and PyWriter v3.26.1
 
 ### v0.16.2 Bugfix update
 

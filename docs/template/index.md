@@ -15,6 +15,7 @@
 - Characters, locations and items are imported, if any.
 - Scene descriptions and scene notes are imported, if any.
 - Scene tags are imported, if any.
+- If a yWriter project with the same name as the timeline already exists, The date, time, and duration of scenes with a matching title are updated from the timeline.
 
  
 ## Requirements
