@@ -67,7 +67,7 @@ This is the configuration explained:
 ```
 [SETTINGS]
 
-entity_narrative = Narrative
+narrative_arc = Narrative
 
 # Name of the user-defined "Narrative" arc.
 
@@ -90,10 +90,6 @@ role_item = Item
 role_character = Participant
 
 # Name of the user-defined role for characters in a scene.
-
-role_viewpoint = Viewpoint
-
-# Name of the user-defined "Viewpoint" role.
 
 type_character = Character
 
@@ -127,7 +123,6 @@ The names/column labels refer to timelines based on the "yWriter" template.
 -   "Descriptions" are imported as scene descriptions, if any (*).
 -   "Notes" are used as scene notes, if any (*).
 -	"Participants" are imported as characters, if any (*).
--	"Viewpoints" are imported as viewpoint characters, if any (*).
 -	"Locations" are imported, if any (*).
 -	"Items" are imported, if any (*).
 

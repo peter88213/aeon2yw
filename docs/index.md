@@ -4,7 +4,7 @@
 
 ## Features
 
-- The release comes with a template for Aeon Timeline 2 that provides characters, locations and items, as well as yWriter's scene properties such as description, notes and viewpoint.
+- The release comes with a template for Aeon Timeline 2 that provides characters, locations and items, as well as yWriter's scene properties such as description and notes.
 - With this template, events get a "Scene" checkbox. Events marked as scenes are converted to regular scenes; other events become "Notes" scenes.
 - The aeon2yw Python script converts Aeon's *.aeonzip* project file into a new yWriter project.
 - Events marked as scenes are converted to scenes in one single chapter.
@@ -28,9 +28,9 @@
 
 ## Download and install
 
-[Download the latest release (version 0.19.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.19.0.zip)
+[Download the latest release (version 0.19.1)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.19.1.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.19.0.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.19.1.zip" into a new folder.
 - Move into this new folder and launch **install.bat**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

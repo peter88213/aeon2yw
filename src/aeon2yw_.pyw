@@ -21,13 +21,12 @@ SUFFIX = ''
 APPNAME = 'aeon2yw'
 
 SETTINGS = dict(
-    entity_narrative='Narrative',
+    narrative_arc='Narrative',
     property_description='Description',
     property_notes='Notes',
     role_location='Location',
     role_item='Item',
     role_character='Participant',
-    role_viewpoint='Viewpoint',
     type_character='Character',
     type_location='Location',
     type_item='Item',
