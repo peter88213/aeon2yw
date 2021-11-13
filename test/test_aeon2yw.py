@@ -24,14 +24,10 @@ TEST_EXEC_PATH = TEST_PATH + '/yw7/'
 NORMAL_AEON = TEST_DATA_PATH + 'normal.aeonzip'
 NORMAL_YW7 = TEST_DATA_PATH + 'normal.yw7'
 
-NORMAL_CSV = TEST_DATA_PATH + 'normal.csv'
-NORMAL_CSV_YW7 = TEST_DATA_PATH + 'normal_csv.yw7'
 
 DATE_LIMITS_AEON = TEST_DATA_PATH + 'date_limits.aeonzip'
 DATE_LIMITS_YW7 = TEST_DATA_PATH + 'date_limits.yw7'
 
-DATE_LIMITS_CSV = TEST_DATA_PATH + 'date_limits.csv'
-DATE_LIMITS_CSV_YW7 = TEST_DATA_PATH + 'date_limits_csv.yw7'
 
 UPDATED_AEON = TEST_DATA_PATH + 'updated.aeonzip'
 UPDATED_YW7 = TEST_DATA_PATH + 'updated.yw7'
@@ -39,7 +35,6 @@ UPDATED_YW7 = TEST_DATA_PATH + 'updated.yw7'
 # Test data
 INI_FILE = TEST_EXEC_PATH + 'aeon2yw.ini'
 TEST_YW7 = TEST_EXEC_PATH + 'yw7 Sample Project.yw7'
-TEST_CSV = TEST_EXEC_PATH + 'yw7 Sample Project.csv'
 TEST_AEON = TEST_EXEC_PATH + 'yw7 Sample Project.aeonzip'
 
 
@@ -89,18 +84,6 @@ class NormalOperation(unittest.TestCase):
             pass
 
         remove_all_testfiles()
-
-    def test_aeon2_csv(self):
-        copyfile(NORMAL_CSV, TEST_CSV)
-        os.chdir(TEST_EXEC_PATH)
-        aeon2yw.run(TEST_CSV, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(NORMAL_CSV_YW7))
-
-    def test_date_limits_csv(self):
-        copyfile(DATE_LIMITS_CSV, TEST_CSV)
-        os.chdir(TEST_EXEC_PATH)
-        aeon2yw.run(TEST_CSV, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(DATE_LIMITS_CSV_YW7))
 
     def test_aeon2_aeonzip(self):
         copyfile(NORMAL_AEON, TEST_AEON)

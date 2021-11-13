@@ -25,7 +25,7 @@ usage: `aeon2yw.pyw [--silent] Sourcefile`
 
 `Sourcefile` 
 
-The path of the *.aeonzip* (or csv) file.
+The path of the *.aeonzip* file.
 
 #### optional arguments:
 
@@ -40,15 +40,6 @@ For existing timelines you have two choices:
 
 - Option 1: Add or rename the required entities and event properties in the Timeline settings.
 - Option 2: Customize the *aeon2yw* configuration to fit your timeline (see below).
-
-
-## csv export from Aeon Timeline 2 (optional)
-
-*aeon2yw* also reads csv files exported by Aeon Timeline 2. 
-
-- The csv file exported by Aeon Timeline 2 must be **comma**-separated.
-- Date format is like **1940-11-27**.
-- Time format is like **17:43**.
 
 
 ## Custom configuration
@@ -68,7 +59,7 @@ An optional project configuration file named `aeon2yw.ini` can be placed in your
 
 The aeon2yw distribution comes with a sample configuration file located in the `sample` subfolder. It contains aeon2yw's default settings and options. You can copy this file to the global configuration folder and edit it.
 
-- The SETTINGS section mainly refers to custom property, role, and type names. In csv files these settings must match the first row, which denote the columns. They might have to be adapted to your specific Aeon project and export settings. If you change them, the program might behave differently than described in the description of the conversion rules below. Make sure the indicated csv fields contain data that can be processed by yWriter.
+- The SETTINGS section mainly refers to custom property, role, and type names. 
 - Comment lines begin with a `#` number sign. In the example, they refer to the code line immediately above.
 
 This is the configuration explained: 
@@ -76,9 +67,9 @@ This is the configuration explained:
 ```
 [SETTINGS]
 
-property_scene = Scene
+entity_narrative = Narrative
 
-# Name of the user-defined scene indicator property.
+# Name of the user-defined "Narrative" arc.
 
 property_description = Description
 
@@ -107,22 +98,14 @@ role_viewpoint = Viewpoint
 type_character = Character
 
 # Name of the user-defined "Character" type
-# (not needed when using CSV export).
 
 type_location = Location
 
 # Name of the user-defined "Location" type
-# (not needed when using CSV export).
 
 type_item = Item
 
 # Name of the user-defined "Item" type
-# (not needed when using CSV export).
-
-scene_marker = Yes
-
-# String that indicates an event to be imported as normal
-# scene from CSV (not needed when using .aeonzip).
 
 ```
 
@@ -133,9 +116,9 @@ The changed entries are sufficient.
 
 The names/column labels refer to timelines based on the "yWriter" template. 
 
--   All events with the "Scene" property ticked are converted to regular scenes and placed in a regular chapter (*).
--   All events with the "Scene" property not ticked are converted to "Notes" scenes and placed in a "Notes" chapter (*).
--   All scenes are sorted chronologically (Note: with csv, "BC" is not evaluated). 
+-   All events assigned to the "Narrative" arc are converted to regular scenes and placed in a regular chapter (*).
+-   All events not assigned to the "Narrative" arc are converted to "Notes" scenes and placed in a "Notes" chapter (*).
+-   All scenes are sorted chronologically. 
 -   The scene status is "Outline". 
 -	The event title is used as scene title (*).
 - 	The start date is used as scene date/time, if the start year is 100 or above.
@@ -148,7 +131,7 @@ The names/column labels refer to timelines based on the "yWriter" template.
 -	"Locations" are imported, if any (*).
 -	"Items" are imported, if any (*).
 
-(*) Applies to the default configuration, but can be customized, especially with csv export. 
+(*) Applies to the default configuration, but can be customized. 
 
 ## Update rules for existing yWriter projects
 

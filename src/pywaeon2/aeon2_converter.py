@@ -7,7 +7,6 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from pywriter.yw.yw7_file import Yw7File
-from paeon.csv_timeline2 import CsvTimeline2
 from paeon.json_timeline2 import JsonTimeline2
 from pywaeon2.yw7_sync import Yw7Sync
 
@@ -27,9 +26,6 @@ class Aeon2Converter(YwCnvUi):
 
         if fileExtension == JsonTimeline2.EXTENSION:
             sourceFile = JsonTimeline2(sourcePath, **kwargs)
-
-        elif fileExtension == CsvTimeline2.EXTENSION:
-            sourceFile = CsvTimeline2(sourcePath, **kwargs)
 
         else:
             self.ui.set_info_how('ERROR: File type of "' + os.path.normpath(sourcePath) + '" not supported.')

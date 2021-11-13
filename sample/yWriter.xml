@@ -3,28 +3,7 @@
 	<Name>yWriter</Name>
 	<Types>
 		<Type>
-			<GUID>1235711D-4856-4CDF-B60E-9D5B7F71B3A6</GUID>
-			<Name>Location</Name>
-			<Icon>map</Icon>
-			<Color>iconOrange</Color>
-			<Persistent>1</Persistent>
-			<SortOrder>1</SortOrder>
-			<Roles>
-				<Role>
-					<GUID>A68BA948-D821-40E5-9683-2BCD4EF66AF2</GUID>
-					<Name>Location</Name>
-					<Icon>circle text</Icon>
-					<MandatoryForEvent>0</MandatoryForEvent>
-					<MandatoryForEntity>0</MandatoryForEntity>
-					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
-					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
-					<AllowsPercentAllocated>0</AllowsPercentAllocated>
-					<SortOrder>0</SortOrder>
-				</Role>
-			</Roles>
-		</Type>
-		<Type>
-			<GUID>5E098C2E-62D3-4614-B507-2E9F3CC89D21</GUID>
+			<GUID>4B187570-EA36-4EDB-A02B-C5423A5CF850</GUID>
 			<Name>Item</Name>
 			<Icon>star</Icon>
 			<Color>iconRed</Color>
@@ -32,7 +11,7 @@
 			<SortOrder>2</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>CB8BCDE9-0DA7-4706-9CAF-50B36B8EFC78</GUID>
+					<GUID>50476688-D3C4-4FC4-81CB-7CBC4205A257</GUID>
 					<Name>Item</Name>
 					<Icon>square filled</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -45,7 +24,7 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>C404D04C-C0F8-49FF-91FF-7BDC3608514D</GUID>
+			<GUID>953102A0-F955-4054-8886-37DD10375496</GUID>
 			<Name>Arc</Name>
 			<Icon>book</Icon>
 			<Color>iconYellow</Color>
@@ -53,7 +32,7 @@
 			<SortOrder>3</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>E42032F8-EAB6-46F8-9592-28BB2BF78F96</GUID>
+					<GUID>EB4340C8-52F7-46B3-BEB0-3517A619C8AC</GUID>
 					<Name>Arc</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -66,7 +45,7 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>FE1F8E36-776D-4B0D-AC2B-016323CDEFB5</GUID>
+			<GUID>ABC65F4C-16B2-4B65-8BE6-E9BBC9C85639</GUID>
 			<Name>Character</Name>
 			<Icon>person</Icon>
 			<Color>iconRed</Color>
@@ -74,7 +53,7 @@
 			<SortOrder>0</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>E2EAB735-C19E-4AD1-B4D6-B1B6E8CF99CB</GUID>
+					<GUID>1C77F82F-FA13-41BE-96AE-75BAE3EF764C</GUID>
 					<Name>Participant</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -84,108 +63,107 @@
 					<AllowsPercentAllocated>0</AllowsPercentAllocated>
 					<SortOrder>0</SortOrder>
 				</Role>
+			</Roles>
+		</Type>
+		<Type>
+			<GUID>E4BC839F-6F02-437E-8D7C-B1C71396376D</GUID>
+			<Name>Location</Name>
+			<Icon>map</Icon>
+			<Color>iconOrange</Color>
+			<Persistent>1</Persistent>
+			<SortOrder>1</SortOrder>
+			<Roles>
 				<Role>
-					<GUID>EEE640C7-96CC-4D86-9D3E-AC653E42A164</GUID>
-					<Name>Viewpoint</Name>
+					<GUID>88EB4DAD-CCB4-4E59-B5DA-9D870546B550</GUID>
+					<Name>Location</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
 					<MandatoryForEntity>0</MandatoryForEntity>
-					<AllowsMultipleForEvent>0</AllowsMultipleForEvent>
+					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
 					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
 					<AllowsPercentAllocated>0</AllowsPercentAllocated>
-					<SortOrder>1</SortOrder>
+					<SortOrder>0</SortOrder>
 				</Role>
 			</Roles>
 		</Type>
 	</Types>
 	<Colors>
 		<Color>
-			<GUID>0601AF2A-7784-4219-84AB-F6CFD7C029B3</GUID>
-			<Name>Fuschia</Name>
-			<SwatchColor>fuschia</SwatchColor>
-			<SortOrder>7</SortOrder>
-		</Color>
-		<Color>
-			<GUID>2EF185DC-5ED2-461E-86A7-EAD446F2F60F</GUID>
-			<Name>Yellow</Name>
-			<SwatchColor>yellow</SwatchColor>
-			<SortOrder>2</SortOrder>
-		</Color>
-		<Color>
-			<GUID>32B568BE-BE2C-4109-B512-B3A18F6B3D8E</GUID>
-			<Name>Green</Name>
-			<SwatchColor>apple</SwatchColor>
-			<SortOrder>3</SortOrder>
-		</Color>
-		<Color>
-			<GUID>5A09B622-C9DF-4B8B-A9FB-DDBB24B98E5D</GUID>
-			<Name>Pink</Name>
-			<SwatchColor>darkPink</SwatchColor>
-			<SortOrder>6</SortOrder>
-		</Color>
-		<Color>
-			<GUID>60BEFD60-4C84-4C73-B461-987D79DB36D9</GUID>
-			<Name>Purple</Name>
-			<SwatchColor>lightPurple</SwatchColor>
-			<SortOrder>5</SortOrder>
-		</Color>
-		<Color>
-			<GUID>8766E7E6-547A-4B0D-A2B8-5D0EEDE91E13</GUID>
+			<GUID>2226B3DA-108E-425F-8C30-2C3072A89596</GUID>
 			<Name>Red</Name>
 			<SwatchColor>red</SwatchColor>
 			<SortOrder>0</SortOrder>
 		</Color>
 		<Color>
-			<GUID>BE16B0E1-0BFF-424C-9F12-F28E85DF08DF</GUID>
+			<GUID>63B7313F-21C0-489D-8033-480214FD6C6F</GUID>
+			<Name>Green</Name>
+			<SwatchColor>apple</SwatchColor>
+			<SortOrder>3</SortOrder>
+		</Color>
+		<Color>
+			<GUID>649BDF94-27D2-482C-966E-BC1FED2B3E31</GUID>
 			<Name>Orange</Name>
 			<SwatchColor>orange</SwatchColor>
 			<SortOrder>1</SortOrder>
 		</Color>
 		<Color>
-			<GUID>EB5B8CD3-211B-4897-97FC-B6B5953EE57F</GUID>
+			<GUID>C0548C62-04F2-40B4-A071-D5ACE7299F09</GUID>
 			<Name>Blue</Name>
 			<SwatchColor>midBlue</SwatchColor>
 			<SortOrder>4</SortOrder>
 		</Color>
+		<Color>
+			<GUID>C2358F8F-845B-40AC-94F6-B786D40F2DF4</GUID>
+			<Name>Purple</Name>
+			<SwatchColor>lightPurple</SwatchColor>
+			<SortOrder>5</SortOrder>
+		</Color>
+		<Color>
+			<GUID>C9DF72BB-1E69-44E9-8C2F-E10CD94513A4</GUID>
+			<Name>Yellow</Name>
+			<SwatchColor>yellow</SwatchColor>
+			<SortOrder>2</SortOrder>
+		</Color>
+		<Color>
+			<GUID>CE28E668-F884-418B-AD9C-6AABB4D5AA0C</GUID>
+			<Name>Fuschia</Name>
+			<SwatchColor>fuschia</SwatchColor>
+			<SortOrder>7</SortOrder>
+		</Color>
+		<Color>
+			<GUID>F03DF287-A348-40D0-BB96-CB675EA1431F</GUID>
+			<Name>Pink</Name>
+			<SwatchColor>darkPink</SwatchColor>
+			<SortOrder>6</SortOrder>
+		</Color>
 	</Colors>
 	<Properties>
 		<Property>
-			<GUID>25342DF9-F51B-425C-96A0-FE037D7DA403</GUID>
-			<Name>Scene</Name>
-			<Icon>flag</Icon>
-			<Type>boolean</Type>
-			<SortOrder>0</SortOrder>
-			<CalculateFromChildren>0</CalculateFromChildren>
-			<CalculationMode>all</CalculationMode>
-			<UseForFadingEvents>0</UseForFadingEvents>
-			<IsMandatory>0</IsMandatory>
-		</Property>
-		<Property>
-			<GUID>6D65F5AD-9F45-4D95-96BF-E50E36A71C0E</GUID>
-			<Name>Description</Name>
+			<GUID>85565552-27A0-44BE-A0F0-BCF035B052AD</GUID>
+			<Name>Notes</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
 			<SortOrder>1</SortOrder>
 			<CalculateFromChildren>0</CalculateFromChildren>
-			<CalculationMode>default</CalculationMode>
+			<CalculationMode></CalculationMode>
 			<UseForFadingEvents>0</UseForFadingEvents>
 			<IsMandatory>0</IsMandatory>
 		</Property>
 		<Property>
-			<GUID>F125FB53-CDA9-45C5-A65F-08852F5921C5</GUID>
-			<Name>Notes</Name>
+			<GUID>B1BE2973-FE7F-4EFB-94CB-DE06419B203F</GUID>
+			<Name>Description</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
-			<SortOrder>2</SortOrder>
+			<SortOrder>0</SortOrder>
 			<CalculateFromChildren>0</CalculateFromChildren>
-			<CalculationMode></CalculationMode>
+			<CalculationMode>default</CalculationMode>
 			<UseForFadingEvents>0</UseForFadingEvents>
 			<IsMandatory>0</IsMandatory>
 		</Property>
 	</Properties>
 	<RangeProperties>
 		<RangeProperty>
-			<GUID>F4821F96-ED3A-46F1-8CFD-22CE734F61CC</GUID>
+			<GUID>3E5A6186-B97B-4477-8BAB-2D7ED00A7020</GUID>
 			<Name>Date</Name>
 			<Type>date</Type>
 			<MinUnitScale>hour</MinUnitScale>
