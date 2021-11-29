@@ -27,16 +27,22 @@ class Aeon2Converter(YwCnvUi):
         if fileExtension == JsonTimeline2.EXTENSION:
             sourceFile = JsonTimeline2(sourcePath, **kwargs)
 
+            if os.path.isfile(fileName + Yw7File.EXTENSION):
+                targetFile = Yw7Sync(fileName + Yw7Sync.EXTENSION, **kwargs)
+                sourceFile.ywProject = targetFile
+                targetFile.back_up()
+                self.import_to_yw(sourceFile, targetFile)
+
+            else:
+                targetFile = Yw7File(fileName + Yw7File.EXTENSION, **kwargs)
+                self.create_yw7(sourceFile, targetFile)
+
+        elif fileExtension == Yw7File.EXTENSION:
+            sourceFile = Yw7File(sourcePath, **kwargs)
+            targetFile = JsonTimeline2(fileName + JsonTimeline2.EXTENSION, **kwargs)
+            targetFile.back_up()
+            self.export_from_yw(sourceFile, targetFile)
+
         else:
             self.ui.set_info_how('ERROR: File type of "' + os.path.normpath(sourcePath) + '" not supported.')
             return
-
-        if os.path.isfile(fileName + Yw7File.EXTENSION):
-            targetFile = Yw7Sync(fileName + Yw7Sync.EXTENSION, **kwargs)
-            sourceFile.ywProject = targetFile
-            targetFile.back_up()
-            self.import_to_yw(sourceFile, targetFile)
-
-        else:
-            targetFile = Yw7File(fileName + Yw7File.EXTENSION, **kwargs)
-            self.create_yw7(sourceFile, targetFile)
