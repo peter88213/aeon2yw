@@ -20,7 +20,7 @@ For existing timelines you have two choices:
 
 #### Mandatory Timeline settings
 
-Create a new event property named "Scene". It is of the "Yes / No" type, so you get a checkbox where you can mark an event as a scene.
+Make sure there is an arc called "Narrative". You can mark any event as a scene by assigning it to this arc.
 
 ![Timeline Settings](Screenshots/Aeon2_add_scene.png)
 
@@ -36,10 +36,6 @@ You can rename existing entity types to match yWriter's naming conventions.
 ![Timeline Settings](Screenshots/Aeon2_add_character.png)
 
 Important: "Participants" are exported to yWriter as scene characters.
-
-If you wish to set the viewpoint, you can add a "Viewpoint" role (do not allow multiple per event).
-
-![Timeline Settings](Screenshots/Aeon2_add_viewpoint.png)
 
 Entities named "Location" and "Item" are converted to yWriter locations and items.
 
@@ -64,11 +60,11 @@ Depending on your timeline setup, you can now specify characters, locations and 
 
 ## Edit events in the Inspector
 
-Depending on your timeline setup, you can now enter descriptions and notes to your events via the "Values" tab.
+If you assign an event to the "Narrative" arc, the event is exported as a regular scene to yWriter.
 
 ![Timeline Inspector](Screenshots/Aeon2_event.png)
 
-If you tick the "Scene" checkbox, the event is exported as a regular scene to yWriter.
+Depending on your timeline setup, you can now enter descriptions and notes to your events via the "Values" tab.
 
 ![Timeline Inspector](Screenshots/Aeon2_values.png)
 
@@ -78,33 +74,30 @@ Characters, locations and items can be added to the events via the "Roles" tab.
 
 Pre-defined entities can be selected via a dropdown menu.
 
-![Timeline Inspector](Screenshots/Aeon2_location.png)
-
-Same to the viewpoint. It makes no difference whether the viewpoint character is listed as a "Participant" or not.
-
-![Timeline Inspector](Screenshots/Aeon2_viewpoint.png)
+![Timeline Inspector](Screenshots/Aeon2_participants.png)
 
 
-
-## CSV export from Aeon Timeline 2
-
-![Timeline Export](Screenshots/Aeon2_export.png)
-
-
-- The csv file must be **comma**-separated.
-- Date format is like **1940-11-27**.
-- Time format is like **17:43**.
-
-![Timeline Export](Screenshots/Aeon2_export_settings.png)
 
 ## Create a new yWriter project
 
-Now launch the converter by dragging the csv file and dropping it on the "aeon2yw" shortcut icon. 
+Launch the converter by dragging the *.aeonzip* file and dropping it on the "aeon2yw" shortcut icon. 
 
 ![Launch converter](Screenshots/Launch_converter.png)
 
 If everything goes right, you will now find a new yWriter 7 project file in your folder. Open it by double-clicking on the icon.
 
 ![Folder](Screenshots/folder.png)
+
+## Update an existing yWriter project
+
+If a yWriter project with the same name already exists, you can update the scene dates and durations from the timeline. Launch the converter by dragging the *.aeonzip* file and dropping it on the "aeon2yw" shortcut icon as shown above. 
+
+
+## Synchronize the timeline
+
+If a yWriter project with the same name exists, you can update the scene dates and durations from the yWriter project. Events are created from new scenes. Launch the converter by dragging the *.yw7* file and dropping it on the "aeon2yw" shortcut icon. 
+
+![Launch sync](Screenshots/Launch_sync.png)
+
 
     

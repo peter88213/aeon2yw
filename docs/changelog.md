@@ -8,6 +8,15 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.20.0 Beta release
+
+- Abandon the "Scene" property. Scene events are to be assigned to the "Narrative" arc.
+- Synchronize existing Aeon project
+    - Scene date/time/duration is updated when scene titles match.
+    - Generate events from new scenes and assign them to the "narrative" arc.
+
+Based on paeon v0.12.0 and PyWriter v3.28.0
+
 ### v0.18.0 Beta release
 
 - Synchronize existing yWriter project: Scene date/time/duration is updated when scene titles match.

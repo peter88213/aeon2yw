@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aeon Timeline 2 csv to yWriter converter 
+"""Aeon Timeline 2 to yWriter converter and synchronizer
 
 Version @release
 Requires Python 3.7 or above
@@ -41,7 +41,7 @@ def run(sourcePath, silentMode=True, installDir=''):
         ui = Ui('')
 
     else:
-        ui = UiTk('Aeon Timeline 2 csv to yWriter converter @release')
+        ui = UiTk('Aeon Timeline 2 to yWriter converter and synchronizer @release')
 
     #--- Try to get persistent configuration data
 
@@ -73,11 +73,11 @@ def run(sourcePath, silentMode=True, installDir=''):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Aeon Timeline 2 to yWriter converter',
+        description='Aeon Timeline 2 to yWriter converter and synchronizer',
         epilog='')
     parser.add_argument('sourcePath',
                         metavar='Sourcefile',
-                        help='The path of the aeonzip or csv file.')
+                        help='The path of the aeonzip or yw7 file.')
 
     parser.add_argument('--silent',
                         action="store_true",

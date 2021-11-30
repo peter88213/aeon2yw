@@ -2,7 +2,10 @@
 
 ------------------------------------------------------------------
 
-The aeon2yw Python script creates a new yWriter 7 project from Aeon Timeline 2, or updates date/time7duration in an existing yWriter 7 project.
+The aeon2yw Python script 
+- creates a new yWriter 7 project from Aeon Timeline 2, or 
+- updates date/time/duration in an existing yWriter 7 project from a timeline, or
+- updates date/time/duration and creates new events in a timeline from a yWriter 7 project.
 
 ## Instructions for use
 
@@ -10,13 +13,15 @@ You might want to have a look at the [tutorial](https://peter88213.github.io/aeo
 
 ### Intended usage
 
-The included installation script prompts you to create a shortcut on the desktop. You can launch the program by dragging an *aeonzip* file and dropping it on the shortcut icon. 
+The included installation script prompts you to create a shortcut on the desktop. 
+- If you drag an *.aeonzip* file onto it and drop it, either a new yWriter project is generated or an existing one is synchronized. 
+- If you drag a yWriter project and drop it on the icon, an existing *.aeonzip* file is synchronized. 
 
 ### Command line usage
 
 Alternatively, you can
 
-- launch the program on the command line passing the yWriter project file as an argument, or
+- launch the program on the command line passing the *.aeonzip* or *.yw7* file as an argument, or
 - launch the program via a batch file.
 
 usage: `aeon2yw.pyw [--silent] Sourcefile`
@@ -25,7 +30,7 @@ usage: `aeon2yw.pyw [--silent] Sourcefile`
 
 `Sourcefile` 
 
-The path of the *.aeonzip* file.
+The path of the *.aeonzip* or *.yw7* file.
 
 #### optional arguments:
 
@@ -130,11 +135,21 @@ The names/column labels refer to timelines based on the "yWriter" template.
 
 ## Update rules for existing yWriter projects
 
--   Only scenes that have the same title as an event are considered.
+-   Only scenes that have the same title as an event are updated.
 -   If a scene title occurs more than once, the program aborts with an error message.
 -   Only scene date, scene time, and scene duration are updated.
 - 	The start date is overwritten, if the start year is 100 or above.
 -	The scene duration overwritten, if the start year is 100 or above.
+
+
+## Update rules for Aeon Timeline 2 projects
+
+-   Only events that have the same title as a scene are updated.
+-   If a yWriter scene title occurs more than once, the program aborts with an error message.
+-   Only event date/time, and event duration are updated.
+- 	The start date is overwritten, if the start year is 100 or above.
+-	The scene duration overwritten, if the start year is 100 or above.
+-   Events are created from new scenes and assigned to the *Narrative* arc.
 
 
 ## Installation path

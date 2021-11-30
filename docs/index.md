@@ -4,10 +4,12 @@
 
 ## Features
 
+### Create a new yWriter project from a timeline
+
 - The release comes with a template for Aeon Timeline 2 that provides characters, locations and items, as well as yWriter's scene properties such as description and notes.
-- With this template, events get a "Scene" checkbox. Events marked as scenes are converted to regular scenes; other events become "Notes" scenes.
+- This template has a *Narrative* arc. Events assigned to this arc are considered scenes.
 - The aeon2yw Python script converts Aeon's *.aeonzip* project file into a new yWriter project.
-- Events marked as scenes are converted to scenes in one single chapter.
+- Events assigned to the *Narrative* arc are converted to regular scenes in one single chapter.
 - Other events are converted to "Notes" scenes in another chapter.
 - The scenes have a start time, if the year is between 100 and 9999.
 - The scenes have a duration.
@@ -15,7 +17,15 @@
 - Characters, locations and items are imported, if any.
 - Scene descriptions and scene notes are imported, if any.
 - Scene tags are imported, if any.
-- If a yWriter project with the same name as the timeline already exists, The date, time, and duration of scenes with a matching title are updated from the timeline.
+
+### Update an existing yWriter project from a timeline
+
+- Date, time, and duration of scenes with a matching title are updated from the timeline.
+
+### Update an existing timeline from a yWriter project
+
+- Date, time, and duration of scenes with a matching title are updated from the yWriter project.
+- New scenes are converted to events assigned to the *Narrative* arc.
 
  
 ## Requirements
@@ -28,9 +38,9 @@
 
 ## Download and install
 
-[Download the latest release (version 0.19.3)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.19.3.zip)
+[Download the latest release (version 0.20.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.20.0.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.19.3.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.20.0.zip" into a new folder.
 - Move into this new folder and launch **install.bat**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.
