@@ -25,7 +25,8 @@
 ### Update an existing timeline from a yWriter project
 
 - Date, time, and duration of scenes with a matching title are updated from the yWriter project.
-- New scenes are converted to events assigned to the *Narrative* arc.
+- New "Normal" scenes are converted to events assigned to the *Narrative* arc.
+- New "Notes" scenes are converted to events not assigned to any arc.
 
 ### Create a new timeline from a yWriter project
 

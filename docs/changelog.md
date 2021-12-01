@@ -8,6 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.22.1 Beta bugfix release
+
+- Fix a bug where "Trash" scenes are converted to events.
+- Fix a bug where unreadable timelines are generated if there is no "Narrative" arc.
+
+Based on paeon v0.14.1 and PyWriter v3.28.0.
+
 ### v0.22.0 Beta release
 
 - Make the colors keyword arguments.
