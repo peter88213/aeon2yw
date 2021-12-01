@@ -8,6 +8,15 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.22.0 Beta release
+
+- Make the colors keyword arguments.
+- Create events not assigned to an arc from "Notes" scenes.
+- Do not create events from unused and "Trash" scenes.
+- Check source and target for ambiguous titles.
+
+Based on paeon v0.14.0 and PyWriter v3.28.0.
+
 ### v0.20.0 Beta release
 
 - Abandon the "Viewpoint" property.

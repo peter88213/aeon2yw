@@ -25,17 +25,37 @@ class Yw7Sync(Yw7File):
         if message.startswith('ERROR'):
             return message
 
+        # Check the source for ambiguous titles.
+
+        scIdsByTitles = {}
+
+        for scId in source.scenes:
+
+            if source.scenes[scId].title in scIdsByTitles:
+                return 'ERROR: Ambiguous Aeon event title "' + source.scenes[scId].title + '".'
+
+            else:
+                scIdsByTitles[source.scenes[scId].title] = scId
+
         # Get scene titles.
 
         scIdsByTitles = {}
 
-        for scId in self.scenes:
+        for chId in self.chapters:
 
-            if self.scenes[scId].title in scIdsByTitles:
-                return 'ERROR: Cannot update because of ambiguous scene titles.'
+            if self.chapters[chId].isTrash:
+                continue
 
-            else:
-                scIdsByTitles[self.scenes[scId].title] = scId
+            for scId in self.chapters[chId].srtScenes:
+
+                if self.scenes[scId].isUnused and not self.scenes[scId].isNotesScene:
+                    continue
+
+                if self.scenes[scId].title in scIdsByTitles:
+                    return 'ERROR: Ambiguous yWriter scene title "' + self.scenes[scId].title + '".'
+
+                else:
+                    scIdsByTitles[self.scenes[scId].title] = scId
 
         # Get date/time/duration from the source, if the scene title matches.
 

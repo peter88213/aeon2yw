@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronize yWriter and Aeon Timeline 2
+"""Synchronize Aeon Timeline 2 and yWriter
 
 Version @release
 Requires Python 3.7 or above
@@ -43,7 +43,7 @@ def run(sourcePath, silentMode=True, installDir=''):
         ui = Ui('')
 
     else:
-        ui = UiTk('Synchronize yWriter and Aeon Timeline 2 @release')
+        ui = UiTk('Synchronize Aeon Timeline 2 and yWriter @release')
 
     #--- Try to get persistent configuration data
 
@@ -75,7 +75,7 @@ def run(sourcePath, silentMode=True, installDir=''):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Synchronize yWriter and Aeon Timeline 2',
+        description='Synchronize Aeon Timeline 2 and yWriter',
         epilog='')
     parser.add_argument('sourcePath',
                         metavar='Sourcefile',

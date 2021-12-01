@@ -125,6 +125,7 @@ The changed entries are sufficient.
 
 The names/column labels refer to timelines based on the "yWriter" template. 
 
+-   If an Aeon event title occurs more than once, the program aborts with an error message.
 -   All events assigned to the "Narrative" arc are converted to regular scenes and placed in a regular chapter (*).
 -   All events not assigned to the "Narrative" arc are converted to "Notes" scenes and placed in a "Notes" chapter (*).
 -   All scenes are sorted chronologically. 
@@ -144,7 +145,8 @@ The names/column labels refer to timelines based on the "yWriter" template.
 ## Update rules for existing yWriter projects
 
 -   Only scenes that have the same title as an event are updated.
--   If a scene title occurs more than once, the program aborts with an error message.
+-   If an Aeon event title occurs more than once, the program aborts with an error message.
+-   If a yWriter scene title occurs more than once, the program aborts with an error message.
 -   Only scene date, scene time, and scene duration are updated.
 - 	The start date is overwritten, if the start year is 100 or above.
 -	The scene duration overwritten, if the start year is 100 or above.
@@ -153,6 +155,7 @@ The names/column labels refer to timelines based on the "yWriter" template.
 ## Update rules for Aeon Timeline 2 projects
 
 -   Only events that have the same title as a scene are updated.
+-   If an Aeon event title occurs more than once, the program aborts with an error message.
 -   If a yWriter scene title occurs more than once, the program aborts with an error message.
 -   Only event date/time, and event duration are updated.
 - 	The start date is overwritten, if the start year is 100 or above.

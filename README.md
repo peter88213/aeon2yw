@@ -1,5 +1,5 @@
 # aeon2yw
-Synchronize yWriter and Aeon Timeline 2.
+Synchronize Aeon Timeline 2 and yWriter.
 
 For more information, see the [project homepage](https://peter88213.github.io/aeon2yw) with description and download instructions.
 
