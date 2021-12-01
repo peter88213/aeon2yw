@@ -10,6 +10,7 @@ See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projec
 
 ### v0.20.0 Beta release
 
+- Abandon the "Viewpoint" property.
 - Abandon the "Scene" property. Scene events are to be assigned to the "Narrative" arc.
 - Synchronize existing Aeon project
     - Scene date/time/duration is updated when scene titles match.
