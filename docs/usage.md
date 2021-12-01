@@ -149,19 +149,16 @@ The names/column labels refer to timelines based on the "yWriter" template.
 -   If a yWriter scene title occurs more than once, the program aborts with an error message.
 -   Only scene date, scene time, and scene duration are updated.
 - 	The start date is overwritten, if the start year is 100 or above.
--	The scene duration overwritten, if the start year is 100 or above.
+-	The scene duration is overwritten, if the start year is 100 or above.
 
 
 ## Update rules for Aeon Timeline 2 projects
 
--   Only events that have the same title as a scene are updated.
 -   If an Aeon event title occurs more than once, the program aborts with an error message.
 -   If a yWriter scene title occurs more than once, the program aborts with an error message.
--   Only event date/time, and event duration are updated.
-- 	The start date is overwritten, if the start year is 100 or above.
--	The scene duration overwritten, if the start year is 100 or above.
 -   Events created from new "Normal" scenes are assigned to the *Narrative* arc.
 -   Events created from new "Notes" scenes are not assigned to any arc.
+-   A "Narrative" arc is created, if missing.
 
 
 ## Installation path

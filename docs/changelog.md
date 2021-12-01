@@ -8,6 +8,15 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.22.2 Beta release
+
+Enhance Aeon 2 update from yWriter
+
+- Add "Arc" type, if missing.
+- Add "Narrative" arc, if missing.
+
+Based on paeon v0.14.2 and PyWriter v3.28.0.
+
 ### v0.22.1 Beta bugfix release
 
 - Fix a bug where "Trash" scenes are converted to events.
