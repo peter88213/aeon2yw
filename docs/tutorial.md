@@ -78,7 +78,7 @@ Pre-defined entities can be selected via a dropdown menu.
 
 
 
-## Create a new yWriter project
+## Create a new yWriter project from a timeline
 
 Launch the converter by dragging the *.aeonzip* file and dropping it on the "aeon2yw" shortcut icon. 
 
@@ -100,4 +100,8 @@ If a yWriter project with the same name exists, you can update the scene dates a
 ![Launch sync](Screenshots/Launch_sync.png)
 
 
+## Create a new timeline from a yWriter project
+
+- First create a new timeline in the yWriter project folder with the same name as the yWriter project. Preferably use the supplied "yWriter" template. Add a "Narrative" arc.
+- Then synchronize this timeline with your yWriter project as described above.
     

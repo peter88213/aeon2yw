@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aeon Timeline 2 to yWriter converter and synchronizer
+"""Synchronize yWriter and Aeon Timeline 2
 
 Version @release
 Requires Python 3.7 or above
@@ -30,6 +30,8 @@ SETTINGS = dict(
     type_character='Character',
     type_location='Location',
     type_item='Item',
+    color_scene='Red',
+    color_event='Yellow',
 )
 
 OPTIONS = {}
@@ -41,7 +43,7 @@ def run(sourcePath, silentMode=True, installDir=''):
         ui = Ui('')
 
     else:
-        ui = UiTk('Aeon Timeline 2 to yWriter converter and synchronizer @release')
+        ui = UiTk('Synchronize yWriter and Aeon Timeline 2 @release')
 
     #--- Try to get persistent configuration data
 
@@ -73,7 +75,7 @@ def run(sourcePath, silentMode=True, installDir=''):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Aeon Timeline 2 to yWriter converter and synchronizer',
+        description='Synchronize yWriter and Aeon Timeline 2',
         epilog='')
     parser.add_argument('sourcePath',
                         metavar='Sourcefile',

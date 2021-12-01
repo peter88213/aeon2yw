@@ -108,6 +108,14 @@ type_item = Item
 
 # Name of the user-defined "Item" type
 
+color_scene = Red
+
+# Color of new scene events
+
+color_event = Yellow
+
+# Color of new non-scene events
+
 ```
 
 Note: Your custom configuration file does not have to contain all the entries listed above. 
@@ -149,7 +157,8 @@ The names/column labels refer to timelines based on the "yWriter" template.
 -   Only event date/time, and event duration are updated.
 - 	The start date is overwritten, if the start year is 100 or above.
 -	The scene duration overwritten, if the start year is 100 or above.
--   Events are created from new scenes and assigned to the *Narrative* arc.
+-   Events created from new "Normal" scenes are assigned to the *Narrative* arc.
+-   Events created from new "Notes" scenes are not assigned to any arc.
 
 
 ## Installation path
