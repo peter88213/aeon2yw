@@ -508,7 +508,7 @@ class JsonTimeline2(Novel):
                 if int(scId) > scIdMax:
                     scIdMax = int(scId)
 
-        # Get date/time/duration from the source, if the scene title matches.
+        #--- Update data from the source, if the scene title matches.
 
         for chId in source.chapters:
 
@@ -519,6 +519,13 @@ class JsonTimeline2(Novel):
 
                 if source.scenes[srcId].title in scIdsByTitles:
                     scId = scIdsByTitles[source.scenes[srcId].title]
+
+                    #--- Update scene type.
+
+                    self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
+                    self.scenes[scId].isUnused = source.scenes[srcId].isUnused
+
+                    #--- Update scene start date/time.
 
                     if source.scenes[srcId].date or source.scenes[srcId].time:
 
@@ -541,6 +548,8 @@ class JsonTimeline2(Novel):
                     if source.scenes[srcId].day is not None:
                         self.scenes[scId].day = source.scenes[srcId].day
 
+                    #--- Update scene duration.
+
                     if source.scenes[srcId].lastsMinutes is not None:
                         self.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
 
@@ -551,7 +560,7 @@ class JsonTimeline2(Novel):
                         self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
 
                 elif source.scenes[srcId].isNotesScene or not source.scenes[srcId].isUnused:
-                    # Create a new event.
+                    # Create a new scene.
 
                     scIdMax += 1
                     newId = str(scIdMax)
@@ -603,70 +612,75 @@ class JsonTimeline2(Novel):
             return span
 
         def build_event(scene):
-            """Convert a scene into an event.
+            """Create a new event from a scene.
             """
-            rangeValue = dict(
-                minimumZoom=-1,
-                position={
-                    'precision': 'minute',
-                    'timestamp': get_timestamp(scene)
-                },
-                rangeProperty=self.tplDateGuid,
-                span=get_span(scene),
-            )
-
-            relationships = []
+            event = {
+                'attachments': [],
+                'color': '',
+                'displayId': get_display_id(),
+                'guid': get_uid(),
+                'links': [],
+                'locked': False,
+                'priority': 500,
+                'rangeValues': [{
+                    'minimumZoom': -1,
+                    'position': {
+                        'precision': 'minute',
+                        'timestamp': self.DATE_LIMIT
+                    },
+                    'rangeProperty': self.tplDateGuid,
+                    'span': {},
+                }],
+                'relationships': [],
+                'tags': [],
+                'title': scene.title,
+                'values': [],
+            }
 
             if scene.isNotesScene:
-                evColor = self.colors[self.eventColor]
+                event['color'] = self.colors[self.eventColor]
 
             else:
-                evColor = self.colors[self.sceneColor]
-
-                if self.narrativeArc:
-                    relationships.append(self.narrativeArc)
-
-            event = dict(
-                attachments=[],
-                color=evColor,
-                displayId=get_display_id(),
-                guid=get_uid(),
-                links=[],
-                locked=False,
-                priority=500,
-                rangeValues=[rangeValue],
-                relationships=relationships,
-                tags=[],
-                title=scene.title,
-                values=[],
-            )
-            if scene.tags:
-                event['tags'] = scene.tags
+                event['color'] = self.colors[self.sceneColor]
 
             return event
 
         #--- Create a list of event titles.
 
         eventIdsByTitle = {}
-        i = 0
+        eventCount = 0
 
         for evt in self.jsonData['events']:
-            eventIdsByTitle[evt['title']] = i
-            i += 1
+            eventIdsByTitle[evt['title']] = eventCount
+            eventCount += 1
 
         #--- Create new events from scenes not listed.
 
         for scId in self.scenes:
 
-            if self.scenes[scId].title in eventIdsByTitle:
-                evt = self.jsonData['events'][eventIdsByTitle[self.scenes[scId].title]]
-
-                if evt['rangeValues'][0]['position']['timestamp'] >= self.DATE_LIMIT:
-                    evt['rangeValues'][0]['span'] = get_span(self.scenes[scId])
-                    evt['rangeValues'][0]['position']['timestamp'] = get_timestamp(self.scenes[scId])
-
-            else:
+            if not self.scenes[scId].title in eventIdsByTitle:
                 newEvent = build_event(self.scenes[scId])
                 self.jsonData['events'].append(newEvent)
+                eventIdsByTitle[self.scenes[scId].title] = eventCount
+                eventCount += 1
+
+            evt = self.jsonData['events'][eventIdsByTitle[self.scenes[scId].title]]
+
+            if evt['rangeValues'][0]['position']['timestamp'] >= self.DATE_LIMIT:
+                evt['rangeValues'][0]['span'] = get_span(self.scenes[scId])
+                evt['rangeValues'][0]['position']['timestamp'] = get_timestamp(self.scenes[scId])
+
+            if self.scenes[scId].tags:
+                evt['tags'] = self.scenes[scId].tags
+
+            if self.narrativeArc:
+
+                if self.scenes[scId].isNotesScene:
+
+                    if self.narrativeArc in evt['relationships']:
+                        evt['relationships'].remove(self.narrativeArc)
+
+                elif self.narrativeArc not in evt['relationships']:
+                    evt['relationships'].append(self.narrativeArc)
 
         return save_timeline(self.jsonData, self.filePath)

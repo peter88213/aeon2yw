@@ -20,13 +20,14 @@
 
 ### Update an existing yWriter project from a timeline
 
-- Date, time, and duration of scenes with a matching title are updated from the timeline.
+- Type, date, time, and duration of scenes with a matching title are updated from the timeline.
 
 ### Update an existing timeline from a yWriter project
 
 - Date, time, and duration of events with a matching title are updated from the yWriter project.
-- New "Normal" scenes are converted to events assigned to the *Narrative* arc.
-- New "Notes" scenes are converted to events not assigned to any arc.
+- "Normal" scenes are converted to events assigned to the *Narrative* arc.
+- "Notes" scenes are converted to events not assigned to the *Narrative* arc.
+- A *Narrative* arc is created, if missing.
 
 ### Create a new timeline from a yWriter project
 

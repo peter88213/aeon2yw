@@ -150,6 +150,8 @@ The names/column labels refer to timelines based on the "yWriter" template.
 -   Scene date, scene time, and scene duration are updated.
 - 	The start date is overwritten, if the start year is 100 or above.
 -	The scene duration is overwritten, if the start year is 100 or above.
+-   Scenes updated from "Narrative" events are "Normal" type.
+-   Scenes updated from non-"Narrative" events are "Notes" type.
 
 
 ## Update rules for Aeon Timeline 2 projects
@@ -158,8 +160,8 @@ The names/column labels refer to timelines based on the "yWriter" template.
 -   If a yWriter scene title occurs more than once, the program aborts with an error message.
 -   Event date/time and event span are updated, if the start year is 100 or above.
 -	Updated event span is specified in days/hours/minutes as in yWriter.
--   Events created from new "Normal" scenes are assigned to the *Narrative* arc.
--   Events created from new "Notes" scenes are not assigned to any arc.
+-   Events created or updated from "Normal" scenes are assigned to the *Narrative* arc.
+-   Events created or updated from "Notes" scenes are not assigned to the *Narrative* arc.
 -   A "Narrative" arc is created, if missing.
 
 

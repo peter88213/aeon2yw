@@ -57,41 +57,55 @@ class Yw7Sync(Yw7File):
                 else:
                     scIdsByTitles[self.scenes[scId].title] = scId
 
-        # Get date/time/duration from the source, if the scene title matches.
+        #--- Update data from the source, if the scene title matches.
 
-        for srcId in source.scenes:
+        for chId in source.chapters:
 
-            if source.scenes[srcId].title in scIdsByTitles:
-                scId = scIdsByTitles[source.scenes[srcId].title]
+            if source.chapters[chId].isTrash:
+                continue
 
-                if source.scenes[srcId].date or source.scenes[srcId].time:
+            for srcId in source.chapters[chId].srtScenes:
 
-                    if source.scenes[srcId].date is not None:
-                        self.scenes[scId].date = source.scenes[srcId].date
+                if source.scenes[srcId].title in scIdsByTitles:
+                    scId = scIdsByTitles[source.scenes[srcId].title]
 
-                    if source.scenes[srcId].time is not None:
-                        self.scenes[scId].time = source.scenes[srcId].time
+                    #--- Update scene type.
 
-                elif source.scenes[srcId].minute or source.scenes[srcId].hour or source.scenes[srcId].day:
-                    self.scenes[scId].date = None
-                    self.scenes[scId].time = None
+                    self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
+                    self.scenes[scId].isUnused = source.scenes[srcId].isNotesScene
 
-                if source.scenes[srcId].minute is not None:
-                    self.scenes[scId].minute = source.scenes[srcId].minute
+                    #--- Update scene start date/time.
 
-                if source.scenes[srcId].hour is not None:
-                    self.scenes[scId].hour = source.scenes[srcId].hour
+                    if source.scenes[srcId].date or source.scenes[srcId].time:
 
-                if source.scenes[srcId].day is not None:
-                    self.scenes[scId].day = source.scenes[srcId].day
+                        if source.scenes[srcId].date is not None:
+                            self.scenes[scId].date = source.scenes[srcId].date
 
-                if source.scenes[srcId].lastsMinutes is not None:
-                    self.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
+                        if source.scenes[srcId].time is not None:
+                            self.scenes[scId].time = source.scenes[srcId].time
 
-                if source.scenes[srcId].lastsHours is not None:
-                    self.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
+                    elif source.scenes[srcId].minute or source.scenes[srcId].hour or source.scenes[srcId].day:
+                        self.scenes[scId].date = None
+                        self.scenes[scId].time = None
 
-                if source.scenes[srcId].lastsDays is not None:
-                    self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
+                    if source.scenes[srcId].minute is not None:
+                        self.scenes[scId].minute = source.scenes[srcId].minute
+
+                    if source.scenes[srcId].hour is not None:
+                        self.scenes[scId].hour = source.scenes[srcId].hour
+
+                    if source.scenes[srcId].day is not None:
+                        self.scenes[scId].day = source.scenes[srcId].day
+
+                    #--- Update scene duration.
+
+                    if source.scenes[srcId].lastsMinutes is not None:
+                        self.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
+
+                    if source.scenes[srcId].lastsHours is not None:
+                        self.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
+
+                    if source.scenes[srcId].lastsDays is not None:
+                        self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
 
         return 'SUCCESS'
