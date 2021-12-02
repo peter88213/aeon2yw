@@ -7,7 +7,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from pywriter.yw.yw7_file import Yw7File
-from paeon.json_timeline2 import JsonTimeline2
+from pywaeon2.json_timeline2 import JsonTimeline2
 from pywaeon2.yw7_sync import Yw7Sync
 
 

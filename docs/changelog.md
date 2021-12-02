@@ -8,6 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.24.0 Optional beta release
+
+Same functionality as v0.22.2.
+Make the project independent from the paeon library.
+
+Based on PyWriter v3.28.0.
+
 ### v0.22.2 Beta release
 
 Enhance Aeon 2 update from yWriter
