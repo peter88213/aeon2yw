@@ -147,7 +147,7 @@ The names/column labels refer to timelines based on the "yWriter" template.
 -   Only scenes that have the same title as an event are updated.
 -   If an Aeon event title occurs more than once, the program aborts with an error message.
 -   If a yWriter scene title occurs more than once, the program aborts with an error message.
--   Only scene date, scene time, and scene duration are updated.
+-   Scene date, scene time, and scene duration are updated.
 - 	The start date is overwritten, if the start year is 100 or above.
 -	The scene duration is overwritten, if the start year is 100 or above.
 
@@ -156,6 +156,8 @@ The names/column labels refer to timelines based on the "yWriter" template.
 
 -   If an Aeon event title occurs more than once, the program aborts with an error message.
 -   If a yWriter scene title occurs more than once, the program aborts with an error message.
+-   Event date/time and event span are updated, if the start year is 100 or above.
+-	Updated event span is specified in days/hours/minutes as in yWriter.
 -   Events created from new "Normal" scenes are assigned to the *Narrative* arc.
 -   Events created from new "Notes" scenes are not assigned to any arc.
 -   A "Narrative" arc is created, if missing.

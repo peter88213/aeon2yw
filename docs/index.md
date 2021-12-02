@@ -24,6 +24,7 @@
 
 ### Update an existing timeline from a yWriter project
 
+- Date, time, and duration of events with a matching title are updated from the yWriter project.
 - New "Normal" scenes are converted to events assigned to the *Narrative* arc.
 - New "Notes" scenes are converted to events not assigned to any arc.
 
@@ -42,9 +43,9 @@
 
 ## Download and install
 
-[Download the latest release (version 0.24.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.24.0.zip)
+[Download the latest release (version 0.26.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.26.0.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.24.0.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.26.0.zip" into a new folder.
 - Move into this new folder and launch **install.bat**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

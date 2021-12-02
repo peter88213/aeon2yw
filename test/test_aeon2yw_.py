@@ -10,6 +10,7 @@ import os
 import unittest
 import aeon2yw_
 
+from pywaeon2.aeon2_fop import open_timeline
 
 # Test environment
 
@@ -23,7 +24,8 @@ TEST_EXEC_PATH = TEST_PATH + '/yw7/'
 # To be placed in TEST_DATA_PATH:
 NORMAL_AEON = TEST_DATA_PATH + 'normal.aeonzip'
 NORMAL_YW7 = TEST_DATA_PATH + 'normal.yw7'
-
+MINIMAL_AEON = TEST_DATA_PATH + 'minimal.aeonzip'
+CREATED_AEON = TEST_DATA_PATH + 'created.aeonzip'
 
 DATE_LIMITS_AEON = TEST_DATA_PATH + 'date_limits.aeonzip'
 DATE_LIMITS_YW7 = TEST_DATA_PATH + 'date_limits.yw7'
@@ -53,11 +55,6 @@ def remove_all_testfiles():
     try:
         os.remove(TEST_YW7)
 
-    except:
-        pass
-
-    try:
-        os.remove(TEST_CSV)
     except:
         pass
 
@@ -103,6 +100,14 @@ class NormalOperation(unittest.TestCase):
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_YW7))
+
+    @unittest.skip('cannot compare result because of random GUIDs')
+    def test_create(self):
+        copyfile(DATE_LIMITS_YW7, TEST_YW7)
+        copyfile(MINIMAL_AEON, TEST_AEON)
+        os.chdir(TEST_EXEC_PATH)
+        aeon2yw_.run(DATE_LIMITS_YW7, silentMode=True)
+        self.assertEqual(open_timeline(TEST_AEON)[1], open_timeline(CREATED_AEON)[1])
 
     def tearDown(self):
         remove_all_testfiles()

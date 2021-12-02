@@ -647,16 +647,25 @@ class JsonTimeline2(Novel):
 
         #--- Create a list of event titles.
 
-        eventTitles = []
+        eventIdsByTitle = {}
+        i = 0
 
         for evt in self.jsonData['events']:
-            eventTitles.append(evt['title'])
+            eventIdsByTitle[evt['title']] = i
+            i += 1
 
         #--- Create new events from scenes not listed.
 
         for scId in self.scenes:
 
-            if not self.scenes[scId].title in eventTitles:
+            if self.scenes[scId].title in eventIdsByTitle:
+                evt = self.jsonData['events'][eventIdsByTitle[self.scenes[scId].title]]
+
+                if evt['rangeValues'][0]['position']['timestamp'] >= self.DATE_LIMIT:
+                    evt['rangeValues'][0]['span'] = get_span(self.scenes[scId])
+                    evt['rangeValues'][0]['position']['timestamp'] = get_timestamp(self.scenes[scId])
+
+            else:
                 newEvent = build_event(self.scenes[scId])
                 self.jsonData['events'].append(newEvent)
 

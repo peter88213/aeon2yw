@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.26.0 Update event date/time/duration from yWriter
+
+- Update event date/time/span from yWriter, if the start year is 100 or above.
+
+Based on PyWriter v3.28.0.
+
 ### v0.24.0 Optional beta release
 
 Same functionality as v0.22.2.
