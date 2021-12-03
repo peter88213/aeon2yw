@@ -9,12 +9,20 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 
 from pywriter.yw.yw7_file import Yw7File
+from pywriter.model.chapter import Chapter
 
 
 class Yw7Sync(Yw7File):
     """yWriter 7 project file representation.
     Extend the superclass
     """
+
+    def __init__(self, filePath, **kwargs):
+        """Extend the superclass constructor,
+        defining instance variables.
+        """
+        Yw7File.__init__(self, filePath, **kwargs)
+        self.scenesOnly = kwargs['scenes_only']
 
     def merge(self, source):
         """Update date/time/duration from the source,
@@ -36,6 +44,25 @@ class Yw7Sync(Yw7File):
 
             else:
                 scIdsByTitles[source.scenes[scId].title] = scId
+
+        scIdMax = 0
+
+        for scId in self.scenes:
+
+            if int(scId) > scIdMax:
+                scIdMax = int(scId)
+
+        chIdMax = 0
+
+        for chId in self.chapters:
+
+            if int(chId) > chIdMax:
+                chIdMax = int(chId)
+
+        newChapterId = str(chIdMax + 1)
+        newChapter = Chapter()
+        newChapter.title = 'New scenes'
+        newChapterExists = False
 
         # Get scene titles.
 
@@ -65,6 +92,9 @@ class Yw7Sync(Yw7File):
                 continue
 
             for srcId in source.chapters[chId].srtScenes:
+
+                if source.scenes[srcId].isNotesScene and self.scenesOnly:
+                    continue
 
                 if source.scenes[srcId].title in scIdsByTitles:
                     scId = scIdsByTitles[source.scenes[srcId].title]
@@ -107,5 +137,20 @@ class Yw7Sync(Yw7File):
 
                     if source.scenes[srcId].lastsDays is not None:
                         self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
+
+                elif source.scenes[srcId].isNotesScene or not source.scenes[srcId].isUnused:
+
+                    # Create a new scene.
+
+                    scIdMax += 1
+                    newId = str(scIdMax)
+                    self.scenes[newId] = source.scenes[srcId]
+
+                    if not newChapterExists:
+                        self.chapters[newChapterId] = newChapter
+                        self.srtChapters.append(newChapterId)
+                        newChapterExists = True
+
+                    self.chapters[newChapterId].srtScenes.append(newId)
 
         return 'SUCCESS'
