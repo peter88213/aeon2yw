@@ -34,7 +34,9 @@ SETTINGS = dict(
     color_event='Yellow',
 )
 
-OPTIONS = {}
+OPTIONS = dict(
+    scenes_only=True
+)
 
 
 def run(sourcePath, silentMode=True, installDir=''):

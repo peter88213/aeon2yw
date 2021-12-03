@@ -80,6 +80,7 @@ class JsonTimeline2(Novel):
 
         # Miscellaneous
 
+        self.scenesOnly = kwargs['scenes_only']
         self.sceneColor = kwargs['color_scene']
         self.eventColor = kwargs['color_event']
         self.timestampMax = 0
@@ -560,11 +561,14 @@ class JsonTimeline2(Novel):
                         self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
 
                 elif source.scenes[srcId].isNotesScene or not source.scenes[srcId].isUnused:
-                    # Create a new scene.
 
-                    scIdMax += 1
-                    newId = str(scIdMax)
-                    self.scenes[newId] = source.scenes[srcId]
+                    if not (self.scenes[scId].isNotesScene and self.scenesOnly):
+
+                        # Create a new scene.
+
+                        scIdMax += 1
+                        newId = str(scIdMax)
+                        self.scenes[newId] = source.scenes[srcId]
 
         return 'SUCCESS'
 
