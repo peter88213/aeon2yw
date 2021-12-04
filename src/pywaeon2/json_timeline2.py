@@ -524,6 +524,9 @@ class JsonTimeline2(Novel):
                 else:
                     self.chapters[chIdNarrative].srtScenes.append(scId)
 
+        if self.timestampMax == 0:
+            self.timestampMax = self.DEFAULT_TIMESTAMP
+
         return 'SUCCESS: Data read from "' + os.path.normpath(self.filePath) + '".'
 
     def merge(self, source):
@@ -580,71 +583,76 @@ class JsonTimeline2(Novel):
 
             for srcId in source.chapters[chId].srtScenes:
 
+                if source.scenes[srcId].isUnused and not source.scenes[srcId].isNotesScene:
+                    continue
+
+                if source.scenes[srcId].isNotesScene and self.scenesOnly:
+                    continue
+
                 if source.scenes[srcId].title in scIdsByTitles:
                     scId = scIdsByTitles[source.scenes[srcId].title]
 
-                    #--- Update scene type.
+                else:
+                    #--- Create a new scene.
 
-                    if source.scenes[srcId].isNotesScene is not None:
-                        self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
+                    scIdMax += 1
+                    scId = str(scIdMax)
+                    self.scenes[scId] = Scene()
+                    self.scenes[scId].title = source.scenes[srcId].title
+                    self.scenes[scId].status = 1
 
-                    if source.scenes[srcId].isUnused is not None:
-                        self.scenes[scId].isUnused = source.scenes[srcId].isUnused
+                #--- Update scene type.
 
-                    #--- Update scene tags, description, and scene notes.
+                if source.scenes[srcId].isNotesScene is not None:
+                    self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
 
-                    if source.scenes[srcId].tags is not None:
-                        self.scenes[scId].tags = source.scenes[srcId].tags
+                if source.scenes[srcId].isUnused is not None:
+                    self.scenes[scId].isUnused = source.scenes[srcId].isUnused
 
-                    if source.scenes[srcId].sceneNotes is not None:
-                        self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
+                #--- Update scene tags, description, and scene notes.
 
-                    if source.scenes[srcId].desc is not None:
-                        self.scenes[scId].desc = source.scenes[srcId].desc
+                if source.scenes[srcId].tags is not None:
+                    self.scenes[scId].tags = source.scenes[srcId].tags
 
-                    #--- Update scene start date/time.
+                if source.scenes[srcId].sceneNotes is not None:
+                    self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
 
-                    if source.scenes[srcId].date or source.scenes[srcId].time:
+                if source.scenes[srcId].desc is not None:
+                    self.scenes[scId].desc = source.scenes[srcId].desc
 
-                        if source.scenes[srcId].date is not None:
-                            self.scenes[scId].date = source.scenes[srcId].date
+                #--- Update scene start date/time.
 
-                        if source.scenes[srcId].time is not None:
-                            self.scenes[scId].time = source.scenes[srcId].time
+                if source.scenes[srcId].date or source.scenes[srcId].time:
 
-                    elif source.scenes[srcId].minute or source.scenes[srcId].hour or source.scenes[srcId].day:
-                        self.scenes[scId].date = None
-                        self.scenes[scId].time = None
+                    if source.scenes[srcId].date is not None:
+                        self.scenes[scId].date = source.scenes[srcId].date
 
-                    if source.scenes[srcId].minute is not None:
-                        self.scenes[scId].minute = source.scenes[srcId].minute
+                    if source.scenes[srcId].time is not None:
+                        self.scenes[scId].time = source.scenes[srcId].time
 
-                    if source.scenes[srcId].hour is not None:
-                        self.scenes[scId].hour = source.scenes[srcId].hour
+                elif source.scenes[srcId].minute or source.scenes[srcId].hour or source.scenes[srcId].day:
+                    self.scenes[scId].date = None
+                    self.scenes[scId].time = None
 
-                    if source.scenes[srcId].day is not None:
-                        self.scenes[scId].day = source.scenes[srcId].day
+                if source.scenes[srcId].minute is not None:
+                    self.scenes[scId].minute = source.scenes[srcId].minute
 
-                    #--- Update scene duration.
+                if source.scenes[srcId].hour is not None:
+                    self.scenes[scId].hour = source.scenes[srcId].hour
 
-                    if source.scenes[srcId].lastsMinutes is not None:
-                        self.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
+                if source.scenes[srcId].day is not None:
+                    self.scenes[scId].day = source.scenes[srcId].day
 
-                    if source.scenes[srcId].lastsHours is not None:
-                        self.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
+                #--- Update scene duration.
 
-                    if source.scenes[srcId].lastsDays is not None:
-                        self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
+                if source.scenes[srcId].lastsMinutes is not None:
+                    self.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
 
-                elif source.scenes[srcId].isNotesScene or not source.scenes[srcId].isUnused:
+                if source.scenes[srcId].lastsHours is not None:
+                    self.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
 
-                    if not (self.scenes[scId].isNotesScene and self.scenesOnly):
-
-                        # Create a new scene.
-
-                        scIdMax += 1
-                        newId = str(scIdMax)
-                        self.scenes[newId] = source.scenes[srcId]
+                if source.scenes[srcId].lastsDays is not None:
+                    self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
 
         return 'SUCCESS'
 
