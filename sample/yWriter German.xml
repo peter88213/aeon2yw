@@ -143,7 +143,7 @@
 			<Name>Notes</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
-			<SortOrder>1</SortOrder>
+			<SortOrder>0</SortOrder>
 			<CalculateFromChildren>0</CalculateFromChildren>
 			<CalculationMode></CalculationMode>
 			<UseForFadingEvents>0</UseForFadingEvents>
@@ -154,7 +154,7 @@
 			<Name>Description</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
-			<SortOrder>0</SortOrder>
+			<SortOrder>1</SortOrder>
 			<CalculateFromChildren>0</CalculateFromChildren>
 			<CalculationMode>default</CalculationMode>
 			<UseForFadingEvents>0</UseForFadingEvents>

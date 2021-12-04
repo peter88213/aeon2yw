@@ -101,8 +101,11 @@ class Yw7Sync(Yw7File):
 
                     #--- Update scene type.
 
-                    self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
-                    self.scenes[scId].isUnused = source.scenes[srcId].isNotesScene
+                    if source.scenes[srcId].isNotesScene is not None:
+                        self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
+
+                    if source.scenes[srcId].isUnused is not None:
+                        self.scenes[scId].isUnused = source.scenes[srcId].isUnused
 
                     #--- Update scene start date/time.
 
@@ -137,6 +140,17 @@ class Yw7Sync(Yw7File):
 
                     if source.scenes[srcId].lastsDays is not None:
                         self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
+
+                    #--- Update scene tags, description, and scene notes.
+
+                    if source.scenes[srcId].tags is not None:
+                        self.scenes[scId].tags = source.scenes[srcId].tags
+
+                    if source.scenes[srcId].sceneNotes is not None:
+                        self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
+
+                    if source.scenes[srcId].desc is not None:
+                        self.scenes[scId].desc = source.scenes[srcId].desc
 
                 elif source.scenes[srcId].isNotesScene or not source.scenes[srcId].isUnused:
 

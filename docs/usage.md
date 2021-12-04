@@ -132,42 +132,45 @@ The changed entries are sufficient.
 
 The names/column labels refer to timelines based on the "yWriter" template. 
 
--   If an Aeon event title occurs more than once, the program aborts with an error message.
--   Events assigned to the "Narrative" arc are converted to regular scenes and placed in a regular chapter (*).
--   Events not assigned to the "Narrative" arc are converted to "Notes" scenes and placed in a "Notes" chapter (*).
--   All scenes are sorted chronologically. 
--   The scene status is "Outline". 
--	The event title is used as scene title (*).
-- 	The start date is used as scene date/time, if the start year is 100 or above.
--	The scene duration is calculated, if the start year is 100 or above.
--	Event tags are converted to scene tags, if any (*).
--   "Descriptions" are imported as scene descriptions, if any (*).
--   "Notes" are used as scene notes, if any (*).
--	"Participants" are imported as characters, if any (*).
--	"Locations" are imported, if any (*).
--	"Items" are imported, if any (*).
+- If an Aeon event title occurs more than once, the program aborts with an error message.
+- Events assigned to the "Narrative" arc are converted to regular scenes and placed in a regular chapter (*).
+- Events not assigned to the "Narrative" arc are converted to "Notes" scenes and placed in a "Notes" chapter (*).
+- All scenes are sorted chronologically. 
+- The scene status is "Outline". 
+- The event title is used as scene title (*).
+- The start date is used as scene date/time, if the start year is 100 or above.
+- The scene duration is calculated, if the start year is 100 or above.
+- Event tags are converted to scene tags, if any (*).
+- "Descriptions" are imported as scene descriptions, if any (*).
+- "Notes" are used as scene notes, if any (*).
+- "Participants" are imported as characters, if any (*).
+- "Locations" are imported, if any (*).
+- "Items" are imported, if any (*).
 
 ## Update rules for existing yWriter projects
 
--   Only scenes that have the same title as an event are updated.
--   If an Aeon event title occurs more than once, the program aborts with an error message.
--   If a yWriter scene title occurs more than once, the program aborts with an error message.
--   Scene date, scene time, and scene duration are updated.
-- 	The start date is overwritten, if the start year is 100 or above.
--	The scene duration is overwritten, if the start year is 100 or above.
--   Scenes updated from "Narrative" events are "Normal" type (*).
--   Optionally, scenes updated from non-"Narrative" events are "Notes" type (**).
+- Only scenes that have the same title as an event are updated.
+- If an Aeon event title occurs more than once, the program aborts with an error message.
+- If a yWriter scene title occurs more than once, the program aborts with an error message.
+- Scene date, scene time, and scene duration are updated.
+- Scene description, scene notes, and scene tags are updated.
+- The start date is overwritten, if the start year is 100 or above.
+- The scene duration is overwritten, if the start year is 100 or above.
+- Scenes updated from "Narrative" events are "Normal" type (*).
+- Optionally, scenes updated from non-"Narrative" events are "Notes" type (**).
 
 
 ## Update rules for Aeon Timeline 2 projects
 
--   If an Aeon event title occurs more than once, the program aborts with an error message.
--   If a yWriter scene title occurs more than once, the program aborts with an error message.
--   Event date/time and event span are updated, if the start year is 100 or above.
--	Updated event span is specified in days/hours/minutes as in yWriter.
--   Events created or updated from "Normal" scenes are assigned to the *Narrative* arc (*).
--   Optionally, events are created or updated from "Notes" scenes (not assigned to the *Narrative* arc)(**).
--   A "Narrative" arc is created, if missing.
+- If an Aeon event title occurs more than once, the program aborts with an error message.
+- If a yWriter scene title occurs more than once, the program aborts with an error message.
+- Event date/time and event span are updated, if the start year is 100 or above.
+- Updated event span is specified in days/hours/minutes as in yWriter.
+- Event description, event notes, and event tags are updated.
+- Event properties "Description" and "Notes" are created, if missing.
+- Events created or updated from "Normal" scenes are assigned to the *Narrative* arc (*).
+- Optionally, events are created or updated from "Notes" scenes (not assigned to the *Narrative* arc)(**).
+- A "Narrative" arc is created, if missing.
 
 (*) Applies to the default configuration, but can be customized.
 (**) To be set in the configuration file.

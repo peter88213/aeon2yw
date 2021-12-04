@@ -77,6 +77,8 @@ class JsonTimeline2(Novel):
         self.roleLocationGuid = None
         self.roleItemGuid = None
         self.entityNarrativeGuid = None
+        self.propertyDescGuid = None
+        self.propertyNotesGuid = None
 
         # Miscellaneous
 
@@ -186,6 +188,9 @@ class JsonTimeline2(Novel):
                 if ent['notes']:
                     self.characters[crId].notes = ent['notes']
 
+                else:
+                    ent['notes'] = ''
+
                 self.srtCharacters.append(crId)
 
             elif ent['entityType'] == self.typeLocationGuid:
@@ -206,16 +211,54 @@ class JsonTimeline2(Novel):
 
         #--- Get GUID of user defined properties.
 
-        propertyDescription = None
-        propertyNotes = None
+        hasPropertyNotes = False
+        hasPropertyDesc = False
 
         for tplPrp in self.jsonData['template']['properties']:
 
             if tplPrp['name'] == self.propertyDesc:
-                propertyDescription = tplPrp['guid']
+                self.propertyDescGuid = tplPrp['guid']
+                hasPropertyDesc = True
 
             elif tplPrp['name'] == self.propertyNotes:
-                propertyNotes = tplPrp['guid']
+                self.propertyNotesGuid = tplPrp['guid']
+                hasPropertyNotes = True
+
+        #--- Create user defined properties, if missing.
+
+        if not hasPropertyDesc:
+            self.propertyDescGuid = get_uid()
+            self.jsonData['template']['properties'].insert(0, {
+                'calcMode': 'default',
+                'calculate': False,
+                'fadeEvents': False,
+                'guid': self.propertyDescGuid,
+                'icon': 'tag',
+                'isMandatory': False,
+                'name': 'Description',
+                'sortOrder': 1,
+                'type': 'multitext'
+            })
+
+        if not hasPropertyNotes:
+            self.propertyNotesGuid = get_uid()
+            self.jsonData['template']['properties'].insert(0, {
+                'calcMode': 'default',
+                'calculate': False,
+                'fadeEvents': False,
+                'guid': self.propertyNotesGuid,
+                'icon': 'tag',
+                'isMandatory': False,
+                'name': 'Notes',
+                'sortOrder': 0,
+                'type': 'multitext'
+            })
+
+        i = 0
+
+        for tplPrp in self.jsonData['template']['properties']:
+            tplPrp['sortOrder'] = i
+            i += 1
 
         #--- Create scenes.
 
@@ -239,21 +282,34 @@ class JsonTimeline2(Novel):
 
             #--- Evaluate properties.
 
+            hasDescription = False
+            hasNotes = False
+
             for evtVal in evt['values']:
 
                 # Get scene description.
 
-                if evtVal['property'] == propertyDescription:
+                if evtVal['property'] == self.propertyDescGuid:
+                    hasDescription = True
 
                     if evtVal['value']:
                         self.scenes[scId].desc = evtVal['value']
 
                 # Get scene notes.
 
-                elif evtVal['property'] == propertyNotes:
+                elif evtVal['property'] == self.propertyNotesGuid:
+                    hasNotes = True
 
                     if evtVal['value']:
                         self.scenes[scId].sceneNotes = evtVal['value']
+
+            #--- Add description and scene notes, if missing.
+
+            if not hasDescription:
+                evt['values'].append({'property': self.propertyDescGuid, 'value': ''})
+
+            if not hasNotes:
+                evt['values'].append({'property': self.propertyNotesGuid, 'value': ''})
 
             #--- Get scene tags.
 
@@ -523,8 +579,22 @@ class JsonTimeline2(Novel):
 
                     #--- Update scene type.
 
-                    self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
-                    self.scenes[scId].isUnused = source.scenes[srcId].isUnused
+                    if source.scenes[srcId].isNotesScene is not None:
+                        self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
+
+                    if source.scenes[srcId].isUnused is not None:
+                        self.scenes[scId].isUnused = source.scenes[srcId].isUnused
+
+                    #--- Update scene tags, description, and scene notes.
+
+                    if source.scenes[srcId].tags is not None:
+                        self.scenes[scId].tags = source.scenes[srcId].tags
+
+                    if source.scenes[srcId].sceneNotes is not None:
+                        self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
+
+                    if source.scenes[srcId].desc is not None:
+                        self.scenes[scId].desc = source.scenes[srcId].desc
 
                     #--- Update scene start date/time.
 
@@ -638,7 +708,14 @@ class JsonTimeline2(Novel):
                 'relationships': [],
                 'tags': [],
                 'title': scene.title,
-                'values': [],
+                'values': [{
+                    'property': self.propertyNotesGuid,
+                    'value': ''
+                },
+                    {
+                    'property': self.propertyDescGuid,
+                    'value': ''
+                }],
             }
 
             if scene.isNotesScene:
@@ -658,24 +735,51 @@ class JsonTimeline2(Novel):
             eventIdsByTitle[evt['title']] = eventCount
             eventCount += 1
 
-        #--- Create new events from scenes not listed.
-
         for scId in self.scenes:
 
             if not self.scenes[scId].title in eventIdsByTitle:
+
+                #--- Create new events from scenes not listed.
+
                 newEvent = build_event(self.scenes[scId])
                 self.jsonData['events'].append(newEvent)
                 eventIdsByTitle[self.scenes[scId].title] = eventCount
                 eventCount += 1
 
+            #--- Set event properties from scene.
+
             evt = self.jsonData['events'][eventIdsByTitle[self.scenes[scId].title]]
+
+            #--- Set event date/time/span.
 
             if evt['rangeValues'][0]['position']['timestamp'] >= self.DATE_LIMIT:
                 evt['rangeValues'][0]['span'] = get_span(self.scenes[scId])
                 evt['rangeValues'][0]['position']['timestamp'] = get_timestamp(self.scenes[scId])
 
+            #--- Set scene description and notes.
+
+            for evtVal in evt['values']:
+
+                # Set scene description.
+
+                if evtVal['property'] == self.propertyDescGuid:
+
+                    if self.scenes[scId].desc:
+                        evtVal['value'] = self.scenes[scId].desc
+
+                # Set scene notes.
+
+                elif evtVal['property'] == self.propertyNotesGuid:
+
+                    if self.scenes[scId].sceneNotes:
+                        evtVal['value'] = self.scenes[scId].sceneNotes
+
+            #--- Set scene tags.
+
             if self.scenes[scId].tags:
                 evt['tags'] = self.scenes[scId].tags
+
+            #--- Assign "scene" events to the "Narrative" arc.
 
             if self.narrativeArc:
 
