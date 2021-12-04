@@ -8,6 +8,14 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.30.0 Update scene tags, notes, descriptions in both directions
+
+- Updating "Notes" scenes is optional now.
+- Create scenes from new events when updating yw7.
+- Update scene notes, descriptions, and tags in both directions.
+
+Based on PyWriter v3.28.0.
+
 ### v0.28.0 Update scene type in both directions
 
 - Update yWriter scene type from Aeon.
