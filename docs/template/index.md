@@ -21,12 +21,15 @@
 ### Update an existing yWriter project from a timeline
 
 - Date, time, and duration of scenes with a matching title are updated from the timeline.
-- Non-empty notes and description of scenes with a matching title are updated from the timeline.
+- Non-empty description of scenes with a matching title is updated from the timeline.
+- Non-empty tags of scenes with a matching title are updated from the timeline.
+- Notes of events with a matching title are appended to the scene notes.
 
 ### Update an existing timeline from a yWriter project
 
 - Date, time, duration of events with a matching title are updated from the yWriter project.
-- Non-empty notes and description of events with a matching title are updated from the yWriter project.
+- Non-empty description of events with a matching title is updated from the yWriter project.
+- Non-empty tags of events with a matching title are updated from the yWriter project.
 - "Normal" scenes are converted to events assigned to the *Narrative* arc.
 - Optionally, "Notes" scenes are converted to events not assigned to the *Narrative* arc.
 - A *Narrative* arc is created, if missing.

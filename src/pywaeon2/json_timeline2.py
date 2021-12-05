@@ -609,13 +609,12 @@ class JsonTimeline2(Novel):
                 if source.scenes[srcId].isUnused is not None:
                     self.scenes[scId].isUnused = source.scenes[srcId].isUnused
 
-                #--- Update scene tags, description, and scene notes.
+                #--- Update scene tags.
 
                 if source.scenes[srcId].tags is not None:
                     self.scenes[scId].tags = source.scenes[srcId].tags
 
-                if source.scenes[srcId].sceneNotes is not None:
-                    self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
+                #--- Update scene description.
 
                 if source.scenes[srcId].desc is not None:
                     self.scenes[scId].desc = source.scenes[srcId].desc

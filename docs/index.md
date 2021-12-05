@@ -21,12 +21,15 @@
 ### Update an existing yWriter project from a timeline
 
 - Date, time, and duration of scenes with a matching title are updated from the timeline.
-- Non-empty notes and description of scenes with a matching title are updated from the timeline.
+- Non-empty description of scenes with a matching title is updated from the timeline.
+- Non-empty tags of scenes with a matching title are updated from the timeline.
+- Notes of events with a matching title are appended to the scene notes.
 
 ### Update an existing timeline from a yWriter project
 
 - Date, time, duration of events with a matching title are updated from the yWriter project.
-- Non-empty notes and description of events with a matching title are updated from the yWriter project.
+- Non-empty description of events with a matching title is updated from the yWriter project.
+- Non-empty tags of events with a matching title are updated from the yWriter project.
 - "Normal" scenes are converted to events assigned to the *Narrative* arc.
 - Optionally, "Notes" scenes are converted to events not assigned to the *Narrative* arc.
 - A *Narrative* arc is created, if missing.
@@ -47,9 +50,9 @@
 
 ## Download and install
 
-[Download the latest release (version 0.29.4)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.29.4.zip)
+[Download the latest release (version 0.29.5)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.29.5.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.29.4.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.29.5.zip" into a new folder.
 - Move into this new folder and launch **install.bat**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

@@ -129,47 +129,35 @@ class Yw7Sync(Yw7File):
 
                 #--- Update scene start date/time.
 
-                if source.scenes[srcId].date or source.scenes[srcId].time:
-
-                    if source.scenes[srcId].date is not None:
-                        self.scenes[scId].date = source.scenes[srcId].date
-
-                    if source.scenes[srcId].time is not None:
-                        self.scenes[scId].time = source.scenes[srcId].time
-
-                elif source.scenes[srcId].minute or source.scenes[srcId].hour or source.scenes[srcId].day:
-                    self.scenes[scId].date = None
-                    self.scenes[scId].time = None
-
-                if source.scenes[srcId].minute is not None:
-                    self.scenes[scId].minute = source.scenes[srcId].minute
-
-                if source.scenes[srcId].hour is not None:
-                    self.scenes[scId].hour = source.scenes[srcId].hour
-
-                if source.scenes[srcId].day is not None:
-                    self.scenes[scId].day = source.scenes[srcId].day
+                self.scenes[scId].date = source.scenes[srcId].date
+                self.scenes[scId].time = source.scenes[srcId].time
 
                 #--- Update scene duration.
 
-                if source.scenes[srcId].lastsMinutes is not None:
-                    self.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
+                self.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
+                self.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
+                self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
 
-                if source.scenes[srcId].lastsHours is not None:
-                    self.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
-
-                if source.scenes[srcId].lastsDays is not None:
-                    self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
-
-                #--- Update scene tags, description, and scene notes.
+                #--- Update scene tags.
 
                 if source.scenes[srcId].tags is not None:
                     self.scenes[scId].tags = source.scenes[srcId].tags
 
-                if source.scenes[srcId].sceneNotes is not None:
-                    self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
+                #--- Update scene description.
 
                 if source.scenes[srcId].desc is not None:
                     self.scenes[scId].desc = source.scenes[srcId].desc
+
+                #--- Append event notes to scene notes.
+
+                if source.scenes[srcId].sceneNotes is not None:
+
+                    if self.scenes[scId].sceneNotes is not None:
+
+                        if not source.scenes[srcId].sceneNotes in self.scenes[scId].sceneNotes:
+                            self.scenes[scId].sceneNotes += ('\n' + source.scenes[srcId].sceneNotes)
+
+                    else:
+                        self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
 
         return 'SUCCESS'
