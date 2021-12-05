@@ -32,6 +32,7 @@
 - Non-empty tags of events with a matching title are updated from the yWriter project.
 - "Normal" scenes are converted to events assigned to the *Narrative* arc.
 - Optionally, "Notes" scenes are converted to events not assigned to the *Narrative* arc.
+- Entity types "Arc", "Character", "Location", and "Item" are created, if missing.
 - A *Narrative* arc is created, if missing.
 - Event properties "Description" and "Notes" are created, if missing.
 

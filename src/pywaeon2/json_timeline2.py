@@ -114,13 +114,15 @@ class JsonTimeline2(Novel):
         for tplRgp in self.jsonData['template']['rangeProperties']:
 
             if tplRgp['type'] == 'date':
-                self.tplDateGuid = ''
 
                 for tplRgpCalEra in tplRgp['calendar']['eras']:
 
                     if tplRgpCalEra['name'] == 'AD':
                         self.tplDateGuid = tplRgp['guid']
                         break
+
+        if self.tplDateGuid is None:
+            return 'ERROR: "AD" era is missing in the calendar.'
 
         #--- Get GUID of user defined types and roles.
 
@@ -496,6 +498,93 @@ class JsonTimeline2(Novel):
             percentAllocated=1,
             role=self.roleArcGuid,
         )
+
+        #--- Add "Character" type, if missing.
+
+        if self.typeCharacterGuid is None:
+            self.typeCharacterGuid = get_uid()
+            self.roleCharacterGuid = get_uid()
+            typeCount = len(self.jsonData['template']['types'])
+            self.jsonData['template']['types'].append(
+                {
+                    'color': 'iconRed',
+                    'guid': self.typeCharacterGuid,
+                    'icon': 'person',
+                    'name': self.typeCharacter,
+                    'persistent': False,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self.roleCharacterGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self.roleCharacter,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount + 1
+                })
+
+        #--- Add "Location" type, if missing.
+
+        if self.typeLocationGuid is None:
+            self.typeLocationGuid = get_uid()
+            self.roleLocationGuid = get_uid()
+            typeCount = len(self.jsonData['template']['types'])
+            self.jsonData['template']['types'].append(
+                {
+                    'color': 'iconOrange',
+                    'guid': self.typeLocationGuid,
+                    'icon': 'map',
+                    'name': self.typeLocation,
+                    'persistent': True,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self.roleLocationGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self.roleLocation,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount + 1
+                })
+
+        #--- Add "Item" type, if missing.
+
+        if self.typeItemGuid is None:
+            self.typeItemGuid = get_uid()
+            self.roleItemGuid = get_uid()
+            typeCount = len(self.jsonData['template']['types'])
+            self.jsonData['template']['types'].append(
+                {
+                    'color': 'iconPurple',
+                    'guid': self.typeItemGuid,
+                    'icon': 'cube',
+                    'name': self.typeItem,
+                    'persistent': True,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self.roleItemGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self.roleItem,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount + 1
+                })
 
         #--- Sort scenes by date/time and place them in chapters.
 

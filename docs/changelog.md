@@ -14,6 +14,9 @@ See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projec
 - Create scenes from new events when updating yw7.
 - Update scene descriptions and tags in both directions.
 - Append event notes to scene notes when updating yw7.
+- Add missing types and roles when updating the timeline.
+- Check whether there is an "AD" era.
+- Update the sample templates.
 
 Based on PyWriter v3.28.0.
 
