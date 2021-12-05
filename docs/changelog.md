@@ -8,7 +8,7 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
-### v0.30.0 Update scene tags, notes, descriptions in both directions
+### v0.30.0 Update scene tags and descriptions in both directions
 
 - Updating "Notes" scenes is optional now.
 - Create scenes from new events when updating yw7.
