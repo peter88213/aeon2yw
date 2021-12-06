@@ -37,6 +37,7 @@ UPDATED_YW7 = TEST_DATA_PATH + 'updated.yw7'
 # Test data
 INI_FILE = TEST_EXEC_PATH + 'aeon2yw.ini'
 TEST_YW7 = TEST_EXEC_PATH + 'yw7 Sample Project.yw7'
+TEST_YW7_BAK = TEST_EXEC_PATH + 'yw7 Sample Project.yw7.bak'
 TEST_AEON = TEST_EXEC_PATH + 'yw7 Sample Project.aeonzip'
 
 
@@ -54,6 +55,12 @@ def remove_all_testfiles():
 
     try:
         os.remove(TEST_YW7)
+
+    except:
+        pass
+
+    try:
+        os.remove(TEST_YW7_BAK)
 
     except:
         pass

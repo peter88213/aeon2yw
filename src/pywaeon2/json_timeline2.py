@@ -88,7 +88,11 @@ class JsonTimeline2(Novel):
         self.timestampMax = 0
         self.displayIdMax = 0.0
         self.colors = {}
-        self.narrativeArc = {}
+        self.arcCount = 0
+        self.eventIdsByTitle = {}
+        self.characterGuidsByTitle = {}
+        self.locationGuidsByTitle = {}
+        self.itemGuidsByTitle = {}
 
     def read(self):
         """Read the JSON part of the Aeon Timeline 2 file located at filePath, 
@@ -162,7 +166,123 @@ class JsonTimeline2(Novel):
                         self.roleItemGuid = tplTypRol['guid']
                         break
 
-        #--- Create characters, locations, and items.
+        #--- Add "Arc" type, if missing.
+
+        if self.typeArcGuid is None:
+            self.typeArcGuid = get_uid()
+            self.roleArcGuid = get_uid()
+            typeCount = len(self.jsonData['template']['types'])
+            self.jsonData['template']['types'].append(
+                {
+                    'color': 'iconYellow',
+                    'guid': self.typeArcGuid,
+                    'icon': 'book',
+                    'name': 'Arc',
+                    'persistent': True,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self.roleArcGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': 'Arc',
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount + 1
+                })
+
+        #--- Add "Character" type, if missing.
+
+        if self.typeCharacterGuid is None:
+            self.typeCharacterGuid = get_uid()
+            self.roleCharacterGuid = get_uid()
+            typeCount = len(self.jsonData['template']['types'])
+            self.jsonData['template']['types'].append(
+                {
+                    'color': 'iconRed',
+                    'guid': self.typeCharacterGuid,
+                    'icon': 'person',
+                    'name': self.typeCharacter,
+                    'persistent': False,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self.roleCharacterGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self.roleCharacter,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount + 1
+                })
+
+        #--- Add "Location" type, if missing.
+
+        if self.typeLocationGuid is None:
+            self.typeLocationGuid = get_uid()
+            self.roleLocationGuid = get_uid()
+            typeCount = len(self.jsonData['template']['types'])
+            self.jsonData['template']['types'].append(
+                {
+                    'color': 'iconOrange',
+                    'guid': self.typeLocationGuid,
+                    'icon': 'map',
+                    'name': self.typeLocation,
+                    'persistent': True,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self.roleLocationGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self.roleLocation,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount + 1
+                })
+
+        #--- Add "Item" type, if missing.
+
+        if self.typeItemGuid is None:
+            self.typeItemGuid = get_uid()
+            self.roleItemGuid = get_uid()
+            typeCount = len(self.jsonData['template']['types'])
+            self.jsonData['template']['types'].append(
+                {
+                    'color': 'iconPurple',
+                    'guid': self.typeItemGuid,
+                    'icon': 'cube',
+                    'name': self.typeItem,
+                    'persistent': True,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self.roleItemGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self.roleItem,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount + 1
+                })
+
+        #--- Get characters, locations, and items.
 
         crIdsByGuid = {}
         lcIdsByGuid = {}
@@ -170,18 +290,18 @@ class JsonTimeline2(Novel):
         characterCount = 0
         locationCount = 0
         itemCount = 0
-        arcCount = 0
 
         for ent in self.jsonData['entities']:
 
             if ent['entityType'] == self.typeArcGuid:
-                arcCount += 1
+                self.arcCount += 1
 
                 if ent['name'] == self.entityNarrative:
                     self.entityNarrativeGuid = ent['guid']
 
             elif ent['entityType'] == self.typeCharacterGuid:
                 characterCount += 1
+                self.characterGuidsByTitle[ent['name']] = ent['guid']
                 crId = str(characterCount)
                 crIdsByGuid[ent['guid']] = crId
                 self.characters[crId] = Character()
@@ -197,6 +317,7 @@ class JsonTimeline2(Novel):
 
             elif ent['entityType'] == self.typeLocationGuid:
                 locationCount += 1
+                self.locationGuidsByTitle[ent['name']] = ent['guid']
                 lcId = str(locationCount)
                 lcIdsByGuid[ent['guid']] = lcId
                 self.locations[lcId] = WorldElement()
@@ -205,6 +326,7 @@ class JsonTimeline2(Novel):
 
             elif ent['entityType'] == self.typeItemGuid:
                 itemCount += 1
+                self.itemGuidsByTitle[ent['name']] = ent['guid']
                 itId = str(itemCount)
                 itIdsByGuid[ent['guid']] = itId
                 self.items[itId] = WorldElement()
@@ -274,6 +396,7 @@ class JsonTimeline2(Novel):
         scIdsByDate = {}
 
         for evt in self.jsonData['events']:
+            self.eventIdsByTitle[evt['title']] = eventCount
             eventCount += 1
             scId = str(eventCount)
             self.scenes[scId] = Scene()
@@ -449,143 +572,6 @@ class JsonTimeline2(Novel):
                     itId = itIdsByGuid[evtRel['entity']]
                     self.scenes[scId].items.append(itId)
 
-        #--- Add "Arc" type, if missing.
-
-        if self.typeArcGuid is None:
-            self.typeArcGuid = get_uid()
-            self.roleArcGuid = get_uid()
-            typeCount = len(self.jsonData['template']['types'])
-            self.jsonData['template']['types'].append(
-                {
-                    'color': 'iconYellow',
-                    'guid': self.typeArcGuid,
-                    'icon': 'book',
-                    'name': 'Arc',
-                    'persistent': True,
-                    'roles': [
-                        {
-                            'allowsMultipleForEntity': True,
-                            'allowsMultipleForEvent': True,
-                            'allowsPercentAllocated': False,
-                            'guid': self.roleArcGuid,
-                            'icon': 'circle text',
-                            'mandatoryForEntity': False,
-                            'mandatoryForEvent': False,
-                            'name': 'Arc',
-                            'sortOrder': 0
-                        }
-                    ],
-                    'sortOrder': typeCount + 1
-                })
-
-        #--- Add "Narrative" arc, if missing.
-
-        if self.entityNarrativeGuid is None:
-            self.entityNarrativeGuid = get_uid()
-            self.jsonData['entities'].append(
-                {
-                    'entityType': self.typeArcGuid,
-                    'guid': self.entityNarrativeGuid,
-                    'icon': 'book',
-                    'name': self.entityNarrative,
-                    'notes': '',
-                    'sortOrder': arcCount + 1,
-                    'swatchColor': 'orange'
-                })
-
-        self.narrativeArc = dict(
-            entity=self.entityNarrativeGuid,
-            percentAllocated=1,
-            role=self.roleArcGuid,
-        )
-
-        #--- Add "Character" type, if missing.
-
-        if self.typeCharacterGuid is None:
-            self.typeCharacterGuid = get_uid()
-            self.roleCharacterGuid = get_uid()
-            typeCount = len(self.jsonData['template']['types'])
-            self.jsonData['template']['types'].append(
-                {
-                    'color': 'iconRed',
-                    'guid': self.typeCharacterGuid,
-                    'icon': 'person',
-                    'name': self.typeCharacter,
-                    'persistent': False,
-                    'roles': [
-                        {
-                            'allowsMultipleForEntity': True,
-                            'allowsMultipleForEvent': True,
-                            'allowsPercentAllocated': False,
-                            'guid': self.roleCharacterGuid,
-                            'icon': 'circle text',
-                            'mandatoryForEntity': False,
-                            'mandatoryForEvent': False,
-                            'name': self.roleCharacter,
-                            'sortOrder': 0
-                        }
-                    ],
-                    'sortOrder': typeCount + 1
-                })
-
-        #--- Add "Location" type, if missing.
-
-        if self.typeLocationGuid is None:
-            self.typeLocationGuid = get_uid()
-            self.roleLocationGuid = get_uid()
-            typeCount = len(self.jsonData['template']['types'])
-            self.jsonData['template']['types'].append(
-                {
-                    'color': 'iconOrange',
-                    'guid': self.typeLocationGuid,
-                    'icon': 'map',
-                    'name': self.typeLocation,
-                    'persistent': True,
-                    'roles': [
-                        {
-                            'allowsMultipleForEntity': True,
-                            'allowsMultipleForEvent': True,
-                            'allowsPercentAllocated': False,
-                            'guid': self.roleLocationGuid,
-                            'icon': 'circle text',
-                            'mandatoryForEntity': False,
-                            'mandatoryForEvent': False,
-                            'name': self.roleLocation,
-                            'sortOrder': 0
-                        }
-                    ],
-                    'sortOrder': typeCount + 1
-                })
-
-        #--- Add "Item" type, if missing.
-
-        if self.typeItemGuid is None:
-            self.typeItemGuid = get_uid()
-            self.roleItemGuid = get_uid()
-            typeCount = len(self.jsonData['template']['types'])
-            self.jsonData['template']['types'].append(
-                {
-                    'color': 'iconPurple',
-                    'guid': self.typeItemGuid,
-                    'icon': 'cube',
-                    'name': self.typeItem,
-                    'persistent': True,
-                    'roles': [
-                        {
-                            'allowsMultipleForEntity': True,
-                            'allowsMultipleForEvent': True,
-                            'allowsPercentAllocated': False,
-                            'guid': self.roleItemGuid,
-                            'icon': 'circle text',
-                            'mandatoryForEntity': False,
-                            'mandatoryForEvent': False,
-                            'name': self.roleItem,
-                            'sortOrder': 0
-                        }
-                    ],
-                    'sortOrder': typeCount + 1
-                })
-
         #--- Sort scenes by date/time and place them in chapters.
 
         chIdNarrative = '1'
@@ -622,6 +608,52 @@ class JsonTimeline2(Novel):
         """Update date/time/duration from the source,
         if the scene title matches.
         """
+
+        def get_display_id():
+            self.displayIdMax += 1
+            return str(int(self.displayIdMax))
+
+        def build_event(scene):
+            """Create a new event from a scene.
+            """
+            event = {
+                'attachments': [],
+                'color': '',
+                'displayId': get_display_id(),
+                'guid': get_uid(),
+                'links': [],
+                'locked': False,
+                'priority': 500,
+                'rangeValues': [{
+                    'minimumZoom': -1,
+                    'position': {
+                        'precision': 'minute',
+                        'timestamp': self.DATE_LIMIT
+                    },
+                    'rangeProperty': self.tplDateGuid,
+                    'span': {},
+                }],
+                'relationships': [],
+                'tags': [],
+                'title': scene.title,
+                'values': [{
+                    'property': self.propertyNotesGuid,
+                    'value': ''
+                },
+                    {
+                    'property': self.propertyDescGuid,
+                    'value': ''
+                }],
+            }
+
+            if scene.isNotesScene:
+                event['color'] = self.colors[self.eventColor]
+
+            else:
+                event['color'] = self.colors[self.sceneColor]
+
+            return event
+
         message = self.read()
 
         if message.startswith('ERROR'):
@@ -663,7 +695,9 @@ class JsonTimeline2(Novel):
                 if int(scId) > scIdMax:
                     scIdMax = int(scId)
 
-        #--- Update data from the source, if the scene title matches.
+        #--- Update scenes from the source.
+
+        eventCount = len(self.eventIdsByTitle)
 
         for chId in source.chapters:
 
@@ -689,6 +723,13 @@ class JsonTimeline2(Novel):
                     self.scenes[scId] = Scene()
                     self.scenes[scId].title = source.scenes[srcId].title
                     self.scenes[scId].status = 1
+
+                    # Create a new event.
+
+                    newEvent = build_event(self.scenes[scId])
+                    self.jsonData['events'].append(newEvent)
+                    self.eventIdsByTitle[self.scenes[scId].title] = eventCount
+                    eventCount += 1
 
                 #--- Update scene type.
 
@@ -747,10 +788,6 @@ class JsonTimeline2(Novel):
     def write(self):
         """Write selected properties to the file.
         """
-        def get_display_id():
-            self.displayIdMax += 1
-            return str(int(self.displayIdMax))
-
         def get_timestamp(scene):
             """Return a timestamp integer from the scene date.
             """
@@ -787,70 +824,34 @@ class JsonTimeline2(Novel):
 
             return span
 
-        def build_event(scene):
-            """Create a new event from a scene.
-            """
-            event = {
-                'attachments': [],
-                'color': '',
-                'displayId': get_display_id(),
-                'guid': get_uid(),
-                'links': [],
-                'locked': False,
-                'priority': 500,
-                'rangeValues': [{
-                    'minimumZoom': -1,
-                    'position': {
-                        'precision': 'minute',
-                        'timestamp': self.DATE_LIMIT
-                    },
-                    'rangeProperty': self.tplDateGuid,
-                    'span': {},
-                }],
-                'relationships': [],
-                'tags': [],
-                'title': scene.title,
-                'values': [{
-                    'property': self.propertyNotesGuid,
-                    'value': ''
-                },
-                    {
-                    'property': self.propertyDescGuid,
-                    'value': ''
-                }],
-            }
+        #--- Add "Narrative" arc, if missing.
 
-            if scene.isNotesScene:
-                event['color'] = self.colors[self.eventColor]
+        if self.entityNarrativeGuid is None:
+            self.entityNarrativeGuid = get_uid()
+            self.jsonData['entities'].append(
+                {
+                    'entityType': self.typeArcGuid,
+                    'guid': self.entityNarrativeGuid,
+                    'icon': 'book',
+                    'name': self.entityNarrative,
+                    'notes': '',
+                    'sortOrder': self.arcCount,
+                    'swatchColor': 'orange'
+                })
 
-            else:
-                event['color'] = self.colors[self.sceneColor]
+        narrativeArc = dict(
+            entity=self.entityNarrativeGuid,
+            percentAllocated=1,
+            role=self.roleArcGuid,
+        )
 
-            return event
-
-        #--- Create a list of event titles.
-
-        eventIdsByTitle = {}
-        eventCount = 0
-
-        for evt in self.jsonData['events']:
-            eventIdsByTitle[evt['title']] = eventCount
-            eventCount += 1
+        #--- Update events from scenes.
 
         for scId in self.scenes:
 
-            if not self.scenes[scId].title in eventIdsByTitle:
-
-                #--- Create new events from scenes not listed.
-
-                newEvent = build_event(self.scenes[scId])
-                self.jsonData['events'].append(newEvent)
-                eventIdsByTitle[self.scenes[scId].title] = eventCount
-                eventCount += 1
-
             #--- Set event properties from scene.
 
-            evt = self.jsonData['events'][eventIdsByTitle[self.scenes[scId].title]]
+            evt = self.jsonData['events'][self.eventIdsByTitle[self.scenes[scId].title]]
 
             #--- Set event date/time/span.
 
@@ -883,14 +884,12 @@ class JsonTimeline2(Novel):
 
             #--- Assign "scene" events to the "Narrative" arc.
 
-            if self.narrativeArc:
+            if self.scenes[scId].isNotesScene:
 
-                if self.scenes[scId].isNotesScene:
+                if narrativeArc in evt['relationships']:
+                    evt['relationships'].remove(narrativeArc)
 
-                    if self.narrativeArc in evt['relationships']:
-                        evt['relationships'].remove(self.narrativeArc)
-
-                elif self.narrativeArc not in evt['relationships']:
-                    evt['relationships'].append(self.narrativeArc)
+            elif narrativeArc not in evt['relationships']:
+                evt['relationships'].append(narrativeArc)
 
         return save_timeline(self.jsonData, self.filePath)
