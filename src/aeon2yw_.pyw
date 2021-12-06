@@ -36,7 +36,6 @@ SETTINGS = dict(
 
 OPTIONS = dict(
     scenes_only=True,
-    major_characters_only=False,
 )
 
 

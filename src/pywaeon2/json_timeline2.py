@@ -85,7 +85,6 @@ class JsonTimeline2(Novel):
         self.scenesOnly = kwargs['scenes_only']
         self.sceneColor = kwargs['color_scene']
         self.eventColor = kwargs['color_event']
-        self.majorCharactersOnly = kwargs['major_characters_only']
         self.timestampMax = 0
         self.displayIdMax = 0.0
         self.colors = {}
@@ -659,7 +658,12 @@ class JsonTimeline2(Novel):
         if message.startswith('ERROR'):
             return message
 
+        linkedCharacters = []
+        linkedLocations = []
+        linkedItems = []
+
         #--- Check the source for ambiguous titles.
+        # Check scenes.
 
         srcTitles = []
 
@@ -679,11 +683,24 @@ class JsonTimeline2(Novel):
                 else:
                     srcTitles.append(source.scenes[scId].title)
 
+                    # Collect characters, locations, and items assigned to scenes.
+
+                    if source.scenes[scId].characters:
+                        linkedCharacters = list(set(linkedCharacters + source.scenes[scId].characters))
+
+                    if source.scenes[scId].locations:
+                        linkedLocations = list(set(linkedLocations + source.scenes[scId].locations))
+
+                    if source.scenes[scId].items:
+                        linkedItems = list(set(linkedItems + source.scenes[scId].items))
+
+        # Check characters.
+
         srcNames = []
 
         for crId in source.characters:
 
-            if self.majorCharactersOnly and not source.characters[crId].isMajor:
+            if not crId in linkedCharacters:
                 continue
 
             if not source.characters[crId].fullName:
@@ -695,7 +712,38 @@ class JsonTimeline2(Novel):
             else:
                 srcNames.append(source.characters[crId].fullName)
 
+        # Check locations.
+
+        srcTitles = []
+
+        for lcId in source.locations:
+
+            if not lcId in linkedLocations:
+                continue
+
+            if source.locations[lcId].title in srcTitles:
+                return 'ERROR: Ambiguous yWriter location "' + source.locations[lcId].title + '".'
+
+            else:
+                srcTitles.append(source.locations[lcId].title)
+
+        # Check items.
+
+        srcTitles = []
+
+        for itId in source.items:
+
+            if not itId in linkedItems:
+                continue
+
+            if source.items[itId].title in srcTitles:
+                return 'ERROR: Ambiguous yWriter item "' + source.items[itId].title + '".'
+
+            else:
+                srcTitles.append(source.items[itId].title)
+
         #--- Check the target for ambiguous titles.
+        # Check scenes.
 
         scIdsByTitle = {}
 
@@ -707,6 +755,8 @@ class JsonTimeline2(Novel):
             else:
                 scIdsByTitle[self.scenes[scId].title] = scId
 
+        # Check characters.
+
         crIdsByName = {}
 
         for crId in self.characters:
@@ -716,6 +766,30 @@ class JsonTimeline2(Novel):
 
             else:
                 crIdsByName[self.characters[crId].fullName] = crId
+
+        # Check locations.
+
+        lcIdsByTitle = {}
+
+        for lcId in self.locations:
+
+            if self.locations[lcId].title in lcIdsByTitle:
+                return 'ERROR: Ambiguous Aeon location "' + self.locations[lcId].title + '".'
+
+            else:
+                lcIdsByTitle[self.locations[lcId].title] = lcId
+
+        # Check items.
+
+        itIdsByTitle = {}
+
+        for itId in self.items:
+
+            if self.items[itId].title in itIdsByTitle:
+                return 'ERROR: Ambiguous Aeon item "' + self.items[itId].title + '".'
+
+            else:
+                itIdsByTitle[self.items[itId].title] = itId
 
         #--- Update characters from the source.
 
@@ -727,8 +801,9 @@ class JsonTimeline2(Novel):
             if source.characters[srcCrId].fullName in crIdsByName:
                 crIdsBySrcId[srcCrId] = crIdsByName[source.characters[srcCrId].fullName]
 
-            elif not self.majorCharactersOnly or source.characters[srcCrId].isMajor:
-                #--- Create a new character.
+            elif srcCrId in linkedCharacters:
+
+                #--- Create a new character if it is assigned to at least one scene.
 
                 totalCharacters += 1
                 crId = str(totalCharacters)
@@ -745,6 +820,68 @@ class JsonTimeline2(Novel):
                         'notes': '',
                         'sortOrder': totalCharacters - 1,
                         'swatchColor': 'darkPink'
+                    })
+
+        #--- Update locations from the source.
+
+        totalLocations = len(self.locations)
+        lcIdsBySrcId = {}
+
+        for srcLcId in source.locations:
+
+            if source.locations[srcLcId].title in lcIdsByTitle:
+                lcIdsBySrcId[srcLcId] = lcIdsByTitle[source.locations[srcLcId].title]
+
+            elif srcLcId in linkedLocations:
+
+                #--- Create a new location if it is assigned to at least one scene.
+
+                totalLocations += 1
+                lcId = str(totalLocations)
+                lcIdsBySrcId[srcLcId] = lcId
+                self.locations[lcId] = source.locations[srcLcId]
+                newGuid = get_uid()
+                self.locationGuidById[lcId] = newGuid
+                self.jsonData['entities'].append(
+                    {
+                        'entityType': self.typeLocationGuid,
+                        'guid': newGuid,
+                        'icon': 'map',
+                        'name': self.locations[lcId].title,
+                        'notes': '',
+                        'sortOrder': totalLocations - 1,
+                        'swatchColor': 'orange'
+                    })
+
+        #--- Update Items from the source.
+
+        totalItems = len(self.items)
+        itIdsBySrcId = {}
+
+        for srcItId in source.items:
+
+            if source.items[srcItId].title in itIdsByTitle:
+                itIdsBySrcId[srcItId] = itIdsByTitle[source.items[srcItId].title]
+
+            elif srcItId in linkedItems:
+
+                #--- Create a new Item if it is assigned to at least one scene.
+
+                totalItems += 1
+                itId = str(totalItems)
+                itIdsBySrcId[srcItId] = itId
+                self.items[itId] = source.items[srcItId]
+                newGuid = get_uid()
+                self.itemGuidById[itId] = newGuid
+                self.jsonData['entities'].append(
+                    {
+                        'entityType': self.typeItemGuid,
+                        'guid': newGuid,
+                        'icon': 'cube',
+                        'name': self.items[itId].title,
+                        'notes': '',
+                        'sortOrder': totalItems - 1,
+                        'swatchColor': 'denim'
                     })
 
         #--- Update scenes from the source.
@@ -806,6 +943,26 @@ class JsonTimeline2(Novel):
 
                         if crId in crIdsBySrcId:
                             self.scenes[scId].characters.append(crIdsBySrcId[crId])
+
+                #--- Update scene locations.
+
+                if source.scenes[srcId].locations is not None:
+                    self.scenes[scId].locations = []
+
+                    for lcId in source.scenes[srcId].locations:
+
+                        if lcId in lcIdsBySrcId:
+                            self.scenes[scId].locations.append(lcIdsBySrcId[lcId])
+
+                #--- Update scene items.
+
+                if source.scenes[srcId].items is not None:
+                    self.scenes[scId].items = []
+
+                    for itId in source.scenes[srcId].items:
+
+                        if itId in itIdsBySrcId:
+                            self.scenes[scId].items.append(itIdsBySrcId[itId])
 
                 #--- Update scene start date/time.
 
@@ -941,6 +1098,7 @@ class JsonTimeline2(Novel):
                 evt['tags'] = self.scenes[scId].tags
 
             #--- Update characters, locations, and items.
+            # Delete assignments.
 
             newRel = []
 
@@ -958,16 +1116,46 @@ class JsonTimeline2(Novel):
                 else:
                     newRel.append(evtRel)
 
+            # Add characters.
+
             if self.scenes[scId].characters:
 
-                for chId in self.scenes[scId].characters:
+                for crId in self.scenes[scId].characters:
 
                     if self.scenes[scId].characters:
                         newRel.append(
                             {
-                                'entity': self.characterGuidById[chId],
+                                'entity': self.characterGuidById[crId],
                                 'percentAllocated': 1,
                                 'role': self.roleCharacterGuid,
+                            })
+
+            # Add locations.
+
+            if self.scenes[scId].locations:
+
+                for lcId in self.scenes[scId].locations:
+
+                    if self.scenes[scId].locations:
+                        newRel.append(
+                            {
+                                'entity': self.locationGuidById[lcId],
+                                'percentAllocated': 1,
+                                'role': self.roleLocationGuid,
+                            })
+
+            # Add items.
+
+            if self.scenes[scId].items:
+
+                for itId in self.scenes[scId].items:
+
+                    if self.scenes[scId].items:
+                        newRel.append(
+                            {
+                                'entity': self.itemGuidById[itId],
+                                'percentAllocated': 1,
+                                'role': self.roleItemGuid,
                             })
 
             evt['relationships'] = newRel
