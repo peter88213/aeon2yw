@@ -85,14 +85,14 @@ class JsonTimeline2(Novel):
         self.scenesOnly = kwargs['scenes_only']
         self.sceneColor = kwargs['color_scene']
         self.eventColor = kwargs['color_event']
+        self.majorCharactersOnly = kwargs['major_characters_only']
         self.timestampMax = 0
         self.displayIdMax = 0.0
         self.colors = {}
         self.arcCount = 0
-        self.eventIdsByTitle = {}
-        self.characterGuidsByTitle = {}
-        self.locationGuidsByTitle = {}
-        self.itemGuidsByTitle = {}
+        self.characterGuidById = {}
+        self.locationGuidById = {}
+        self.itemGuidById = {}
 
     def read(self):
         """Read the JSON part of the Aeon Timeline 2 file located at filePath, 
@@ -192,7 +192,7 @@ class JsonTimeline2(Novel):
                             'sortOrder': 0
                         }
                     ],
-                    'sortOrder': typeCount + 1
+                    'sortOrder': typeCount
                 })
 
         #--- Add "Character" type, if missing.
@@ -221,7 +221,7 @@ class JsonTimeline2(Novel):
                             'sortOrder': 0
                         }
                     ],
-                    'sortOrder': typeCount + 1
+                    'sortOrder': typeCount
                 })
 
         #--- Add "Location" type, if missing.
@@ -250,7 +250,7 @@ class JsonTimeline2(Novel):
                             'sortOrder': 0
                         }
                     ],
-                    'sortOrder': typeCount + 1
+                    'sortOrder': typeCount
                 })
 
         #--- Add "Item" type, if missing.
@@ -279,7 +279,7 @@ class JsonTimeline2(Novel):
                             'sortOrder': 0
                         }
                     ],
-                    'sortOrder': typeCount + 1
+                    'sortOrder': typeCount
                 })
 
         #--- Get characters, locations, and items.
@@ -301,11 +301,12 @@ class JsonTimeline2(Novel):
 
             elif ent['entityType'] == self.typeCharacterGuid:
                 characterCount += 1
-                self.characterGuidsByTitle[ent['name']] = ent['guid']
                 crId = str(characterCount)
                 crIdsByGuid[ent['guid']] = crId
                 self.characters[crId] = Character()
                 self.characters[crId].title = ent['name']
+                self.characters[crId].fullName = ent['name']
+                self.characterGuidById[crId] = ent['guid']
 
                 if ent['notes']:
                     self.characters[crId].notes = ent['notes']
@@ -317,21 +318,21 @@ class JsonTimeline2(Novel):
 
             elif ent['entityType'] == self.typeLocationGuid:
                 locationCount += 1
-                self.locationGuidsByTitle[ent['name']] = ent['guid']
                 lcId = str(locationCount)
                 lcIdsByGuid[ent['guid']] = lcId
                 self.locations[lcId] = WorldElement()
                 self.locations[lcId].title = ent['name']
                 self.srtLocations.append(lcId)
+                self.locationGuidById[lcId] = ent['guid']
 
             elif ent['entityType'] == self.typeItemGuid:
                 itemCount += 1
-                self.itemGuidsByTitle[ent['name']] = ent['guid']
                 itId = str(itemCount)
                 itIdsByGuid[ent['guid']] = itId
                 self.items[itId] = WorldElement()
                 self.items[itId].title = ent['name']
                 self.srtItems.append(itId)
+                self.itemGuidById[itId] = ent['guid']
 
         #--- Get GUID of user defined properties.
 
@@ -390,13 +391,12 @@ class JsonTimeline2(Novel):
                 tplPrp['sortOrder'] = i
                 i += 1
 
-        #--- Create scenes.
+        #--- Get scenes.
 
         eventCount = 0
         scIdsByDate = {}
 
         for evt in self.jsonData['events']:
-            self.eventIdsByTitle[evt['title']] = eventCount
             eventCount += 1
             scId = str(eventCount)
             self.scenes[scId] = Scene()
@@ -659,9 +659,9 @@ class JsonTimeline2(Novel):
         if message.startswith('ERROR'):
             return message
 
-        # Check the source for ambiguous titles.
+        #--- Check the source for ambiguous titles.
 
-        scIdsByTitles = {}
+        srcTitles = []
 
         for chId in source.chapters:
 
@@ -673,31 +673,83 @@ class JsonTimeline2(Novel):
                 if source.scenes[scId].isUnused and not source.scenes[scId].isNotesScene:
                     continue
 
-                if source.scenes[scId].title in scIdsByTitles:
+                if source.scenes[scId].title in srcTitles:
                     return 'ERROR: Ambiguous yWriter scene title "' + source.scenes[scId].title + '".'
 
                 else:
-                    scIdsByTitles[source.scenes[scId].title] = scId
+                    srcTitles.append(source.scenes[scId].title)
 
-        # Get scene titles.
+        srcNames = []
 
-        scIdsByTitles = {}
-        scIdMax = 0
+        for crId in source.characters:
+
+            if self.majorCharactersOnly and not source.characters[crId].isMajor:
+                continue
+
+            if not source.characters[crId].fullName:
+                return 'ERROR: Character "' + source.characters[crId].title + '" has no full name.'
+
+            if source.characters[crId].fullName in srcNames:
+                return 'ERROR: Ambiguous yWriter character "' + source.characters[crId].fullName + '".'
+
+            else:
+                srcNames.append(source.characters[crId].fullName)
+
+        #--- Check the target for ambiguous titles.
+
+        scIdsByTitle = {}
 
         for scId in self.scenes:
 
-            if self.scenes[scId].title in scIdsByTitles:
+            if self.scenes[scId].title in scIdsByTitle:
                 return 'ERROR: Ambiguous Aeon event title "' + self.scenes[scId].title + '".'
 
             else:
-                scIdsByTitles[self.scenes[scId].title] = scId
+                scIdsByTitle[self.scenes[scId].title] = scId
 
-                if int(scId) > scIdMax:
-                    scIdMax = int(scId)
+        crIdsByName = {}
+
+        for crId in self.characters:
+
+            if self.characters[crId].fullName in crIdsByName:
+                return 'ERROR: Ambiguous Aeon character "' + self.characters[crId].fullName + '".'
+
+            else:
+                crIdsByName[self.characters[crId].fullName] = crId
+
+        #--- Update characters from the source.
+
+        totalCharacters = len(self.characters)
+        crIdsBySrcId = {}
+
+        for srcCrId in source.characters:
+
+            if source.characters[srcCrId].fullName in crIdsByName:
+                crIdsBySrcId[srcCrId] = crIdsByName[source.characters[srcCrId].fullName]
+
+            elif not self.majorCharactersOnly or source.characters[srcCrId].isMajor:
+                #--- Create a new character.
+
+                totalCharacters += 1
+                crId = str(totalCharacters)
+                crIdsBySrcId[srcCrId] = crId
+                self.characters[crId] = source.characters[srcCrId]
+                newGuid = get_uid()
+                self.characterGuidById[crId] = newGuid
+                self.jsonData['entities'].append(
+                    {
+                        'entityType': self.typeCharacterGuid,
+                        'guid': newGuid,
+                        'icon': 'person',
+                        'name': self.characters[crId].fullName,
+                        'notes': '',
+                        'sortOrder': totalCharacters - 1,
+                        'swatchColor': 'darkPink'
+                    })
 
         #--- Update scenes from the source.
 
-        eventCount = len(self.eventIdsByTitle)
+        totalEvents = len(self.jsonData['events'])
 
         for chId in source.chapters:
 
@@ -712,24 +764,20 @@ class JsonTimeline2(Novel):
                 if source.scenes[srcId].isNotesScene and self.scenesOnly:
                     continue
 
-                if source.scenes[srcId].title in scIdsByTitles:
-                    scId = scIdsByTitles[source.scenes[srcId].title]
+                if source.scenes[srcId].title in scIdsByTitle:
+                    scId = scIdsByTitle[source.scenes[srcId].title]
 
                 else:
                     #--- Create a new scene.
 
-                    scIdMax += 1
-                    scId = str(scIdMax)
+                    totalEvents += 1
+                    scId = str(totalEvents)
                     self.scenes[scId] = Scene()
                     self.scenes[scId].title = source.scenes[srcId].title
-                    self.scenes[scId].status = 1
-
-                    # Create a new event.
-
                     newEvent = build_event(self.scenes[scId])
                     self.jsonData['events'].append(newEvent)
-                    self.eventIdsByTitle[self.scenes[scId].title] = eventCount
-                    eventCount += 1
+
+                self.scenes[scId].status = source.scenes[srcId].status
 
                 #--- Update scene type.
 
@@ -748,6 +796,16 @@ class JsonTimeline2(Novel):
 
                 if source.scenes[srcId].desc is not None:
                     self.scenes[scId].desc = source.scenes[srcId].desc
+
+                #--- Update scene characters.
+
+                if source.scenes[srcId].characters is not None:
+                    self.scenes[scId].characters = []
+
+                    for crId in source.scenes[srcId].characters:
+
+                        if crId in crIdsBySrcId:
+                            self.scenes[scId].characters.append(crIdsBySrcId[crId])
 
                 #--- Update scene start date/time.
 
@@ -839,19 +897,19 @@ class JsonTimeline2(Novel):
                     'swatchColor': 'orange'
                 })
 
-        narrativeArc = dict(
-            entity=self.entityNarrativeGuid,
-            percentAllocated=1,
-            role=self.roleArcGuid,
-        )
+        narrativeArc = {
+            'entity': self.entityNarrativeGuid,
+            'percentAllocated': 1,
+            'role': self.roleArcGuid,
+        }
 
         #--- Update events from scenes.
 
-        for scId in self.scenes:
+        eventCount = 0
 
-            #--- Set event properties from scene.
-
-            evt = self.jsonData['events'][self.eventIdsByTitle[self.scenes[scId].title]]
+        for evt in self.jsonData['events']:
+            eventCount += 1
+            scId = str(eventCount)
 
             #--- Set event date/time/span.
 
@@ -881,6 +939,38 @@ class JsonTimeline2(Novel):
 
             if self.scenes[scId].tags:
                 evt['tags'] = self.scenes[scId].tags
+
+            #--- Update characters, locations, and items.
+
+            newRel = []
+
+            for evtRel in evt['relationships']:
+
+                if evtRel['role'] == self.roleCharacterGuid:
+                    continue
+
+                elif evtRel['role'] == self.roleLocationGuid:
+                    continue
+
+                elif evtRel['role'] == self.roleItemGuid:
+                    continue
+
+                else:
+                    newRel.append(evtRel)
+
+            if self.scenes[scId].characters:
+
+                for chId in self.scenes[scId].characters:
+
+                    if self.scenes[scId].characters:
+                        newRel.append(
+                            {
+                                'entity': self.characterGuidById[chId],
+                                'percentAllocated': 1,
+                                'role': self.roleCharacterGuid,
+                            })
+
+            evt['relationships'] = newRel
 
             #--- Assign "scene" events to the "Narrative" arc.
 

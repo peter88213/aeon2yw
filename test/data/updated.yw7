@@ -22,11 +22,13 @@
       <ID>1</ID>
       <Title><![CDATA[Poirot]]></Title>
       <SortOrder>1</SortOrder>
+      <FullName><![CDATA[Poirot]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>2</ID>
       <Title><![CDATA[B.C. Toyle]]></Title>
       <SortOrder>2</SortOrder>
+      <FullName><![CDATA[B.C. Toyle]]></FullName>
     </CHARACTER>
   </CHARACTERS>
   <SCENES>

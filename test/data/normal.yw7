@@ -10,76 +10,91 @@
       <ID>1</ID>
       <Title><![CDATA[Cyrus Hardman]]></Title>
       <SortOrder>1</SortOrder>
+      <FullName><![CDATA[Cyrus Hardman]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>2</ID>
       <Title><![CDATA[Hector MacQueen]]></Title>
       <SortOrder>2</SortOrder>
+      <FullName><![CDATA[Hector MacQueen]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>3</ID>
       <Title><![CDATA[Mary Debenham]]></Title>
       <SortOrder>3</SortOrder>
+      <FullName><![CDATA[Mary Debenham]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>4</ID>
       <Title><![CDATA[Poirot]]></Title>
       <SortOrder>4</SortOrder>
+      <FullName><![CDATA[Poirot]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>5</ID>
       <Title><![CDATA[The Conductor]]></Title>
       <SortOrder>5</SortOrder>
+      <FullName><![CDATA[The Conductor]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>6</ID>
       <Title><![CDATA[Antonio Foscarelli]]></Title>
       <SortOrder>6</SortOrder>
+      <FullName><![CDATA[Antonio Foscarelli]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>7</ID>
       <Title><![CDATA[Mr Ratchett]]></Title>
       <SortOrder>7</SortOrder>
+      <FullName><![CDATA[Mr Ratchett]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>8</ID>
       <Title><![CDATA[The Valet]]></Title>
       <SortOrder>8</SortOrder>
+      <FullName><![CDATA[The Valet]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>9</ID>
       <Title><![CDATA[Countess Andrenyi]]></Title>
       <SortOrder>9</SortOrder>
+      <FullName><![CDATA[Countess Andrenyi]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>10</ID>
       <Title><![CDATA[Greta Ohlsson]]></Title>
       <SortOrder>10</SortOrder>
+      <FullName><![CDATA[Greta Ohlsson]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>11</ID>
       <Title><![CDATA[Princess Dragonmiroff]]></Title>
       <SortOrder>11</SortOrder>
+      <FullName><![CDATA[Princess Dragonmiroff]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>12</ID>
       <Title><![CDATA[Colonel Arbuthnot]]></Title>
       <SortOrder>12</SortOrder>
+      <FullName><![CDATA[Colonel Arbuthnot]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>13</ID>
       <Title><![CDATA[Mrs Hubbard]]></Title>
       <SortOrder>13</SortOrder>
+      <FullName><![CDATA[Mrs Hubbard]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>14</ID>
       <Title><![CDATA[Count Andrenyi]]></Title>
       <SortOrder>14</SortOrder>
+      <FullName><![CDATA[Count Andrenyi]]></FullName>
     </CHARACTER>
     <CHARACTER>
       <ID>15</ID>
       <Title><![CDATA[Hildegarde Schmidt]]></Title>
       <SortOrder>15</SortOrder>
+      <FullName><![CDATA[Hildegarde Schmidt]]></FullName>
     </CHARACTER>
   </CHARACTERS>
   <SCENES>
