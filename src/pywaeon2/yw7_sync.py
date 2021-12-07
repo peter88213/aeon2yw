@@ -36,15 +36,15 @@ class Yw7Sync(Yw7File):
 
         # Check the source for ambiguous titles.
 
-        scIdsByTitles = {}
+        srcScnTitles = []
 
         for scId in source.scenes:
 
-            if source.scenes[scId].title in scIdsByTitles:
+            if source.scenes[scId].title in srcScnTitles:
                 return 'ERROR: Ambiguous Aeon event title "' + source.scenes[scId].title + '".'
 
             else:
-                scIdsByTitles[source.scenes[scId].title] = scId
+                srcScnTitles.append(source.scenes[scId].title)
 
         scIdMax = 0
 
@@ -67,23 +67,20 @@ class Yw7Sync(Yw7File):
 
         # Get scene titles.
 
-        scIdsByTitles = {}
+        scIdsByTitle = {}
 
         for chId in self.chapters:
-
-            if self.chapters[chId].isTrash:
-                continue
 
             for scId in self.chapters[chId].srtScenes:
 
                 if self.scenes[scId].isUnused and not self.scenes[scId].isNotesScene:
                     continue
 
-                if self.scenes[scId].title in scIdsByTitles:
+                if self.scenes[scId].title in scIdsByTitle:
                     return 'ERROR: Ambiguous yWriter scene title "' + self.scenes[scId].title + '".'
 
                 else:
-                    scIdsByTitles[self.scenes[scId].title] = scId
+                    scIdsByTitle[self.scenes[scId].title] = scId
 
         #--- Update data from the source, if the scene title matches.
 
@@ -94,14 +91,19 @@ class Yw7Sync(Yw7File):
 
             for srcId in source.chapters[chId].srtScenes:
 
-                if source.scenes[srcId].isUnused and not source.scenes[srcId].isNotesScene:
-                    continue
-
                 if source.scenes[srcId].isNotesScene and self.scenesOnly:
+
+                    # Make "non-Narative" event a "Notes" scene.
+
+                    if source.scenes[srcId].title in scIdsByTitle:
+                        scId = scIdsByTitle[source.scenes[srcId].title]
+                        self.scenes[scId].isNotesScene = True
+                        self.scenes[scId].isUnused = True
+
                     continue
 
-                if source.scenes[srcId].title in scIdsByTitles:
-                    scId = scIdsByTitles[source.scenes[srcId].title]
+                if source.scenes[srcId].title in scIdsByTitle:
+                    scId = scIdsByTitle[source.scenes[srcId].title]
 
                 else:
                     #--- Create a new scene.
@@ -121,11 +123,8 @@ class Yw7Sync(Yw7File):
 
                 #--- Update scene type.
 
-                if source.scenes[srcId].isNotesScene is not None:
-                    self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
-
-                if source.scenes[srcId].isUnused is not None:
-                    self.scenes[scId].isUnused = source.scenes[srcId].isUnused
+                self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
+                self.scenes[scId].isUnused = source.scenes[srcId].isUnused
 
                 #--- Update scene start date/time.
 

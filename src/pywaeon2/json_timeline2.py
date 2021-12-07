@@ -92,6 +92,7 @@ class JsonTimeline2(Novel):
         self.characterGuidById = {}
         self.locationGuidById = {}
         self.itemGuidById = {}
+        self.trashEvents = []
 
     def read(self):
         """Read the JSON part of the Aeon Timeline 2 file located at filePath, 
@@ -665,23 +666,17 @@ class JsonTimeline2(Novel):
         #--- Check the source for ambiguous titles.
         # Check scenes.
 
-        srcTitles = []
+        srcScnTitles = []
 
         for chId in source.chapters:
 
-            if source.chapters[chId].isTrash:
-                continue
-
             for scId in source.chapters[chId].srtScenes:
 
-                if source.scenes[scId].isUnused and not source.scenes[scId].isNotesScene:
-                    continue
-
-                if source.scenes[scId].title in srcTitles:
+                if source.scenes[scId].title in srcScnTitles:
                     return 'ERROR: Ambiguous yWriter scene title "' + source.scenes[scId].title + '".'
 
                 else:
-                    srcTitles.append(source.scenes[scId].title)
+                    srcScnTitles.append(source.scenes[scId].title)
 
                     # Collect characters, locations, and items assigned to scenes.
 
@@ -696,7 +691,7 @@ class JsonTimeline2(Novel):
 
         # Check characters.
 
-        srcNames = []
+        srcChrNames = []
 
         for crId in source.characters:
 
@@ -706,41 +701,41 @@ class JsonTimeline2(Novel):
             if not source.characters[crId].fullName:
                 return 'ERROR: Character "' + source.characters[crId].title + '" has no full name.'
 
-            if source.characters[crId].fullName in srcNames:
+            if source.characters[crId].fullName in srcChrNames:
                 return 'ERROR: Ambiguous yWriter character "' + source.characters[crId].fullName + '".'
 
             else:
-                srcNames.append(source.characters[crId].fullName)
+                srcChrNames.append(source.characters[crId].fullName)
 
         # Check locations.
 
-        srcTitles = []
+        srcLocTitles = []
 
         for lcId in source.locations:
 
             if not lcId in linkedLocations:
                 continue
 
-            if source.locations[lcId].title in srcTitles:
+            if source.locations[lcId].title in srcLocTitles:
                 return 'ERROR: Ambiguous yWriter location "' + source.locations[lcId].title + '".'
 
             else:
-                srcTitles.append(source.locations[lcId].title)
+                srcLocTitles.append(source.locations[lcId].title)
 
         # Check items.
 
-        srcTitles = []
+        srcItmTitles = []
 
         for itId in source.items:
 
             if not itId in linkedItems:
                 continue
 
-            if source.items[itId].title in srcTitles:
+            if source.items[itId].title in srcItmTitles:
                 return 'ERROR: Ambiguous yWriter item "' + source.items[itId].title + '".'
 
             else:
-                srcTitles.append(source.items[itId].title)
+                srcItmTitles.append(source.items[itId].title)
 
         #--- Check the target for ambiguous titles.
         # Check scenes.
@@ -754,6 +749,14 @@ class JsonTimeline2(Novel):
 
             else:
                 scIdsByTitle[self.scenes[scId].title] = scId
+
+            #--- Mark non-scene events.
+            # This is to recognize "Trash" scenes.
+
+            if not self.scenes[scId].title in srcScnTitles:
+
+                if not self.scenes[scId].isNotesScene:
+                    self.trashEvents.append(int(scId) - 1)
 
         # Check characters.
 
@@ -890,15 +893,26 @@ class JsonTimeline2(Novel):
 
         for chId in source.chapters:
 
-            if source.chapters[chId].isTrash:
-                continue
-
             for srcId in source.chapters[chId].srtScenes:
 
                 if source.scenes[srcId].isUnused and not source.scenes[srcId].isNotesScene:
+
+                    # Remove unused scene from the "Narrative" arc.
+
+                    if source.scenes[srcId].title in scIdsByTitle:
+                        scId = scIdsByTitle[source.scenes[srcId].title]
+                        self.scenes[scId].isNotesScene = True
+
                     continue
 
                 if source.scenes[srcId].isNotesScene and self.scenesOnly:
+
+                    # Remove unsynchronized scene from the "Narrative" arc.
+
+                    if source.scenes[srcId].title in scIdsByTitle:
+                        scId = scIdsByTitle[source.scenes[srcId].title]
+                        self.scenes[scId].isNotesScene = True
+
                     continue
 
                 if source.scenes[srcId].title in scIdsByTitle:
@@ -918,11 +932,8 @@ class JsonTimeline2(Novel):
 
                 #--- Update scene type.
 
-                if source.scenes[srcId].isNotesScene is not None:
-                    self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
-
-                if source.scenes[srcId].isUnused is not None:
-                    self.scenes[scId].isUnused = source.scenes[srcId].isUnused
+                self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
+                self.scenes[scId].isUnused = source.scenes[srcId].isUnused
 
                 #--- Update scene tags.
 
@@ -1170,4 +1181,17 @@ class JsonTimeline2(Novel):
             elif narrativeArc not in evt['relationships']:
                 evt['relationships'].append(narrativeArc)
 
+        #--- Delete "Trash" scenes.
+
+        events = []
+        i = 0
+
+        for evt in self.jsonData['events']:
+
+            if not i in self.trashEvents:
+                events.append(evt)
+
+            i += 1
+
+        self.jsonData['events'] = events
         return save_timeline(self.jsonData, self.filePath)
