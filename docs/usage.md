@@ -182,6 +182,11 @@ The names/column labels refer to timelines based on the "yWriter" template.
 (**) To be set in the configuration file.
 
 
+## Known limitations
+
+- "Narrative" events that begin before 0100-01-01 in the timeline, will not be synchronized with yWriter, because yWriter can not handle these dates.
+- The same applies to the scene duration in this case, i.e. the event duration in Timeline and the scene duration in yWriter may differ.
+
 ## Installation path
 
 The **install.bat** installation script installs *aeon2yw.pyw* in the user profile. This is the installation path: 

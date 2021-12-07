@@ -9,15 +9,12 @@
 - The release comes with a template for Aeon Timeline 2 that provides characters, locations and items, as well as yWriter's scene properties such as description and notes.
 - Events assigned to the *Narrative* arc are considered scenes.
 - The aeon2yw Python script converts Aeon's *.aeonzip* project file into a new yWriter project.
-- Scene date and time are imported, if the year is between 100 and 9999.
-- Scene duration, Characters, locations, items, relationships, descriptions, notes, and tags are imported.
+- Scene date, time, and duration are imported, if the year is between 100 and 9999.
+- Scene characters, locations, items, relationships, descriptions, notes, and tags are imported.
 
 ### Update an existing yWriter project from a timeline
 
-- Date, time, and duration of scenes with a matching title are updated from the timeline.
-- Non-empty description of scenes with a matching title is updated from the timeline.
-- Non-empty tags of scenes with a matching title are updated from the timeline.
-- Notes of events with a matching title are appended to the scene notes.
+- Update event date, time, duration, description, and tags.
 - Missing scenes are created.
 - Scenes are marked "unused" if the associated event is deleted in Aeon.
 
