@@ -14,8 +14,8 @@
 
 ### Update an existing yWriter project from a timeline
 
-- Update event date, time, duration, description, and tags.
-- Missing scenes are created.
+- Update scene date, time, duration, description, tags, and relationships.
+- Missing scenes, characters, locations, and items are created.
 - Scenes are marked "unused" if the associated event is deleted in Aeon.
 
 ### Update an existing timeline from a yWriter project

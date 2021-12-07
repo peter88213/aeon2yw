@@ -86,6 +86,8 @@ The names/column labels refer to timelines based on the "yWriter" template.
 - The scene duration is overwritten, if the start year is 100 or above.
 - Scenes updated from "Narrative" events are "Normal" type (*).
 - Optionally, scenes updated from non-"Narrative" events are "Notes" type (**).
+- New characters, locations, and items are added, if assigned to "Narrative" events.
+- Character, location, and item relationships are updated, if the entity names match.
 
 
 ### Update rules for Aeon Timeline 2 projects

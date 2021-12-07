@@ -796,7 +796,7 @@ class JsonTimeline2(Novel):
 
         #--- Update characters from the source.
 
-        totalCharacters = len(self.characters)
+        crIdMax = len(self.characters)
         crIdsBySrcId = {}
 
         for srcCrId in source.characters:
@@ -808,8 +808,8 @@ class JsonTimeline2(Novel):
 
                 #--- Create a new character if it is assigned to at least one scene.
 
-                totalCharacters += 1
-                crId = str(totalCharacters)
+                crIdMax += 1
+                crId = str(crIdMax)
                 crIdsBySrcId[srcCrId] = crId
                 self.characters[crId] = source.characters[srcCrId]
                 newGuid = get_uid()
@@ -821,13 +821,13 @@ class JsonTimeline2(Novel):
                         'icon': 'person',
                         'name': self.characters[crId].fullName,
                         'notes': '',
-                        'sortOrder': totalCharacters - 1,
+                        'sortOrder': crIdMax - 1,
                         'swatchColor': 'darkPink'
                     })
 
         #--- Update locations from the source.
 
-        totalLocations = len(self.locations)
+        lcIdMax = len(self.locations)
         lcIdsBySrcId = {}
 
         for srcLcId in source.locations:
@@ -839,8 +839,8 @@ class JsonTimeline2(Novel):
 
                 #--- Create a new location if it is assigned to at least one scene.
 
-                totalLocations += 1
-                lcId = str(totalLocations)
+                lcIdMax += 1
+                lcId = str(lcIdMax)
                 lcIdsBySrcId[srcLcId] = lcId
                 self.locations[lcId] = source.locations[srcLcId]
                 newGuid = get_uid()
@@ -852,13 +852,13 @@ class JsonTimeline2(Novel):
                         'icon': 'map',
                         'name': self.locations[lcId].title,
                         'notes': '',
-                        'sortOrder': totalLocations - 1,
+                        'sortOrder': lcIdMax - 1,
                         'swatchColor': 'orange'
                     })
 
         #--- Update Items from the source.
 
-        totalItems = len(self.items)
+        itIdMax = len(self.items)
         itIdsBySrcId = {}
 
         for srcItId in source.items:
@@ -870,8 +870,8 @@ class JsonTimeline2(Novel):
 
                 #--- Create a new Item if it is assigned to at least one scene.
 
-                totalItems += 1
-                itId = str(totalItems)
+                itIdMax += 1
+                itId = str(itIdMax)
                 itIdsBySrcId[srcItId] = itId
                 self.items[itId] = source.items[srcItId]
                 newGuid = get_uid()
@@ -883,7 +883,7 @@ class JsonTimeline2(Novel):
                         'icon': 'cube',
                         'name': self.items[itId].title,
                         'notes': '',
-                        'sortOrder': totalItems - 1,
+                        'sortOrder': itIdMax - 1,
                         'swatchColor': 'denim'
                     })
 

@@ -34,7 +34,12 @@ class Yw7Sync(Yw7File):
         if message.startswith('ERROR'):
             return message
 
-        # Check the source for ambiguous titles.
+        linkedCharacters = []
+        linkedLocations = []
+        linkedItems = []
+
+        #--- Check the source for ambiguous titles.
+        # Check scenes.
 
         srcScnTitles = []
 
@@ -45,6 +50,67 @@ class Yw7Sync(Yw7File):
 
             else:
                 srcScnTitles.append(source.scenes[scId].title)
+
+                # Collect characters, locations, and items assigned to normal scenes.
+
+                if not source.scenes[scId].isNotesScene:
+
+                    if source.scenes[scId].characters:
+                        linkedCharacters = list(set(linkedCharacters + source.scenes[scId].characters))
+
+                    if source.scenes[scId].locations:
+                        linkedLocations = list(set(linkedLocations + source.scenes[scId].locations))
+
+                    if source.scenes[scId].items:
+                        linkedItems = list(set(linkedItems + source.scenes[scId].items))
+
+        # Check characters.
+
+        srcChrNames = []
+
+        for crId in source.characters:
+
+            if not crId in linkedCharacters:
+                continue
+
+            if source.characters[crId].fullName in srcChrNames:
+                return 'ERROR: Ambiguous yWriter character "' + source.characters[crId].fullName + '".'
+
+            else:
+                srcChrNames.append(source.characters[crId].fullName)
+
+        # Check locations.
+
+        srcLocTitles = []
+
+        for lcId in source.locations:
+
+            if not lcId in linkedLocations:
+                continue
+
+            if source.locations[lcId].title in srcLocTitles:
+                return 'ERROR: Ambiguous yWriter location "' + source.locations[lcId].title + '".'
+
+            else:
+                srcLocTitles.append(source.locations[lcId].title)
+
+        # Check items.
+
+        srcItmTitles = []
+
+        for itId in source.items:
+
+            if not itId in linkedItems:
+                continue
+
+            if source.items[itId].title in srcItmTitles:
+                return 'ERROR: Ambiguous yWriter item "' + source.items[itId].title + '".'
+
+            else:
+                srcItmTitles.append(source.items[itId].title)
+
+        #--- Analyze the target.
+        # Check scenes.
 
         scIdMax = 0
 
@@ -60,6 +126,8 @@ class Yw7Sync(Yw7File):
                 if not self.scenes[scId].isNotesScene:
                     self.scenes[scId].isUnused = True
 
+        # Create a chapter for new scenes.
+
         chIdMax = 0
 
         for chId in self.chapters:
@@ -72,7 +140,8 @@ class Yw7Sync(Yw7File):
         newChapter.title = 'New scenes'
         newChapterExists = False
 
-        # Get scene titles.
+        #--- Check the target for ambiguous titles.
+        # Check scenes.
 
         scIdsByTitle = {}
 
@@ -89,7 +158,112 @@ class Yw7Sync(Yw7File):
                 else:
                     scIdsByTitle[self.scenes[scId].title] = scId
 
-        #--- Update data from the source, if the scene title matches.
+        # Check characters.
+
+        crIdsByName = {}
+        crIdMax = 0
+
+        for crId in self.characters:
+
+            if int(crId) > crIdMax:
+                crIdMax = int(crId)
+
+            if self.characters[crId].fullName in crIdsByName:
+                return 'ERROR: Ambiguous yWriter character "' + self.characters[crId].fullName + '".'
+
+            else:
+                crIdsByName[self.characters[crId].fullName] = crId
+
+        # Check locations.
+
+        lcIdsByTitle = {}
+        lcIdMax = 0
+
+        for lcId in self.locations:
+
+            if int(lcId) > lcIdMax:
+                lcIdMax = int(lcId)
+
+            if self.locations[lcId].title in lcIdsByTitle:
+                return 'ERROR: Ambiguous yWriter location "' + self.locations[lcId].title + '".'
+
+            else:
+                lcIdsByTitle[self.locations[lcId].title] = lcId
+
+        # Check items.
+
+        itIdsByTitle = {}
+        itIdMax = 0
+
+        for itId in self.items:
+
+            if int(itId) > itIdMax:
+                itIdMax = int(itId)
+
+            if self.items[itId].title in itIdsByTitle:
+                return 'ERROR: Ambiguous yWriter item "' + self.items[itId].title + '".'
+
+            else:
+                itIdsByTitle[self.items[itId].title] = itId
+
+        #--- Update characters from the source.
+
+        crIdsBySrcId = {}
+
+        for srcCrId in source.characters:
+
+            if source.characters[srcCrId].fullName in crIdsByName:
+                crIdsBySrcId[srcCrId] = crIdsByName[source.characters[srcCrId].fullName]
+
+            elif srcCrId in linkedCharacters:
+
+                #--- Create a new character if it is assigned to at least one scene.
+
+                crIdMax += 1
+                crId = str(crIdMax)
+                crIdsBySrcId[srcCrId] = crId
+                self.characters[crId] = source.characters[srcCrId]
+                self.srtCharacters.append(crId)
+
+        #--- Update locations from the source.
+
+        lcIdsBySrcId = {}
+
+        for srcLcId in source.locations:
+
+            if source.locations[srcLcId].title in lcIdsByTitle:
+                lcIdsBySrcId[srcLcId] = lcIdsByTitle[source.locations[srcLcId].title]
+
+            elif srcLcId in linkedLocations:
+
+                #--- Create a new location if it is assigned to at least one scene.
+
+                lcIdMax += 1
+                lcId = str(lcIdMax)
+                lcIdsBySrcId[srcLcId] = lcId
+                self.locations[lcId] = source.locations[srcLcId]
+                self.srtLocations.append(lcId)
+
+        #--- Update Items from the source.
+
+        itIdsBySrcId = {}
+
+        for srcItId in source.items:
+
+            if source.items[srcItId].title in itIdsByTitle:
+                itIdsBySrcId[srcItId] = itIdsByTitle[source.items[srcItId].title]
+
+            elif srcItId in linkedItems:
+
+                #--- Create a new Item if it is assigned to at least one scene.
+
+                itIdMax += 1
+                itId = str(itIdMax)
+                itIdsBySrcId[srcItId] = itId
+                self.items[itId] = source.items[srcItId]
+                self.srtItems.append(itId)
+
+        #--- Update scenes from the source.
 
         for chId in source.chapters:
 
@@ -165,5 +339,35 @@ class Yw7Sync(Yw7File):
 
                     else:
                         self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
+
+                #--- Update scene characters.
+
+                if source.scenes[srcId].characters is not None:
+                    self.scenes[scId].characters = []
+
+                    for crId in source.scenes[srcId].characters:
+
+                        if crId in crIdsBySrcId:
+                            self.scenes[scId].characters.append(crIdsBySrcId[crId])
+
+                #--- Update scene locations.
+
+                if source.scenes[srcId].locations is not None:
+                    self.scenes[scId].locations = []
+
+                    for lcId in source.scenes[srcId].locations:
+
+                        if lcId in lcIdsBySrcId:
+                            self.scenes[scId].locations.append(lcIdsBySrcId[lcId])
+
+                #--- Update scene items.
+
+                if source.scenes[srcId].items is not None:
+                    self.scenes[scId].items = []
+
+                    for itId in source.scenes[srcId].items:
+
+                        if itId in itIdsBySrcId:
+                            self.scenes[scId].items.append(itIdsBySrcId[itId])
 
         return 'SUCCESS'

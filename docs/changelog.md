@@ -8,6 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.34.0 Update yWriter characters, locations, and items from Aeon
+
+- Add new characters, locations, and items, if assigned to events.
+- Update relationships to characters, locations, and items.
+
+Based on PyWriter v3.28.1.
+
 ### v0.32.1 Update deleted events from Aeon
 
 - Mark scenes "unused" if the associated event is deleted in Aeon.
