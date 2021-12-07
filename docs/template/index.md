@@ -19,6 +19,7 @@
 - Non-empty tags of scenes with a matching title are updated from the timeline.
 - Notes of events with a matching title are appended to the scene notes.
 - Missing scenes are created.
+- Scenes are marked "unused" if the associated event is deleted in Aeon.
 
 ### Update an existing timeline from a yWriter project
 

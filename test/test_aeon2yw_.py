@@ -33,6 +33,7 @@ SCENES_ONLY_INI = TEST_DATA_PATH + 'scenes_only.ini'
 UPDATE_NOTES_INI = TEST_DATA_PATH + 'update_notes.ini'
 UPDATED_AEON = TEST_DATA_PATH + 'updated.aeonzip'
 UPDATED_YW7 = TEST_DATA_PATH + 'updated.yw7'
+UPDATED_NOTES_YW7 = TEST_DATA_PATH + 'updated_notes.yw7'
 
 # Test data
 INI_FILE = TEST_EXEC_PATH + 'aeon2yw.ini'
@@ -101,8 +102,15 @@ class NormalOperation(unittest.TestCase):
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertEqual(read_file(TEST_YW7), read_file(DATE_LIMITS_YW7))
 
-    def test_update(self):
+    def test_update_with_notes(self):
         copyfile(UPDATE_NOTES_INI, INI_FILE)
+        copyfile(DATE_LIMITS_YW7, TEST_YW7)
+        copyfile(UPDATED_AEON, TEST_AEON)
+        os.chdir(TEST_EXEC_PATH)
+        aeon2yw_.run(TEST_AEON, silentMode=True)
+        self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_NOTES_YW7))
+
+    def test_update(self):
         copyfile(DATE_LIMITS_YW7, TEST_YW7)
         copyfile(UPDATED_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)

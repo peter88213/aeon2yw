@@ -19,6 +19,7 @@
 - Non-empty tags of scenes with a matching title are updated from the timeline.
 - Notes of events with a matching title are appended to the scene notes.
 - Missing scenes are created.
+- Scenes are marked "unused" if the associated event is deleted in Aeon.
 
 ### Update an existing timeline from a yWriter project
 
@@ -43,9 +44,9 @@
 
 ## Download and install
 
-[Download the latest release (version 0.32.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.32.0.zip)
+[Download the latest release (version 0.32.1)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.32.1.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.32.0.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.32.1.zip" into a new folder.
 - Move into this new folder and launch **install.bat**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

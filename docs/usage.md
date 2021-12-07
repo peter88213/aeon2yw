@@ -152,6 +152,7 @@ The names/column labels refer to timelines based on the "yWriter" template.
 - Only scenes that have the same title as an event are updated.
 - If an Aeon event title occurs more than once, the program aborts with an error message.
 - If a yWriter scene title occurs more than once, the program aborts with an error message.
+- Scenes are marked "unused" if the associated event is deleted in Aeon.
 - Scene date, scene time, and scene duration are updated.
 - Non-empty scene description and scene tags are updated.
 - Notes of events with a matching title are appended to the scene notes.

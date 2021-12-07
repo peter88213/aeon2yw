@@ -44,10 +44,10 @@
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>1</Status>
-      <SpecificDateTime>2021-11-04 10:00:00</SpecificDateTime>
+      <SpecificDateTime>2021-11-01 22:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
       <LastsDays>0</LastsDays>
-      <LastsHours>6</LastsHours>
+      <LastsHours>10</LastsHours>
       <LastsMinutes>0</LastsMinutes>
     </SCENE>
     <SCENE>
@@ -94,8 +94,8 @@
       <Tags><![CDATA[Work]]></Tags>
       <SpecificDateTime>2021-11-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
-      <LastsDays>30</LastsDays>
-      <LastsHours>0</LastsHours>
+      <LastsDays>25</LastsDays>
+      <LastsHours>5</LastsHours>
       <LastsMinutes>0</LastsMinutes>
       <Characters>
         <CharID>1</CharID>
@@ -194,6 +194,24 @@
       <LastsHours>0</LastsHours>
       <LastsMinutes>0</LastsMinutes>
     </SCENE>
+    <SCENE>
+      <ID>11</ID>
+      <Title><![CDATA[New non-narrative event]]></Title>
+      <BelongsToChID>3</BelongsToChID>
+      <SceneContent />
+      <WordCount>0</WordCount>
+      <LetterCount>0</LetterCount>
+      <Unused>-1</Unused>
+      <Fields>
+        <Field_SceneType>1</Field_SceneType>
+      </Fields>
+      <Status>1</Status>
+      <SpecificDateTime>2021-11-04 03:00:00</SpecificDateTime>
+      <SpecificDateMode>-1</SpecificDateMode>
+      <LastsDays>0</LastsDays>
+      <LastsHours>0</LastsHours>
+      <LastsMinutes>0</LastsMinutes>
+    </SCENE>
   </SCENES>
   <CHAPTERS>
     <CHAPTER>
@@ -227,6 +245,7 @@
       <Title><![CDATA[New scenes]]></Title>
       <Scenes>
         <ScID>10</ScID>
+        <ScID>11</ScID>
       </Scenes>
     </CHAPTER>
   </CHAPTERS>

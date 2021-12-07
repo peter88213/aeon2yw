@@ -53,6 +53,13 @@ class Yw7Sync(Yw7File):
             if int(scId) > scIdMax:
                 scIdMax = int(scId)
 
+            #--- Mark scenes associated with deleted events "Unused".
+
+            if not self.scenes[scId].title in srcScnTitles:
+
+                if not self.scenes[scId].isNotesScene:
+                    self.scenes[scId].isUnused = True
+
         chIdMax = 0
 
         for chId in self.chapters:
