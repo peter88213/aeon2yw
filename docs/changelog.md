@@ -8,6 +8,15 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.32.0 Update characters/locations/items and relationships from yWriter
+
+- Add new characters, locations, and items from yWriter, if assigned to scenes.
+- Update existing characters, locations, and items from yWriter.
+- Update event relationships (roles) from yWriter.
+- Remove events if the associated scene is deleted in yWriter.
+
+Based on PyWriter v3.28.1.
+
 ### v0.30.0 Update scene tags and descriptions in both directions
 
 - Updating "Notes" scenes is optional now.

@@ -170,9 +170,12 @@ The names/column labels refer to timelines based on the "yWriter" template.
 - Non-empty event description and event tags are updated.
 - Event properties "Description" and "Notes" are created, if missing.
 - Events created or updated from "Normal" scenes are assigned to the *Narrative* arc (*).
+- "Narrative" events are removed if the associated scene is deleted in yWriter.
 - Optionally, events are created or updated from "Notes" scenes (not assigned to the *Narrative* arc)(**).
 - Entity types "Arc", "Character", "Location", and "Item" are created, if missing.
 - A "Narrative" arc is created, if missing.
+- New characters, locations, and items are added, if assigned to scenes.
+- Character, location, and item relationships are updated, if the entity names match.
 
 (*) Applies to the default configuration, but can be customized.
 (**) To be set in the configuration file.

@@ -7,16 +7,10 @@
 ### Create a new yWriter project from a timeline
 
 - The release comes with a template for Aeon Timeline 2 that provides characters, locations and items, as well as yWriter's scene properties such as description and notes.
-- This template has a *Narrative* arc. Events assigned to this arc are considered scenes.
+- Events assigned to the *Narrative* arc are considered scenes.
 - The aeon2yw Python script converts Aeon's *.aeonzip* project file into a new yWriter project.
-- Events assigned to the *Narrative* arc are converted to regular scenes in one single chapter.
-- Other events are converted to "Notes" scenes in another chapter.
-- The scenes have a start time, if the year is between 100 and 9999.
-- The scenes have a duration.
-- The scenes are sorted chronologically.
-- Characters, locations and items are imported, if any.
-- Scene descriptions and scene notes are imported, if any.
-- Scene tags are imported, if any.
+- Scene date and time are imported, if the year is between 100 and 9999.
+- Scene duration, Characters, locations, items, relationships, descriptions, notes, and tags are imported.
 
 ### Update an existing yWriter project from a timeline
 
@@ -24,17 +18,15 @@
 - Non-empty description of scenes with a matching title is updated from the timeline.
 - Non-empty tags of scenes with a matching title are updated from the timeline.
 - Notes of events with a matching title are appended to the scene notes.
+- Missing scenes are created.
 
 ### Update an existing timeline from a yWriter project
 
-- Date, time, duration of events with a matching title are updated from the yWriter project.
-- Non-empty description of events with a matching title is updated from the yWriter project.
-- Non-empty tags of events with a matching title are updated from the yWriter project.
-- "Normal" scenes are converted to events assigned to the *Narrative* arc.
-- Optionally, "Notes" scenes are converted to events not assigned to the *Narrative* arc.
-- Entity types "Arc", "Character", "Location", and "Item" are created, if missing.
-- A *Narrative* arc is created, if missing.
+- Update event date, time, duration, description, tags, and relationships.
+- Entity types "Arc", "Character", "Location", and "Item", and a *Narrative* arc are created, if missing.
 - Event properties "Description" and "Notes" are created, if missing.
+- Missing events, characters, locations, and items are created.
+- "Narrative" events are removed if the associated scene is deleted in yWriter.
 
 ### Create a new timeline from a yWriter project
 
@@ -51,9 +43,9 @@
 
 ## Download and install
 
-[Download the latest release (version 0.31.3)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.31.3.zip)
+[Download the latest release (version 0.32.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.32.0.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.31.3.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.32.0.zip" into a new folder.
 - Move into this new folder and launch **install.bat**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.
