@@ -169,8 +169,8 @@ class JsonTimeline2(Novel):
         #--- Add "Arc" type, if missing.
 
         if self.typeArcGuid is None:
-            self.typeArcGuid = get_uid()
-            self.roleArcGuid = get_uid()
+            self.typeArcGuid = get_uid('typeArcGuid')
+            self.roleArcGuid = get_uid('roleArcGuid')
             typeCount = len(self.jsonData['template']['types'])
             self.jsonData['template']['types'].append(
                 {
@@ -198,8 +198,8 @@ class JsonTimeline2(Novel):
         #--- Add "Character" type, if missing.
 
         if self.typeCharacterGuid is None:
-            self.typeCharacterGuid = get_uid()
-            self.roleCharacterGuid = get_uid()
+            self.typeCharacterGuid = get_uid('typeCharacterGuid')
+            self.roleCharacterGuid = get_uid('roleCharacterGuid')
             typeCount = len(self.jsonData['template']['types'])
             self.jsonData['template']['types'].append(
                 {
@@ -227,8 +227,8 @@ class JsonTimeline2(Novel):
         #--- Add "Location" type, if missing.
 
         if self.typeLocationGuid is None:
-            self.typeLocationGuid = get_uid()
-            self.roleLocationGuid = get_uid()
+            self.typeLocationGuid = get_uid('typeLocationGuid')
+            self.roleLocationGuid = get_uid('roleLocationGuid')
             typeCount = len(self.jsonData['template']['types'])
             self.jsonData['template']['types'].append(
                 {
@@ -256,8 +256,8 @@ class JsonTimeline2(Novel):
         #--- Add "Item" type, if missing.
 
         if self.typeItemGuid is None:
-            self.typeItemGuid = get_uid()
-            self.roleItemGuid = get_uid()
+            self.typeItemGuid = get_uid('typeItemGuid')
+            self.roleItemGuid = get_uid('roleItemGuid')
             typeCount = len(self.jsonData['template']['types'])
             self.jsonData['template']['types'].append(
                 {
@@ -352,7 +352,7 @@ class JsonTimeline2(Novel):
         #--- Create user defined properties, if missing.
 
         if not hasPropertyNotes:
-            self.propertyNotesGuid = get_uid()
+            self.propertyNotesGuid = get_uid('propertyNotesGuid')
             self.jsonData['template']['properties'].insert(0, {
                 'calcMode': 'default',
                 'calculate': False,
@@ -372,7 +372,7 @@ class JsonTimeline2(Novel):
                 i += 1
 
         if not hasPropertyDesc:
-            self.propertyDescGuid = get_uid()
+            self.propertyDescGuid = get_uid('propertyDescGuid')
             self.jsonData['template']['properties'].append({
                 'calcMode': 'default',
                 'calculate': False,
@@ -620,7 +620,7 @@ class JsonTimeline2(Novel):
                 'attachments': [],
                 'color': '',
                 'displayId': get_display_id(),
-                'guid': get_uid(),
+                'guid': get_uid('scene' + scene.title),
                 'links': [],
                 'locked': False,
                 'priority': 500,
@@ -812,7 +812,7 @@ class JsonTimeline2(Novel):
                 crId = str(crIdMax)
                 crIdsBySrcId[srcCrId] = crId
                 self.characters[crId] = source.characters[srcCrId]
-                newGuid = get_uid()
+                newGuid = get_uid(crId + self.characters[crId].fullName)
                 self.characterGuidById[crId] = newGuid
                 self.jsonData['entities'].append(
                     {
@@ -843,7 +843,7 @@ class JsonTimeline2(Novel):
                 lcId = str(lcIdMax)
                 lcIdsBySrcId[srcLcId] = lcId
                 self.locations[lcId] = source.locations[srcLcId]
-                newGuid = get_uid()
+                newGuid = get_uid(lcId + self.locations[lcId].title)
                 self.locationGuidById[lcId] = newGuid
                 self.jsonData['entities'].append(
                     {
@@ -874,7 +874,7 @@ class JsonTimeline2(Novel):
                 itId = str(itIdMax)
                 itIdsBySrcId[srcItId] = itId
                 self.items[itId] = source.items[srcItId]
-                newGuid = get_uid()
+                newGuid = get_uid(itId + self.items[itId].title)
                 self.itemGuidById[itId] = newGuid
                 self.jsonData['entities'].append(
                     {
@@ -1053,7 +1053,7 @@ class JsonTimeline2(Novel):
         #--- Add "Narrative" arc, if missing.
 
         if self.entityNarrativeGuid is None:
-            self.entityNarrativeGuid = get_uid()
+            self.entityNarrativeGuid = get_uid('entityNarrativeGuid')
             self.jsonData['entities'].append(
                 {
                     'entityType': self.typeArcGuid,

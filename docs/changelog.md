@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.34.1 Create new Aeon GUIs in a non-random way
+
+Now updated *.aeonzip* files can be compared with reference data.
+
+Based on PyWriter v3.28.1.
+
 ### v0.34.0 Update yWriter characters, locations, and items from Aeon
 
 - Add new characters, locations, and items, if assigned to events.

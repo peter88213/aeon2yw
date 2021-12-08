@@ -4,26 +4,37 @@ Copyright (c) 2021 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
-import random
+from hashlib import pbkdf2_hmac
 
 guidChars = list('ABCDEF0123456789')
 
 
-def get_substring(size):
-    """Return a randomized pseudo-hash.
+def get_sub_guid(key, size):
+    """Create string from a bytes key.
     """
-    return ''.join(random.choice(guidChars) for _ in range(size))
+    keyInt = int.from_bytes(key, byteorder='big')
+    guid = ''
+
+    while len(guid) < size and keyInt > 0:
+        guid += guidChars[keyInt % len(guidChars)]
+        keyInt //= len(guidChars)
+
+    return guid
 
 
-def get_uid():
-    """Return a random GUID for Aeon Timeline.
+def get_uid(text):
+    """Return a GUID for Aeon Timeline.
 
     Form: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
     """
+    text = text.encode('utf-8')
+
     sizes = [8, 4, 4, 4, 12]
+    salts = [b'a', b'b', b'c', b'd', b'e']
     guid = []
 
-    for size in sizes:
-        guid.append(get_substring(size))
+    for i in range(5):
+        key = pbkdf2_hmac('sha1', text, salts[i], 1)
+        guid.append(get_sub_guid(key, sizes[i]))
 
     return '-'.join(guid)
