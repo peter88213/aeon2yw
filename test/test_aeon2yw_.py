@@ -8,6 +8,11 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 from shutil import copyfile
 import os
 import unittest
+
+import zipfile
+import codecs
+import json
+
 import aeon2yw_
 
 # Test environment
@@ -40,6 +45,33 @@ INI_FILE = TEST_EXEC_PATH + 'aeon2yw.ini'
 TEST_YW7 = TEST_EXEC_PATH + 'yw7 Sample Project.yw7'
 TEST_YW7_BAK = TEST_EXEC_PATH + 'yw7 Sample Project.yw7.bak'
 TEST_AEON = TEST_EXEC_PATH + 'yw7 Sample Project.aeonzip'
+
+
+def open_timeline(filePath):
+    """Unzip the project file and read 'timeline.json'.
+    Return a message beginning with SUCCESS or ERROR
+    and the JSON timeline structure.
+    """
+
+    try:
+        with zipfile.ZipFile(filePath, 'r') as myzip:
+            jsonBytes = myzip.read('timeline.json')
+            jsonStr = codecs.decode(jsonBytes, encoding='utf-8')
+
+    except:
+        return 'ERROR: Cannot read JSON data.', None
+
+    if not jsonStr:
+        return 'ERROR: No JSON part found.', None
+
+    try:
+        jsonData = json.loads(jsonStr)
+
+    except('JSONDecodeError'):
+        return 'ERROR: Invalid JSON data.'
+        None
+
+    return 'SUCCESS', jsonData
 
 
 def read_file(inputFile):
@@ -117,13 +149,12 @@ class NormalOperation(unittest.TestCase):
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_YW7))
 
-    @unittest.skip('cannot compare result because of random GUIDs')
     def test_create(self):
         copyfile(DATE_LIMITS_YW7, TEST_YW7)
         copyfile(MINIMAL_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
-        aeon2yw_.run(DATE_LIMITS_YW7, silentMode=True)
-        #self.assertEqual(open_timeline(TEST_AEON)[1], open_timeline(CREATED_AEON)[1])
+        aeon2yw_.run(TEST_YW7, silentMode=True)
+        self.assertEqual(open_timeline(TEST_AEON)[1], open_timeline(CREATED_AEON)[1])
 
     def tearDown(self):
         remove_all_testfiles()

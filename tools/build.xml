@@ -10,16 +10,18 @@
 	<property name="release-name" value="${project-name}_v${release}" />
 
 	<target name="build" description="inline all library modules">
-		<delete file="${test}/aeon2yw.pyw" />
+		<delete file="${test}/${ant.project.name}.pyw" />
 		<exec executable="python" failonerror="true">
-		    <arg value="${src}/build_aeon2yw.py"/>
+		    <arg value="${src}/build_${ant.project.name}.py"/>
 		</exec>
 		<fixcrlf encoding="utf-8" eol="lf" srcdir="${test}" includes="**/*.pyw" />
 	</target>
 
 	<target name="test" description="inline all library modules">
+		<copy file="${test}/test_${ant.project.name}_.py" tofile="${test}/test_${ant.project.name}.py" />
+		<replace encoding="utf-8" file="${test}/test_${ant.project.name}.py" token="${ant.project.name}_" value="${ant.project.name}" />
 		<exec executable="python" failonerror="true">
-		    <arg value="${test}/test_aeon2yw.py"/>
+		    <arg value="${test}/test_${ant.project.name}.py"/>
 		</exec>
 	</target>
 
@@ -37,8 +39,8 @@
 		
 		<copy file="./install.bat" todir="${build}/${release-name}" />
 		
-		<copy file="${test}/aeon2yw.pyw" tofile="${build}/${release-name}/aeon2yw.pyw" />
-		<replace encoding="utf-8" file="${build}/${release-name}/aeon2yw.pyw" token="@release" value="${release}" />
+		<copy file="${test}/${ant.project.name}.pyw" tofile="${build}/${release-name}/${ant.project.name}.pyw" />
+		<replace encoding="utf-8" file="${build}/${release-name}/${ant.project.name}.pyw" token="@release" value="${release}" />
 
 		<copy file="../LICENSE" todir="${build}/${release-name}" />
 		<copy file="${docs}/usage.md" tofile="${build}/${release-name}/README.md" />
@@ -52,7 +54,8 @@
 
 	<target name="clean" description="clean up">
 		
-		<delete file="${test}/aeon2yw.pyw" />
+		<delete file="${test}/${ant.project.name}.pyw" />
+		<delete file="${test}/test_${ant.project.name}.py" />
 		
 	</target>
 
