@@ -352,6 +352,10 @@ class JsonTimeline2(Novel):
         #--- Create user defined properties, if missing.
 
         if not hasPropertyNotes:
+
+            for tplPrp in self.jsonData['template']['properties']:
+                tplPrp['sortOrder'] += 1
+
             self.propertyNotesGuid = get_uid('propertyNotesGuid')
             self.jsonData['template']['properties'].insert(0, {
                 'calcMode': 'default',
@@ -360,18 +364,13 @@ class JsonTimeline2(Novel):
                 'guid': self.propertyNotesGuid,
                 'icon': 'tag',
                 'isMandatory': False,
-                'name': 'Notes',
+                'name': self.propertyNotes,
                 'sortOrder': 0,
                 'type': 'multitext'
             })
 
-            i = 0
-
-            for tplPrp in self.jsonData['template']['properties']:
-                tplPrp['sortOrder'] = i
-                i += 1
-
         if not hasPropertyDesc:
+            n = len(self.jsonData['template']['properties'])
             self.propertyDescGuid = get_uid('propertyDescGuid')
             self.jsonData['template']['properties'].append({
                 'calcMode': 'default',
@@ -380,16 +379,10 @@ class JsonTimeline2(Novel):
                 'guid': self.propertyDescGuid,
                 'icon': 'tag',
                 'isMandatory': False,
-                'name': 'Description',
-                'sortOrder': 1,
+                'name': self.propertyDesc,
+                'sortOrder': n,
                 'type': 'multitext'
             })
-
-            i = 0
-
-            for tplPrp in self.jsonData['template']['properties']:
-                tplPrp['sortOrder'] = i
-                i += 1
 
         #--- Get scenes.
 
