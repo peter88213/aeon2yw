@@ -479,7 +479,7 @@ class JsonTimeline2(Novel):
                                     endMonth -= 12
 
                             sceneEnd = datetime(endYear, endMonth, sceneStart.day)
-                            sceneDuration = sceneEnd - sceneStart
+                            sceneDuration = sceneEnd - datetime(sceneStart.year, sceneStart.month, sceneStart.day)
                             lastsDays = sceneDuration.days
                             lastsHours = sceneDuration.seconds // 3600
                             lastsMinutes = (sceneDuration.seconds % 3600) // 60
