@@ -8,9 +8,15 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.34.4 Bugfix beta release
+
+Fix a bug where the duration can be calculated incorrectly if it is given with months.
+
+Based on PyWriter v3.28.1.
+
 ### v0.34.3 Bugfix beta release
 
-Fix a bug where the duration can be calculated incorrectly if it is given with years and months
+Fix a bug where the duration can be calculated incorrectly if it is given with years and months.
 
 Based on PyWriter v3.28.1.
 

@@ -472,11 +472,11 @@ class JsonTimeline2(Novel):
                                 endYear += evtRgv['span']['years']
 
                             if 'months' in evtRgv['span']:
-                                endYear += evtRgv['span']['months'] // 12
                                 endMonth += evtRgv['span']['months']
 
                                 while endMonth > 12:
                                     endMonth -= 12
+                                    endYear += 1
 
                             sceneEnd = datetime(endYear, endMonth, sceneStart.day)
                             sceneDuration = sceneEnd - datetime(sceneStart.year, sceneStart.month, sceneStart.day)
