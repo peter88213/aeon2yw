@@ -26,7 +26,7 @@ Fix a bug where the sort order may be mixed up when creating user defined proper
 
 Based on PyWriter v3.28.1.
 
-### v0.34.1 Create new Aeon GUIs in a non-random way
+### v0.34.1 Create new Aeon UIDs in a non-random way
 
 Now updated *.aeonzip* files can be compared with reference data.
 
