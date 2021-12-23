@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.34.5 Enable non-Windows operation 
+
+- Catch an exception that is thrown when evaluating a Windows environment variable under a non-Windows OS.
+
+Based on PyWriter v3.28.1
+
 ### v0.34.4 Bugfix beta release
 
 Fix a bug where the duration can be calculated incorrectly if it is given with months.
