@@ -44,7 +44,7 @@ def save_timeline(jsonData, filePath):
 
     try:
 
-        with zipfile.ZipFile(filePath, 'w') as f:
+        with zipfile.ZipFile(filePath, 'w', compression=zipfile.ZIP_DEFLATED) as f:
             f.writestr('timeline.json', json.dumps(jsonData))
 
     except:
