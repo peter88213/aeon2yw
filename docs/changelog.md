@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.34.7 Support non-Windows OS
+
+- Move installation and configuration to another location (see instructions for use).
+
+Based on PyWriter v3.28.1
+
 ### v0.34.6 Change the compression method 
 
 - Compress .aeonzip files when writing.

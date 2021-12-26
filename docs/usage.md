@@ -117,7 +117,7 @@ You can override the default settings by providing a configuration file. Be alwa
 ### Global configuration
 
 An optional global configuration file can be placed in the configuration directory in your user profile. It is applied to any project. Its entries override aeon2yw's built-in constants. This is the path:
-`c:\Users\<user name>\AppData\Roaming\PyWriter\aeon2yw\config\aeon2yw.ini`
+`c:\Users\<user name>\.pywriter\aeon2yw\config\aeon2yw.ini`
   
 ### Local project configuration
 
@@ -193,7 +193,7 @@ The changed entries are sufficient.
 
 ## Installation path
 
-The **install.bat** installation script installs *aeon2yw.pyw* in the user profile. This is the installation path: 
+The **install.bat** installation script installs *aeon2yw.pyw* in the user profile. This is the installation path on Windows: 
 
-`c:\Users\<user name>\AppData\Roaming\PyWriter\aeon2yw`
+`c:\Users\<user name>\.pywriter\aeon2yw`
     
