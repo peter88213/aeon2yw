@@ -33,7 +33,6 @@
  
 ## Requirements
 
-- Windows.
 - [Python 3.7+](https://www.python.org).
 - [yWriter](http://spacejock.com/yWriter7.html).
 - Aeon Timeline 2. Note: There is now a separate [converter for Aeon Timeline 3](https://peter88213.github.io/aeon3yw). 
@@ -44,9 +43,15 @@
 [Download the latest release (version 0.99.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.99.0.zip)
 
 - Unzip the downloaded zipfile "aeon2yw_v0.99.0.zip" into a new folder.
-- Move into this new folder and launch **install.bat**. This installs the script for the local user.
+- Move into this new folder and launch **setup.pyw**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.
+
+### Note for Linux users
+
+Please make sure that your Python3 installation has the *tkinter* module. On Ubuntu, for example, it is not available out of the box and must be installed via a separate package. 
+
+------------------------------------------------------------------
 
 [Changelog](changelog)
 
