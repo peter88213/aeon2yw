@@ -130,6 +130,7 @@ def install(pywriterPath):
     try:
         if not os.path.isfile(cnfDir + INI_FILE):
             copyfile(SAMPLE_PATH + INI_FILE, cnfDir + INI_FILE)
+            output('Copying "' + INI_FILE + '"')
 
         else:
             output('Keeping "' + INI_FILE + '"')
