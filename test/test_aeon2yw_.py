@@ -45,6 +45,7 @@ INI_FILE = TEST_EXEC_PATH + 'aeon2yw.ini'
 TEST_YW7 = TEST_EXEC_PATH + 'yw7 Sample Project.yw7'
 TEST_YW7_BAK = TEST_EXEC_PATH + 'yw7 Sample Project.yw7.bak'
 TEST_AEON = TEST_EXEC_PATH + 'yw7 Sample Project.aeonzip'
+TEST_AEON_BAK = TEST_EXEC_PATH + 'yw7 Sample Project.aeonzip.bak'
 
 
 def open_timeline(filePath):
@@ -99,6 +100,12 @@ def remove_all_testfiles():
         pass
 
     try:
+        os.remove(TEST_AEON_BAK)
+
+    except:
+        pass
+
+    try:
         os.remove(TEST_AEON)
     except:
         pass
@@ -141,6 +148,7 @@ class NormalOperation(unittest.TestCase):
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_NOTES_YW7))
+        self.assertEqual(read_file(TEST_YW7_BAK), read_file(DATE_LIMITS_YW7))
 
     def test_update(self):
         copyfile(DATE_LIMITS_YW7, TEST_YW7)
@@ -148,6 +156,7 @@ class NormalOperation(unittest.TestCase):
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_YW7))
+        self.assertEqual(read_file(TEST_YW7_BAK), read_file(DATE_LIMITS_YW7))
 
     def test_create(self):
         copyfile(DATE_LIMITS_YW7, TEST_YW7)

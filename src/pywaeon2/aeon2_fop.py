@@ -1,6 +1,6 @@
 """Aeon2 file operation
 
-Copyright (c) 2021 Peter Triesberger
+Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
@@ -42,12 +42,22 @@ def save_timeline(jsonData, filePath):
     Return a message beginning with SUCCESS or ERROR.
     """
 
-    try:
+    if os.path.isfile(filePath):
+        os.replace(filePath, filePath + '.bak')
+        backedUp = True
 
+    else:
+        backedUp = False
+
+    try:
         with zipfile.ZipFile(filePath, 'w', compression=zipfile.ZIP_DEFLATED) as f:
             f.writestr('timeline.json', json.dumps(jsonData))
 
     except:
-        return 'ERROR: Cannot write JSON data.'
+
+        if backedUp:
+            os.replace(filePath + '.bak', filePath)
+
+        return 'ERROR: Cannot write "' + os.path.normpath(filePath) + '".'
 
     return 'SUCCESS: "' + os.path.normpath(filePath) + '" written.'

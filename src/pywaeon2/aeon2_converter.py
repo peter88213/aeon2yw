@@ -1,6 +1,6 @@
 """Provide a csv converter class for yWriter projects. 
 
-Copyright (c) 2021 Peter Triesberger
+Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
@@ -30,7 +30,6 @@ class Aeon2Converter(YwCnvUi):
             if os.path.isfile(fileName + Yw7File.EXTENSION):
                 targetFile = Yw7Sync(fileName + Yw7Sync.EXTENSION, **kwargs)
                 sourceFile.ywProject = targetFile
-                targetFile.back_up()
                 self.import_to_yw(sourceFile, targetFile)
 
             else:
@@ -40,7 +39,6 @@ class Aeon2Converter(YwCnvUi):
         elif fileExtension == Yw7File.EXTENSION:
             sourceFile = Yw7File(sourcePath, **kwargs)
             targetFile = JsonTimeline2(fileName + JsonTimeline2.EXTENSION, **kwargs)
-            targetFile.back_up()
             self.export_from_yw(sourceFile, targetFile)
 
         else:
