@@ -1,4 +1,4 @@
-"""Aeon2 file operation
+"""Provide helper functions for Aeon Timeline 2 file operation.
 
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw

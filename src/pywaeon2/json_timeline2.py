@@ -40,7 +40,7 @@ class JsonTimeline2(Novel):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        Novel.__init__(self, filePath, **kwargs)
+        super().__init__(filePath, **kwargs)
 
         self.jsonData = None
 

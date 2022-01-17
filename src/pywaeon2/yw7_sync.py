@@ -1,10 +1,7 @@
-"""Provide a class for a yWriter7 project to get 
-scene date/time updates from Aeon Timeline 2.
+"""Provide a class for a yWriter7 project to get updates from Aeon Timeline 2.
 
-yWriter version-specific file representations inherit from this class.
-
-Copyright (c) 2021 Peter Triesberger
-For further information see https://github.com/peter88213/PyWriter
+Copyright (c) 2022 Peter Triesberger
+For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 
@@ -22,7 +19,7 @@ class Yw7Sync(Yw7File):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        Yw7File.__init__(self, filePath, **kwargs)
+        super().__init__(filePath, **kwargs)
         self.scenesOnly = kwargs['scenes_only']
 
     def merge(self, source):

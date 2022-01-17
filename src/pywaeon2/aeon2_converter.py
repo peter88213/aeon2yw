@@ -1,4 +1,4 @@
-"""Provide a csv converter class for yWriter projects. 
+"""Provide a converter class for Aeon Timeline 2 and yWriter. 
 
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
@@ -16,7 +16,6 @@ class Aeon2Converter(YwCnvUi):
 
     def run(self, sourcePath, **kwargs):
         """Create source and target objects and run conversion.
-        Override the superclass method.
         """
         if not os.path.isfile(sourcePath):
             self.ui.set_info_how('ERROR: File "' + os.path.normpath(sourcePath) + '" not found.')
