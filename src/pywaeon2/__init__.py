@@ -1,4 +1,4 @@
-"""Modules for processing Aeon Timeline 2 project files.
+"""Package for processing Aeon Timeline 2 project files.
 
 Modules:
 
