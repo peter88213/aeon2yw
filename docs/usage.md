@@ -24,8 +24,8 @@ Under Windows, you optionally can launch *aeon2yw* via context menu.
 After installation, you can add the context menu entries by double-clicking  `add_context_menu.reg`. 
 You may be asked for approval to modify the Windows registry. Please accept.
 
-- On right-clicking a *.yw7* file, an *Sync with Aeon Timeline 2* option appears.
-- On right-clicking an *.aeonzip* file, a *Sync with yWriter* option appears.
+- On right-clicking a *.yw7* file, a **Sync with Aeon Timeline 2** option appears.
+- On right-clicking an *.aeonzip* file, a **Sync with yWriter** option appears.
 
 You can remove the context menu entries by double-clicking  `rem_context_menu.reg`.
 
