@@ -17,6 +17,20 @@ The included installation script prompts you to create a shortcut on the desktop
 - If you drag an *.aeonzip* file onto it and drop it, either a new yWriter project is generated or an existing one is synchronized. 
 - If you drag a yWriter project and drop it on the icon, an existing *.aeonzip* file is synchronized. 
 
+### Context menu (Windows only)
+
+Under Windows, you optionally can launch *aeon2yw* via context menu.
+
+After installation, you can add the context menu entries by double-clicking  `add_context_menu.reg`. 
+You may be asked for approval to modify the Windows registry. Please accept.
+
+- On right-clicking a *.yw7* file, an *Sync with Aeon Timeline 2* option appears.
+- On right-clicking an *.aeonzip* file, a *Sync with yWriter* option appears.
+
+You can remove the context menu entries by double-clicking  `rem_context_menu.reg`.
+
+Please note that these context menus depend on the currently installed Python version. After a major Python update you may need to run the setup program again and renew the registry entries.
+
 ### Command line usage
 
 Alternatively, you can

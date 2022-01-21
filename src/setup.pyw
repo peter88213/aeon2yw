@@ -8,6 +8,7 @@ For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
+import sys
 import stat
 from shutil import copyfile
 from pathlib import Path
@@ -51,9 +52,61 @@ processInfo = Label(root, text='')
 message = []
 
 
+SET_CONTEXT_MENU = '''Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\Sync with Aeon Timeline 2]
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\Sync with Aeon Timeline 2\\command]
+@="\\"${PYTHON}\\" \\"${SCRIPT}\\" \\"%1\\""
+
+[HKEY_CURRENT_USER\\SOFTWARE\\Classes\\.aeonzip]
+@="Aeon2Project"
+
+[HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
+@="Aeon Timeline 2 Project"
+
+[HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project\\DefaultIcon]
+@="C:\\\\Program Files (x86)\\\\Aeon Timeline 2\\\\AeonTimeline2.exe,0"
+
+[HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project\\shell\\open]
+
+[HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project\\shell\\open\\command]
+@="\\"C:\\\\Program Files (x86)\\\\Aeon Timeline 2\\\\AeonTimeline2.exe\\" \\"%1\\""
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\\Aeon2Project\\shell\\Sync with yWriter]
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\\Aeon2Project\\shell\\Sync with yWriter\\command]
+@="\\"${PYTHON}\\" \\"${SCRIPT}\\" \\"%1\\""
+'''
+
+RESET_CONTEXT_MENU = '''Windows Registry Editor Version 5.00
+
+[-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\yWriter7\\shell\Sync with Aeon Timeline 2]
+[-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
+'''
+
+
 def output(text):
     message.append(text)
     processInfo.config(text=('\n').join(message))
+
+
+def make_context_menu(installPath):
+    """Generate ".reg" files to extend the yWriter and Timeline context menus."""
+
+    def save_reg_file(filePath, template, mapping):
+        """Save a registry file."""
+
+        with open(filePath, 'w', encoding='utf-8') as f:
+            f.write(template.safe_substitute(mapping))
+
+        output('Creating ' + os.path.normpath(filePath))
+
+    python = sys.executable.replace('\\', '\\\\')
+    script = installPath.replace('/', '\\\\') + '\\\\' + APP
+    mapping = dict(PYTHON=python, SCRIPT=script)
+    save_reg_file(installPath + '/add_context_menu.reg', Template(SET_CONTEXT_MENU), mapping)
+    save_reg_file(installPath + '/rem_context_menu.reg', Template(RESET_CONTEXT_MENU), {})
 
 
 def open_folder(installDir):
@@ -158,6 +211,11 @@ def install(pywriterPath):
 
     except:
         pass
+
+    # Generate registry entries for the context menu (Windows only).
+
+    if os.name == 'nt':
+        make_context_menu(installDir)
 
     # Display a success message.
 

@@ -8,6 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v0.34.8 Bugfix update
+
+- Fix a bug where the viewpoint may change when synchronizing.
+- Add Windows context menu entries.
+
+Based on PyWriter v3.32.3
+
 ### v0.34.7 Support non-Windows OS
 
 - Move installation and configuration to another location (see instructions for use).

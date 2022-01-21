@@ -340,12 +340,27 @@ class Yw7Sync(Yw7File):
                 #--- Update scene characters.
 
                 if source.scenes[srcId].characters is not None:
-                    self.scenes[scId].characters = []
+
+                    try:
+                        viewpoint = self.scenes[scId].characters[0]
+
+                    except IndexError:
+                        viewpoint = ''
+
+                    if viewpoint in crIdsBySrcId.values():
+                        self.scenes[scId].characters = [viewpoint]
+
+                    else:
+                        self.scenes[scId].characters = []
 
                     for crId in source.scenes[srcId].characters:
 
-                        if crId in crIdsBySrcId:
-                            self.scenes[scId].characters.append(crIdsBySrcId[crId])
+                        try:
+                            if not crIdsBySrcId[crId] in self.scenes[scId].characters:
+                                self.scenes[scId].characters.append(crIdsBySrcId[crId])
+
+                        except IndexError:
+                            pass
 
                 #--- Update scene locations.
 
