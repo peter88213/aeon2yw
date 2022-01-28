@@ -58,6 +58,6 @@ def save_timeline(jsonData, filePath):
         if backedUp:
             os.replace(filePath + '.bak', filePath)
 
-        return 'ERROR: Cannot write "' + os.path.normpath(filePath) + '".'
+        return 'ERROR: Cannot write "{}".'.format(os.path.normpath(filePath))
 
-    return 'SUCCESS: "' + os.path.normpath(filePath) + '" written.'
+    return 'SUCCESS: "{}" written.'.format(os.path.normpath(filePath))

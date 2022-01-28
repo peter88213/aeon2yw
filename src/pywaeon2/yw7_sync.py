@@ -43,7 +43,7 @@ class Yw7Sync(Yw7File):
         for scId in source.scenes:
 
             if source.scenes[scId].title in srcScnTitles:
-                return 'ERROR: Ambiguous Aeon event title "' + source.scenes[scId].title + '".'
+                return 'ERROR: Ambiguous Aeon event title "{}".'.format(source.scenes[scId].title)
 
             else:
                 srcScnTitles.append(source.scenes[scId].title)
@@ -71,7 +71,7 @@ class Yw7Sync(Yw7File):
                 continue
 
             if source.characters[crId].fullName in srcChrNames:
-                return 'ERROR: Ambiguous yWriter character "' + source.characters[crId].fullName + '".'
+                return 'ERROR: Ambiguous yWriter character "{}".'.format(source.characters[crId].fullName)
 
             else:
                 srcChrNames.append(source.characters[crId].fullName)
@@ -86,7 +86,7 @@ class Yw7Sync(Yw7File):
                 continue
 
             if source.locations[lcId].title in srcLocTitles:
-                return 'ERROR: Ambiguous yWriter location "' + source.locations[lcId].title + '".'
+                return 'ERROR: Ambiguous yWriter location "{}".'.format(source.locations[lcId].title)
 
             else:
                 srcLocTitles.append(source.locations[lcId].title)
@@ -101,7 +101,7 @@ class Yw7Sync(Yw7File):
                 continue
 
             if source.items[itId].title in srcItmTitles:
-                return 'ERROR: Ambiguous yWriter item "' + source.items[itId].title + '".'
+                return 'ERROR: Ambiguous yWriter item "{}".'.format(source.items[itId].title)
 
             else:
                 srcItmTitles.append(source.items[itId].title)
@@ -150,7 +150,7 @@ class Yw7Sync(Yw7File):
                     continue
 
                 if self.scenes[scId].title in scIdsByTitle:
-                    return 'ERROR: Ambiguous yWriter scene title "' + self.scenes[scId].title + '".'
+                    return 'ERROR: Ambiguous yWriter scene title "{}".'.format(self.scenes[scId].title)
 
                 else:
                     scIdsByTitle[self.scenes[scId].title] = scId
@@ -166,7 +166,7 @@ class Yw7Sync(Yw7File):
                 crIdMax = int(crId)
 
             if self.characters[crId].fullName in crIdsByName:
-                return 'ERROR: Ambiguous yWriter character "' + self.characters[crId].fullName + '".'
+                return 'ERROR: Ambiguous yWriter character "{}".'.format(self.characters[crId].fullName)
 
             else:
                 crIdsByName[self.characters[crId].fullName] = crId
@@ -182,7 +182,7 @@ class Yw7Sync(Yw7File):
                 lcIdMax = int(lcId)
 
             if self.locations[lcId].title in lcIdsByTitle:
-                return 'ERROR: Ambiguous yWriter location "' + self.locations[lcId].title + '".'
+                return 'ERROR: Ambiguous yWriter location "{}".'.format(self.locations[lcId].title)
 
             else:
                 lcIdsByTitle[self.locations[lcId].title] = lcId
@@ -198,7 +198,7 @@ class Yw7Sync(Yw7File):
                 itIdMax = int(itId)
 
             if self.items[itId].title in itIdsByTitle:
-                return 'ERROR: Ambiguous yWriter item "' + self.items[itId].title + '".'
+                return 'ERROR: Ambiguous yWriter item "{}".'.format(self.items[itId].title)
 
             else:
                 itIdsByTitle[self.items[itId].title] = itId
