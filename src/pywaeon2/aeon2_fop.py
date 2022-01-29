@@ -43,7 +43,7 @@ def save_timeline(jsonData, filePath):
     """
 
     if os.path.isfile(filePath):
-        os.replace(filePath, filePath + '.bak')
+        os.replace(filePath, f'{filePath}.bak')
         backedUp = True
 
     else:
@@ -56,7 +56,7 @@ def save_timeline(jsonData, filePath):
     except:
 
         if backedUp:
-            os.replace(filePath + '.bak', filePath)
+            os.replace(f'{filePath}.bak', filePath)
 
         return f'ERROR: Cannot write "{os.path.normpath(filePath)}".'
 

@@ -805,7 +805,7 @@ class JsonTimeline2(Novel):
                 crId = str(crIdMax)
                 crIdsBySrcId[srcCrId] = crId
                 self.characters[crId] = source.characters[srcCrId]
-                newGuid = get_uid(crId + self.characters[crId].fullName)
+                newGuid = get_uid(f'{crId}{self.characters[crId].fullName}')
                 self.characterGuidById[crId] = newGuid
                 self.jsonData['entities'].append(
                     {
@@ -836,7 +836,7 @@ class JsonTimeline2(Novel):
                 lcId = str(lcIdMax)
                 lcIdsBySrcId[srcLcId] = lcId
                 self.locations[lcId] = source.locations[srcLcId]
-                newGuid = get_uid(lcId + self.locations[lcId].title)
+                newGuid = get_uid(f'{lcId}{self.locations[lcId].title}')
                 self.locationGuidById[lcId] = newGuid
                 self.jsonData['entities'].append(
                     {
@@ -867,7 +867,7 @@ class JsonTimeline2(Novel):
                 itId = str(itIdMax)
                 itIdsBySrcId[srcItId] = itId
                 self.items[itId] = source.items[srcItId]
-                newGuid = get_uid(itId + self.items[itId].title)
+                newGuid = get_uid(f'{itId}{self.items[itId].title}')
                 self.itemGuidById[itId] = newGuid
                 self.jsonData['entities'].append(
                     {
@@ -1018,7 +1018,7 @@ class JsonTimeline2(Novel):
                     isoDt = scene.date
 
                     if scene.time:
-                        isoDt += (' ' + scene.time)
+                        isoDt = (f'{isoDt} {scene.time}')
 
                 timestamp = int((datetime.fromisoformat(isoDt) - datetime.min).total_seconds())
 

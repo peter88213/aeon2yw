@@ -332,7 +332,7 @@ class Yw7Sync(Yw7File):
                     if self.scenes[scId].sceneNotes is not None:
 
                         if not source.scenes[srcId].sceneNotes in self.scenes[scId].sceneNotes:
-                            self.scenes[scId].sceneNotes += ('\n' + source.scenes[srcId].sceneNotes)
+                            self.scenes[scId].sceneNotes = f'{self.scenes[scId].sceneNotes}\n{source.scenes[srcId].sceneNotes}'
 
                     else:
                         self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
