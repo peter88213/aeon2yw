@@ -8,6 +8,8 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 from shutil import copyfile
 import os
 import unittest
+import sys
+from io import StringIO
 
 import zipfile
 import codecs
@@ -121,6 +123,13 @@ class NormalOperation(unittest.TestCase):
 
     def setUp(self):
 
+        self.test_out = StringIO()
+        self.test_err = StringIO()
+        self.original_output = sys.stdout
+        self.original_err = sys.stderr
+        sys.stdout = self.test_out
+        sys.stderr = self.test_err
+
         try:
             os.mkdir(TEST_EXEC_PATH)
 
@@ -133,7 +142,7 @@ class NormalOperation(unittest.TestCase):
         copyfile(NORMAL_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(NORMAL_YW7))
+        self.assertStderrEquals('FAIL: Ambiguous Aeon event title "Mrs Hubbard sleeps".')
 
     def test_date_limits_aeonzip(self):
         copyfile(DATE_LIMITS_AEON, TEST_AEON)
@@ -166,7 +175,25 @@ class NormalOperation(unittest.TestCase):
         self.assertEqual(open_timeline(TEST_AEON)[1], open_timeline(CREATED_AEON)[1])
 
     def tearDown(self):
+        sys.stdout = self.original_output
+        sys.stderr = self.original_err
         remove_all_testfiles()
+
+    # assert that sys.stdout would be equal to expected value
+    def assertStdoutEquals(self, value):
+        self.assertEqual(self.test_out.getvalue().strip(), value)
+
+    # assert that sys.stdout would not be equal to expected value
+    def assertStdoutNotEquals(self, value):
+        self.assertNotEqual(self.test_out.getvalue().strip(), value)
+
+    # assert that sys.stderr would be equal to expected value
+    def assertStderrEquals(self, value):
+        self.assertEqual(self.test_err.getvalue().strip(), value)
+
+    # assert that sys.stderr would not be equal to expected value
+    def assertStderrNotEquals(self, value):
+        self.assertNotEqual(self.test_err.getvalue().strip(), value)
 
 
 def main():

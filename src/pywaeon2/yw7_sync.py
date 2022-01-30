@@ -45,21 +45,20 @@ class Yw7Sync(Yw7File):
             if source.scenes[scId].title in srcScnTitles:
                 return f'{ERROR}Ambiguous Aeon event title "{source.scenes[scId].title}".'
 
-            else:
-                srcScnTitles.append(source.scenes[scId].title)
+            srcScnTitles.append(source.scenes[scId].title)
 
-                # Collect characters, locations, and items assigned to normal scenes.
+            # Collect characters, locations, and items assigned to normal scenes.
 
-                if not source.scenes[scId].isNotesScene:
+            if not source.scenes[scId].isNotesScene:
 
-                    if source.scenes[scId].characters:
-                        linkedCharacters = list(set(linkedCharacters + source.scenes[scId].characters))
+                if source.scenes[scId].characters:
+                    linkedCharacters = list(set(linkedCharacters + source.scenes[scId].characters))
 
-                    if source.scenes[scId].locations:
-                        linkedLocations = list(set(linkedLocations + source.scenes[scId].locations))
+                if source.scenes[scId].locations:
+                    linkedLocations = list(set(linkedLocations + source.scenes[scId].locations))
 
-                    if source.scenes[scId].items:
-                        linkedItems = list(set(linkedItems + source.scenes[scId].items))
+                if source.scenes[scId].items:
+                    linkedItems = list(set(linkedItems + source.scenes[scId].items))
 
         # Check characters.
 
@@ -73,8 +72,7 @@ class Yw7Sync(Yw7File):
             if source.characters[crId].fullName in srcChrNames:
                 return f'{ERROR}Ambiguous yWriter character "{source.characters[crId].fullName}".'
 
-            else:
-                srcChrNames.append(source.characters[crId].fullName)
+            srcChrNames.append(source.characters[crId].fullName)
 
         # Check locations.
 
@@ -88,8 +86,7 @@ class Yw7Sync(Yw7File):
             if source.locations[lcId].title in srcLocTitles:
                 return f'{ERROR}Ambiguous yWriter location "{source.locations[lcId].title}".'
 
-            else:
-                srcLocTitles.append(source.locations[lcId].title)
+            srcLocTitles.append(source.locations[lcId].title)
 
         # Check items.
 
@@ -103,8 +100,7 @@ class Yw7Sync(Yw7File):
             if source.items[itId].title in srcItmTitles:
                 return f'{ERROR}Ambiguous yWriter item "{source.items[itId].title}".'
 
-            else:
-                srcItmTitles.append(source.items[itId].title)
+            srcItmTitles.append(source.items[itId].title)
 
         #--- Analyze the target.
         # Check scenes.
@@ -152,8 +148,7 @@ class Yw7Sync(Yw7File):
                 if self.scenes[scId].title in scIdsByTitle:
                     return f'{ERROR}Ambiguous yWriter scene title "{self.scenes[scId].title}".'
 
-                else:
-                    scIdsByTitle[self.scenes[scId].title] = scId
+                scIdsByTitle[self.scenes[scId].title] = scId
 
         # Check characters.
 
@@ -168,8 +163,7 @@ class Yw7Sync(Yw7File):
             if self.characters[crId].fullName in crIdsByName:
                 return f'{ERROR}Ambiguous yWriter character "{self.characters[crId].fullName}".'
 
-            else:
-                crIdsByName[self.characters[crId].fullName] = crId
+            crIdsByName[self.characters[crId].fullName] = crId
 
         # Check locations.
 
@@ -184,8 +178,7 @@ class Yw7Sync(Yw7File):
             if self.locations[lcId].title in lcIdsByTitle:
                 return f'{ERROR}Ambiguous yWriter location "{self.locations[lcId].title}".'
 
-            else:
-                lcIdsByTitle[self.locations[lcId].title] = lcId
+            lcIdsByTitle[self.locations[lcId].title] = lcId
 
         # Check items.
 
@@ -200,8 +193,7 @@ class Yw7Sync(Yw7File):
             if self.items[itId].title in itIdsByTitle:
                 return f'{ERROR}Ambiguous yWriter item "{self.items[itId].title}".'
 
-            else:
-                itIdsByTitle[self.items[itId].title] = itId
+            itIdsByTitle[self.items[itId].title] = itId
 
         #--- Update characters from the source.
 

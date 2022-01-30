@@ -388,13 +388,18 @@ class JsonTimeline2(Novel):
 
         eventCount = 0
         scIdsByDate = {}
+        scnTitles = []
 
         for evt in self.jsonData['events']:
+
+            if evt['title'] in scnTitles:
+                return f'{ERROR}Ambiguous Aeon event title "{evt["title"]}".'
+
+            scnTitles.append(evt['title'])
             eventCount += 1
             scId = str(eventCount)
             self.scenes[scId] = Scene()
             self.scenes[scId].title = evt['title']
-
             displayId = float(evt['displayId'])
 
             if displayId > self.displayIdMax:
