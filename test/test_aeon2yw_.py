@@ -60,16 +60,16 @@ def open_timeline(filePath):
             jsonStr = codecs.decode(jsonBytes, encoding='utf-8')
 
     except:
-        return 'ERROR: Cannot read JSON data.', None
+        return f'{ERROR}: Cannot read JSON data.', None
 
     if not jsonStr:
-        return 'ERROR: No JSON part found.', None
+        return f'{ERROR}: No JSON part found.', None
 
     try:
         jsonData = json.loads(jsonStr)
 
     except('JSONDecodeError'):
-        return 'ERROR: Invalid JSON data.'
+        return f'{ERROR}: Invalid JSON data.'
         None
 
     return 'SUCCESS', jsonData

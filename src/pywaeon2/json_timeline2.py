@@ -4,10 +4,10 @@ Copyright (c) 2021 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
-import os
 from datetime import datetime
 from datetime import timedelta
 
+from pywriter.pywriter_globals import ERROR
 from pywriter.model.novel import Novel
 from pywriter.model.scene import Scene
 from pywriter.model.chapter import Chapter
@@ -105,7 +105,7 @@ class JsonTimeline2(Novel):
 
         message, self.jsonData = open_timeline(self.filePath)
 
-        if message.startswith('ERROR'):
+        if message.startswith(ERROR):
             return message
 
         #--- Get the color definitions.
@@ -126,7 +126,7 @@ class JsonTimeline2(Novel):
                         break
 
         if self.tplDateGuid is None:
-            return 'ERROR: "AD" era is missing in the calendar.'
+            return f'{ERROR}: "AD" era is missing in the calendar.'
 
         #--- Get GUID of user defined types and roles.
 
@@ -649,7 +649,7 @@ class JsonTimeline2(Novel):
 
         message = self.read()
 
-        if message.startswith('ERROR'):
+        if message.startswith(ERROR):
             return message
 
         linkedCharacters = []
@@ -666,7 +666,7 @@ class JsonTimeline2(Novel):
             for scId in source.chapters[chId].srtScenes:
 
                 if source.scenes[scId].title in srcScnTitles:
-                    return 'ERROR: Ambiguous yWriter scene title "{}".'.format(source.scenes[scId].title)
+                    return f'{ERROR}: Ambiguous yWriter scene title "{source.scenes[scId].title}".'
 
                 else:
                     srcScnTitles.append(source.scenes[scId].title)
@@ -692,10 +692,10 @@ class JsonTimeline2(Novel):
                 continue
 
             if not source.characters[crId].fullName:
-                return 'ERROR: Character "{}" has no full name.'.format(source.characters[crId].title)
+                return f'{ERROR}: Character "{source.characters[crId].title}" has no full name.'
 
             if source.characters[crId].fullName in srcChrNames:
-                return 'ERROR: Ambiguous yWriter character "{}".'.format(source.characters[crId].fullName)
+                return f'{ERROR}: Ambiguous yWriter character "{source.characters[crId].fullName}".'
 
             else:
                 srcChrNames.append(source.characters[crId].fullName)
@@ -710,7 +710,7 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.locations[lcId].title in srcLocTitles:
-                return 'ERROR: Ambiguous yWriter location "{}".'.format(source.locations[lcId].title)
+                return f'{ERROR}: Ambiguous yWriter location "{source.locations[lcId].title}".'
 
             else:
                 srcLocTitles.append(source.locations[lcId].title)
@@ -725,7 +725,7 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.items[itId].title in srcItmTitles:
-                return 'ERROR: Ambiguous yWriter item "{}".'.format(source.items[itId].title)
+                return f'{ERROR}: Ambiguous yWriter item "{source.items[itId].title}".'
 
             else:
                 srcItmTitles.append(source.items[itId].title)
@@ -738,7 +738,7 @@ class JsonTimeline2(Novel):
         for scId in self.scenes:
 
             if self.scenes[scId].title in scIdsByTitle:
-                return 'ERROR: Ambiguous Aeon event title "{}".'.format(self.scenes[scId].title)
+                return f'{ERROR}: Ambiguous Aeon event title "{self.scenes[scId].title}".'
 
             else:
                 scIdsByTitle[self.scenes[scId].title] = scId
@@ -758,7 +758,7 @@ class JsonTimeline2(Novel):
         for crId in self.characters:
 
             if self.characters[crId].fullName in crIdsByName:
-                return 'ERROR: Ambiguous Aeon character "{}".'.format(self.characters[crId].fullName)
+                return f'{ERROR}: Ambiguous Aeon character "{self.characters[crId].fullName}".'
 
             else:
                 crIdsByName[self.characters[crId].fullName] = crId
@@ -770,7 +770,7 @@ class JsonTimeline2(Novel):
         for lcId in self.locations:
 
             if self.locations[lcId].title in lcIdsByTitle:
-                return 'ERROR: Ambiguous Aeon location "{}".'.format(self.locations[lcId].title)
+                return f'{ERROR}: Ambiguous Aeon location "{self.locations[lcId].title}".'
 
             else:
                 lcIdsByTitle[self.locations[lcId].title] = lcId
@@ -782,7 +782,7 @@ class JsonTimeline2(Novel):
         for itId in self.items:
 
             if self.items[itId].title in itIdsByTitle:
-                return 'ERROR: Ambiguous Aeon item "{}".'.format(self.items[itId].title)
+                return f'{ERROR}: Ambiguous Aeon item "{self.items[itId].title}".'
 
             else:
                 itIdsByTitle[self.items[itId].title] = itId
