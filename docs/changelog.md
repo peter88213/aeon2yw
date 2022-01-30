@@ -8,6 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.0.0 Public release
+
+- Rework the messages. 
+- Refactor the code.
+
+Based on PyWriter v5.0.0
+
 ### v0.34.8 Bugfix update
 
 - Fix a bug where the viewpoint may change when synchronizing.

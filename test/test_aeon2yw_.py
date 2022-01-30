@@ -50,7 +50,7 @@ TEST_AEON_BAK = TEST_EXEC_PATH + 'yw7 Sample Project.aeonzip.bak'
 
 def open_timeline(filePath):
     """Unzip the project file and read 'timeline.json'.
-    Return a message beginning with SUCCESS or ERROR
+    Return a message beginning with the ERROR constant in case of error
     and the JSON timeline structure.
     """
 
@@ -60,16 +60,16 @@ def open_timeline(filePath):
             jsonStr = codecs.decode(jsonBytes, encoding='utf-8')
 
     except:
-        return f'{ERROR}: Cannot read JSON data.', None
+        return f'{ERROR}Cannot read JSON data.', None
 
     if not jsonStr:
-        return f'{ERROR}: No JSON part found.', None
+        return f'{ERROR}No JSON part found.', None
 
     try:
         jsonData = json.loads(jsonStr)
 
     except('JSONDecodeError'):
-        return f'{ERROR}: Invalid JSON data.'
+        return f'{ERROR}Invalid JSON data.'
         None
 
     return 'SUCCESS', jsonData

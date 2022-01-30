@@ -14,7 +14,7 @@ from pywriter.pywriter_globals import ERROR
 
 def open_timeline(filePath):
     """Unzip the project file and read 'timeline.json'.
-    Return a message beginning with SUCCESS or ERROR
+    Return a message beginning with the ERROR constant in case of error
     and the JSON timeline structure.
     """
 
@@ -24,24 +24,24 @@ def open_timeline(filePath):
             jsonStr = codecs.decode(jsonBytes, encoding='utf-8')
 
     except:
-        return f'{ERROR}: Cannot read JSON data.', None
+        return f'{ERROR}Cannot read timeline data.', None
 
     if not jsonStr:
-        return f'{ERROR}: No JSON part found.', None
+        return f'{ERROR}No JSON part found in timeline data.', None
 
     try:
         jsonData = json.loads(jsonStr)
 
     except('JSONDecodeError'):
-        return f'{ERROR}: Invalid JSON data.'
+        return f'{ERROR}Invalid JSON data in timeline.'
         None
 
-    return 'SUCCESS', jsonData
+    return 'Timeline data read in.', jsonData
 
 
 def save_timeline(jsonData, filePath):
     """Write the jsonData structure to a zipfile located at filePath.
-    Return a message beginning with SUCCESS or ERROR.
+    Return a message beginning with the ERROR constant in case of error.
     """
 
     if os.path.isfile(filePath):
@@ -60,6 +60,6 @@ def save_timeline(jsonData, filePath):
         if backedUp:
             os.replace(f'{filePath}.bak', filePath)
 
-        return f'{ERROR}: Cannot write "{os.path.normpath(filePath)}".'
+        return f'{ERROR}Cannot write "{os.path.normpath(filePath)}".'
 
-    return f'SUCCESS: "{os.path.normpath(filePath)}" written.'
+    return f'"{os.path.normpath(filePath)}" written.'

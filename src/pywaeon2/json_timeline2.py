@@ -99,7 +99,7 @@ class JsonTimeline2(Novel):
         and build a yWriter novel structure.
         - Events marked as scenes are converted to scenes in one single chapter.
         - Other events are converted to “Notes” scenes in another chapter.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         Override the superclass method.
         """
 
@@ -126,7 +126,7 @@ class JsonTimeline2(Novel):
                         break
 
         if self.tplDateGuid is None:
-            return f'{ERROR}: "AD" era is missing in the calendar.'
+            return f'{ERROR}"AD" era is missing in the calendar.'
 
         #--- Get GUID of user defined types and roles.
 
@@ -595,7 +595,7 @@ class JsonTimeline2(Novel):
         if self.timestampMax == 0:
             self.timestampMax = self.DEFAULT_TIMESTAMP
 
-        return 'SUCCESS'
+        return 'Timeline data converted to novel structure.'
 
     def merge(self, source):
         """Update date/time/duration from the source,
@@ -666,21 +666,20 @@ class JsonTimeline2(Novel):
             for scId in source.chapters[chId].srtScenes:
 
                 if source.scenes[scId].title in srcScnTitles:
-                    return f'{ERROR}: Ambiguous yWriter scene title "{source.scenes[scId].title}".'
+                    return f'{ERROR}Ambiguous yWriter scene title "{source.scenes[scId].title}".'
 
-                else:
-                    srcScnTitles.append(source.scenes[scId].title)
+                srcScnTitles.append(source.scenes[scId].title)
 
-                    # Collect characters, locations, and items assigned to scenes.
+                # Collect characters, locations, and items assigned to scenes.
 
-                    if source.scenes[scId].characters:
-                        linkedCharacters = list(set(linkedCharacters + source.scenes[scId].characters))
+                if source.scenes[scId].characters:
+                    linkedCharacters = list(set(linkedCharacters + source.scenes[scId].characters))
 
-                    if source.scenes[scId].locations:
-                        linkedLocations = list(set(linkedLocations + source.scenes[scId].locations))
+                if source.scenes[scId].locations:
+                    linkedLocations = list(set(linkedLocations + source.scenes[scId].locations))
 
-                    if source.scenes[scId].items:
-                        linkedItems = list(set(linkedItems + source.scenes[scId].items))
+                if source.scenes[scId].items:
+                    linkedItems = list(set(linkedItems + source.scenes[scId].items))
 
         # Check characters.
 
@@ -692,13 +691,12 @@ class JsonTimeline2(Novel):
                 continue
 
             if not source.characters[crId].fullName:
-                return f'{ERROR}: Character "{source.characters[crId].title}" has no full name.'
+                return f'{ERROR}Character "{source.characters[crId].title}" has no full name.'
 
             if source.characters[crId].fullName in srcChrNames:
-                return f'{ERROR}: Ambiguous yWriter character "{source.characters[crId].fullName}".'
+                return f'{ERROR}Ambiguous yWriter character "{source.characters[crId].fullName}".'
 
-            else:
-                srcChrNames.append(source.characters[crId].fullName)
+            srcChrNames.append(source.characters[crId].fullName)
 
         # Check locations.
 
@@ -710,10 +708,9 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.locations[lcId].title in srcLocTitles:
-                return f'{ERROR}: Ambiguous yWriter location "{source.locations[lcId].title}".'
+                return f'{ERROR}Ambiguous yWriter location "{source.locations[lcId].title}".'
 
-            else:
-                srcLocTitles.append(source.locations[lcId].title)
+            srcLocTitles.append(source.locations[lcId].title)
 
         # Check items.
 
@@ -725,10 +722,9 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.items[itId].title in srcItmTitles:
-                return f'{ERROR}: Ambiguous yWriter item "{source.items[itId].title}".'
+                return f'{ERROR}Ambiguous yWriter item "{source.items[itId].title}".'
 
-            else:
-                srcItmTitles.append(source.items[itId].title)
+            srcItmTitles.append(source.items[itId].title)
 
         #--- Check the target for ambiguous titles.
         # Check scenes.
@@ -738,10 +734,9 @@ class JsonTimeline2(Novel):
         for scId in self.scenes:
 
             if self.scenes[scId].title in scIdsByTitle:
-                return f'{ERROR}: Ambiguous Aeon event title "{self.scenes[scId].title}".'
+                return f'{ERROR}Ambiguous Aeon event title "{self.scenes[scId].title}".'
 
-            else:
-                scIdsByTitle[self.scenes[scId].title] = scId
+            scIdsByTitle[self.scenes[scId].title] = scId
 
             #--- Mark non-scene events.
             # This is to recognize "Trash" scenes.
@@ -758,10 +753,9 @@ class JsonTimeline2(Novel):
         for crId in self.characters:
 
             if self.characters[crId].fullName in crIdsByName:
-                return f'{ERROR}: Ambiguous Aeon character "{self.characters[crId].fullName}".'
+                return f'{ERROR}Ambiguous Aeon character "{self.characters[crId].fullName}".'
 
-            else:
-                crIdsByName[self.characters[crId].fullName] = crId
+            crIdsByName[self.characters[crId].fullName] = crId
 
         # Check locations.
 
@@ -770,10 +764,9 @@ class JsonTimeline2(Novel):
         for lcId in self.locations:
 
             if self.locations[lcId].title in lcIdsByTitle:
-                return f'{ERROR}: Ambiguous Aeon location "{self.locations[lcId].title}".'
+                return f'{ERROR}Ambiguous Aeon location "{self.locations[lcId].title}".'
 
-            else:
-                lcIdsByTitle[self.locations[lcId].title] = lcId
+            lcIdsByTitle[self.locations[lcId].title] = lcId
 
         # Check items.
 
@@ -782,10 +775,9 @@ class JsonTimeline2(Novel):
         for itId in self.items:
 
             if self.items[itId].title in itIdsByTitle:
-                return f'{ERROR}: Ambiguous Aeon item "{self.items[itId].title}".'
+                return f'{ERROR}Ambiguous Aeon item "{self.items[itId].title}".'
 
-            else:
-                itIdsByTitle[self.items[itId].title] = itId
+            itIdsByTitle[self.items[itId].title] = itId
 
         #--- Update characters from the source.
 
@@ -1002,7 +994,7 @@ class JsonTimeline2(Novel):
                 if source.scenes[srcId].lastsDays is not None:
                     self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
 
-        return 'SUCCESS'
+        return 'Timeline updated from novel data.'
 
     def write(self):
         """Write selected properties to the file.

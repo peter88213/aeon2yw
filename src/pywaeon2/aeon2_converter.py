@@ -5,8 +5,11 @@ For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
+
+from pywriter.pywriter_globals import ERROR
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from pywriter.yw.yw7_file import Yw7File
+
 from pywaeon2.json_timeline2 import JsonTimeline2
 from pywaeon2.yw7_sync import Yw7Sync
 
@@ -18,7 +21,7 @@ class Aeon2Converter(YwCnvUi):
         """Create source and target objects and run conversion.
         """
         if not os.path.isfile(sourcePath):
-            self.ui.set_info_how(f'ERROR: File "{os.path.normpath(sourcePath)}" not found.')
+            self.ui.set_info_how(f'{ERROR}File "{os.path.normpath(sourcePath)}" not found.')
             return
 
         fileName, fileExtension = os.path.splitext(sourcePath)
@@ -41,5 +44,5 @@ class Aeon2Converter(YwCnvUi):
             self.export_from_yw(sourceFile, targetFile)
 
         else:
-            self.ui.set_info_how(f'ERROR: File type of "{os.path.normpath(sourcePath)}" not supported.')
+            self.ui.set_info_how(f'{ERROR}File type of "{os.path.normpath(sourcePath)}" not supported.')
             return
