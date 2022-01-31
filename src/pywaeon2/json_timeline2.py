@@ -618,7 +618,7 @@ class JsonTimeline2(Novel):
                 'attachments': [],
                 'color': '',
                 'displayId': get_display_id(),
-                'guid': get_uid('scene' + scene.title),
+                'guid': get_uid(f'scene{scene.title}'),
                 'links': [],
                 'locked': False,
                 'priority': 500,
