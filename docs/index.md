@@ -33,8 +33,7 @@
  
 ## Requirements
 
-- [Python 3.7+](https://www.python.org).
-- [yWriter](http://spacejock.com/yWriter7.html).
+- [Python 3.6+](https://www.python.org).
 - Aeon Timeline 2. Note: There is now a separate [converter for Aeon Timeline 3](https://peter88213.github.io/aeon3yw). 
 
 
