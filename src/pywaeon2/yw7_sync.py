@@ -20,7 +20,7 @@ class Yw7Sync(Yw7File):
         defining instance variables.
         """
         super().__init__(filePath, **kwargs)
-        self.scenesOnly = kwargs['scenes_only']
+        self._scenesOnly = kwargs['scenes_only']
 
     def merge(self, source):
         """Update date/time/duration from the source,
@@ -261,7 +261,7 @@ class Yw7Sync(Yw7File):
 
             for srcId in source.chapters[chId].srtScenes:
 
-                if source.scenes[srcId].isNotesScene and self.scenesOnly:
+                if source.scenes[srcId].isNotesScene and self._scenesOnly:
 
                     # Make "non-Narative" event a "Notes" scene.
 
