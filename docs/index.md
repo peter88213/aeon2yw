@@ -34,14 +34,15 @@
 ## Requirements
 
 - [Python 3.6+](https://www.python.org).
+- [yWriter](http://spacejock.com/yWriter7.html).
 - Aeon Timeline 2. Note: There is now a separate [converter for Aeon Timeline 3](https://peter88213.github.io/aeon3yw). 
 
 
 ## Download and install
 
-[Download the latest release (version 0.35.4)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.35.4.zip)
+[Download the latest release (version 0.35.5)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.35.5.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.35.4.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.35.5.zip" into a new folder.
 - Move into this new folder and launch **setup.pyw**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.
