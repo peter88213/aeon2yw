@@ -587,7 +587,7 @@ class JsonTimeline2(Novel):
 
         srtScenes = sorted(scIdsByDate.items())
 
-        for date, scList in srtScenes:
+        for __, scList in srtScenes:
 
             for scId in scList:
 
@@ -1174,14 +1174,11 @@ class JsonTimeline2(Novel):
         #--- Delete "Trash" scenes.
 
         events = []
-        i = 0
 
-        for evt in self._jsonData['events']:
+        for i, evt in enumerate(self._jsonData['events']):
 
             if not i in self._trashEvents:
                 events.append(evt)
-
-            i += 1
 
         self._jsonData['events'] = events
         return save_timeline(self._jsonData, self.filePath)
