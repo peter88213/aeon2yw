@@ -40,9 +40,9 @@
 
 ## Download and install
 
-[Download the latest release (version 0.35.5)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.35.5.zip)
+[Download the latest release (version 0.35.6)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v0.35.6.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v0.35.5.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v0.35.6.zip" into a new folder.
 - Move into this new folder and launch **setup.pyw**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.
