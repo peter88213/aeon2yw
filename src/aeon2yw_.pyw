@@ -51,7 +51,7 @@ def run(sourcePath, silentMode=True, installDir=''):
 
     sourceDir = os.path.dirname(sourcePath)
 
-    if sourceDir == '':
+    if not sourceDir:
         sourceDir = './'
 
     else:
