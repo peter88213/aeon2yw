@@ -34,7 +34,7 @@ class JsonTimeline2(Novel):
     DATE_LIMIT = (datetime(100, 1, 1) - datetime.min).total_seconds()
     # Dates before 100-01-01 can not be displayed properly in yWriter
 
-    DEFAULT_TIMESTAMP = (datetime.now() - datetime.min).total_seconds()
+    DEFAULT_TIMESTAMP = (datetime.today() - datetime.min).total_seconds()
 
     def __init__(self, filePath, **kwargs):
         """Extend the superclass constructor,
