@@ -15,7 +15,7 @@ from pywriter.ui.ui import Ui
 from pywriter.ui.ui_tk import UiTk
 from pywriter.config.configuration import Configuration
 
-from pywaeon2.aeon2_converter import Aeon2Converter
+from aeon2ywlib.aeon2_converter import Aeon2Converter
 
 SUFFIX = ''
 APPNAME = 'aeon2yw'

@@ -14,9 +14,9 @@ from pywriter.model.chapter import Chapter
 from pywriter.model.world_element import WorldElement
 from pywriter.model.character import Character
 
-from pywaeon2.aeon2_fop import open_timeline
-from pywaeon2.aeon2_fop import save_timeline
-from pywaeon2.uid_helper import get_uid
+from aeon2ywlib.aeon2_fop import open_timeline
+from aeon2ywlib.aeon2_fop import save_timeline
+from aeon2ywlib.uid_helper import get_uid
 
 
 class JsonTimeline2(Novel):

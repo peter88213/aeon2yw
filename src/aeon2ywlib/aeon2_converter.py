@@ -10,8 +10,8 @@ from pywriter.pywriter_globals import ERROR
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from pywriter.yw.yw7_file import Yw7File
 
-from pywaeon2.json_timeline2 import JsonTimeline2
-from pywaeon2.yw7_sync import Yw7Sync
+from aeon2ywlib.json_timeline2 import JsonTimeline2
+from aeon2ywlib.yw7_sync import Yw7Sync
 
 
 class Aeon2Converter(YwCnvUi):
