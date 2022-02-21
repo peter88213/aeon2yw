@@ -1,5 +1,3 @@
-/src/__pycache__/
-/src/pywaeon2/__pycache__/
-/test/__pycache__/
 /test/yw7/
 /build/
+*.pyc
