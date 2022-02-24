@@ -8,9 +8,10 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
-### v1.0.0 Public release
+### v1.0.0
 
-- Rework the messages. 
+- Fix a bug where "To do" chapters cause an exception.
+- Rework the user interface. 
 - Refactor the code.
 
 Based on PyWriter v5.0.0
