@@ -282,7 +282,6 @@ class JsonTimeline2(Novel):
         locationCount = 0
         itemCount = 0
         for ent in self._jsonData['entities']:
-
             if ent['entityType'] == self._typeArcGuid:
                 self._arcCount += 1
                 if ent['name'] == self._entityNarrative:
@@ -468,8 +467,7 @@ class JsonTimeline2(Novel):
             #--- Find scenes and get characters, locations, and items.
             self.scenes[scId].isNotesScene = True
             self.scenes[scId].isUnused = True
-            for evtRel in evt['relationships']:
-                
+            for evtRel in evt['relationships']:                
                 if evtRel['role'] == self._roleArcGuid:
                     # Make scene event "Normal" type scene.
                     if self._entityNarrativeGuid and evtRel['entity'] == self._entityNarrativeGuid:
@@ -477,19 +475,16 @@ class JsonTimeline2(Novel):
                         self.scenes[scId].isUnused = False
                         if timestamp > self._timestampMax:
                             self._timestampMax = timestamp
-                
                 elif evtRel['role'] == self._roleCharacterGuid:
                     if self.scenes[scId].characters is None:
                         self.scenes[scId].characters = []
                     crId = crIdsByGuid[evtRel['entity']]
                     self.scenes[scId].characters.append(crId)
-
                 elif evtRel['role'] == self._roleLocationGuid:
                     if self.scenes[scId].locations is None:
                         self.scenes[scId].locations = []
                     lcId = lcIdsByGuid[evtRel['entity']]
                     self.scenes[scId].locations.append(lcId)
-
                 elif evtRel['role'] == self._roleItemGuid:
                     if self.scenes[scId].items is None:
                         self.scenes[scId].items = []

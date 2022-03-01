@@ -91,6 +91,7 @@ def make_context_menu(installPath):
         with open(filePath, 'w', encoding='utf-8') as f:
             f.write(template.safe_substitute(mapping))
         output(f'Creating "{os.path.normpath(filePath)}"')
+    
     python = sys.executable.replace('\\', '\\\\')
     instPath = installPath.replace('/', '\\\\')
     script = f'{instPath}\\\\{APP}'

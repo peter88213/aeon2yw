@@ -163,6 +163,7 @@ class Yw7Sync(Yw7File):
                 itIdMax = int(itId)
             if self.items[itId].title in itIdsByTitle:
                 return f'{ERROR}Ambiguous yWriter item "{self.items[itId].title}".'
+            
             itIdsByTitle[self.items[itId].title] = itId
 
         #--- Update characters from the source.

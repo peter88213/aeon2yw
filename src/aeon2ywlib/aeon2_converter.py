@@ -37,18 +37,15 @@ class Aeon2Converter(YwCnvUi):
             # Source is a timeline
             sourceFile = JsonTimeline2(sourcePath, **kwargs)
             if os.path.isfile(f'{fileName}{Yw7File.EXTENSION}'):
-                
                 # Update existing yWriter project from timeline
                 targetFile = Yw7Sync(f'{fileName}{Yw7Sync.EXTENSION}', **kwargs)
                 sourceFile.ywProject = targetFile
                 self.import_to_yw(sourceFile, targetFile)
             else:
-                
                 # Create new yWriter project from timeline
                 targetFile = Yw7File(f'{fileName}{Yw7File.EXTENSION}', **kwargs)
                 self.create_yw7(sourceFile, targetFile)
         elif fileExtension == Yw7File.EXTENSION:
-            
             # Update existing timeline from yWriter project
             sourceFile = Yw7File(sourcePath, **kwargs)
             targetFile = JsonTimeline2(f'{fileName}{JsonTimeline2.EXTENSION}', **kwargs)
