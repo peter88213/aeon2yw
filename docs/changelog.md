@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.0.1
+
+Fix a bug that may cause problems if a timeline has multiple eras.
+
+Based on PyWriter v5.0.2
+
 ### v1.0.0
 
 - Fix a bug where "To do" chapters cause an exception.
