@@ -54,8 +54,9 @@ class Aeon2Sync():
         self._ui = ui
 
         # Create a submenu
-        self._aeon2Menu = tk.Menu(ui.mainMenu, title='my title', tearoff=0)
-        ui.mainMenu.add_cascade(label='Aeon Timeline 2', menu=self._aeon2Menu)
+        self._aeon2Menu = tk.Menu(self._ui.mainMenu, title='my title', tearoff=0)
+        self._ui.mainMenu.add_cascade(label='Aeon Timeline 2', menu=self._aeon2Menu)
+        self._ui.mainMenu.entryconfig('Aeon Timeline 2', state='disabled')
         self._aeon2Menu.add_command(label='Information', underline=0, command=self._info)
         self._aeon2Menu.add_separator()
         self._aeon2Menu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
