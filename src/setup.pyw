@@ -79,9 +79,11 @@ RESET_CONTEXT_MENU = '''Windows Registry Editor Version 5.00
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
 '''
 
+
 def output(text):
     message.append(text)
     processInfo.config(text=('\n').join(message))
+
 
 def make_context_menu(installPath):
     """Generate ".reg" files to extend the yWriter and Timeline context menus."""
@@ -91,13 +93,14 @@ def make_context_menu(installPath):
         with open(filePath, 'w', encoding='utf-8') as f:
             f.write(template.safe_substitute(mapping))
         output(f'Creating "{os.path.normpath(filePath)}"')
-    
+
     python = sys.executable.replace('\\', '\\\\')
     instPath = installPath.replace('/', '\\\\')
     script = f'{instPath}\\\\{APP}'
     mapping = dict(PYTHON=python, SCRIPT=script)
     save_reg_file(f'{installPath}/add_context_menu.reg', Template(SET_CONTEXT_MENU), mapping)
     save_reg_file(f'{installPath}/rem_context_menu.reg', Template(RESET_CONTEXT_MENU), {})
+
 
 def open_folder(installDir):
     """Open an installation folder window in the file manager.
@@ -163,26 +166,37 @@ def install(pywriterPath):
     except:
         pass
 
-    # Install the Aeon2 sample template, if needed.
+    #--- Install the Aeon2 sample template, if needed.
     try:
         appDataLocal = os.getenv('LOCALAPPDATA').replace('\\', '/')
-        aeon2dir =  f'{appDataLocal}/Scribble Code/Aeon Timeline 2/CustomTemplates/'
+        aeon2dir = f'{appDataLocal}/Scribble Code/Aeon Timeline 2/CustomTemplates/'
         sampleTemplate = 'yWriter.xml'
         if not os.path.isfile(aeon2dir + sampleTemplate):
             copyfile(f'{SAMPLE_PATH}{sampleTemplate}', f'{aeon2dir}{sampleTemplate}')
             output(f'Copying "{sampleTemplate}"')
         else:
             if messagebox.askyesno('Aeon Timeline 2 "yWriter" template', f'Update "{aeon2dir}{sampleTemplate}"?'):
-                copyfile(f'{SAMPLE_PATH}{sampleTemplate}',f'{aeon2dir}{sampleTemplate}')
+                copyfile(f'{SAMPLE_PATH}{sampleTemplate}', f'{aeon2dir}{sampleTemplate}')
                 output(f'Updating "{sampleTemplate}"')
             else:
                 output(f'Keeping "{sampleTemplate}"')
     except:
         pass
 
-    # Generate registry entries for the context menu (Windows only).
+    #--- Generate registry entries for the context menu (Windows only).
     if os.name == 'nt':
         make_context_menu(installDir)
+
+    #--- Install a novelyst plugin if novelyst is installed.
+    plugin = f'{APPNAME}_novelyst.py'
+    if os.path.isfile(f'./{plugin}'):
+        novelystDir = f'{pywriterPath}novelyst'
+        if os.path.isdir(novelystDir):
+            pluginDir = f'{novelystDir}/plugin'
+            output(f'Installing novelyst plugin at "{os.path.normpath(pluginDir)}"')
+            os.makedirs(pluginDir, exist_ok=True)
+            copyfile(plugin, f'{pluginDir}/{plugin}')
+            output(f'Copying "{plugin}"')
 
     # Display a success message.
     mapping = {'Appname': APPNAME, 'Apppath': f'{installDir}/{APP}'}
