@@ -1,7 +1,7 @@
 """Aeon Timeline 2 sync plugin for novelyst.
 
 Version @release
-Compatibility: novelyst v0.4.1 API 
+Compatibility: novelyst v0.4.2 API 
 Requires Python 3.6+
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
@@ -98,13 +98,16 @@ class Aeon2Sync():
         if self._ui.ywPrj:
             timelinePath = f'{os.path.splitext(self._ui.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
             if os.path.isfile(timelinePath):
-                timestamp = os.path.getmtime(timelinePath)
-                if timestamp > self._ui.ywPrj.timestamp:
-                    cmp = 'newer'
-                else:
-                    cmp = 'older'
-                fileDate = datetime.fromtimestamp(timestamp).replace(microsecond=0).isoformat(sep=' ')
-                message = f'Aeon Timeline 2 file is {cmp} than the yWriter project.\n (last saved on {fileDate})'
+                try:
+                    timestamp = os.path.getmtime(timelinePath)
+                    if timestamp > self._ui.ywPrj.timestamp:
+                        cmp = 'newer'
+                    else:
+                        cmp = 'older'
+                    fileDate = datetime.fromtimestamp(timestamp).replace(microsecond=0).isoformat(sep=' ')
+                    message = f'Aeon Timeline 2 file is {cmp} than the yWriter project.\n (last saved on {fileDate})'
+                except:
+                    message = 'Cannot determine file date.'
             else:
                 message = ('No Aeon Timeline 2 file available for this project.')
             messagebox.showinfo(self._ui.ywPrj.title, message)
