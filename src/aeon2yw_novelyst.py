@@ -10,13 +10,20 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 from pathlib import Path
 import tkinter as tk
+from pywriter.pywriter_globals import ERROR
 from pywriter.config.configuration import Configuration
+from pywriter.file.doc_open import open_document
 from aeon2ywlib.json_timeline2 import JsonTimeline2
 from aeon2ywlib.aeon2_converter import Aeon2Converter
 
 
 class Aeon2Sync():
-    """Plugin for synchronization with Aeon Timeline 2.
+    """Plugin class for synchronization with Aeon Timeline 2.
+    
+    Public methods:
+        disable_menu() -- disable menu entries when no project is open.
+        enable_menu() -- enable menu entries when a project is open.
+        
     """
     SETTINGS = dict(
         narrative_arc='Narrative',
@@ -35,45 +42,65 @@ class Aeon2Sync():
         scenes_only=True,
     )
 
-    def __init__(self, app):
+    def __init__(self, ui):
         """Add a submenu to the main menu.
         
         Positional arguments:
-            app -- reference to the NovelystTk instance.
+            ui -- reference to the NovelystTk instance of the application.
         """
         self._exporter = Aeon2Converter
-        self.app = app
+        self._ui = ui
 
         # Create a submenu
-        self._aeon2Menu = tk.Menu(app.mainMenu, title='my title', tearoff=0)
-        app.mainMenu.add_cascade(label='Aeon Timeline 2', menu=self._aeon2Menu)
+        self._aeon2Menu = tk.Menu(ui.mainMenu, title='my title', tearoff=0)
+        ui.mainMenu.add_cascade(label='Aeon Timeline 2', menu=self._aeon2Menu)
         self._aeon2Menu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
         self._aeon2Menu.add_command(label='Update yWriter from timeline', underline=7, command=self._aeon2yw)
-
-    def enable_menu(self):
-        """Enable menu entries when a project is open."""
-        self.app.mainMenu.entryconfig('Aeon Timeline 2', state='normal')
+        self._aeon2Menu.add_separator()
+        self._aeon2Menu.add_command(label='Edit timeline', underline=0, command=self._launch_aeon2)
 
     def disable_menu(self):
         """Disable menu entries when no project is open."""
-        self.app.mainMenu.entryconfig('Aeon Timeline 2', state='disabled')
+        self._ui.mainMenu.entryconfig('Aeon Timeline 2', state='disabled')
+
+    def enable_menu(self):
+        """Enable menu entries when a project is open."""
+        self._ui.mainMenu.entryconfig('Aeon Timeline 2', state='normal')
+
+    def _launch_aeon2(self):
+        """Launch Aeon Timeline 2 with the current project."""
+        if self._ui.ywPrj:
+            timelinePath = f'{os.path.splitext(self._ui.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
+            if os.path.isfile(timelinePath):
+                if self._ui.lock():
+                    open_document(timelinePath)
+            else:
+                self._ui.set_info_how(f'{ERROR}No Aeon Timeline 2 file available for this project.')
 
     def _yw2aeon(self):
         """Update timeline from yWriter.
         """
-        if self.app.ywPrj and self.app.ask_yes_no('Save the project and update the timeline?'):
-            self.app.save_project()
-            if self.app.lock():
-                self._run(self.app.ywPrj.filePath)
+        if self._ui.ywPrj:
+            timelinePath = f'{os.path.splitext(self._ui.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
+            if os.path.isfile(timelinePath):
+                if self._ui.ask_yes_no('Save the project and update the timeline?'):
+                    self._ui.save_project()
+                    self._run(self._ui.ywPrj.filePath)
+            else:
+                self._ui.set_info_how(f'{ERROR}No Aeon Timeline 2 file available for this project.')
 
     def _aeon2yw(self):
         """Update yWriter from timeline.
         """
-        if self.app.ywPrj and self.app.ask_yes_no('Save the project and update from timeline?'):
-            self.app.save_project()
-            sourcePath = f'{os.path.splitext(self.app.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
-            self._run(sourcePath)
-            self.app.reload_project()
+        if self._ui.ywPrj:
+            timelinePath = f'{os.path.splitext(self._ui.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
+            if os.path.isfile(timelinePath):
+                if self._ui.ask_yes_no('Save the project and update from timeline?'):
+                    self._ui.save_project()
+                    self._run(timelinePath)
+                    self._ui.reload_project()
+            else:
+                self._ui.set_info_how(f'{ERROR}No Aeon Timeline 2 file available for this project.')
 
     def _run(self, sourcePath):
         #--- Try to get persistent configuration data
@@ -94,6 +121,6 @@ class Aeon2Sync():
         kwargs.update(configuration.settings)
         kwargs.update(configuration.options)
         converter = Aeon2Converter()
-        converter.ui = self.app
+        converter.ui = self._ui
         converter.run(sourcePath, **kwargs)
 
