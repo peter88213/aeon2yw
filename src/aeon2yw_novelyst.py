@@ -1,6 +1,7 @@
 """Aeon Timeline 2 sync plugin for novelyst.
 
 Version @release
+Compatibility: novelyst v0.4.0 API 
 Requires Python 3.6+
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
@@ -10,6 +11,7 @@ import os
 from pathlib import Path
 import tkinter as tk
 from pywriter.config.configuration import Configuration
+from aeon2ywlib.json_timeline2 import JsonTimeline2
 from aeon2ywlib.aeon2_converter import Aeon2Converter
 
 
@@ -45,11 +47,29 @@ class Aeon2Sync():
         # Create a submenu
         self._aeon2Menu = tk.Menu(app.mainMenu, title='my title', tearoff=0)
         app.mainMenu.add_cascade(label='Aeon Timeline 2', menu=self._aeon2Menu)
-        self._aeon2Menu.add_command(label='Synchronize', underline=0, command=self._run)
+        self._aeon2Menu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
+        self._aeon2Menu.add_command(label='Update yWriter from timeline', underline=7, command=self._aeon2yw)
 
-    def _run(self):
+    def _yw2aeon(self):
+        """Update timeline from yWriter.
+        """
+        if self.app.ywPrj.filePath and self.app.ask_yes_no('Save the project and update the timeline?'):
+            self.app.save_project()
+            if self.app.lock():
+                self._run(self.app.ywPrj.filePath)
+
+    def _aeon2yw(self):
+        """Update yWriter from timeline.
+        """
+        if self.app.ywPrj.filePath and self.app.ask_yes_no('Save the project and update from timeline?'):
+            self.app.save_project()
+            sourcePath = f'{os.path.splitext(self.app.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
+            self._run(sourcePath)
+            self.app.reload_project()
+
+    def _run(self, sourcePath):
         #--- Try to get persistent configuration data
-        sourceDir = os.path.dirname(self.app.ywPrj.filePath)
+        sourceDir = os.path.dirname(sourcePath)
         if not sourceDir:
             sourceDir = '.'
         try:
@@ -67,5 +87,5 @@ class Aeon2Sync():
         kwargs.update(configuration.options)
         converter = Aeon2Converter()
         converter.ui = self.app
-        converter.run(self.app.ywPrj.filePath, **kwargs)
+        converter.run(sourcePath, **kwargs)
 
