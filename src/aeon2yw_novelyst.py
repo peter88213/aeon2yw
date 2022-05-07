@@ -10,6 +10,8 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 from pathlib import Path
 import tkinter as tk
+from tkinter import messagebox
+from datetime import datetime
 from pywriter.pywriter_globals import ERROR
 from pywriter.config.configuration import Configuration
 from pywriter.file.doc_open import open_document
@@ -54,6 +56,8 @@ class Aeon2Sync():
         # Create a submenu
         self._aeon2Menu = tk.Menu(ui.mainMenu, title='my title', tearoff=0)
         ui.mainMenu.add_cascade(label='Aeon Timeline 2', menu=self._aeon2Menu)
+        self._aeon2Menu.add_command(label='Information', underline=0, command=self._info)
+        self._aeon2Menu.add_separator()
         self._aeon2Menu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
         self._aeon2Menu.add_command(label='Update yWriter from timeline', underline=7, command=self._aeon2yw)
         self._aeon2Menu.add_separator()
@@ -88,6 +92,22 @@ class Aeon2Sync():
                     self._run(self._ui.ywPrj.filePath)
             else:
                 self._ui.set_info_how(f'{ERROR}No Aeon Timeline 2 file available for this project.')
+
+    def _info(self):
+        """Show information about the Aeon Timeline 2 file."""
+        if self._ui.ywPrj:
+            timelinePath = f'{os.path.splitext(self._ui.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
+            if os.path.isfile(timelinePath):
+                timestamp = os.path.getmtime(timelinePath)
+                if timestamp > self._ui.ywPrj.timestamp:
+                    cmp = 'newer'
+                else:
+                    cmp = 'older'
+                fileDate = datetime.fromtimestamp(timestamp).replace(microsecond=0).isoformat(sep=' ')
+                message = f'Aeon Timeline 2 file is {cmp} than the yWriter project.\n (last saved on {fileDate})'
+            else:
+                message = ('No Aeon Timeline 2 file available for this project.')
+            messagebox.showinfo(self._ui.ywPrj.title, message)
 
     def _aeon2yw(self):
         """Update yWriter from timeline.
