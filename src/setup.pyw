@@ -20,6 +20,14 @@ except ModuleNotFoundError:
     print('The tkinter module is missing. Please install the tk support package for your python3 version.')
     sys.exit(1)
 
+REGISTER_PLUGIN = '''
+try:
+    from aeon2yw_novelyst import Aeon2Sync
+    plugins.append(Aeon2Sync)
+except:
+    pass
+'''
+
 APPNAME = 'aeon2yw'
 VERSION = ' @release'
 APP = f'{APPNAME}.pyw'
@@ -197,6 +205,17 @@ def install(pywriterPath):
             os.makedirs(pluginDir, exist_ok=True)
             copyfile(plugin, f'{pluginDir}/{plugin}')
             output(f'Copying "{plugin}"')
+            packageFile = f'{pluginDir}/__init__.py'
+            if not os.path.isfile(packageFile):
+                with open(packageFile, 'w') as f:
+                    f.write('plugins = []')
+                    output(f'Creating "{packageFile}"')
+            with open(packageFile, 'r') as f:
+                text = f.read()
+                if not APPNAME in text:
+                    text += REGISTER_PLUGIN
+                    with open(packageFile, 'w') as f:
+                        f.write(text)
 
     # Display a success message.
     mapping = {'Appname': APPNAME, 'Apppath': f'{installDir}/{APP}'}
