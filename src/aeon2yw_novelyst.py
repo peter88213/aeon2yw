@@ -1,7 +1,7 @@
 """Aeon Timeline 2 sync plugin for novelyst.
 
 Version @release
-Compatibility: novelyst v0.4.0 API 
+Compatibility: novelyst v0.4.1 API 
 Requires Python 3.6+
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
@@ -50,10 +50,18 @@ class Aeon2Sync():
         self._aeon2Menu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
         self._aeon2Menu.add_command(label='Update yWriter from timeline', underline=7, command=self._aeon2yw)
 
+    def enable_menu(self):
+        """Enable menu entries when a project is open."""
+        self.app.mainMenu.entryconfig('Aeon Timeline 2', state='normal')
+
+    def disable_menu(self):
+        """Disable menu entries when no project is open."""
+        self.app.mainMenu.entryconfig('Aeon Timeline 2', state='disabled')
+
     def _yw2aeon(self):
         """Update timeline from yWriter.
         """
-        if self.app.ywPrj.filePath and self.app.ask_yes_no('Save the project and update the timeline?'):
+        if self.app.ywPrj and self.app.ask_yes_no('Save the project and update the timeline?'):
             self.app.save_project()
             if self.app.lock():
                 self._run(self.app.ywPrj.filePath)
@@ -61,7 +69,7 @@ class Aeon2Sync():
     def _aeon2yw(self):
         """Update yWriter from timeline.
         """
-        if self.app.ywPrj.filePath and self.app.ask_yes_no('Save the project and update from timeline?'):
+        if self.app.ywPrj and self.app.ask_yes_no('Save the project and update from timeline?'):
             self.app.save_project()
             sourcePath = f'{os.path.splitext(self.app.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
             self._run(sourcePath)
