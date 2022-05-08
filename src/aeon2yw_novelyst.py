@@ -1,7 +1,6 @@
 """Aeon Timeline 2 sync plugin for novelyst.
 
-Version @release
-Compatibility: novelyst v0.4.2 API 
+Compatibility: novelyst v0.6.0 API 
 Requires Python 3.6+
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
@@ -19,11 +18,12 @@ from aeon2ywlib.json_timeline2 import JsonTimeline2
 from aeon2ywlib.aeon2_converter import Aeon2Converter
 
 APPLICATION = 'Aeon Timeline 2'
+PLUGIN = f'{APPLICATION} plugin v@release'
 INI_FILENAME = 'aeon2yw.ini'
 INI_FILEPATH = '.pywriter/aeon2yw/config'
 
 
-class Aeon2Sync():
+class Plugin():
     """Plugin class for synchronization with Aeon Timeline 2.
     
     Public methods:
@@ -115,7 +115,7 @@ class Aeon2Sync():
                     message = 'Cannot determine file date.'
             else:
                 message = (f'No {APPLICATION} file available for this project.')
-            messagebox.showinfo(self._ui.ywPrj.title, message)
+            messagebox.showinfo(PLUGIN, message)
 
     def _import_to_yw(self):
         """Update yWriter from timeline.
