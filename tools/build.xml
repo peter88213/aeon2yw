@@ -17,9 +17,6 @@
 		<exec executable="python" failonerror="true">
 		    <arg value="${source-path}/build_${test-app}.py"/>
 		</exec>
-	</target>
-
-	<target name="build novelyst plugin" description="inline all library modules">
 		<delete file="${test-path}/${novelyst-plugin}.py" />
 		<exec executable="python" failonerror="true">
 		    <arg value="${source-path}/build_${novelyst-plugin}.py"/>

@@ -20,8 +20,7 @@ except ModuleNotFoundError:
     print('The tkinter module is missing. Please install the tk support package for your python3 version.')
     sys.exit(1)
 
-REGISTER_PLUGIN = '''
-try:
+REGISTER_PLUGIN = '''try:
     from aeon2yw_novelyst import Aeon2Sync
     plugins.append(Aeon2Sync)
 except:
@@ -212,7 +211,7 @@ def install(pywriterPath):
                     output(f'Creating "{packageFile}"')
             with open(packageFile, 'r') as f:
                 text = f.read()
-                if not APPNAME in text:
+                if not REGISTER_PLUGIN in text:
                     text += REGISTER_PLUGIN
                     with open(packageFile, 'w') as f:
                         f.write(text)
