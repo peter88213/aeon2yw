@@ -18,6 +18,7 @@ from pywriter.file.doc_open import open_document
 from aeon2ywlib.json_timeline2 import JsonTimeline2
 from aeon2ywlib.aeon2_converter import Aeon2Converter
 
+APPLICATION = 'Aeon Timeline 2'
 INI_FILENAME = 'aeon2yw.ini'
 INI_FILEPATH = '.pywriter/aeon2yw/config'
 
@@ -58,8 +59,8 @@ class Aeon2Sync():
 
         # Create a submenu
         self._aeon2Menu = tk.Menu(self._ui.mainMenu, title='my title', tearoff=0)
-        self._ui.mainMenu.add_cascade(label='Aeon Timeline 2', menu=self._aeon2Menu)
-        self._ui.mainMenu.entryconfig('Aeon Timeline 2', state='disabled')
+        self._ui.mainMenu.add_cascade(label=APPLICATION, menu=self._aeon2Menu)
+        self._ui.mainMenu.entryconfig(APPLICATION, state='disabled')
         self._aeon2Menu.add_command(label='Information', underline=0, command=self._info)
         self._aeon2Menu.add_separator()
         self._aeon2Menu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
@@ -69,11 +70,11 @@ class Aeon2Sync():
 
     def disable_menu(self):
         """Disable menu entries when no project is open."""
-        self._ui.mainMenu.entryconfig('Aeon Timeline 2', state='disabled')
+        self._ui.mainMenu.entryconfig(APPLICATION, state='disabled')
 
     def enable_menu(self):
         """Enable menu entries when a project is open."""
-        self._ui.mainMenu.entryconfig('Aeon Timeline 2', state='normal')
+        self._ui.mainMenu.entryconfig(APPLICATION, state='normal')
 
     def _launch_aeon2(self):
         """Launch Aeon Timeline 2 with the current project."""
@@ -83,7 +84,7 @@ class Aeon2Sync():
                 if self._ui.lock():
                     open_document(timelinePath)
             else:
-                self._ui.set_info_how(f'{ERROR}No Aeon Timeline 2 file available for this project.')
+                self._ui.set_info_how(f'{ERROR}No {APPLICATION} file available for this project.')
 
     def _yw2aeon(self):
         """Update timeline from yWriter.
@@ -95,7 +96,7 @@ class Aeon2Sync():
                     self._ui.save_project()
                     self._run(self._ui.ywPrj.filePath)
             else:
-                self._ui.set_info_how(f'{ERROR}No Aeon Timeline 2 file available for this project.')
+                self._ui.set_info_how(f'{ERROR}No {APPLICATION} file available for this project.')
 
     def _info(self):
         """Show information about the Aeon Timeline 2 file."""
@@ -109,11 +110,11 @@ class Aeon2Sync():
                     else:
                         cmp = 'older'
                     fileDate = datetime.fromtimestamp(timestamp).replace(microsecond=0).isoformat(sep=' ')
-                    message = f'Aeon Timeline 2 file is {cmp} than the yWriter project.\n (last saved on {fileDate})'
+                    message = f'{APPLICATION} file is {cmp} than the yWriter project.\n (last saved on {fileDate})'
                 except:
                     message = 'Cannot determine file date.'
             else:
-                message = ('No Aeon Timeline 2 file available for this project.')
+                message = (f'No {APPLICATION} file available for this project.')
             messagebox.showinfo(self._ui.ywPrj.title, message)
 
     def _aeon2yw(self):
@@ -127,7 +128,7 @@ class Aeon2Sync():
                     self._run(timelinePath)
                     self._ui.reload_project()
             else:
-                self._ui.set_info_how(f'{ERROR}No Aeon Timeline 2 file available for this project.')
+                self._ui.set_info_how(f'{ERROR}No {APPLICATION} file available for this project.')
 
     def _run(self, sourcePath):
         #--- Try to get persistent configuration data
@@ -136,10 +137,10 @@ class Aeon2Sync():
             sourceDir = '.'
         try:
             homeDir = str(Path.home()).replace('\\', '/')
-            aeon2ywCnfDir = f'{homeDir}/{INI_FILEPATH}'
+            pluginCnfDir = f'{homeDir}/{INI_FILEPATH}'
         except:
-            aeon2ywCnfDir = '.'
-        iniFiles = [f'{aeon2ywCnfDir}/{INI_FILENAME}', f'{sourceDir}/{INI_FILENAME}']
+            pluginCnfDir = '.'
+        iniFiles = [f'{pluginCnfDir}/{INI_FILENAME}', f'{sourceDir}/{INI_FILENAME}']
         configuration = Configuration(self.SETTINGS, self.OPTIONS)
         for iniFile in iniFiles:
             configuration.read(iniFile)
