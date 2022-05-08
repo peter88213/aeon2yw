@@ -63,10 +63,10 @@ class Aeon2Sync():
         self._ui.mainMenu.entryconfig(APPLICATION, state='disabled')
         self._pluginMenu.add_command(label='Information', underline=0, command=self._info)
         self._pluginMenu.add_separator()
-        self._pluginMenu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
-        self._pluginMenu.add_command(label='Update yWriter from timeline', underline=7, command=self._aeon2yw)
+        self._pluginMenu.add_command(label='Update timeline from yWriter', underline=7, command=self._export_from_yw)
+        self._pluginMenu.add_command(label='Update yWriter from timeline', underline=7, command=self._import_to_yw)
         self._pluginMenu.add_separator()
-        self._pluginMenu.add_command(label='Edit timeline', underline=0, command=self._launch_aeon2)
+        self._pluginMenu.add_command(label='Edit timeline', underline=0, command=self._launch_application)
 
     def disable_menu(self):
         """Disable menu entries when no project is open."""
@@ -76,7 +76,7 @@ class Aeon2Sync():
         """Enable menu entries when a project is open."""
         self._ui.mainMenu.entryconfig(APPLICATION, state='normal')
 
-    def _launch_aeon2(self):
+    def _launch_application(self):
         """Launch Aeon Timeline 2 with the current project."""
         if self._ui.ywPrj:
             timelinePath = f'{os.path.splitext(self._ui.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
@@ -86,7 +86,7 @@ class Aeon2Sync():
             else:
                 self._ui.set_info_how(f'{ERROR}No {APPLICATION} file available for this project.')
 
-    def _yw2aeon(self):
+    def _export_from_yw(self):
         """Update timeline from yWriter.
         """
         if self._ui.ywPrj:
@@ -117,7 +117,7 @@ class Aeon2Sync():
                 message = (f'No {APPLICATION} file available for this project.')
             messagebox.showinfo(self._ui.ywPrj.title, message)
 
-    def _aeon2yw(self):
+    def _import_to_yw(self):
         """Update yWriter from timeline.
         """
         if self._ui.ywPrj:
