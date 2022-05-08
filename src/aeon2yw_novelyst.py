@@ -18,6 +18,9 @@ from pywriter.file.doc_open import open_document
 from aeon2ywlib.json_timeline2 import JsonTimeline2
 from aeon2ywlib.aeon2_converter import Aeon2Converter
 
+INI_FILENAME = 'aeon2yw.ini'
+INI_FILEPATH = '.pywriter/aeon2yw/config'
+
 
 class Aeon2Sync():
     """Plugin class for synchronization with Aeon Timeline 2.
@@ -133,11 +136,10 @@ class Aeon2Sync():
             sourceDir = '.'
         try:
             homeDir = str(Path.home()).replace('\\', '/')
-            installDir = f'{homeDir}/.pywriter/{self.APPNAME}/config'
+            aeon2ywCnfDir = f'{homeDir}/{INI_FILEPATH}'
         except:
-            installDir = '.'
-        iniFileName = 'aeon2yw.ini'
-        iniFiles = [f'{installDir}/{iniFileName}', f'{sourceDir}/{iniFileName}']
+            aeon2ywCnfDir = '.'
+        iniFiles = [f'{aeon2ywCnfDir}/{INI_FILENAME}', f'{sourceDir}/{INI_FILENAME}']
         configuration = Configuration(self.SETTINGS, self.OPTIONS)
         for iniFile in iniFiles:
             configuration.read(iniFile)
