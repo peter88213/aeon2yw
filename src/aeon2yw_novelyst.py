@@ -58,15 +58,15 @@ class Aeon2Sync():
         self._ui = ui
 
         # Create a submenu
-        self._aeon2Menu = tk.Menu(self._ui.mainMenu, title='my title', tearoff=0)
-        self._ui.mainMenu.add_cascade(label=APPLICATION, menu=self._aeon2Menu)
+        self._pluginMenu = tk.Menu(self._ui.mainMenu, title='my title', tearoff=0)
+        self._ui.mainMenu.add_cascade(label=APPLICATION, menu=self._pluginMenu)
         self._ui.mainMenu.entryconfig(APPLICATION, state='disabled')
-        self._aeon2Menu.add_command(label='Information', underline=0, command=self._info)
-        self._aeon2Menu.add_separator()
-        self._aeon2Menu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
-        self._aeon2Menu.add_command(label='Update yWriter from timeline', underline=7, command=self._aeon2yw)
-        self._aeon2Menu.add_separator()
-        self._aeon2Menu.add_command(label='Edit timeline', underline=0, command=self._launch_aeon2)
+        self._pluginMenu.add_command(label='Information', underline=0, command=self._info)
+        self._pluginMenu.add_separator()
+        self._pluginMenu.add_command(label='Update timeline from yWriter', underline=7, command=self._yw2aeon)
+        self._pluginMenu.add_command(label='Update yWriter from timeline', underline=7, command=self._aeon2yw)
+        self._pluginMenu.add_separator()
+        self._pluginMenu.add_command(label='Edit timeline', underline=0, command=self._launch_aeon2)
 
     def disable_menu(self):
         """Disable menu entries when no project is open."""
