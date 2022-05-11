@@ -34,10 +34,9 @@ INI_FILE = f'{APPNAME}.ini'
 INI_PATH = '/config/'
 SAMPLE_PATH = 'sample/'
 SUCCESS_MESSAGE = '''
-
 $Appname is installed here:
-
-$Apppath'''
+$Apppath
+'''
 
 SHORTCUT_MESSAGE = '''
 Now you might want to create a shortcut on your desktop.  
@@ -86,6 +85,9 @@ RESET_CONTEXT_MENU = '''Windows Registry Editor Version 5.00
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
 '''
 
+aeon2dir = None
+sampleTemplate = None
+
 
 def output(text):
     message.append(text)
@@ -129,6 +131,8 @@ def open_folder(installDir):
 
 def install(pywriterPath):
     """Install the script."""
+    # global aeon2dir
+    # global sampleTemplate
 
     # Create a general PyWriter installation directory, if necessary.
     os.makedirs(pywriterPath, exist_ok=True)
@@ -173,7 +177,21 @@ def install(pywriterPath):
     except:
         pass
 
-    #--- Install the Aeon2 sample template, if needed.
+    #--- Generate registry entries for the context menu (Windows only).
+    if os.name == 'nt':
+        make_context_menu(installDir)
+
+    # Display a success message.
+    mapping = {'Appname': APPNAME, 'Apppath': f'{installDir}/{APP}'}
+    output(Template(SUCCESS_MESSAGE).safe_substitute(mapping))
+
+    # Ask for shortcut creation.
+    if not simpleUpdate:
+        output(Template(SHORTCUT_MESSAGE).safe_substitute(mapping))
+
+
+def install_template():
+    """Install the Aeon2 sample template, if needed."""
     try:
         appDataLocal = os.getenv('LOCALAPPDATA').replace('\\', '/')
         aeon2dir = f'{appDataLocal}/Scribble Code/Aeon Timeline 2/CustomTemplates/'
@@ -185,33 +203,22 @@ def install(pywriterPath):
             if messagebox.askyesno('Aeon Timeline 2 "yWriter" template', f'Update "{aeon2dir}{sampleTemplate}"?'):
                 copyfile(f'{SAMPLE_PATH}{sampleTemplate}', f'{aeon2dir}{sampleTemplate}')
                 output(f'Updating "{sampleTemplate}"')
-            else:
-                output(f'Keeping "{sampleTemplate}"')
+                root.tplButton['state'] = DISABLED
     except:
         pass
 
-    #--- Generate registry entries for the context menu (Windows only).
-    if os.name == 'nt':
-        make_context_menu(installDir)
 
-    #--- Install a novelyst plugin if novelyst is installed.
+def install_plugin(pywriterPath):
+    """Install a novelyst plugin if novelyst is installed."""
     plugin = f'{APPNAME}_novelyst.py'
     if os.path.isfile(f'./{plugin}'):
         novelystDir = f'{pywriterPath}novelyst'
-        if os.path.isdir(novelystDir):
-            pluginDir = f'{novelystDir}/plugin'
-            output(f'Installing novelyst plugin at "{os.path.normpath(pluginDir)}"')
-            os.makedirs(pluginDir, exist_ok=True)
-            copyfile(plugin, f'{pluginDir}/{plugin}')
-            output(f'Copying "{plugin}"')
-
-    # Display a success message.
-    mapping = {'Appname': APPNAME, 'Apppath': f'{installDir}/{APP}'}
-    output(Template(SUCCESS_MESSAGE).safe_substitute(mapping))
-
-    # Ask for shortcut creation.
-    if not simpleUpdate:
-        output(Template(SHORTCUT_MESSAGE).safe_substitute(mapping))
+        pluginDir = f'{novelystDir}/plugin'
+        output(f'Installing novelyst plugin at "{os.path.normpath(pluginDir)}"')
+        os.makedirs(pluginDir, exist_ok=True)
+        copyfile(plugin, f'{pluginDir}/{plugin}')
+        output(f'Copying "{plugin}"')
+        root.pluginButton['state'] = DISABLED
 
 
 if __name__ == '__main__':
@@ -227,10 +234,21 @@ if __name__ == '__main__':
 
     # Run the installation.
     homePath = str(Path.home()).replace('\\', '/')
-    install(f'{homePath}/.pywriter/')
+    pywriterPath = f'{homePath}/.pywriter/'
+    install(pywriterPath)
+
+    root.tplButton = Button(text="Install the Aeon2 sample template", command=lambda: install_template())
+    root.tplButton.config(height=1, width=30)
+    root.tplButton.pack(padx=5, pady=5)
+
+    novelystDir = f'{pywriterPath}novelyst'
+    if os.path.isdir(novelystDir):
+        root.pluginButton = Button(text="Install the novelyst plugin", command=lambda: install_plugin(pywriterPath))
+        root.pluginButton.config(height=1, width=30)
+        root.pluginButton.pack(padx=5, pady=5)
 
     # Show options: open installation folders or quit.
-    root.openButton = Button(text="Open installation folder", command=lambda: open_folder(f'{homePath}/.pywriter/{APPNAME}'))
+    root.openButton = Button(text="Open installation folder", command=lambda: open_folder(f'{pywriterPath}{APPNAME}'))
     root.openButton.config(height=1, width=30)
     root.openButton.pack(padx=5, pady=5)
     root.quitButton = Button(text="Quit", command=quit)
