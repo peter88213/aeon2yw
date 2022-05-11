@@ -20,13 +20,6 @@ except ModuleNotFoundError:
     print('The tkinter module is missing. Please install the tk support package for your python3 version.')
     sys.exit(1)
 
-REGISTER_PLUGIN = '''try:
-    from aeon2yw_novelyst import Aeon2Sync
-    plugins.append(Aeon2Sync)
-except:
-    pass
-'''
-
 APPNAME = 'aeon2yw'
 VERSION = ' @release'
 APP = f'{APPNAME}.pyw'
@@ -218,7 +211,9 @@ def install_plugin(pywriterPath):
         os.makedirs(pluginDir, exist_ok=True)
         copyfile(plugin, f'{pluginDir}/{plugin}')
         output(f'Copying "{plugin}"')
-        root.pluginButton['state'] = DISABLED
+    else:
+        output('Error: novelyst plugin file not found.')
+    root.pluginButton['state'] = DISABLED
 
 
 if __name__ == '__main__':
