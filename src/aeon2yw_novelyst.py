@@ -91,7 +91,11 @@ class Plugin():
                 self._ui.set_info_how(f'{ERROR}No {APPLICATION} file available for this project.')
 
     def _add_moonphase(self):
-        """Add the moon phase to the event properties."""
+        """Add/update moon phase data.
+        
+        Add the moon phase to the event properties.
+        If the moon phase event property already exists, just update.
+        """
         #--- Try to get persistent configuration data
         if self._ui.ywPrj:
             timelinePath = f'{os.path.splitext(self._ui.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
