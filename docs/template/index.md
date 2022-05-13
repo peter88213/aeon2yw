@@ -30,6 +30,8 @@
 
 - Just update an empty timeline from a yWriter project.
 
+Optionally, a [novelyst](https://peter88213.github.io/novelyst/) plugin can be installed.
+
  
 ## Requirements
 
