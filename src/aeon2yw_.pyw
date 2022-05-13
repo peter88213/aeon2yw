@@ -32,7 +32,9 @@ SETTINGS = dict(
 )
 OPTIONS = dict(
     scenes_only=True,
+    add_moonphase=False,
 )
+
 
 def run(sourcePath, silentMode=True, installDir='.'):
     if silentMode:

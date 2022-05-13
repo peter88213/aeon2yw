@@ -47,6 +47,7 @@ class Plugin():
     )
     OPTIONS = dict(
         scenes_only=True,
+        add_moonphase=False,
     )
 
     def __init__(self, ui):
@@ -67,6 +68,8 @@ class Plugin():
         self._pluginMenu.add_command(label='Update timeline from yWriter', underline=7, command=self._export_from_yw)
         self._pluginMenu.add_command(label='Update yWriter from timeline', underline=7, command=self._import_to_yw)
         self._pluginMenu.add_separator()
+        self._pluginMenu.add_command(label='Add or update moon phase data', underline=14, command=self._add_moonphase)
+        self._pluginMenu.add_separator()
         self._pluginMenu.add_command(label='Edit timeline', underline=0, command=self._launch_application)
 
     def disable_menu(self):
@@ -86,6 +89,35 @@ class Plugin():
                     open_document(timelinePath)
             else:
                 self._ui.set_info_how(f'{ERROR}No {APPLICATION} file available for this project.')
+
+    def _add_moonphase(self):
+        """Add the moon phase to the event properties."""
+        #--- Try to get persistent configuration data
+        if self._ui.ywPrj:
+            timelinePath = f'{os.path.splitext(self._ui.ywPrj.filePath)[0]}{JsonTimeline2.EXTENSION}'
+            if os.path.isfile(timelinePath):
+                sourceDir = os.path.dirname(timelinePath)
+                if not sourceDir:
+                    sourceDir = '.'
+                try:
+                    homeDir = str(Path.home()).replace('\\', '/')
+                    pluginCnfDir = f'{homeDir}/{INI_FILEPATH}'
+                except:
+                    pluginCnfDir = '.'
+                iniFiles = [f'{pluginCnfDir}/{INI_FILENAME}', f'{sourceDir}/{INI_FILENAME}']
+                configuration = Configuration(self.SETTINGS, self.OPTIONS)
+                for iniFile in iniFiles:
+                    configuration.read(iniFile)
+                kwargs = {}
+                kwargs.update(configuration.settings)
+                kwargs.update(configuration.options)
+                kwargs['add_moonphase'] = True
+                timeline = JsonTimeline2(timelinePath, **kwargs)
+                message = timeline.read()
+                if message.startswith(ERROR):
+                    self._ui.set_info_how(message)
+                else:
+                    self._ui.set_info_how(timeline.write())
 
     def _export_from_yw(self):
         """Update timeline from yWriter.

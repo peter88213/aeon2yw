@@ -15,6 +15,7 @@ from pywriter.model.character import Character
 from aeon2ywlib.aeon2_fop import open_timeline
 from aeon2ywlib.aeon2_fop import save_timeline
 from aeon2ywlib.uid_helper import get_uid
+from aeon2ywlib.moonphase import get_moon_phase_plus
 
 
 class JsonTimeline2(Novel):
@@ -35,6 +36,7 @@ class JsonTimeline2(Novel):
     DATE_LIMIT = (datetime(100, 1, 1) - datetime.min).total_seconds()
     # Dates before 100-01-01 can not be displayed properly in yWriter
     DEFAULT_TIMESTAMP = (datetime.today() - datetime.min).total_seconds()
+    PROPERTY_MOONPHASE = 'Moon phase'
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.
@@ -54,7 +56,8 @@ class JsonTimeline2(Novel):
             type_item -- str: name of the user-defined "Item" type.
             scenes_only -- bool: synchronize only "Normal" scenes.
             color_scene -- str: color of new scene events.
-            color_event -- str: Color of new non-scene events
+            color_event -- str: color of new non-scene events.
+            add_moonphase -- bool: add a moon phase property to each event.
         
         If scenes_only is True: synchronize only "Normal" scenes.
         If scenes_only is False: synchronize "Notes" scenes as well.            
@@ -93,9 +96,11 @@ class JsonTimeline2(Novel):
         self._entityNarrativeGuid = None
         self._propertyDescGuid = None
         self._propertyNotesGuid = None
+        self._propertyMoonphaseGuid = None
 
         # Miscellaneous
         self._scenesOnly = kwargs['scenes_only']
+        self._addMoonphase = kwargs['add_moonphase']
         self._sceneColor = kwargs['color_scene']
         self._eventColor = kwargs['color_event']
         self._timestampMax = 0
@@ -326,6 +331,8 @@ class JsonTimeline2(Novel):
             elif tplPrp['name'] == self._propertyNotes:
                 self._propertyNotesGuid = tplPrp['guid']
                 hasPropertyNotes = True
+            elif tplPrp['name'] == self.PROPERTY_MOONPHASE:
+                self._propertyMoonphaseGuid = tplPrp['guid']
 
         #--- Create user defined properties, if missing.
         if not hasPropertyNotes:
@@ -356,6 +363,20 @@ class JsonTimeline2(Novel):
                 'name': self._propertyDesc,
                 'sortOrder': n,
                 'type': 'multitext'
+            })
+        if self._addMoonphase and self._propertyMoonphaseGuid is None:
+            n = len(self._jsonData['template']['properties'])
+            self._propertyMoonphaseGuid = get_uid('_propertyMoonphaseGuid')
+            self._jsonData['template']['properties'].append({
+                'calcMode': 'default',
+                'calculate': False,
+                'fadeEvents': False,
+                'guid': self._propertyMoonphaseGuid,
+                'icon': 'flag',
+                'isMandatory': False,
+                'name': self.PROPERTY_MOONPHASE,
+                'sortOrder': n,
+                'type': 'text'
             })
 
         #--- Get scenes.
@@ -467,7 +488,7 @@ class JsonTimeline2(Novel):
             #--- Find scenes and get characters, locations, and items.
             self.scenes[scId].isNotesScene = True
             self.scenes[scId].isUnused = True
-            for evtRel in evt['relationships']:                
+            for evtRel in evt['relationships']:
                 if evtRel['role'] == self._roleArcGuid:
                     # Make scene event "Normal" type scene.
                     if self._entityNarrativeGuid and evtRel['entity'] == self._entityNarrativeGuid:
@@ -540,7 +561,7 @@ class JsonTimeline2(Novel):
                 'locked': False,
                 'priority': 500,
                 'rangeValues': [{
-                    'minimumZoom': -1,
+                    'minimumZoom':-1,
                     'position': {
                         'precision': 'minute',
                         'timestamp': self.DATE_LIMIT
@@ -899,7 +920,14 @@ class JsonTimeline2(Novel):
                 evt['rangeValues'][0]['span'] = get_span(self.scenes[scId])
                 evt['rangeValues'][0]['position']['timestamp'] = get_timestamp(self.scenes[scId])
 
-            #--- Set scene description and notes.
+            #--- Calculate moon phase.
+            if self._propertyMoonphaseGuid is not None:
+                eventMoonphase = get_moon_phase_plus(self.scenes[scId].date)
+            else:
+                eventMoonphase = ''
+
+            #--- Set scene description, notes, and moon phase.
+            hasMoonphase = False
             for evtVal in evt['values']:
 
                 # Set scene description.
@@ -911,6 +939,15 @@ class JsonTimeline2(Novel):
                 elif evtVal['property'] == self._propertyNotesGuid:
                     if self.scenes[scId].sceneNotes:
                         evtVal['value'] = self.scenes[scId].sceneNotes
+
+                # Set moon phase.
+                elif evtVal['property'] == self._propertyMoonphaseGuid:
+                        evtVal['value'] = eventMoonphase
+                        hasMoonphase = True
+
+            #--- Add missing event properties.
+            if not hasMoonphase and self._propertyMoonphaseGuid is not None:
+                evt['values'].append({'property': self._propertyMoonphaseGuid, 'value': eventMoonphase})
 
             #--- Set scene tags.
             if self.scenes[scId].tags:

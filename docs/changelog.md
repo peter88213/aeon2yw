@@ -8,6 +8,14 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.2.0
+
+- Optionally add a "moon phase" event property.
+- Update the moon phase, if defined as event property.
+- Provide a novelyst plugin.
+
+Based on PyWriter v5.6.1
+
 ### v1.0.2
 
 - Fix a bug in the setup script where the sample configuration file is not installed.

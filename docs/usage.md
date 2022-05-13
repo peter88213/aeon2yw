@@ -200,6 +200,10 @@ scenes_only = Yes
 # Yes: Synchronize only "Normal" scenes.
 # No:  Synchronize "Notes" scenes as well.
 
+add_moonphase = No
+
+# Yes: Add the moon phase to the event properties.
+# No: Update moon phase, if already defined as event property.
 ```
 
 Note: Your custom configuration file does not have to contain all the entries listed above. 
