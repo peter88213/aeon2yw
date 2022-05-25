@@ -14,6 +14,9 @@ class Yw7Sync(Yw7File):
     """yWriter 7 project file representation.
     Extend the superclass
     """
+    _SCN_KWVAR = (
+        'Field_SceneArcs',
+        )
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.
@@ -38,6 +41,7 @@ class Yw7Sync(Yw7File):
         
         Return a message beginning with the ERROR constant in case of error.
         Update date/time/duration from the source, if the scene title matches.
+        Overrides the superclass mehod.
         """
         message = self.read()
         if message.startswith(ERROR):
@@ -163,7 +167,7 @@ class Yw7Sync(Yw7File):
                 itIdMax = int(itId)
             if self.items[itId].title in itIdsByTitle:
                 return f'{ERROR}Ambiguous yWriter item "{self.items[itId].title}".'
-            
+
             itIdsByTitle[self.items[itId].title] = itId
 
         #--- Update characters from the source.
@@ -293,4 +297,12 @@ class Yw7Sync(Yw7File):
                     for itId in source.scenes[srcId].items:
                         if itId in itIdsBySrcId:
                             self.scenes[scId].items.append(itIdsBySrcId[itId])
+
+                #--- Update scene keyword variables.
+                for fieldName in self._SCN_KWVAR:
+                    try:
+                        self.scenes[scId].kwVar[fieldName] = source.scenes[scId].kwVar[fieldName]
+                    except:
+                        pass
+
         return 'Novel updated from timeline data.'

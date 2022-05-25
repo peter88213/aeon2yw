@@ -38,6 +38,10 @@ class JsonTimeline2(Novel):
     DEFAULT_TIMESTAMP = (datetime.today() - datetime.min).total_seconds()
     PROPERTY_MOONPHASE = 'Moon phase'
 
+    _SCN_KWVAR = (
+        'Field_SceneArcs',
+        )
+
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.
 
@@ -396,6 +400,10 @@ class JsonTimeline2(Novel):
                 self._displayIdMax = displayId
             self.scenes[scId].status = 1
             # Set scene status = "Outline".
+
+            #--- Initialize custom keyword variables.
+            for fieldName in self._SCN_KWVAR:
+                self.scenes[scId].kwVar[fieldName] = None
 
             #--- Evaluate properties.
             hasDescription = False
@@ -849,6 +857,14 @@ class JsonTimeline2(Novel):
                     self.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
                 if source.scenes[srcId].lastsDays is not None:
                     self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
+
+                #--- Update scene keyword variables.
+                for fieldName in self._SCN_KWVAR:
+                    try:
+                        self.scenes[scId].kwVar[fieldName] = source.scenes[srcId].kwVar[fieldName]
+                    except:
+                        pass
+
         return 'Timeline updated from novel data.'
 
     def write(self):
