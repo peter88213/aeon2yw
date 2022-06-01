@@ -6,8 +6,6 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 from pywriter.pywriter_globals import ERROR
 from pywriter.yw.yw7_file import Yw7File
-from pywriter.model.chapter import Chapter
-from pywriter.model.scene import Scene
 
 
 class Yw7Target(Yw7File):
@@ -120,7 +118,7 @@ class Yw7Target(Yw7File):
             if int(chId) > chIdMax:
                 chIdMax = int(chId)
         newChapterId = str(chIdMax + 1)
-        newChapter = Chapter()
+        newChapter = self.CHAPTER_CLASS()
         newChapter.title = 'New scenes'
         newChapterExists = False
 
@@ -229,7 +227,7 @@ class Yw7Target(Yw7File):
                     #--- Create a new scene.
                     scIdMax += 1
                     scId = str(scIdMax)
-                    self.scenes[scId] = Scene()
+                    self.scenes[scId] = self.SCENE_CLASS()
                     self.scenes[scId].title = source.scenes[srcId].title
                     self.scenes[scId].status = 1
                     if not newChapterExists:

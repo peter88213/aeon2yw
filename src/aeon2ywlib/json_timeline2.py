@@ -8,10 +8,6 @@ from datetime import datetime
 from datetime import timedelta
 from pywriter.pywriter_globals import ERROR
 from pywriter.model.novel import Novel
-from pywriter.model.scene import Scene
-from pywriter.model.chapter import Chapter
-from pywriter.model.world_element import WorldElement
-from pywriter.model.character import Character
 from aeon2ywlib.aeon2_fop import open_timeline
 from aeon2ywlib.aeon2_fop import save_timeline
 from aeon2ywlib.uid_helper import get_uid
@@ -322,7 +318,7 @@ class JsonTimeline2(Novel):
                 characterCount += 1
                 crId = str(characterCount)
                 crIdsByGuid[ent['guid']] = crId
-                self.characters[crId] = Character()
+                self.characters[crId] = self.CHARACTER_CLASS()
                 self.characters[crId].title = ent['name']
                 self.characters[crId].fullName = ent['name']
                 self._characterGuidById[crId] = ent['guid']
@@ -335,7 +331,7 @@ class JsonTimeline2(Novel):
                 locationCount += 1
                 lcId = str(locationCount)
                 lcIdsByGuid[ent['guid']] = lcId
-                self.locations[lcId] = WorldElement()
+                self.locations[lcId] = self.WE_CLASS()
                 self.locations[lcId].title = ent['name']
                 self.srtLocations.append(lcId)
                 self._locationGuidById[lcId] = ent['guid']
@@ -343,7 +339,7 @@ class JsonTimeline2(Novel):
                 itemCount += 1
                 itId = str(itemCount)
                 itIdsByGuid[ent['guid']] = itId
-                self.items[itId] = WorldElement()
+                self.items[itId] = self.WE_CLASS()
                 self.items[itId].title = ent['name']
                 self.srtItems.append(itId)
                 self._itemGuidById[itId] = ent['guid']
@@ -416,7 +412,7 @@ class JsonTimeline2(Novel):
             scnTitles.append(evt['title'])
             eventCount += 1
             scId = str(eventCount)
-            self.scenes[scId] = Scene()
+            self.scenes[scId] = self.SCENE_CLASS()
             self.scenes[scId].title = evt['title']
             displayId = float(evt['displayId'])
             if displayId > self._displayIdMax:
@@ -555,11 +551,11 @@ class JsonTimeline2(Novel):
         #--- Sort scenes by date/time and place them in chapters.
         chIdNarrative = '1'
         chIdBackground = '2'
-        self.chapters[chIdNarrative] = Chapter()
+        self.chapters[chIdNarrative] = self.CHAPTER_CLASS()
         self.chapters[chIdNarrative].title = 'Chapter 1'
         self.chapters[chIdNarrative].chType = 0
         self.srtChapters.append(chIdNarrative)
-        self.chapters[chIdBackground] = Chapter()
+        self.chapters[chIdBackground] = self.CHAPTER_CLASS()
         self.chapters[chIdBackground].title = 'Background'
         self.chapters[chIdBackground].chType = 1
         self.srtChapters.append(chIdBackground)
@@ -839,7 +835,7 @@ class JsonTimeline2(Novel):
                     #--- Create a new scene.
                     totalEvents += 1
                     scId = str(totalEvents)
-                    self.scenes[scId] = Scene()
+                    self.scenes[scId] = self.SCENE_CLASS()
                     self.scenes[scId].title = source.scenes[srcId].title
                     newEvent = build_event(self.scenes[scId])
                     self._jsonData['events'].append(newEvent)
