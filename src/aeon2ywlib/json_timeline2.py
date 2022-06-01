@@ -94,6 +94,7 @@ class JsonTimeline2(Novel):
         self._typeLocationGuid = None
         self._typeItemGuid = None
         self._roleArcGuid = None
+        self._roleStorylineGuid = None
         self._roleCharacterGuid = None
         self._roleLocationGuid = None
         self._roleItemGuid = None
@@ -153,6 +154,8 @@ class JsonTimeline2(Novel):
                 for tplTypRol in tplTyp['roles']:
                     if tplTypRol['name'] == 'Arc':
                         self._roleArcGuid = tplTypRol['guid']
+                    elif tplTypRol['name'] == 'Storyline':
+                        self._roleStorylineGuid = tplTypRol['guid']
             elif tplTyp['name'] == self._typeCharacter:
                 self._typeCharacterGuid = tplTyp['guid']
                 for tplTypRol in tplTyp['roles']:
@@ -176,6 +179,7 @@ class JsonTimeline2(Novel):
         if self._typeArcGuid is None:
             self._typeArcGuid = get_uid('typeArcGuid')
             self._roleArcGuid = get_uid('roleArcGuid')
+            self._roleStorylineGuid = get_uid('roleStorylineGuid')
             typeCount = len(self._jsonData['template']['types'])
             self._jsonData['template']['types'].append(
                 {
@@ -184,21 +188,39 @@ class JsonTimeline2(Novel):
                     'icon': 'book',
                     'name': 'Arc',
                     'persistent': True,
-                    'roles': [
-                        {
-                            'allowsMultipleForEntity': True,
-                            'allowsMultipleForEvent': True,
-                            'allowsPercentAllocated': False,
-                            'guid': self._roleArcGuid,
-                            'icon': 'circle text',
-                            'mandatoryForEntity': False,
-                            'mandatoryForEvent': False,
-                            'name': 'Arc',
-                            'sortOrder': 0
-                        }
-                    ],
+                    'roles': [],
                     'sortOrder': typeCount
                 })
+        for entityType in self._jsonData['template']['types']:
+            if entityType['name'] == 'Arc':
+                if self._roleArcGuid is None:
+                    self._roleArcGuid = get_uid('_roleArcGuid')
+                    entityType['roles'].append(
+                        {
+                        'allowsMultipleForEntity': True,
+                        'allowsMultipleForEvent': True,
+                        'allowsPercentAllocated': False,
+                        'guid': self._roleArcGuid,
+                        'icon': 'circle text',
+                        'mandatoryForEntity': False,
+                        'mandatoryForEvent': False,
+                        'name': 'Arc',
+                        'sortOrder': 0
+                        })
+                if self._roleStorylineGuid is None:
+                    self._roleStorylineGuid = get_uid('_roleStorylineGuid')
+                    entityType['roles'].append(
+                        {
+                        'allowsMultipleForEntity': True,
+                        'allowsMultipleForEvent': True,
+                        'allowsPercentAllocated': False,
+                        'guid': self._roleStorylineGuid,
+                        'icon': 'circle filled text',
+                        'mandatoryForEntity': False,
+                        'mandatoryForEvent': False,
+                        'name': 'Storyline',
+                        'sortOrder': 0
+                        })
 
         #--- Add "Character" type, if missing.
         if self._typeCharacterGuid is None:
@@ -610,6 +632,9 @@ class JsonTimeline2(Novel):
         # Check scenes.
         srcScnTitles = []
         for chId in source.chapters:
+            if source.chapters[chId].isTrash:
+                continue
+
             for scId in source.chapters[chId].srtScenes:
                 if source.scenes[scId].title in srcScnTitles:
                     return f'{ERROR}Ambiguous yWriter scene title "{source.scenes[scId].title}".'
@@ -939,27 +964,27 @@ class JsonTimeline2(Novel):
         }
 
         #--- Add missing arcs.
-        arcs = []
-        for arc in self._arcGuidsByName:
-            if self._arcGuidsByName[arc] is None:
-                guid = get_uid(f'entity{arc}ArcGuid')
-                self._arcGuidsByName[arc] = guid
+        arcs = {}
+        for arcName in self._arcGuidsByName:
+            if self._arcGuidsByName[arcName] is None:
+                guid = get_uid(f'entity{arcName}ArcGuid')
+                self._arcGuidsByName[arcName] = guid
                 self._jsonData['entities'].append(
                     {
                         'entityType': self._typeArcGuid,
                         'guid': guid,
                         'icon': 'book',
-                        'name': arc,
+                        'name': arcName,
                         'notes': '',
                         'sortOrder': self._arcCount,
                         'swatchColor': 'orange'
                     })
                 self._arcCount += 1
-            arcs.append({
-                'entity': self._arcGuidsByName[arc],
+            arcs[arcName] = {
+                'entity': self._arcGuidsByName[arcName],
                 'percentAllocated': 1,
-                'role': self._roleArcGuid,
-            })
+                'role': self._roleStorylineGuid,
+            }
 
         #--- Update events from scenes.
         eventCount = 0
@@ -1060,8 +1085,24 @@ class JsonTimeline2(Novel):
             if self.scenes[scId].isNotesScene:
                 if narrativeArc in evt['relationships']:
                     evt['relationships'].remove(narrativeArc)
-            elif narrativeArc not in evt['relationships']:
-                evt['relationships'].append(narrativeArc)
+            else:
+                if narrativeArc not in evt['relationships']:
+                    evt['relationships'].append(narrativeArc)
+
+                #--- Assign events to arcs.
+                if self.scenes[scId].kwVar['Field_SceneArcs']:
+                    sceneArcs = self.scenes[scId].kwVar['Field_SceneArcs'].split(';')
+                else:
+                    sceneArcs = []
+                for arcName in arcs:
+                    if arcName in sceneArcs:
+                        if arcs[arcName] not in evt['relationships']:
+                            evt['relationships'].append(arcs[arcName])
+                    else:
+                        try:
+                            evt['relationships'].remove(arcs[arcName])
+                        except:
+                            pass
 
         #--- Delete "Trash" scenes.
         events = []
