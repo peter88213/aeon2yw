@@ -301,7 +301,7 @@ class Yw7Target(Yw7File):
                 #--- Update scene keyword variables.
                 for fieldName in self._SCN_KWVAR:
                     try:
-                        self.scenes[scId].kwVar[fieldName] = source.scenes[scId].kwVar[fieldName]
+                        self.scenes[scId].kwVar[fieldName] = source.scenes[srcId].kwVar[fieldName]
                     except:
                         pass
 

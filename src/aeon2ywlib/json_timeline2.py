@@ -178,8 +178,6 @@ class JsonTimeline2(Novel):
         #--- Add "Arc" type, if missing.
         if self._typeArcGuid is None:
             self._typeArcGuid = get_uid('typeArcGuid')
-            self._roleArcGuid = get_uid('roleArcGuid')
-            self._roleStorylineGuid = get_uid('roleStorylineGuid')
             typeCount = len(self._jsonData['template']['types'])
             self._jsonData['template']['types'].append(
                 {
@@ -425,6 +423,7 @@ class JsonTimeline2(Novel):
                 self._displayIdMax = displayId
             self.scenes[scId].status = 1
             # Set scene status = "Outline".
+            scnArcs = []
 
             #--- Initialize custom keyword variables.
             for fieldName in self._SCN_KWVAR:
@@ -529,6 +528,11 @@ class JsonTimeline2(Novel):
                         self.scenes[scId].isUnused = False
                         if timestamp > self._timestampMax:
                             self._timestampMax = timestamp
+                if evtRel['role'] == self._roleStorylineGuid:
+                    # Collect scene arcs.
+                    for arcName in self._arcGuidsByName:
+                        if evtRel['entity'] == self._arcGuidsByName[arcName]:
+                            scnArcs.append(arcName)
                 elif evtRel['role'] == self._roleCharacterGuid:
                     if self.scenes[scId].characters is None:
                         self.scenes[scId].characters = []
@@ -544,6 +548,9 @@ class JsonTimeline2(Novel):
                         self.scenes[scId].items = []
                     itId = itIdsByGuid[evtRel['entity']]
                     self.scenes[scId].items.append(itId)
+
+            # Add arcs to the scene keyword variables.
+            self.scenes[scId].kwVar['Field_SceneArcs'] = ';'.join(scnArcs)
 
         #--- Sort scenes by date/time and place them in chapters.
         chIdNarrative = '1'
