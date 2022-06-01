@@ -7,9 +7,9 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 from pywriter.pywriter_globals import ERROR
 from pywriter.converter.yw_cnv_ui import YwCnvUi
-from pywriter.yw.yw7_file import Yw7File
 from aeon2ywlib.json_timeline2 import JsonTimeline2
-from aeon2ywlib.yw7_sync import Yw7Sync
+from aeon2ywlib.yw7_target import Yw7Target
+from aeon2ywlib.yw7_source import Yw7Source
 
 
 class Aeon2Converter(YwCnvUi):
@@ -36,18 +36,18 @@ class Aeon2Converter(YwCnvUi):
         if fileExtension == JsonTimeline2.EXTENSION:
             # Source is a timeline
             sourceFile = JsonTimeline2(sourcePath, **kwargs)
-            if os.path.isfile(f'{fileName}{Yw7File.EXTENSION}'):
+            if os.path.isfile(f'{fileName}{Yw7Source.EXTENSION}'):
                 # Update existing yWriter project from timeline
-                targetFile = Yw7Sync(f'{fileName}{Yw7Sync.EXTENSION}', **kwargs)
+                targetFile = Yw7Target(f'{fileName}{Yw7Target.EXTENSION}', **kwargs)
                 sourceFile.ywProject = targetFile
                 self.import_to_yw(sourceFile, targetFile)
             else:
                 # Create new yWriter project from timeline
-                targetFile = Yw7File(f'{fileName}{Yw7File.EXTENSION}', **kwargs)
+                targetFile = Yw7Source(f'{fileName}{Yw7Source.EXTENSION}', **kwargs)
                 self.create_yw7(sourceFile, targetFile)
-        elif fileExtension == Yw7File.EXTENSION:
+        elif fileExtension == Yw7Source.EXTENSION:
             # Update existing timeline from yWriter project
-            sourceFile = Yw7File(sourcePath, **kwargs)
+            sourceFile = Yw7Source(sourcePath, **kwargs)
             targetFile = JsonTimeline2(f'{fileName}{JsonTimeline2.EXTENSION}', **kwargs)
             self.export_from_yw(sourceFile, targetFile)
         else:

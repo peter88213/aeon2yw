@@ -3,7 +3,8 @@
 Modules:
 
 json_timeline2 -- Provide a class for Aeon Timeline 2 JSON representation.
-yw7_sync -- Provide a class for a yWriter7 project to get updates from Aeon Timeline 2.
+yw7_source -- Provide a class for a yWriter7 project to provide updates to Aeon Timeline 2.
+yw7_target -- Provide a class for a yWriter7 project to get updates from Aeon Timeline 2.
 uid_helper -- Provide a GUID generator for Aeon Timeline 2.
 aeon2_converter -- Provide a converter class for Aeon Timeline 2 and yWriter.
 aeon2_fop -- Provide helper functions for Aeon Timeline 2 file operation.

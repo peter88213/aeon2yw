@@ -115,6 +115,7 @@ class JsonTimeline2(Novel):
         self._locationGuidById = {}
         self._itemGuidById = {}
         self._trashEvents = []
+        self._arcGuidsByName = {}
 
     def read(self):
         """Parse the file and get the instance variables.
@@ -283,7 +284,7 @@ class JsonTimeline2(Novel):
                     'sortOrder': typeCount
                 })
 
-        #--- Get characters, locations, and items.
+        #--- Get arcs, characters, locations, and items.
         crIdsByGuid = {}
         lcIdsByGuid = {}
         itIdsByGuid = {}
@@ -295,6 +296,8 @@ class JsonTimeline2(Novel):
                 self._arcCount += 1
                 if ent['name'] == self._entityNarrative:
                     self._entityNarrativeGuid = ent['guid']
+                else:
+                    self._arcGuidsByName[ent['name']] = ent['guid']
             elif ent['entityType'] == self._typeCharacterGuid:
                 characterCount += 1
                 crId = str(characterCount)
@@ -613,13 +616,22 @@ class JsonTimeline2(Novel):
 
                 srcScnTitles.append(source.scenes[scId].title)
 
-                # Collect characters, locations, and items assigned to scenes.
+                #--- Collect characters, locations, and items assigned to scenes.
                 if source.scenes[scId].characters:
                     linkedCharacters = list(set(linkedCharacters + source.scenes[scId].characters))
                 if source.scenes[scId].locations:
                     linkedLocations = list(set(linkedLocations + source.scenes[scId].locations))
                 if source.scenes[scId].items:
                     linkedItems = list(set(linkedItems + source.scenes[scId].items))
+
+                #--- Collect arcs from source.
+                try:
+                    arcs = source.scenes[scId].kwVar['Field_SceneArcs'].split(';')
+                    for arc in arcs:
+                        if not arc in self._arcGuidsByName:
+                            self._arcGuidsByName[arc] = None
+                except:
+                    pass
 
         # Check characters.
         srcChrNames = []
@@ -919,11 +931,35 @@ class JsonTimeline2(Novel):
                     'sortOrder': self._arcCount,
                     'swatchColor': 'orange'
                 })
+            self._arcCount += 1
         narrativeArc = {
             'entity': self._entityNarrativeGuid,
             'percentAllocated': 1,
             'role': self._roleArcGuid,
         }
+
+        #--- Add missing arcs.
+        arcs = []
+        for arc in self._arcGuidsByName:
+            if self._arcGuidsByName[arc] is None:
+                guid = get_uid(f'entity{arc}ArcGuid')
+                self._arcGuidsByName[arc] = guid
+                self._jsonData['entities'].append(
+                    {
+                        'entityType': self._typeArcGuid,
+                        'guid': guid,
+                        'icon': 'book',
+                        'name': arc,
+                        'notes': '',
+                        'sortOrder': self._arcCount,
+                        'swatchColor': 'orange'
+                    })
+                self._arcCount += 1
+            arcs.append({
+                'entity': self._arcGuidsByName[arc],
+                'percentAllocated': 1,
+                'role': self._roleArcGuid,
+            })
 
         #--- Update events from scenes.
         eventCount = 0

@@ -10,7 +10,7 @@ from pywriter.model.chapter import Chapter
 from pywriter.model.scene import Scene
 
 
-class Yw7Sync(Yw7File):
+class Yw7Target(Yw7File):
     """yWriter 7 project file representation.
     Extend the superclass
     """
