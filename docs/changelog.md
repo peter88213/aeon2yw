@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.4.0
+
+- Update story arc information. 
+
+Based on PyWriter v5.10.0
+
 ### v1.2.0
 
 - Optionally add a "moon phase" event property.

@@ -113,8 +113,8 @@ The names/column labels refer to timelines based on the "yWriter" template.
 - The scene duration is overwritten, if the start year is 100 or above.
 - Scenes updated from "Narrative" events are "Normal" type (*).
 - Optionally, scenes updated from non-"Narrative" events are "Notes" type (**).
-- New characters, locations, and items are added, if assigned to "Narrative" events.
-- Character, location, and item relationships are updated, if the entity names match.
+- New arcs, characters, locations, and items are added, if assigned to "Narrative" events.
+- Arc, character, location, and item relationships are updated, if the entity names match.
 
 
 ### Update rules for Aeon Timeline 2 projects
@@ -130,8 +130,9 @@ The names/column labels refer to timelines based on the "yWriter" template.
 - Optionally, events are created or updated from "Notes" scenes (not assigned to the *Narrative* arc)(**).
 - Entity types "Arc", "Character", "Location", and "Item" are created, if missing.
 - A "Narrative" arc is created, if missing.
-- New characters, locations, and items are added, if assigned to scenes.
-- Character, location, and item relationships are updated, if the entity names match.
+- A "Storyline" arc role is created, if missing.
+- New arcs, characters, locations, and items are added, if assigned to scenes.
+- Arc, character, location, and item relationships are updated, if the entity names match.
 
 (*) Applies to the default configuration, but can be customized.
 (**) To be set in the configuration file.
