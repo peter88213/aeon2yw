@@ -3,16 +3,16 @@
 	<Name>yWriter</Name>
 	<Types>
 		<Type>
-			<GUID>842CC572-8CB3-4A7F-ACBC-355E44EFFEDE</GUID>
-			<Name>Character</Name>
-			<Icon>person</Icon>
-			<Color>iconRed</Color>
-			<Persistent>0</Persistent>
-			<SortOrder>0</SortOrder>
+			<GUID>031A895B-1E4A-4816-B031-4030AACB8D3E</GUID>
+			<Name>Location</Name>
+			<Icon>map</Icon>
+			<Color>iconOrange</Color>
+			<Persistent>1</Persistent>
+			<SortOrder>1</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>3A8D452D-449B-4953-B3D9-DE137EA50980</GUID>
-					<Name>Participant</Name>
+					<GUID>72432606-5359-4AA9-ADC3-AE9E72E5E869</GUID>
+					<Name>Location</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
 					<MandatoryForEntity>0</MandatoryForEntity>
@@ -24,7 +24,7 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>893DC08B-3528-4115-975B-7EDF4219CEDE</GUID>
+			<GUID>3F6600D3-1BE5-4EF6-9FF5-3C664E3E2EC7</GUID>
 			<Name>Arc</Name>
 			<Icon>book</Icon>
 			<Color>iconYellow</Color>
@@ -32,7 +32,7 @@
 			<SortOrder>3</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>853E37D3-5432-4A15-A780-53BF70C13315</GUID>
+					<GUID>26FCDC28-3F8B-4302-A37D-07361E86816A</GUID>
 					<Name>Arc</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -42,10 +42,21 @@
 					<AllowsPercentAllocated>0</AllowsPercentAllocated>
 					<SortOrder>0</SortOrder>
 				</Role>
+				<Role>
+					<GUID>2D3B3BE4-9C5D-4BFF-BA79-EE4B59C9A110</GUID>
+					<Name>Storyline</Name>
+					<Icon>circle filled text</Icon>
+					<MandatoryForEvent>0</MandatoryForEvent>
+					<MandatoryForEntity>0</MandatoryForEntity>
+					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
+					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
+					<AllowsPercentAllocated>0</AllowsPercentAllocated>
+					<SortOrder>1</SortOrder>
+				</Role>
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>A7BCEBE2-3596-41D1-B979-776F9D3DFF82</GUID>
+			<GUID>7605DAD9-86E9-4067-9DAD-6904590E7327</GUID>
 			<Name>Item</Name>
 			<Icon>cube</Icon>
 			<Color>iconPurple</Color>
@@ -53,7 +64,7 @@
 			<SortOrder>2</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>1DE3C865-1AB8-49C0-80D6-3EB9E65AE243</GUID>
+					<GUID>A482A170-E744-4E7D-85B3-291A64B456EA</GUID>
 					<Name>Item</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -66,16 +77,16 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>E06C8A4D-144C-4D26-8C18-D880FD811AEC</GUID>
-			<Name>Location</Name>
-			<Icon>map</Icon>
-			<Color>iconOrange</Color>
-			<Persistent>1</Persistent>
-			<SortOrder>1</SortOrder>
+			<GUID>C4BF890C-68F4-4A05-8021-14BCE1257A73</GUID>
+			<Name>Character</Name>
+			<Icon>person</Icon>
+			<Color>iconRed</Color>
+			<Persistent>0</Persistent>
+			<SortOrder>0</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>520B1FF5-1AD5-4570-97D5-32E7860EA19E</GUID>
-					<Name>Location</Name>
+					<GUID>20F3441E-5606-4A07-A2E5-38D536B1BB02</GUID>
+					<Name>Participant</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
 					<MandatoryForEntity>0</MandatoryForEntity>
@@ -89,68 +100,57 @@
 	</Types>
 	<Colors>
 		<Color>
-			<GUID>22B5FFE4-F9C1-4617-A1E0-F4A5C71616BC</GUID>
+			<GUID>471F81C6-4BB5-41E6-B25F-AF4B26178FAA</GUID>
 			<Name>Pink</Name>
 			<SwatchColor>darkPink</SwatchColor>
 			<SortOrder>6</SortOrder>
 		</Color>
 		<Color>
-			<GUID>43972A36-96CC-4F1B-B660-9D6D98DE4E4A</GUID>
-			<Name>Yellow</Name>
-			<SwatchColor>yellow</SwatchColor>
-			<SortOrder>2</SortOrder>
-		</Color>
-		<Color>
-			<GUID>9CE78FC2-BEA0-4C20-B7FF-15CCD945C938</GUID>
-			<Name>Orange</Name>
-			<SwatchColor>orange</SwatchColor>
-			<SortOrder>1</SortOrder>
-		</Color>
-		<Color>
-			<GUID>B2CA0460-D074-48B3-8FE6-FAF74DE8B99D</GUID>
-			<Name>Green</Name>
-			<SwatchColor>apple</SwatchColor>
-			<SortOrder>3</SortOrder>
-		</Color>
-		<Color>
-			<GUID>BADCD81F-33EC-458D-BFCB-AD95DA7B3C1C</GUID>
-			<Name>Blue</Name>
-			<SwatchColor>midBlue</SwatchColor>
-			<SortOrder>4</SortOrder>
-		</Color>
-		<Color>
-			<GUID>C5BD8456-D528-44C5-9261-A74103622A0C</GUID>
-			<Name>Purple</Name>
-			<SwatchColor>lightPurple</SwatchColor>
-			<SortOrder>5</SortOrder>
-		</Color>
-		<Color>
-			<GUID>D240A936-0A32-481E-AC00-95D04DAEEE7B</GUID>
+			<GUID>4736560F-4602-4240-8B54-07055E7BECC4</GUID>
 			<Name>Fuschia</Name>
 			<SwatchColor>fuschia</SwatchColor>
 			<SortOrder>7</SortOrder>
 		</Color>
 		<Color>
-			<GUID>ED10E811-9D15-4ED5-93D6-B8B8FDF494DA</GUID>
+			<GUID>859CF9EA-2E3D-42C3-840C-4E1BE1EA98AD</GUID>
 			<Name>Red</Name>
 			<SwatchColor>red</SwatchColor>
 			<SortOrder>0</SortOrder>
 		</Color>
+		<Color>
+			<GUID>9D8E8607-B5B2-45F9-9702-59719E92D492</GUID>
+			<Name>Orange</Name>
+			<SwatchColor>orange</SwatchColor>
+			<SortOrder>1</SortOrder>
+		</Color>
+		<Color>
+			<GUID>A6F1BE4F-0E7A-4B94-93B6-F50068CDDDF1</GUID>
+			<Name>Purple</Name>
+			<SwatchColor>lightPurple</SwatchColor>
+			<SortOrder>5</SortOrder>
+		</Color>
+		<Color>
+			<GUID>BAA8176F-6A94-4E81-9D38-C83137BDE4D8</GUID>
+			<Name>Blue</Name>
+			<SwatchColor>midBlue</SwatchColor>
+			<SortOrder>4</SortOrder>
+		</Color>
+		<Color>
+			<GUID>C45DA2FF-3EA5-46CC-8257-609ADD6C3AEB</GUID>
+			<Name>Yellow</Name>
+			<SwatchColor>yellow</SwatchColor>
+			<SortOrder>2</SortOrder>
+		</Color>
+		<Color>
+			<GUID>DC6333F8-FE18-4BA7-90B7-E31BC6232F71</GUID>
+			<Name>Green</Name>
+			<SwatchColor>apple</SwatchColor>
+			<SortOrder>3</SortOrder>
+		</Color>
 	</Colors>
 	<Properties>
 		<Property>
-			<GUID>7ECE77E2-1F6D-4C42-A74B-EC1569145B8F</GUID>
-			<Name>Description</Name>
-			<Icon>tag</Icon>
-			<Type>multitext</Type>
-			<SortOrder>1</SortOrder>
-			<CalculateFromChildren>0</CalculateFromChildren>
-			<CalculationMode>default</CalculationMode>
-			<UseForFadingEvents>0</UseForFadingEvents>
-			<IsMandatory>0</IsMandatory>
-		</Property>
-		<Property>
-			<GUID>BC28654E-8733-44F0-A47B-D1793E4CE70C</GUID>
+			<GUID>E3145108-2231-41EF-ACD6-2D491F1B9A55</GUID>
 			<Name>Notes</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
@@ -160,10 +160,21 @@
 			<UseForFadingEvents>0</UseForFadingEvents>
 			<IsMandatory>0</IsMandatory>
 		</Property>
+		<Property>
+			<GUID>FCD875D2-2C67-45FF-AC17-2F665F82BC13</GUID>
+			<Name>Description</Name>
+			<Icon>tag</Icon>
+			<Type>multitext</Type>
+			<SortOrder>1</SortOrder>
+			<CalculateFromChildren>0</CalculateFromChildren>
+			<CalculationMode>default</CalculationMode>
+			<UseForFadingEvents>0</UseForFadingEvents>
+			<IsMandatory>0</IsMandatory>
+		</Property>
 	</Properties>
 	<RangeProperties>
 		<RangeProperty>
-			<GUID>5D7B9FF4-2267-4BA9-BC40-F55DC7BAE1BC</GUID>
+			<GUID>89B1D61E-3915-4AA2-AE5B-A6B499B5962C</GUID>
 			<Name>Date</Name>
 			<Type>date</Type>
 			<MinUnitScale>hour</MinUnitScale>

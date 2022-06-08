@@ -3,7 +3,39 @@
 	<Name>yWriter German</Name>
 	<Types>
 		<Type>
-			<GUID>0D4B85DE-3BC5-40A2-9E49-7758F34A3CAA</GUID>
+			<GUID>56237187-4163-4752-9EEA-C05027E6B231</GUID>
+			<Name>Arc</Name>
+			<Icon>book</Icon>
+			<Color>iconYellow</Color>
+			<Persistent>1</Persistent>
+			<SortOrder>3</SortOrder>
+			<Roles>
+				<Role>
+					<GUID>2EFFC38D-A09A-4680-9A56-B32E52CB7A10</GUID>
+					<Name>Arc</Name>
+					<Icon>circle text</Icon>
+					<MandatoryForEvent>0</MandatoryForEvent>
+					<MandatoryForEntity>0</MandatoryForEntity>
+					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
+					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
+					<AllowsPercentAllocated>0</AllowsPercentAllocated>
+					<SortOrder>0</SortOrder>
+				</Role>
+				<Role>
+					<GUID>5504942C-D82D-4394-98A7-807944AFA4A1</GUID>
+					<Name>Storyline</Name>
+					<Icon>circle filled text</Icon>
+					<MandatoryForEvent>0</MandatoryForEvent>
+					<MandatoryForEntity>0</MandatoryForEntity>
+					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
+					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
+					<AllowsPercentAllocated>0</AllowsPercentAllocated>
+					<SortOrder>1</SortOrder>
+				</Role>
+			</Roles>
+		</Type>
+		<Type>
+			<GUID>6D83BB4D-7774-4D04-9465-3547AC02CA1F</GUID>
 			<Name>Character</Name>
 			<Icon>person</Icon>
 			<Color>iconRed</Color>
@@ -11,7 +43,7 @@
 			<SortOrder>0</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>9D6E15AA-45F4-4050-98E0-2A914B57C6FC</GUID>
+					<GUID>16EB2FD3-33C6-4BA0-9C3F-AFF3DC95BF9D</GUID>
 					<Name>Participant</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -24,7 +56,7 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>A3C611B0-9A76-42E4-8A2E-DA573255A2DF</GUID>
+			<GUID>D27AE819-3B21-4FED-8D3C-F424E91E4BA2</GUID>
 			<Name>Item</Name>
 			<Icon>cube</Icon>
 			<Color>iconPurple</Color>
@@ -32,7 +64,7 @@
 			<SortOrder>2</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>1F9F215E-9B60-471C-966F-EE6F70E0CAF9</GUID>
+					<GUID>CFB149FC-B345-423F-8F3E-EC7C00914542</GUID>
 					<Name>Item</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -45,28 +77,7 @@
 			</Roles>
 		</Type>
 		<Type>
-			<GUID>A6E73B3E-2322-4694-8DDB-275A5F72F4BD</GUID>
-			<Name>Arc</Name>
-			<Icon>book</Icon>
-			<Color>iconYellow</Color>
-			<Persistent>1</Persistent>
-			<SortOrder>3</SortOrder>
-			<Roles>
-				<Role>
-					<GUID>8975A450-231E-4195-8DE2-01581264220B</GUID>
-					<Name>Arc</Name>
-					<Icon>circle text</Icon>
-					<MandatoryForEvent>0</MandatoryForEvent>
-					<MandatoryForEntity>0</MandatoryForEntity>
-					<AllowsMultipleForEvent>1</AllowsMultipleForEvent>
-					<AllowsMultipleForEntity>1</AllowsMultipleForEntity>
-					<AllowsPercentAllocated>0</AllowsPercentAllocated>
-					<SortOrder>0</SortOrder>
-				</Role>
-			</Roles>
-		</Type>
-		<Type>
-			<GUID>D7EC5A25-015B-460B-9565-06DB271B29B9</GUID>
+			<GUID>E9311134-43FB-422F-BF4F-466C0FF9082F</GUID>
 			<Name>Location</Name>
 			<Icon>map</Icon>
 			<Color>iconOrange</Color>
@@ -74,7 +85,7 @@
 			<SortOrder>1</SortOrder>
 			<Roles>
 				<Role>
-					<GUID>1A6B3BAE-F286-4109-91E7-4B6EB5F77647</GUID>
+					<GUID>0C284960-F47C-47F1-BA20-4915980AB5C7</GUID>
 					<Name>Location</Name>
 					<Icon>circle text</Icon>
 					<MandatoryForEvent>0</MandatoryForEvent>
@@ -89,57 +100,57 @@
 	</Types>
 	<Colors>
 		<Color>
-			<GUID>360EC990-130A-4648-A912-588F86FC82EA</GUID>
-			<Name>Purple</Name>
-			<SwatchColor>lightPurple</SwatchColor>
-			<SortOrder>5</SortOrder>
-		</Color>
-		<Color>
-			<GUID>9BC87A9E-62C4-4FA0-939E-E148C6295FF4</GUID>
-			<Name>Pink</Name>
-			<SwatchColor>darkPink</SwatchColor>
-			<SortOrder>6</SortOrder>
-		</Color>
-		<Color>
-			<GUID>B945A587-B03E-4129-8C11-D5DB0D579D2D</GUID>
-			<Name>Blue</Name>
-			<SwatchColor>midBlue</SwatchColor>
-			<SortOrder>4</SortOrder>
-		</Color>
-		<Color>
-			<GUID>D0BD80BE-C281-4832-957F-E39473E4EC28</GUID>
+			<GUID>3E3C80D7-366D-4E19-9E7F-39E94C15C977</GUID>
 			<Name>Red</Name>
 			<SwatchColor>red</SwatchColor>
 			<SortOrder>0</SortOrder>
 		</Color>
 		<Color>
-			<GUID>E2A1E249-944C-4B38-88B8-34720EDE5BC5</GUID>
-			<Name>Yellow</Name>
-			<SwatchColor>yellow</SwatchColor>
-			<SortOrder>2</SortOrder>
+			<GUID>55F9A551-CBCF-4120-8CE0-254F551B4915</GUID>
+			<Name>Orange</Name>
+			<SwatchColor>orange</SwatchColor>
+			<SortOrder>1</SortOrder>
 		</Color>
 		<Color>
-			<GUID>EA781197-6F39-4CF8-AB32-5FDB6DDEB487</GUID>
+			<GUID>622A4572-1513-4D4E-9BBF-CE11CA67FCCE</GUID>
 			<Name>Fuschia</Name>
 			<SwatchColor>fuschia</SwatchColor>
 			<SortOrder>7</SortOrder>
 		</Color>
 		<Color>
-			<GUID>FDA9646B-0844-40F0-A6F1-A241CA9A4BDA</GUID>
+			<GUID>8A073A96-D789-4ABD-8501-7B4198E20B19</GUID>
+			<Name>Purple</Name>
+			<SwatchColor>lightPurple</SwatchColor>
+			<SortOrder>5</SortOrder>
+		</Color>
+		<Color>
+			<GUID>A00CEA3C-9E3A-4CE8-9661-36B26DE81FB7</GUID>
+			<Name>Blue</Name>
+			<SwatchColor>midBlue</SwatchColor>
+			<SortOrder>4</SortOrder>
+		</Color>
+		<Color>
+			<GUID>C1A51E0E-7F1B-4F21-ABB4-0E9C6DFB5CD8</GUID>
+			<Name>Yellow</Name>
+			<SwatchColor>yellow</SwatchColor>
+			<SortOrder>2</SortOrder>
+		</Color>
+		<Color>
+			<GUID>E8B3B40C-4F07-433F-ADC6-F61E44068C26</GUID>
 			<Name>Green</Name>
 			<SwatchColor>apple</SwatchColor>
 			<SortOrder>3</SortOrder>
 		</Color>
 		<Color>
-			<GUID>FFE6C270-CE46-43DA-9222-70E363AA8D16</GUID>
-			<Name>Orange</Name>
-			<SwatchColor>orange</SwatchColor>
-			<SortOrder>1</SortOrder>
+			<GUID>EEFA50CB-7EED-484C-8C35-DD2392ADA796</GUID>
+			<Name>Pink</Name>
+			<SwatchColor>darkPink</SwatchColor>
+			<SortOrder>6</SortOrder>
 		</Color>
 	</Colors>
 	<Properties>
 		<Property>
-			<GUID>38AE847E-3132-4988-99DE-59D1E02EAFB0</GUID>
+			<GUID>4CB080A4-C046-4F68-AB9E-3C13417A530E</GUID>
 			<Name>Description</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
@@ -150,7 +161,7 @@
 			<IsMandatory>0</IsMandatory>
 		</Property>
 		<Property>
-			<GUID>7161E25E-8357-49F2-8047-02C8A82F43DE</GUID>
+			<GUID>9F56185E-3638-43F0-8F9E-ED378ECF2CA2</GUID>
 			<Name>Notes</Name>
 			<Icon>tag</Icon>
 			<Type>multitext</Type>
@@ -163,7 +174,7 @@
 	</Properties>
 	<RangeProperties>
 		<RangeProperty>
-			<GUID>E80EDA99-9B88-4C15-AD77-102BF4C7CC2A</GUID>
+			<GUID>264AFF70-1A3E-4434-A50B-91E7739FA227</GUID>
 			<Name>Date</Name>
 			<Type>date</Type>
 			<MinUnitScale>hour</MinUnitScale>
