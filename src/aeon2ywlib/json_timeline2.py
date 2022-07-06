@@ -320,7 +320,7 @@ class JsonTimeline2(Novel):
                 crIdsByGuid[ent['guid']] = crId
                 self.characters[crId] = self.CHARACTER_CLASS()
                 self.characters[crId].title = ent['name']
-                self.characters[crId].fullName = ent['name']
+                self.characters[crId].title = ent['name']
                 self._characterGuidById[crId] = ent['guid']
                 if ent['notes']:
                     self.characters[crId].notes = ent['notes']
@@ -667,13 +667,10 @@ class JsonTimeline2(Novel):
             if not crId in linkedCharacters:
                 continue
 
-            if not source.characters[crId].fullName:
-                return f'{ERROR}Character "{source.characters[crId].title}" has no full name.'
+            if source.characters[crId].title in srcChrNames:
+                return f'{ERROR}Ambiguous yWriter character "{source.characters[crId].title}".'
 
-            if source.characters[crId].fullName in srcChrNames:
-                return f'{ERROR}Ambiguous yWriter character "{source.characters[crId].fullName}".'
-
-            srcChrNames.append(source.characters[crId].fullName)
+            srcChrNames.append(source.characters[crId].title)
 
         # Check locations.
         srcLocTitles = []
@@ -713,12 +710,12 @@ class JsonTimeline2(Novel):
                     self._trashEvents.append(int(scId) - 1)
 
         # Check characters.
-        crIdsByName = {}
+        crIdsByTitle = {}
         for crId in self.characters:
-            if self.characters[crId].fullName in crIdsByName:
-                return f'{ERROR}Ambiguous Aeon character "{self.characters[crId].fullName}".'
+            if self.characters[crId].title in crIdsByTitle:
+                return f'{ERROR}Ambiguous Aeon character "{self.characters[crId].title}".'
 
-            crIdsByName[self.characters[crId].fullName] = crId
+            crIdsByTitle[self.characters[crId].title] = crId
 
         # Check locations.
         lcIdsByTitle = {}
@@ -740,22 +737,22 @@ class JsonTimeline2(Novel):
         crIdMax = len(self.characters)
         crIdsBySrcId = {}
         for srcCrId in source.characters:
-            if source.characters[srcCrId].fullName in crIdsByName:
-                crIdsBySrcId[srcCrId] = crIdsByName[source.characters[srcCrId].fullName]
+            if source.characters[srcCrId].title in crIdsByTitle:
+                crIdsBySrcId[srcCrId] = crIdsByTitle[source.characters[srcCrId].title]
             elif srcCrId in linkedCharacters:
                 #--- Create a new character if it is assigned to at least one scene.
                 crIdMax += 1
                 crId = str(crIdMax)
                 crIdsBySrcId[srcCrId] = crId
                 self.characters[crId] = source.characters[srcCrId]
-                newGuid = get_uid(f'{crId}{self.characters[crId].fullName}')
+                newGuid = get_uid(f'{crId}{self.characters[crId].title}')
                 self._characterGuidById[crId] = newGuid
                 self._jsonData['entities'].append(
                     {
                         'entityType': self._typeCharacterGuid,
                         'guid': newGuid,
                         'icon': 'person',
-                        'name': self.characters[crId].fullName,
+                        'name': self.characters[crId].title,
                         'notes': '',
                         'sortOrder': crIdMax - 1,
                         'swatchColor': 'darkPink'

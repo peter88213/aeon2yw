@@ -8,6 +8,16 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.6.0 Major update
+
+In Aeon, use the characters' simple names instead of their full names that might not exist.
+
+**Please note:** In existing timelines to be synchronized with yWriter, please delete all 
+Characters and then update from yWriter once. This will recreate all the characters and 
+their relationships with their correct names. 
+
+Based on PyWriter v5.16.1
+
 ### v1.4.2 Improved word counting
 
 - Fix word counting considering ellipses.

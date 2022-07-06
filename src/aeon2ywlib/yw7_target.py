@@ -73,10 +73,10 @@ class Yw7Target(Yw7File):
             if not crId in linkedCharacters:
                 continue
 
-            if source.characters[crId].fullName in srcChrNames:
-                return f'{ERROR}Ambiguous yWriter character "{source.characters[crId].fullName}".'
+            if source.characters[crId].title in srcChrNames:
+                return f'{ERROR}Ambiguous yWriter character "{source.characters[crId].title}".'
 
-            srcChrNames.append(source.characters[crId].fullName)
+            srcChrNames.append(source.characters[crId].title)
 
         # Check locations.
         srcLocTitles = []
@@ -141,10 +141,10 @@ class Yw7Target(Yw7File):
         for crId in self.characters:
             if int(crId) > crIdMax:
                 crIdMax = int(crId)
-            if self.characters[crId].fullName in crIdsByName:
-                return f'{ERROR}Ambiguous yWriter character "{self.characters[crId].fullName}".'
+            if self.characters[crId].title in crIdsByName:
+                return f'{ERROR}Ambiguous yWriter character "{self.characters[crId].title}".'
 
-            crIdsByName[self.characters[crId].fullName] = crId
+            crIdsByName[self.characters[crId].title] = crId
 
         # Check locations.
         lcIdsByTitle = {}
@@ -171,8 +171,8 @@ class Yw7Target(Yw7File):
         #--- Update characters from the source.
         crIdsBySrcId = {}
         for srcCrId in source.characters:
-            if source.characters[srcCrId].fullName in crIdsByName:
-                crIdsBySrcId[srcCrId] = crIdsByName[source.characters[srcCrId].fullName]
+            if source.characters[srcCrId].title in crIdsByName:
+                crIdsBySrcId[srcCrId] = crIdsByName[source.characters[srcCrId].title]
             elif srcCrId in linkedCharacters:
                 #--- Create a new character if it is assigned to at least one scene.
                 crIdMax += 1
