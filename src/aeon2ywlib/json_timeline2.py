@@ -917,6 +917,7 @@ class JsonTimeline2(Novel):
             Positional arguments:
                 scene -- Scene instance
             """
+            self._timestampMax += 1
             timestamp = int(self._timestampMax)
             try:
                 if scene.date:

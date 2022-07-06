@@ -133,6 +133,7 @@ The names/column labels refer to timelines based on the "yWriter" template.
 - A "Storyline" arc role is created, if missing.
 - New arcs, characters, locations, and items are added, if assigned to scenes.
 - Arc, character, location, and item relationships are updated, if the entity names match.
+- When creating events from scenes without date/time, they get the actual date and are sorted in reading order.
 
 (*) Applies to the default configuration, but can be customized.
 (**) To be set in the configuration file.

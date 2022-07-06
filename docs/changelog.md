@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.6.1 Sort created events
+
+When creating events from scenes without date/time, sort them in reading order. 
+
+Based on PyWriter v5.16.1
+
 ### v1.6.0 Major update
 
 In Aeon, use the characters' simple names instead of their full names that might not exist.
