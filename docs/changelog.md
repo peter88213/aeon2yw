@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.6.2 Improved setup
+
+- Catch exceptions in the setup script.
+
+Based on PyWriter v5.18.0
+
 ### v1.6.1 Sort created events
 
 When creating events from scenes without date/time, sort them in reading order. 

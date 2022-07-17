@@ -230,8 +230,10 @@ if __name__ == '__main__':
     # Run the installation.
     homePath = str(Path.home()).replace('\\', '/')
     pywriterPath = f'{homePath}/.pywriter/'
-    install(pywriterPath)
-
+    try:
+        install(pywriterPath)
+    except Exception as ex:
+        output(str(ex))
     root.tplButton = Button(text="Install the Aeon2 sample template", command=lambda: install_template())
     root.tplButton.config(height=1, width=30)
     root.tplButton.pack(padx=5, pady=5)
@@ -249,7 +251,7 @@ if __name__ == '__main__':
     root.quitButton = Button(text="Quit", command=quit)
     root.quitButton.config(height=1, width=30)
     root.quitButton.pack(padx=5, pady=5)
-    messagebox.showwarning('Update note', 
+    messagebox.showwarning('Update note',
                            '''As of v1.6.0, the naming of characters in timelines has changed. 
 In timelines synchronized with aeon2yw versions prior to v1.6.0, please delete all characters and then update from yWriter once. 
 This will recreate all the characters and their relationships with their correct names.''')
