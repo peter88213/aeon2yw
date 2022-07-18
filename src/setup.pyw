@@ -217,6 +217,9 @@ def install_plugin(pywriterPath):
 
 
 if __name__ == '__main__':
+    scriptPath = os.path.abspath(sys.argv[0])
+    scriptDir = os.path.dirname(scriptPath)
+    os.chdir(scriptDir)
 
     # Open a tk window.
     root.geometry("800x600")
