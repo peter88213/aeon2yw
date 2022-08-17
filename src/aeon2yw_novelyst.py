@@ -12,7 +12,7 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import messagebox
 from datetime import datetime
-from pywriter.pywriter_globals import ERROR
+from pywriter.pywriter_globals import *
 from pywriter.config.configuration import Configuration
 from pywriter.file.doc_open import open_document
 from aeon2ywlib.json_timeline2 import JsonTimeline2

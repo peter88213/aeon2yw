@@ -10,6 +10,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 import argparse
 from pathlib import Path
+from pywriter.pywriter_globals import *
 from pywriter.ui.ui import Ui
 from pywriter.ui.ui_tk import UiTk
 from pywriter.config.configuration import Configuration

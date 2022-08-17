@@ -8,6 +8,7 @@ import zipfile
 import codecs
 import json
 import os
+from pywriter.pywriter_globals import *
 from pywriter.pywriter_globals import ERROR
 
 
@@ -57,5 +58,5 @@ def save_timeline(jsonData, filePath):
         if backedUp:
             os.replace(f'{filePath}.bak', filePath)
         return f'{ERROR}Cannot write "{os.path.normpath(filePath)}".'
-    
+
     return f'"{os.path.normpath(filePath)}" written.'

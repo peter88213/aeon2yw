@@ -6,7 +6,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 from datetime import datetime
 from datetime import timedelta
-from pywriter.pywriter_globals import ERROR
+from pywriter.pywriter_globals import *
 from pywriter.model.novel import Novel
 from aeon2ywlib.aeon2_fop import open_timeline
 from aeon2ywlib.aeon2_fop import save_timeline
