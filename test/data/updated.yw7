@@ -199,6 +199,7 @@
       <SortOrder>1</SortOrder>
       <Title><![CDATA[Chapter 1]]></Title>
       <ChapterType>0</ChapterType>
+      <Type>0</Type>
       <Scenes>
         <ScID>4</ScID>
       </Scenes>
@@ -208,6 +209,7 @@
       <SortOrder>2</SortOrder>
       <Title><![CDATA[Background]]></Title>
       <ChapterType>1</ChapterType>
+      <Type>1</Type>
       <Scenes>
         <ScID>8</ScID>
         <ScID>5</ScID>
@@ -223,6 +225,8 @@
       <ID>3</ID>
       <SortOrder>3</SortOrder>
       <Title><![CDATA[New scenes]]></Title>
+      <ChapterType>0</ChapterType>
+      <Type>0</Type>
       <Scenes>
         <ScID>10</ScID>
       </Scenes>
