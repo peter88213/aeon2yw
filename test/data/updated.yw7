@@ -210,6 +210,7 @@
       <Title><![CDATA[Background]]></Title>
       <ChapterType>1</ChapterType>
       <Type>1</Type>
+      <Unused>-1</Unused>
       <Scenes>
         <ScID>8</ScID>
         <ScID>5</ScID>
