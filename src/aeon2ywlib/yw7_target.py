@@ -59,7 +59,7 @@ class Yw7Target(Yw7File):
             srcScnTitles.append(source.scenes[scId].title)
 
             # Collect characters, locations, and items assigned to normal scenes.
-            if not source.scenes[scId].isNotesScene:
+            if not source.scenes[scId].scType == 1:
                 if source.scenes[scId].characters:
                     linkedCharacters = list(set(linkedCharacters + source.scenes[scId].characters))
                 if source.scenes[scId].locations:
@@ -109,8 +109,8 @@ class Yw7Target(Yw7File):
 
             #--- Mark scenes associated with deleted events "Unused".
             if not self.scenes[scId].title in srcScnTitles:
-                if not self.scenes[scId].isNotesScene:
-                    self.scenes[scId].isUnused = True
+                if not self.scenes[scId].scType == 1:
+                    self.scenes[scId].scType = 3
 
         # Create a chapter for new scenes.
         chIdMax = 0
@@ -127,7 +127,7 @@ class Yw7Target(Yw7File):
         scIdsByTitle = {}
         for chId in self.chapters:
             for scId in self.chapters[chId].srtScenes:
-                if self.scenes[scId].isUnused and not self.scenes[scId].isNotesScene:
+                if self.scenes[scId].scType == 3:
                     continue
 
                 if self.scenes[scId].title in scIdsByTitle:
@@ -213,12 +213,11 @@ class Yw7Target(Yw7File):
                 continue
 
             for srcId in source.chapters[chId].srtScenes:
-                if source.scenes[srcId].isNotesScene and self._scenesOnly:
+                if source.scenes[srcId].scType == 1 and self._scenesOnly:
                     # Make "non-Narative" event a "Notes" scene.
                     if source.scenes[srcId].title in scIdsByTitle:
                         scId = scIdsByTitle[source.scenes[srcId].title]
-                        self.scenes[scId].isNotesScene = True
-                        self.scenes[scId].isUnused = True
+                        self.scenes[scId].scType = 1
                     continue
 
                 if source.scenes[srcId].title in scIdsByTitle:
@@ -237,8 +236,7 @@ class Yw7Target(Yw7File):
                     self.chapters[newChapterId].srtScenes.append(scId)
 
                 #--- Update scene type.
-                self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
-                self.scenes[scId].isUnused = source.scenes[srcId].isUnused
+                self.scenes[scId].scType = source.scenes[srcId].scType
 
                 #--- Update scene start date/time.
                 self.scenes[scId].date = source.scenes[srcId].date

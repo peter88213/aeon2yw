@@ -514,14 +514,14 @@ class JsonTimeline2(Novel):
             scIdsByDate[timestamp].append(scId)
 
             #--- Find scenes and get characters, locations, and items.
-            self.scenes[scId].isNotesScene = True
-            self.scenes[scId].isUnused = True
+            self.scenes[scId].scType = 1
+            # type = "Notes"
             for evtRel in evt['relationships']:
                 if evtRel['role'] == self._roleArcGuid:
                     # Make scene event "Normal" type scene.
                     if self._entityNarrativeGuid and evtRel['entity'] == self._entityNarrativeGuid:
-                        self.scenes[scId].isNotesScene = False
-                        self.scenes[scId].isUnused = False
+                        self.scenes[scId].scType = 0
+                        # type = "Normal"
                         if timestamp > self._timestampMax:
                             self._timestampMax = timestamp
                 if evtRel['role'] == self._roleStorylineGuid:
@@ -562,7 +562,7 @@ class JsonTimeline2(Novel):
         srtScenes = sorted(scIdsByDate.items())
         for __, scList in srtScenes:
             for scId in scList:
-                if self.scenes[scId].isNotesScene:
+                if self.scenes[scId].scType == 1:
                     self.chapters[chIdBackground].srtScenes.append(scId)
                 else:
                     self.chapters[chIdNarrative].srtScenes.append(scId)
@@ -617,7 +617,7 @@ class JsonTimeline2(Novel):
                     'value': ''
                 }],
             }
-            if scene.isNotesScene:
+            if scene.scType == 1:
                 event['color'] = self._colors[self._eventColor]
             else:
                 event['color'] = self._colors[self._sceneColor]
@@ -706,7 +706,7 @@ class JsonTimeline2(Novel):
             #--- Mark non-scene events.
             # This is to recognize "Trash" scenes.
             if not self.scenes[scId].title in srcScnTitles:
-                if not self.scenes[scId].isNotesScene:
+                if not self.scenes[scId].scType == 1:
                     self._trashEvents.append(int(scId) - 1)
 
         # Check characters.
@@ -812,18 +812,18 @@ class JsonTimeline2(Novel):
         totalEvents = len(self._jsonData['events'])
         for chId in source.chapters:
             for srcId in source.chapters[chId].srtScenes:
-                if source.scenes[srcId].isUnused and not source.scenes[srcId].isNotesScene:
+                if source.scenes[srcId].scType == 3:
                     # Remove unused scene from the "Narrative" arc.
                     if source.scenes[srcId].title in scIdsByTitle:
                         scId = scIdsByTitle[source.scenes[srcId].title]
-                        self.scenes[scId].isNotesScene = True
+                        self.scenes[scId].scType = 1
                     continue
 
-                if source.scenes[srcId].isNotesScene and self._scenesOnly:
+                if source.scenes[srcId].scType == 1 and self._scenesOnly:
                     # Remove unsynchronized scene from the "Narrative" arc.
                     if source.scenes[srcId].title in scIdsByTitle:
                         scId = scIdsByTitle[source.scenes[srcId].title]
-                        self.scenes[scId].isNotesScene = True
+                        self.scenes[scId].scType = 1
                     continue
 
                 if source.scenes[srcId].title in scIdsByTitle:
@@ -839,8 +839,8 @@ class JsonTimeline2(Novel):
                 self.scenes[scId].status = source.scenes[srcId].status
 
                 #--- Update scene type.
-                self.scenes[scId].isNotesScene = source.scenes[srcId].isNotesScene
-                self.scenes[scId].isUnused = source.scenes[srcId].isUnused
+                if source.scenes[srcId].scType is not None:
+                    self.scenes[scId].scType = source.scenes[srcId].scType
 
                 #--- Update scene tags.
                 if source.scenes[srcId].tags is not None:
@@ -1083,7 +1083,7 @@ class JsonTimeline2(Novel):
             evt['relationships'] = newRel
 
             #--- Assign "scene" events to the "Narrative" arc.
-            if self.scenes[scId].isNotesScene:
+            if self.scenes[scId].scType == 1:
                 if narrativeArc in evt['relationships']:
                     evt['relationships'].remove(narrativeArc)
             else:
