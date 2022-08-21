@@ -256,12 +256,12 @@ class Yw7Target(Yw7File):
                     self.scenes[scId].desc = source.scenes[srcId].desc
 
                 #--- Append event notes to scene notes.
-                if source.scenes[srcId].sceneNotes is not None:
-                    if self.scenes[scId].sceneNotes is not None:
-                        if not source.scenes[srcId].sceneNotes in self.scenes[scId].sceneNotes:
-                            self.scenes[scId].sceneNotes = f'{self.scenes[scId].sceneNotes}\n{source.scenes[srcId].sceneNotes}'
+                if source.scenes[srcId].notes is not None:
+                    if self.scenes[scId].notes is not None:
+                        if not source.scenes[srcId].notes in self.scenes[scId].notes:
+                            self.scenes[scId].notes = f'{self.scenes[scId].notes}\n{source.scenes[srcId].notes}'
                     else:
-                        self.scenes[scId].sceneNotes = source.scenes[srcId].sceneNotes
+                        self.scenes[scId].notes = source.scenes[srcId].notes
 
                 #--- Update scene characters.
                 if source.scenes[srcId].characters is not None:

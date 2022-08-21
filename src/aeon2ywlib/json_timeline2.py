@@ -440,7 +440,7 @@ class JsonTimeline2(Novel):
                 elif evtVal['property'] == self._propertyNotesGuid:
                     hasNotes = True
                     if evtVal['value']:
-                        self.scenes[scId].sceneNotes = evtVal['value']
+                        self.scenes[scId].notes = evtVal['value']
 
             #--- Add description and scene notes, if missing.
             if not hasDescription:
@@ -1015,8 +1015,8 @@ class JsonTimeline2(Novel):
 
                 # Set scene notes.
                 elif evtVal['property'] == self._propertyNotesGuid:
-                    if self.scenes[scId].sceneNotes:
-                        evtVal['value'] = self.scenes[scId].sceneNotes
+                    if self.scenes[scId].notes:
+                        evtVal['value'] = self.scenes[scId].notes
 
                 # Set moon phase.
                 elif evtVal['property'] == self._propertyMoonphaseGuid:
