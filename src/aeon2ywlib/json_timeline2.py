@@ -37,6 +37,10 @@ class JsonTimeline2(Novel):
     _SCN_KWVAR = (
         'Field_SceneArcs',
         )
+    _CRT_KWVAR = (
+        'Field_BirthDate',
+        'Field_DeathDate',
+        )
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.

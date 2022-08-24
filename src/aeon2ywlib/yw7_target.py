@@ -15,6 +15,10 @@ class Yw7Target(Yw7File):
     _SCN_KWVAR = (
         'Field_SceneArcs',
         )
+    _CRT_KWVAR = (
+        'Field_BirthDate',
+        'Field_DeathDate',
+        )
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.

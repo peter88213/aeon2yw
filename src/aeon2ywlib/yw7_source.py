@@ -14,4 +14,8 @@ class Yw7Source(Yw7File):
     _SCN_KWVAR = (
         'Field_SceneArcs',
         )
+    _CRT_KWVAR = (
+        'Field_BirthDate',
+        'Field_DeathDate',
+        )
 
