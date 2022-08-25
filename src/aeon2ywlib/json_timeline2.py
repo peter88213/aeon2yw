@@ -331,6 +331,11 @@ class JsonTimeline2(Novel):
                 else:
                     ent['notes'] = ''
                 self.srtCharacters.append(crId)
+
+                #  Initialize custom keyword variables.
+                for fieldName in self._CRT_KWVAR:
+                    self.characters[crId].kwVar[fieldName] = None
+
             elif ent['entityType'] == self._typeLocationGuid:
                 locationCount += 1
                 lcId = str(locationCount)
@@ -339,6 +344,11 @@ class JsonTimeline2(Novel):
                 self.locations[lcId].title = ent['name']
                 self.srtLocations.append(lcId)
                 self._locationGuidById[lcId] = ent['guid']
+
+                # Initialize custom keyword variables.
+                for fieldName in self._LOC_KWVAR:
+                    self.locations[lcId].kwVar[fieldName] = None
+
             elif ent['entityType'] == self._typeItemGuid:
                 itemCount += 1
                 itId = str(itemCount)
@@ -347,6 +357,10 @@ class JsonTimeline2(Novel):
                 self.items[itId].title = ent['name']
                 self.srtItems.append(itId)
                 self._itemGuidById[itId] = ent['guid']
+
+                # Initialize custom keyword variables.
+                for fieldName in self._ITM_KWVAR:
+                    self.items[itId].kwVar[fieldName] = None
 
         #--- Get GUID of user defined properties.
         hasPropertyNotes = False
