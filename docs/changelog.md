@@ -8,6 +8,14 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.8.0
+
+- Add internationalization according to GNU coding standards.
+- Provide German localization.
+- Update novelyst Plugin for novelyst v0.36 API.
+
+Based on PyWriter v7.2.1
+
 ### v1.6.3 Update setup script
 
 - Change the working dir to the script dir on startup in order to avoid "file not found" error.

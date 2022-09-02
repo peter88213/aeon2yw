@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="aeon2yw" basedir=".">
-	<property name="version" value="1.6.3" />
+	<property name="version" value="1.8.0" />
 	<property name="test-app" value="aeon2yw" />
 	<property name="novelyst-plugin" value="aeon2yw_novelyst" />
 	
@@ -9,6 +9,7 @@
 	<property name="build-path" location="../build" />
 	<property name="dist-path" location="../dist" />
 	<property name="docs-path" location="../docs" />
+	<property name="i18n-path" location="../i18n" />
 	<property name="application" value="${ant.project.name}" />
 	<property name="release" value="${application}_v${version}" />
 
@@ -56,6 +57,14 @@
 			<fileset dir="../sample" />
 		</copy>		
 			
+		<copy todir="${build-path}/${release}/locale"> 
+			<fileset dir="${i18n-path}/locale" />
+		</copy>
+		
+		<copy todir="${build-path}/${release}/plugin_locale"> 
+			<fileset dir="${i18n-path}/plugin_locale" />
+		</copy>
+		
 		<zip destfile="${dist-path}/${release}.zip" basedir="${build-path}/${release}" />
 		
 		<copy file="${docs-path}/template/index.md" overwrite="True" todir="${docs-path}" />

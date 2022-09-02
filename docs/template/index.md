@@ -32,6 +32,8 @@
 
 Optionally, a [novelyst](https://peter88213.github.io/novelyst/) plugin can be installed.
 
+The application is ready for internationalization with GNU gettext. A German localization is provided. 
+
  
 ## Requirements
 

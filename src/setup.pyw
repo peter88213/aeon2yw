@@ -10,15 +10,30 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 import sys
 import stat
+from shutil import copytree
 from shutil import copyfile
+from shutil import rmtree
 from pathlib import Path
 from string import Template
+import gettext
+import locale
 try:
     from tkinter import *
     from tkinter import messagebox
 except ModuleNotFoundError:
     print('The tkinter module is missing. Please install the tk support package for your python3 version.')
     sys.exit(1)
+
+# Initialize localization.
+LOCALE_PATH = f'{os.path.dirname(sys.argv[0])}/locale/'
+CURRENT_LANGUAGE = locale.getdefaultlocale()[0][:2]
+try:
+    t = gettext.translation('reg', LOCALE_PATH, languages=[CURRENT_LANGUAGE])
+    _ = t.gettext
+except:
+
+    def _(message):
+        return message
 
 APPNAME = 'aeon2yw'
 VERSION = ' @release'
@@ -45,12 +60,16 @@ root = Tk()
 processInfo = Label(root, text='')
 message = []
 
-SET_CONTEXT_MENU = '''Windows Registry Editor Version 5.00
+SET_CONTEXT_MENU = f'''Windows Registry Editor Version 5.00
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\Sync with Aeon Timeline 2]
+[-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\yWriter7\\shell\Sync with Aeon Timeline 2]
+[-HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\Export to Aeon Timeline 2]
+[-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\Sync with Aeon Timeline 2\\command]
-@="\\"${PYTHON}\\" \\"${SCRIPT}\\" \\"%1\\""
+[HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\{_('Export to Aeon Timeline 2')}]
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\{_('Export to Aeon Timeline 2')}\\command]
+@="\\"$PYTHON\\" \\"$SCRIPT\\" \\"%1\\""
 
 [HKEY_CURRENT_USER\\SOFTWARE\\Classes\\.aeonzip]
 @="Aeon2Project"
@@ -66,15 +85,17 @@ SET_CONTEXT_MENU = '''Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project\\shell\\open\\command]
 @="\\"C:\\\\Program Files (x86)\\\\Aeon Timeline 2\\\\AeonTimeline2.exe\\" \\"%1\\""
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\\Aeon2Project\\shell\\Sync with yWriter]
+[HKEY_CURRENT_USER\SOFTWARE\Classes\\Aeon2Project\\shell\\{_('Export to yWriter')}]
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\\Aeon2Project\\shell\\Sync with yWriter\\command]
-@="\\"${PYTHON}\\" \\"${SCRIPT}\\" \\"%1\\""
+[HKEY_CURRENT_USER\SOFTWARE\Classes\\Aeon2Project\\shell\\{_('Export to yWriter')}\\command]
+@="\\"$PYTHON\\" \\"$SCRIPT\\" \\"%1\\""
 '''
 
-RESET_CONTEXT_MENU = '''Windows Registry Editor Version 5.00
+RESET_CONTEXT_MENU = f'''Windows Registry Editor Version 5.00
 
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\yWriter7\\shell\Sync with Aeon Timeline 2]
+[-HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\Write data to Aeon Timeline 2]
+[-HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\{_('Export to Aeon Timeline 2')}]
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
 '''
 
@@ -92,7 +113,7 @@ def make_context_menu(installPath):
 
     def save_reg_file(filePath, template, mapping):
         """Save a registry file."""
-        with open(filePath, 'w', encoding='utf-8') as f:
+        with open(filePath, 'w') as f:
             f.write(template.safe_substitute(mapping))
         output(f'Creating "{os.path.normpath(filePath)}"')
 
@@ -145,6 +166,9 @@ def install(pywriterPath):
         pass
     os.makedirs(cnfDir, exist_ok=True)
 
+    # Delete existing localization files.
+    rmtree(f'{installDir}/locale', ignore_errors=True)
+
     # Delete the old version, but retain configuration, if any.
     with os.scandir(installDir) as files:
         for file in files:
@@ -155,6 +179,10 @@ def install(pywriterPath):
     # Install the new version.
     copyfile(APP, f'{installDir}/{APP}')
     output(f'Copying "{APP}"')
+
+    # Install the localization files.
+    copytree('locale', f'{installDir}/locale')
+    output(f'Copying "locale"')
 
     # Make the script executable under Linux.
     st = os.stat(f'{installDir}/{APP}')
@@ -213,6 +241,11 @@ def install_plugin(pywriterPath):
         output(f'Copying "{plugin}"')
     else:
         output('Error: novelyst plugin file not found.')
+
+    # Install the localization files.
+    copytree('plugin_locale', f'{novelystDir}/locale', dirs_exist_ok=True)
+    output(f'Copying "plugin_locale"')
+
     root.pluginButton['state'] = DISABLED
 
 
