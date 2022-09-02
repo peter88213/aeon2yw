@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: unknown\n"
-"POT-Creation-Date: 2022-09-02 23:24:55\n"
+"POT-Creation-Date: 2022-09-03 00:00:13\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Create a yWriter project file from {0}\nNew project: \"{1}\""
 msgstr ""
 
-msgid "Edit timeline"
+msgid "Edit the timeline"
 msgstr ""
 
 msgid "File already exists"
@@ -86,10 +86,10 @@ msgstr ""
 msgid "Save the project and update the timeline?"
 msgstr ""
 
-msgid "Update timeline"
+msgid "Update the project"
 msgstr ""
 
-msgid "Update yWriter project"
+msgid "Update the timeline"
 msgstr ""
 
 msgid "WARNING"

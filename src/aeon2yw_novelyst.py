@@ -79,12 +79,12 @@ class Plugin():
         self._ui.mainMenu.entryconfig(APPLICATION, state='disabled')
         self._pluginMenu.add_command(label=_('Information'), underline=0, command=self._info)
         self._pluginMenu.add_separator()
-        self._pluginMenu.add_command(label=_('Update timeline'), underline=7, command=self._export_from_yw)
-        self._pluginMenu.add_command(label=_('Update yWriter project'), underline=7, command=self._import_to_yw)
+        self._pluginMenu.add_command(label=_('Update the timeline'), underline=7, command=self._export_from_yw)
+        self._pluginMenu.add_command(label=_('Update the project'), underline=7, command=self._import_to_yw)
         self._pluginMenu.add_separator()
         self._pluginMenu.add_command(label=_('Add or update moon phase data'), underline=14, command=self._add_moonphase)
         self._pluginMenu.add_separator()
-        self._pluginMenu.add_command(label=_('Edit timeline'), underline=0, command=self._launch_application)
+        self._pluginMenu.add_command(label=_('Edit the timeline'), underline=0, command=self._launch_application)
 
     def disable_menu(self):
         """Disable menu entries when no project is open."""
