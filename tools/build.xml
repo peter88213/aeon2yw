@@ -16,11 +16,12 @@
 	<target name="build" description="inline all library modules">
 		<delete file="${test-path}/${test-app}.pyw" />
 		<exec executable="python" failonerror="true">
-		    <arg value="${source-path}/build_${test-app}.py"/>
+		    <arg value="${source-path}/make_pot.py"/>
+		    <arg value="${version}"/>
 		</exec>
-		<delete file="${test-path}/${novelyst-plugin}.py" />
 		<exec executable="python" failonerror="true">
-		    <arg value="${source-path}/build_${novelyst-plugin}.py"/>
+		    <arg value="${source-path}/translate_de.py"/>
+		    <arg value="${version}"/>
 		</exec>
 	</target>
 
