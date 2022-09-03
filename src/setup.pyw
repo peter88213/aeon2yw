@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Install the aeon2yw script. 
+"""Install the aeon2yw script and set up the registry files
+for extending the yWriter and Aeon Timeline 2 context menus. 
 
 Version @release
 
@@ -7,8 +8,8 @@ Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
-import os
 import sys
+import os
 import stat
 from shutil import copytree
 from shutil import copyfile
@@ -56,10 +57,6 @@ On Linux, create a launcher on your desktop. With xfce for instance, the launche
 python3 '$Apppath' %F
 '''
 
-root = Tk()
-processInfo = Label(root, text='')
-message = []
-
 SET_CONTEXT_MENU = f'''Windows Registry Editor Version 5.00
 
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\yWriter7\\shell\Sync with Aeon Timeline 2]
@@ -98,6 +95,10 @@ RESET_CONTEXT_MENU = f'''Windows Registry Editor Version 5.00
 [-HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\{_('Export to Aeon Timeline 2')}]
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
 '''
+
+root = Tk()
+processInfo = Label(root, text='')
+message = []
 
 aeon2dir = None
 sampleTemplate = None
