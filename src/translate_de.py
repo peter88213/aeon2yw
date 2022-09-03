@@ -30,7 +30,7 @@ File structure:
                   └─ aeon2yw_novelyst.mo
     
 Copyright (c) 2022 Peter Triesberger
-For further information see https://github.com/peter88213/yW2OO
+For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
@@ -43,7 +43,7 @@ import msgfmt
 APP_NAME = 'aeon2yw'
 PO_PATH = '../i18n/de.po'
 MO_PATH = '../i18n/locale/de/LC_MESSAGES/pywriter.mo'
-PLUGIN_NAME = 'aeon2yw_novelyst'
+PLUGIN_NAME = f'{APP_NAME}_novelyst'
 PLUGIN_MO_PATH = f'../i18n/plugin_locale/de/LC_MESSAGES/{PLUGIN_NAME}.mo'
 MO_COPY = f'../../novelyst/src/locale/de/LC_MESSAGES/{PLUGIN_NAME}.mo'
 
