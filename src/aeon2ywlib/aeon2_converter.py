@@ -53,4 +53,3 @@ class Aeon2Converter(YwCnvUi):
         else:
             # Source file format is not supported
             self.ui.set_info_how(f'{ERROR}{_("File type is not supported")}: "{os.path.normpath(sourcePath)}".')
-            return

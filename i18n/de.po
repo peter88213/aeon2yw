@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: unknown\n"
-"POT-Creation-Date: 2022-09-03 00:00:13\n"
-"PO-Revision-Date: 2022-09-03 00:04:49\n"
+"Project-Id-Version: 1.8.1\n"
+"POT-Creation-Date: 2022-09-03 15:56:26\n"
+"PO-Revision-Date: 2022-09-03 15:56:27\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -25,14 +25,17 @@ msgstr "Kann Datei nicht verarbeiten"
 msgid "Cannot determine file date."
 msgstr "Das Dateidatum ist nicht zu ermitteln."
 
+msgid "Cannot read timeline data"
+msgstr "Kann Zeitleisten-Daten nicht einlesen"
+
 msgid "Cannot write file"
 msgstr "Kann Datei nicht schreiben"
 
 msgid "Create a yWriter project file from {0}\nNew project: \"{1}\""
-msgstr "Erzeuge eine yWriter-Projektdatei aus {0}.\nNeues Projekt: \"{1}\""
+msgstr "Erzeuge eine yWriter-Projektdatei aus {0}\nNeues Projekt: \"{1}\""
 
 msgid "Edit the timeline"
-msgstr "Den Zeitstrahl bearbeiten"
+msgstr "Die Zeitleiste bearbeiten"
 
 msgid "File already exists"
 msgstr "Datei existiert bereits"
@@ -52,6 +55,9 @@ msgstr "Information"
 msgid "Input: {0} \"{1}\"\nOutput: {2} \"{3}\""
 msgstr "Quelle: {0} \"{1}\"\nZiel: {2} \"{3}\""
 
+msgid "Invalid JSON data in timeline"
+msgstr "Ungültige JSON-Daten in der Zeitleiste"
+
 msgid "New Chapter"
 msgstr "Neues Kapitel"
 
@@ -63,6 +69,9 @@ msgstr "Neue Szene"
 
 msgid "New scenes created during conversion."
 msgstr "Während der Konvertierung wurden neue Szenen erzeugt."
+
+msgid "No JSON part found in timeline data"
+msgstr "Kein JSON-Teil in der Zeitleistendatei gefunden"
 
 msgid "No {0} file available for this project."
 msgstr "Keine {0}-Datei für dieses Projekt vorhanden."
@@ -84,6 +93,9 @@ msgstr "Projekt speichern und aktualisieren?"
 
 msgid "Save the project and update the timeline?"
 msgstr "Projekt speichern und die Zeitleiste aktualisieren?"
+
+msgid "Synchronize Aeon Timeline 2 and yWriter"
+msgstr "Aeon Timeline 2 und yWriter synchronisieren"
 
 msgid "Update the project"
 msgstr "Das Projekt aktualisieren"
@@ -109,6 +121,33 @@ msgstr "yWriter scheint offen zu sein. Bitte schließen"
 msgid "{0} file is {1} than the yWriter project.\n (last saved on {2})"
 msgstr "{0}-Datei ist {1} als das yWriter-Projekt.\n (zuletzt gespeichert: {2})"
 
+msgid "{0}Ambiguous Aeon character \"{1}\"."
+msgstr "{0}Figur \"{1}\" mehrfach in Aeon."
+
+msgid "{0}Ambiguous Aeon event title \"{1}\"."
+msgstr "{0}Ereginistitel \"{1}\" mehrfach in Aeon."
+
+msgid "{0}Ambiguous Aeon item \"{1}\"."
+msgstr "{0}Gegenstand \"{1}\" mehrfach in Aeon."
+
+msgid "{0}Ambiguous Aeon location \"{1}\"."
+msgstr "{0}Schauplatz \"{1}\" mehrfach in Aeon."
+
+msgid "{0}Ambiguous yWriter character \"{1}\"."
+msgstr "{0}Figur \"{1}\" mehrfach in yWriter."
+
+msgid "{0}Ambiguous yWriter item \"{1}\"."
+msgstr "{0}Gegenstand \"{1}\" mehrfach in yWriter."
+
+msgid "{0}Ambiguous yWriter location \"{1}\"."
+msgstr "{0}Schauplatz \"{1}\" mehrfach in yWriter."
+
+msgid "{0}Ambiguous yWriter scene title \"{1}\"."
+msgstr "{0}Szenetitel \"{1}\" mehrfach in yWriter."
+
 msgid "{0}No {1} file available for this project."
 msgstr "{0}Keine {1}-Datei für dieses Projekt verfügbar."
+
+msgid "{}\"AD\" era is missing in the calendar."
+msgstr "{}\"AD\" Ära fehlt im Kalender"
 

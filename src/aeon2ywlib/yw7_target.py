@@ -58,7 +58,7 @@ class Yw7Target(Yw7File):
         srcScnTitles = []
         for scId in source.scenes:
             if source.scenes[scId].title in srcScnTitles:
-                return f'{ERROR}Ambiguous Aeon event title "{source.scenes[scId].title}".'
+                return _('{0}Ambiguous Aeon event title "{1}".').format(ERROR, source.scenes[scId].title)
 
             srcScnTitles.append(source.scenes[scId].title)
 
@@ -78,7 +78,7 @@ class Yw7Target(Yw7File):
                 continue
 
             if source.characters[crId].title in srcChrNames:
-                return f'{ERROR}Ambiguous yWriter character "{source.characters[crId].title}".'
+                return _('{0}Ambiguous Aeon character "{1}".').format(ERROR, source.characters[crId].title)
 
             srcChrNames.append(source.characters[crId].title)
 
@@ -89,7 +89,7 @@ class Yw7Target(Yw7File):
                 continue
 
             if source.locations[lcId].title in srcLocTitles:
-                return f'{ERROR}Ambiguous yWriter location "{source.locations[lcId].title}".'
+                return _('{0}Ambiguous Aeon location "{1}".').format(ERROR, source.locations[lcId].title)
 
             srcLocTitles.append(source.locations[lcId].title)
 
@@ -100,7 +100,7 @@ class Yw7Target(Yw7File):
                 continue
 
             if source.items[itId].title in srcItmTitles:
-                return f'{ERROR}Ambiguous yWriter item "{source.items[itId].title}".'
+                return _('{0}Ambiguous Aeon item "{1}".').format(ERROR, source.items[itId].title)
 
             srcItmTitles.append(source.items[itId].title)
 
@@ -135,7 +135,7 @@ class Yw7Target(Yw7File):
                     continue
 
                 if self.scenes[scId].title in scIdsByTitle:
-                    return f'{ERROR}Ambiguous yWriter scene title "{self.scenes[scId].title}".'
+                    return _('{0}Ambiguous yWriter scene title "{1}".').format(ERROR, self.scenes[scId].title)
 
                 scIdsByTitle[self.scenes[scId].title] = scId
 
@@ -146,7 +146,7 @@ class Yw7Target(Yw7File):
             if int(crId) > crIdMax:
                 crIdMax = int(crId)
             if self.characters[crId].title in crIdsByName:
-                return f'{ERROR}Ambiguous yWriter character "{self.characters[crId].title}".'
+                return _('{0}Ambiguous yWriter character "{1}".').format(ERROR, self.characters[crId].title)
 
             crIdsByName[self.characters[crId].title] = crId
 
@@ -157,7 +157,7 @@ class Yw7Target(Yw7File):
             if int(lcId) > lcIdMax:
                 lcIdMax = int(lcId)
             if self.locations[lcId].title in lcIdsByTitle:
-                return f'{ERROR}Ambiguous yWriter location "{self.locations[lcId].title}".'
+                return _('{0}Ambiguous yWriter location "{1}".').format(ERROR, self.locations[lcId].title)
 
             lcIdsByTitle[self.locations[lcId].title] = lcId
 
@@ -168,7 +168,7 @@ class Yw7Target(Yw7File):
             if int(itId) > itIdMax:
                 itIdMax = int(itId)
             if self.items[itId].title in itIdsByTitle:
-                return f'{ERROR}Ambiguous yWriter item "{self.items[itId].title}".'
+                return _('{0}Ambiguous yWriter item "{1}".').format(ERROR, self.items[itId].title)
 
             itIdsByTitle[self.items[itId].title] = itId
 

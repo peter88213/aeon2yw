@@ -9,7 +9,6 @@ import codecs
 import json
 import os
 from pywriter.pywriter_globals import *
-from pywriter.pywriter_globals import ERROR
 
 
 def open_timeline(filePath):
@@ -26,13 +25,13 @@ def open_timeline(filePath):
             jsonBytes = myzip.read('timeline.json')
             jsonStr = codecs.decode(jsonBytes, encoding='utf-8')
     except:
-        return f'{ERROR}Cannot read timeline data.', None
+        return f'{ERROR}{_("Cannot read timeline data")}.', None
     if not jsonStr:
-        return f'{ERROR}No JSON part found in timeline data.', None
+        return f'{ERROR}{_("No JSON part found in timeline data")}.', None
     try:
         jsonData = json.loads(jsonStr)
     except('JSONDecodeError'):
-        return f'{ERROR}Invalid JSON data in timeline.'
+        return f'{ERROR}{_("Invalid JSON data in timeline")}.'
         None
     return 'Timeline data read in.', jsonData
 
@@ -57,6 +56,6 @@ def save_timeline(jsonData, filePath):
     except:
         if backedUp:
             os.replace(f'{filePath}.bak', filePath)
-        return f'{ERROR}Cannot write "{os.path.normpath(filePath)}".'
+        return f'{ERROR}{_("Cannot write file")}: "{os.path.normpath(filePath)}".'
 
     return f'"{os.path.normpath(filePath)}" written.'

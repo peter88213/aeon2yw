@@ -8,6 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.8.1
+
+- Fix error messages.
+- Extend German translations.
+
+Based on PyWriter v7.2.1
+
 ### v1.8.0
 
 - Add internationalization according to GNU coding standards.

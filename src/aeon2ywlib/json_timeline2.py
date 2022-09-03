@@ -145,7 +145,7 @@ class JsonTimeline2(Novel):
                         break
 
         if self._tplDateGuid is None:
-            return f'{ERROR}"AD" era is missing in the calendar.'
+            return _('{}"AD" era is missing in the calendar.').format(ERROR)
 
         #--- Get GUID of user defined types and roles.
         for tplTyp in self._jsonData['template']['types']:
@@ -658,7 +658,7 @@ class JsonTimeline2(Novel):
 
             for scId in source.chapters[chId].srtScenes:
                 if source.scenes[scId].title in srcScnTitles:
-                    return f'{ERROR}Ambiguous yWriter scene title "{source.scenes[scId].title}".'
+                    return _('{0}Ambiguous yWriter scene title "{1}".').format(ERROR, source.scenes[scId].title)
 
                 srcScnTitles.append(source.scenes[scId].title)
 
@@ -686,7 +686,7 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.characters[crId].title in srcChrNames:
-                return f'{ERROR}Ambiguous yWriter character "{source.characters[crId].title}".'
+                return _('{0}Ambiguous yWriter character "{1}".').format(ERROR, source.characters[crId].title)
 
             srcChrNames.append(source.characters[crId].title)
 
@@ -697,7 +697,7 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.locations[lcId].title in srcLocTitles:
-                return f'{ERROR}Ambiguous yWriter location "{source.locations[lcId].title}".'
+                return _('{0}Ambiguous yWriter location "{1}".').format(ERROR, source.locations[lcId].title)
 
             srcLocTitles.append(source.locations[lcId].title)
 
@@ -708,7 +708,7 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.items[itId].title in srcItmTitles:
-                return f'{ERROR}Ambiguous yWriter item "{source.items[itId].title}".'
+                return _('{0}Ambiguous yWriter item "{1}".').format(ERROR, source.items[itId].title)
 
             srcItmTitles.append(source.items[itId].title)
 
@@ -717,7 +717,7 @@ class JsonTimeline2(Novel):
         scIdsByTitle = {}
         for scId in self.scenes:
             if self.scenes[scId].title in scIdsByTitle:
-                return f'{ERROR}Ambiguous Aeon event title "{self.scenes[scId].title}".'
+                return _('{0}Ambiguous Aeon event title "{1}".').format(ERROR, self.scenes[scId].title)
 
             scIdsByTitle[self.scenes[scId].title] = scId
 
@@ -731,7 +731,7 @@ class JsonTimeline2(Novel):
         crIdsByTitle = {}
         for crId in self.characters:
             if self.characters[crId].title in crIdsByTitle:
-                return f'{ERROR}Ambiguous Aeon character "{self.characters[crId].title}".'
+                return _('{0}Ambiguous Aeon character "{1}".').format(ERROR, self.characters[crId].title)
 
             crIdsByTitle[self.characters[crId].title] = crId
 
@@ -739,7 +739,7 @@ class JsonTimeline2(Novel):
         lcIdsByTitle = {}
         for lcId in self.locations:
             if self.locations[lcId].title in lcIdsByTitle:
-                return f'{ERROR}Ambiguous Aeon location "{self.locations[lcId].title}".'
+                return _('{0}Ambiguous Aeon location "{1}".').format(ERROR, self.locations[lcId].title)
 
             lcIdsByTitle[self.locations[lcId].title] = lcId
 
@@ -747,7 +747,7 @@ class JsonTimeline2(Novel):
         itIdsByTitle = {}
         for itId in self.items:
             if self.items[itId].title in itIdsByTitle:
-                return f'{ERROR}Ambiguous Aeon item "{self.items[itId].title}".'
+                return _('{0}Ambiguous Aeon item "{1}".').format(ERROR, self.items[itId].title)
 
             itIdsByTitle[self.items[itId].title] = itId
 

@@ -41,7 +41,7 @@ def run(sourcePath, silentMode=True, installDir='.'):
     if silentMode:
         ui = Ui('')
     else:
-        ui = UiTk('Synchronize Aeon Timeline 2 and yWriter @release')
+        ui = UiTk(f'{_("Synchronize Aeon Timeline 2 and yWriter")} @release')
 
     #--- Try to get persistent configuration data
     sourceDir = os.path.dirname(sourcePath)
