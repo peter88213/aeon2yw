@@ -24,11 +24,10 @@ File structure:
         │   └─ de/
         │      └─ LC_MESSAGES/
         │         └─ pywriter.mo
-        │
         └── plugin_locale/
             └─ de/
                └─ LC_MESSAGES/
-                  └─ pywriter.mo
+                  └─ aeon2yw_novelyst.mo
     
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/yW2OO
