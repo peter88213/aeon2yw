@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.8.2
+
+- Set own window icon.
+
+Based on PyWriter v7.4.1
+
 ### v1.8.1
 
 - Fix error messages.

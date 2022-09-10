@@ -13,6 +13,7 @@ from pathlib import Path
 from pywriter.pywriter_globals import *
 from pywriter.ui.ui import Ui
 from pywriter.ui.ui_tk import UiTk
+from pywriter.ui.set_icon_tk import *
 from pywriter.config.configuration import Configuration
 from aeon2ywlib.aeon2_converter import Aeon2Converter
 
@@ -42,6 +43,7 @@ def run(sourcePath, silentMode=True, installDir='.'):
         ui = Ui('')
     else:
         ui = UiTk(f'{_("Synchronize Aeon Timeline 2 and yWriter")} @release')
+        set_icon(ui.root, icon='aLogo32')
 
     #--- Try to get persistent configuration data
     sourceDir = os.path.dirname(sourcePath)
@@ -57,6 +59,7 @@ def run(sourcePath, silentMode=True, installDir='.'):
     kwargs.update(configuration.options)
     converter = Aeon2Converter()
     converter.ui = ui
+
     converter.run(sourcePath, **kwargs)
     ui.start()
 
