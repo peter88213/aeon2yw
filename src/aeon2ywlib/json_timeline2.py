@@ -564,7 +564,7 @@ class JsonTimeline2(Novel):
                     self.scenes[scId].items.append(itId)
 
             # Add arcs to the scene keyword variables.
-            self.scenes[scId].kwVar['Field_SceneArcs'] = ';'.join(scnArcs)
+            self.scenes[scId].kwVar['Field_SceneArcs'] = list_to_string(scnArcs)
 
         #--- Sort scenes by date/time and place them in chapters.
         chIdNarrative = '1'
@@ -672,7 +672,7 @@ class JsonTimeline2(Novel):
 
                 #--- Collect arcs from source.
                 try:
-                    arcs = source.scenes[scId].kwVar['Field_SceneArcs'].split(';')
+                    arcs = string_to_list(source.scenes[scId].kwVar['Field_SceneArcs'])
                     for arc in arcs:
                         if not arc in self._arcGuidsByName:
                             self._arcGuidsByName[arc] = None
@@ -1109,8 +1109,8 @@ class JsonTimeline2(Novel):
                     evt['relationships'].append(narrativeArc)
 
                 #--- Assign events to arcs.
-                if self.scenes[scId].kwVar['Field_SceneArcs']:
-                    sceneArcs = self.scenes[scId].kwVar['Field_SceneArcs'].split(';')
+                if self.scenes[scId].kwVar.get('Field_SceneArcs', None):
+                    sceneArcs = string_to_list(self.scenes[scId].kwVar['Field_SceneArcs'])
                 else:
                     sceneArcs = []
                 for arcName in arcs:
