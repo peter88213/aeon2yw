@@ -79,12 +79,17 @@ class Plugin():
         self._ui.mainMenu.entryconfig(APPLICATION, state='disabled')
         self._pluginMenu.add_command(label=_('Information'), command=self._info)
         self._pluginMenu.add_separator()
+        self._pluginMenu.add_command(label=_('Settings'), command=self._edit_settings)
+        self._pluginMenu.add_separator()
         self._pluginMenu.add_command(label=_('Update the timeline'), command=self._export_from_yw)
         self._pluginMenu.add_command(label=_('Update the project'), command=self._import_to_yw)
         self._pluginMenu.add_separator()
         self._pluginMenu.add_command(label=_('Add or update moon phase data'), command=self._add_moonphase)
         self._pluginMenu.add_separator()
         self._pluginMenu.add_command(label=_('Edit the timeline'), command=self._launch_application)
+
+    def _edit_settings(self):
+        """Toplevel window"""
 
     def disable_menu(self):
         """Disable menu entries when no project is open."""
