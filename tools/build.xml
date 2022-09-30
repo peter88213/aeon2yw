@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="aeon2yw" basedir=".">
-	<property name="version" value="1.8.2" />
+	<property name="version" value="0.2.0" />
 	<property name="test-app" value="aeon2yw" />
 	<property name="novelyst-plugin" value="aeon2yw_novelyst" />
 	
@@ -43,9 +43,6 @@
 		<copy file="${test-path}/${test-app}.pyw" tofile="${build-path}/${release}/${application}.pyw" />
 		<replace encoding="utf-8" file="${build-path}/${release}/${application}.pyw" token="@release" value="${version}" />
 		
-		<copy file="${test-path}/${novelyst-plugin}.py" tofile="${build-path}/${release}/${novelyst-plugin}.py" />
-		<replace encoding="utf-8" file="${build-path}/${release}/${novelyst-plugin}.py" token="@release" value="${version}" />
-		
 		<copy file="${source-path}/setup.pyw" todir="${build-path}/${release}" />		
 		<replace encoding="utf-8" file="${build-path}/${release}/setup.pyw" token="@release" value="${version}" />
 
@@ -61,11 +58,7 @@
 		<copy todir="${build-path}/${release}/locale"> 
 			<fileset dir="${i18n-path}/locale" />
 		</copy>
-		
-		<copy todir="${build-path}/${release}/plugin_locale"> 
-			<fileset dir="${i18n-path}/plugin_locale" />
-		</copy>
-		
+			
 		<copy todir="${build-path}/${release}/icons"> 
 			<fileset dir="${source-path}/icons" />
 		</copy>
