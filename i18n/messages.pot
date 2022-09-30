@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.8.2\n"
-"POT-Creation-Date: 2022-09-10 20:25:52\n"
+"POT-Creation-Date: 2022-09-30 20:04:08\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -17,13 +17,7 @@ msgstr ""
 msgid "Action canceled by user"
 msgstr ""
 
-msgid "Add or update moon phase data"
-msgstr ""
-
 msgid "Can not process file"
-msgstr ""
-
-msgid "Cannot determine file date."
 msgstr ""
 
 msgid "Cannot read timeline data"
@@ -33,9 +27,6 @@ msgid "Cannot write file"
 msgstr ""
 
 msgid "Create a yWriter project file from {0}\nNew project: \"{1}\""
-msgstr ""
-
-msgid "Edit the timeline"
 msgstr ""
 
 msgid "File already exists"
@@ -48,9 +39,6 @@ msgid "File type is not supported"
 msgstr ""
 
 msgid "File written"
-msgstr ""
-
-msgid "Information"
 msgstr ""
 
 msgid "Input: {0} \"{1}\"\nOutput: {2} \"{3}\""
@@ -74,9 +62,6 @@ msgstr ""
 msgid "No JSON part found in timeline data"
 msgstr ""
 
-msgid "No {0} file available for this project."
-msgstr ""
-
 msgid "Novel"
 msgstr ""
 
@@ -89,37 +74,16 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-msgid "Save the project and update it?"
-msgstr ""
-
-msgid "Save the project and update the timeline?"
-msgstr ""
-
 msgid "Synchronize Aeon Timeline 2 and yWriter"
 msgstr ""
 
-msgid "Update the project"
-msgstr ""
-
-msgid "Update the timeline"
-msgstr ""
-
 msgid "WARNING"
-msgstr ""
-
-msgid "newer"
-msgstr ""
-
-msgid "older"
 msgstr ""
 
 msgid "yWriter 7 project"
 msgstr ""
 
 msgid "yWriter seems to be open. Please close first"
-msgstr ""
-
-msgid "{0} file is {1} than the yWriter project.\n (last saved on {2})"
 msgstr ""
 
 msgid "{0}Ambiguous Aeon character \"{1}\"."
@@ -144,9 +108,6 @@ msgid "{0}Ambiguous yWriter location \"{1}\"."
 msgstr ""
 
 msgid "{0}Ambiguous yWriter scene title \"{1}\"."
-msgstr ""
-
-msgid "{0}No {1} file available for this project."
 msgstr ""
 
 msgid "{}\"AD\" era is missing in the calendar."

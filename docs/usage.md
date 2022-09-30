@@ -31,19 +31,6 @@ You can remove the context menu entries by double-clicking  `rem_context_menu.re
 
 Please note that these context menus depend on the currently installed Python version. After a major Python update you may need to run the setup program again and renew the registry entries.
 
-### Launch from novelyst
-
-If [novelyst](https://peter88213.github.io/novelyst/) is installed, the setup script offers the installation of an *aeon2yw* plugin.
-The plugin adds an *Aeon Timeline 2* submenu to the *novelyst* main menu. The submenu has the following entries:
-
-- Information (compare yWriter and timeline file dates)
-- Update timeline from yWriter
-- Update yWriter from timeline
-- Add or update moon phase data
-- Edit timeline (launch Aeon Timeline 2)
-
-If you install *novelyst* at a later time, you can always install the plugin afterwards by running the *aeon2yw* setup script again.
-
 ### Command line usage
 
 Alternatively, you can

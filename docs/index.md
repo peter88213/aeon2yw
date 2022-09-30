@@ -2,6 +2,8 @@
 
 [yWriter](http://spacejock.com/yWriter7.html) is a free word processor written by Australian author and programmer Simon Haynes. yWriter's strengths are structuring novels and controlling the progress during the writing process. With the *aeon2yw* Python script, you can convert a novel outline created with Aeon Timeline 2 into a new yWriter project.
 
+The application is ready for internationalization with GNU gettext. A German localization is provided. 
+
 ## Features
 
 ### Create a new yWriter project from a timeline
@@ -29,10 +31,6 @@
 ### Create a new timeline from a yWriter project
 
 - Just update an empty timeline from a yWriter project.
-
-Optionally, a [novelyst](https://peter88213.github.io/novelyst/) plugin can be installed.
-
-The application is ready for internationalization with GNU gettext. A German localization is provided. 
 
  
 ## Requirements
@@ -63,6 +61,11 @@ Please make sure that your Python3 installation has the *tkinter* module. On Ubu
 
 - [Instructions for use](usage)
 - [Tutorial](tutorial)
+
+## See also
+
+There is a [plugin](https://peter88213.github.io/aeon2yw_novelyst/) for the [novelyst](https://peter88213.github.io/novelyst/) application.
+
 
 ## Credits
 
