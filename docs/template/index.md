@@ -64,7 +64,7 @@ Please make sure that your Python3 installation has the *tkinter* module. On Ubu
 
 ## See also
 
-There is a [plugin](https://peter88213.github.io/aeon2yw_novelyst/) for the [novelyst](https://peter88213.github.io/novelyst/) application.
+There is a [plugin](https://peter88213.github.io/novelyst_aeon2/) for the [novelyst](https://peter88213.github.io/novelyst/) application.
 
 
 ## Credits
