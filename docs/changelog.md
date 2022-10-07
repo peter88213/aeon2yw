@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v1.8.3 Bugfix release
+
+- Fix a bug where the program aborts silently due to an unhandled exception.
+
+Based on PyWriter v7.4.9
+
 ### v1.8.2
 
 - Set own window icon.

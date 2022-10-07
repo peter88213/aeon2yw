@@ -271,7 +271,7 @@ class Yw7Target(Yw7File):
                 if source.scenes[srcId].characters is not None:
                     try:
                         viewpoint = self.scenes[scId].characters[0]
-                    except IndexError:
+                    except:
                         viewpoint = ''
                     if viewpoint in crIdsBySrcId.values():
                         self.scenes[scId].characters = [viewpoint]
@@ -281,7 +281,7 @@ class Yw7Target(Yw7File):
                         try:
                             if not crIdsBySrcId[crId] in self.scenes[scId].characters:
                                 self.scenes[scId].characters.append(crIdsBySrcId[crId])
-                        except IndexError:
+                        except:
                             pass
 
                 #--- Update scene locations.
