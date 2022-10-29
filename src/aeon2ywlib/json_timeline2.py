@@ -125,12 +125,10 @@ class JsonTimeline2(Novel):
         and build a yWriter novel structure.
         - Events marked as scenes are converted to scenes in one single chapter.
         - Other events are converted to “Notes” scenes in another chapter.
-        Return a message beginning with the ERROR constant in case of error.
+        Raise the "Error" exception in case of error. 
         Overrides the superclass method.
         """
-        message, self._jsonData = open_timeline(self.filePath)
-        if message.startswith(ERROR):
-            return message
+        self._jsonData = open_timeline(self.filePath)
 
         #--- Get the color definitions.
         for tplCol in self._jsonData['template']['colors']:
@@ -145,7 +143,7 @@ class JsonTimeline2(Novel):
                         break
 
         if self._tplDateGuid is None:
-            return _('{}"AD" era is missing in the calendar.').format(ERROR)
+            raise Error(_('"AD" era is missing in the calendar.'))
 
         #--- Get GUID of user defined types and roles.
         for tplTyp in self._jsonData['template']['types']:
@@ -426,7 +424,7 @@ class JsonTimeline2(Novel):
         scnTitles = []
         for evt in self._jsonData['events']:
             if evt['title'] in scnTitles:
-                return f'{ERROR}Ambiguous Aeon event title "{evt["title"]}".'
+                raise Error(f'Ambiguous Aeon event title "{evt["title"]}".')
             scnTitles.append(evt['title'])
             eventCount += 1
             scId = str(eventCount)
@@ -586,7 +584,6 @@ class JsonTimeline2(Novel):
                     self.chapters[chIdNarrative].srtScenes.append(scId)
         if self._timestampMax == 0:
             self._timestampMax = self.DEFAULT_TIMESTAMP
-        return 'Timeline data converted to novel structure.'
 
     def merge(self, source):
         """Update instance variables from a source instance.
@@ -641,10 +638,7 @@ class JsonTimeline2(Novel):
                 event['color'] = self._colors[self._sceneColor]
             return event
 
-        message = self.read()
-        if message.startswith(ERROR):
-            return message
-
+        self.read()
         linkedCharacters = []
         linkedLocations = []
         linkedItems = []
@@ -658,7 +652,7 @@ class JsonTimeline2(Novel):
 
             for scId in source.chapters[chId].srtScenes:
                 if source.scenes[scId].title in srcScnTitles:
-                    return _('{0}Ambiguous yWriter scene title "{1}".').format(ERROR, source.scenes[scId].title)
+                    raise Error(_('Ambiguous yWriter scene title "{}".').format(source.scenes[scId].title))
 
                 srcScnTitles.append(source.scenes[scId].title)
 
@@ -686,7 +680,7 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.characters[crId].title in srcChrNames:
-                return _('{0}Ambiguous yWriter character "{1}".').format(ERROR, source.characters[crId].title)
+                raise Error(_('Ambiguous yWriter character "{}".').format(source.characters[crId].title))
 
             srcChrNames.append(source.characters[crId].title)
 
@@ -697,7 +691,7 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.locations[lcId].title in srcLocTitles:
-                return _('{0}Ambiguous yWriter location "{1}".').format(ERROR, source.locations[lcId].title)
+                raise Error(_('Ambiguous yWriter location "{}".').format(source.locations[lcId].title))
 
             srcLocTitles.append(source.locations[lcId].title)
 
@@ -708,7 +702,7 @@ class JsonTimeline2(Novel):
                 continue
 
             if source.items[itId].title in srcItmTitles:
-                return _('{0}Ambiguous yWriter item "{1}".').format(ERROR, source.items[itId].title)
+                raise Error(_('Ambiguous yWriter item "{}".').format(source.items[itId].title))
 
             srcItmTitles.append(source.items[itId].title)
 
@@ -717,7 +711,7 @@ class JsonTimeline2(Novel):
         scIdsByTitle = {}
         for scId in self.scenes:
             if self.scenes[scId].title in scIdsByTitle:
-                return _('{0}Ambiguous Aeon event title "{1}".').format(ERROR, self.scenes[scId].title)
+                raise Error(_('Ambiguous Aeon event title "{}".').format(self.scenes[scId].title))
 
             scIdsByTitle[self.scenes[scId].title] = scId
 
@@ -731,7 +725,7 @@ class JsonTimeline2(Novel):
         crIdsByTitle = {}
         for crId in self.characters:
             if self.characters[crId].title in crIdsByTitle:
-                return _('{0}Ambiguous Aeon character "{1}".').format(ERROR, self.characters[crId].title)
+                raise Error(_('Ambiguous Aeon character "{}".').format(self.characters[crId].title))
 
             crIdsByTitle[self.characters[crId].title] = crId
 
@@ -739,7 +733,7 @@ class JsonTimeline2(Novel):
         lcIdsByTitle = {}
         for lcId in self.locations:
             if self.locations[lcId].title in lcIdsByTitle:
-                return _('{0}Ambiguous Aeon location "{1}".').format(ERROR, self.locations[lcId].title)
+                raise Error(_('Ambiguous Aeon location "{}".').format(self.locations[lcId].title))
 
             lcIdsByTitle[self.locations[lcId].title] = lcId
 
@@ -747,7 +741,7 @@ class JsonTimeline2(Novel):
         itIdsByTitle = {}
         for itId in self.items:
             if self.items[itId].title in itIdsByTitle:
-                return _('{0}Ambiguous Aeon item "{1}".').format(ERROR, self.items[itId].title)
+                raise Error(_('Ambiguous Aeon item "{}".').format(self.items[itId].title))
 
             itIdsByTitle[self.items[itId].title] = itId
 
@@ -920,12 +914,9 @@ class JsonTimeline2(Novel):
                     except:
                         pass
 
-        return 'Timeline updated from novel data.'
-
     def write(self):
         """Write instance variables to the file.
         
-        Return a message beginning with the ERROR constant in case of error.
         Overrides the superclass method.
         """
 
@@ -1129,4 +1120,4 @@ class JsonTimeline2(Novel):
             if not i in self._trashEvents:
                 events.append(evt)
         self._jsonData['events'] = events
-        return save_timeline(self._jsonData, self.filePath)
+        save_timeline(self._jsonData, self.filePath)

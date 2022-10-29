@@ -47,25 +47,25 @@ TEST_AEON_BAK = TEST_EXEC_PATH + 'yw7 Sample Project.aeonzip.bak'
 
 def open_timeline(filePath):
     """Unzip the project file and read 'timeline.json'.
-    Return a message beginning with the ERROR constant in case of error
-    and the JSON timeline structure.
+    Return the JSON timeline structure.
     """
     try:
         with zipfile.ZipFile(filePath, 'r') as myzip:
             jsonBytes = myzip.read('timeline.json')
             jsonStr = codecs.decode(jsonBytes, encoding='utf-8')
     except:
-        return f'{ERROR}Cannot read JSON data.', None
+        raise Error(f'Cannot read JSON data.')
 
     if not jsonStr:
-        return f'{ERROR}No JSON part found.', None
+        raise Error(f'No JSON part found.')
 
     try:
         jsonData = json.loads(jsonStr)
     except('JSONDecodeError'):
-        return f'{ERROR}Invalid JSON data.', None
+        raise Error(f'Invalid JSON data.')
 
-    return 'SUCCESS', jsonData
+    return jsonData
+
 
 def read_file(inputFile):
     try:
@@ -75,6 +75,7 @@ def read_file(inputFile):
         # HTML files exported by a word processor may be ANSI encoded.
         with open(inputFile, 'r') as f:
             return f.read()
+
 
 def remove_all_testfiles():
     try:
@@ -149,7 +150,7 @@ class NormalOperation(unittest.TestCase):
         copyfile(MINIMAL_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_YW7, silentMode=True)
-        self.assertEqual(open_timeline(TEST_AEON)[1], open_timeline(CREATED_AEON)[1])
+        self.assertEqual(open_timeline(TEST_AEON), open_timeline(CREATED_AEON))
 
     def tearDown(self):
         sys.stdout = self.original_output

@@ -17,23 +17,22 @@ def open_timeline(filePath):
     Positional arguments:
         filePath -- Path of the .aeon project file to read.
         
-    Return a message beginning with the ERROR constant in case of error
-    and a Python object containing the timeline structure.
+    Return a Python object containing the timeline structure.
+    Raise the "Error" exception in case of error. 
     """
     try:
         with zipfile.ZipFile(filePath, 'r') as myzip:
             jsonBytes = myzip.read('timeline.json')
             jsonStr = codecs.decode(jsonBytes, encoding='utf-8')
     except:
-        return f'{ERROR}{_("Cannot read timeline data")}.', None
+        raise Error(f'{_("Cannot read timeline data")}.')
     if not jsonStr:
-        return f'{ERROR}{_("No JSON part found in timeline data")}.', None
+        raise Error(f'{_("No JSON part found in timeline data")}.')
     try:
         jsonData = json.loads(jsonStr)
     except('JSONDecodeError'):
-        return f'{ERROR}{_("Invalid JSON data in timeline")}.'
-        None
-    return 'Timeline data read in.', jsonData
+        raise Error(f'{_("Invalid JSON data in timeline")}.')
+    return jsonData
 
 
 def save_timeline(jsonData, filePath):
@@ -43,7 +42,7 @@ def save_timeline(jsonData, filePath):
         jsonData -- Python object containing the timeline structure.
         filePath -- Path of the .aeon project file to write.
         
-    Return a message beginning with the ERROR constant in case of error.
+    Raise the "Error" exception in case of error. 
     """
     if os.path.isfile(filePath):
         os.replace(filePath, f'{filePath}.bak')
@@ -56,6 +55,5 @@ def save_timeline(jsonData, filePath):
     except:
         if backedUp:
             os.replace(f'{filePath}.bak', filePath)
-        return f'{ERROR}{_("Cannot write file")}: "{os.path.normpath(filePath)}".'
+        raise Error(f'{_("Cannot write file")}: "{os.path.normpath(filePath)}".')
 
-    return f'"{os.path.normpath(filePath)}" written.'

@@ -41,14 +41,11 @@ class Yw7Target(Yw7File):
         Positional arguments:
             source -- Novel subclass instance to merge.
         
-        Return a message beginning with the ERROR constant in case of error.
         Update date/time/duration from the source, if the scene title matches.
+        Raise the "Error" exception in case of error. 
         Overrides the superclass mehod.
         """
-        message = self.read()
-        if message.startswith(ERROR):
-            return message
-
+        self.read()
         linkedCharacters = []
         linkedLocations = []
         linkedItems = []
@@ -58,7 +55,7 @@ class Yw7Target(Yw7File):
         srcScnTitles = []
         for scId in source.scenes:
             if source.scenes[scId].title in srcScnTitles:
-                return _('{0}Ambiguous Aeon event title "{1}".').format(ERROR, source.scenes[scId].title)
+                raise Error(_('Ambiguous Aeon event title "{}".').format(source.scenes[scId].title))
 
             srcScnTitles.append(source.scenes[scId].title)
 
@@ -78,7 +75,7 @@ class Yw7Target(Yw7File):
                 continue
 
             if source.characters[crId].title in srcChrNames:
-                return _('{0}Ambiguous Aeon character "{1}".').format(ERROR, source.characters[crId].title)
+                raise Error(_('Ambiguous Aeon character "{}".').format(source.characters[crId].title))
 
             srcChrNames.append(source.characters[crId].title)
 
@@ -89,7 +86,7 @@ class Yw7Target(Yw7File):
                 continue
 
             if source.locations[lcId].title in srcLocTitles:
-                return _('{0}Ambiguous Aeon location "{1}".').format(ERROR, source.locations[lcId].title)
+                raise Error(_('Ambiguous Aeon location "{}".').format(source.locations[lcId].title))
 
             srcLocTitles.append(source.locations[lcId].title)
 
@@ -100,7 +97,7 @@ class Yw7Target(Yw7File):
                 continue
 
             if source.items[itId].title in srcItmTitles:
-                return _('{0}Ambiguous Aeon item "{1}".').format(ERROR, source.items[itId].title)
+                raise Error(_('Ambiguous Aeon item "{}".').format(source.items[itId].title))
 
             srcItmTitles.append(source.items[itId].title)
 
@@ -135,7 +132,7 @@ class Yw7Target(Yw7File):
                     continue
 
                 if self.scenes[scId].title in scIdsByTitle:
-                    return _('{0}Ambiguous yWriter scene title "{1}".').format(ERROR, self.scenes[scId].title)
+                    raise Error(_('Ambiguous yWriter scene title "{}".').format(self.scenes[scId].title))
 
                 scIdsByTitle[self.scenes[scId].title] = scId
 
@@ -146,7 +143,7 @@ class Yw7Target(Yw7File):
             if int(crId) > crIdMax:
                 crIdMax = int(crId)
             if self.characters[crId].title in crIdsByName:
-                return _('{0}Ambiguous yWriter character "{1}".').format(ERROR, self.characters[crId].title)
+                raise Error(_('Ambiguous yWriter character "{}".').format(self.characters[crId].title))
 
             crIdsByName[self.characters[crId].title] = crId
 
@@ -157,7 +154,7 @@ class Yw7Target(Yw7File):
             if int(lcId) > lcIdMax:
                 lcIdMax = int(lcId)
             if self.locations[lcId].title in lcIdsByTitle:
-                return _('{0}Ambiguous yWriter location "{1}".').format(ERROR, self.locations[lcId].title)
+                raise Error(_('Ambiguous yWriter location "{}".').format(self.locations[lcId].title))
 
             lcIdsByTitle[self.locations[lcId].title] = lcId
 
@@ -168,7 +165,7 @@ class Yw7Target(Yw7File):
             if int(itId) > itIdMax:
                 itIdMax = int(itId)
             if self.items[itId].title in itIdsByTitle:
-                return _('{0}Ambiguous yWriter item "{1}".').format(ERROR, self.items[itId].title)
+                raise Error(_('Ambiguous yWriter item "{}".').format(self.items[itId].title))
 
             itIdsByTitle[self.items[itId].title] = itId
 

@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.8.3\n"
-"POT-Creation-Date: 2022-10-07 21:24:05\n"
+"Project-Id-Version: unknown\n"
+"POT-Creation-Date: 2022-10-29 21:15:52\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -14,7 +14,34 @@ msgstr ""
 "Generated-By: PyWriter pgettext.py 0.3\n"
 
 
+msgid "\"AD\" era is missing in the calendar."
+msgstr ""
+
 msgid "Action canceled by user"
+msgstr ""
+
+msgid "Ambiguous Aeon character \"{}\"."
+msgstr ""
+
+msgid "Ambiguous Aeon event title \"{}\"."
+msgstr ""
+
+msgid "Ambiguous Aeon item \"{}\"."
+msgstr ""
+
+msgid "Ambiguous Aeon location \"{}\"."
+msgstr ""
+
+msgid "Ambiguous yWriter character \"{}\"."
+msgstr ""
+
+msgid "Ambiguous yWriter item \"{}\"."
+msgstr ""
+
+msgid "Ambiguous yWriter location \"{}\"."
+msgstr ""
+
+msgid "Ambiguous yWriter scene title \"{}\"."
 msgstr ""
 
 msgid "Can not process file"
@@ -84,31 +111,4 @@ msgid "yWriter 7 project"
 msgstr ""
 
 msgid "yWriter seems to be open. Please close first"
-msgstr ""
-
-msgid "{0}Ambiguous Aeon character \"{1}\"."
-msgstr ""
-
-msgid "{0}Ambiguous Aeon event title \"{1}\"."
-msgstr ""
-
-msgid "{0}Ambiguous Aeon item \"{1}\"."
-msgstr ""
-
-msgid "{0}Ambiguous Aeon location \"{1}\"."
-msgstr ""
-
-msgid "{0}Ambiguous yWriter character \"{1}\"."
-msgstr ""
-
-msgid "{0}Ambiguous yWriter item \"{1}\"."
-msgstr ""
-
-msgid "{0}Ambiguous yWriter location \"{1}\"."
-msgstr ""
-
-msgid "{0}Ambiguous yWriter scene title \"{1}\"."
-msgstr ""
-
-msgid "{}\"AD\" era is missing in the calendar."
 msgstr ""

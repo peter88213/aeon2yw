@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.8.3\n"
-"POT-Creation-Date: 2022-10-07 21:24:05\n"
-"PO-Revision-Date: 2022-10-07 21:24:06\n"
+"Project-Id-Version: unknown\n"
+"POT-Creation-Date: 2022-10-29 21:15:52\n"
+"PO-Revision-Date: 2022-10-29 21:15:56\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,30 @@ msgstr ""
 
 msgid "Action canceled by user"
 msgstr "Vorgang vom Benutzer abgebrochen"
+
+msgid "Ambiguous Aeon character \"{}\"."
+msgstr "Figur \"{}\" mehrfach in Aeon."
+
+msgid "Ambiguous Aeon event title \"{}\"."
+msgstr "Ereginistitel \"{}\" mehrfach in Aeon."
+
+msgid "Ambiguous Aeon item \"{}\"."
+msgstr "Gegenstand \"{}\" mehrfach in Aeon."
+
+msgid "Ambiguous Aeon location \"{}\"."
+msgstr "Schauplatz \"{}\" mehrfach in Aeon."
+
+msgid "Ambiguous yWriter character \"{}\"."
+msgstr "Figur \"{}\" mehrfach in yWriter."
+
+msgid "Ambiguous yWriter item \"{}\"."
+msgstr "Gegenstand \"{}\" mehrfach in yWriter."
+
+msgid "Ambiguous yWriter location \"{}\"."
+msgstr "Schauplatz \"{}\" mehrfach in yWriter."
+
+msgid "Ambiguous yWriter scene title \"{}\"."
+msgstr "Szenetitel \"{}\" mehrfach in yWriter."
 
 msgid "Can not process file"
 msgstr "Kann Datei nicht verarbeiten"
@@ -79,36 +103,12 @@ msgstr "Aeon Timeline 2 und yWriter synchronisieren"
 msgid "WARNING"
 msgstr "WARNUNG"
 
+msgid "\"AD\" era is missing in the calendar."
+msgstr "\"AD\" Ära fehlt im Kalender"
+
 msgid "yWriter 7 project"
 msgstr "yWriter 7-Projekt"
 
 msgid "yWriter seems to be open. Please close first"
 msgstr "yWriter scheint offen zu sein. Bitte schließen"
-
-msgid "{0}Ambiguous Aeon character \"{1}\"."
-msgstr "{0}Figur \"{1}\" mehrfach in Aeon."
-
-msgid "{0}Ambiguous Aeon event title \"{1}\"."
-msgstr "{0}Ereginistitel \"{1}\" mehrfach in Aeon."
-
-msgid "{0}Ambiguous Aeon item \"{1}\"."
-msgstr "{0}Gegenstand \"{1}\" mehrfach in Aeon."
-
-msgid "{0}Ambiguous Aeon location \"{1}\"."
-msgstr "{0}Schauplatz \"{1}\" mehrfach in Aeon."
-
-msgid "{0}Ambiguous yWriter character \"{1}\"."
-msgstr "{0}Figur \"{1}\" mehrfach in yWriter."
-
-msgid "{0}Ambiguous yWriter item \"{1}\"."
-msgstr "{0}Gegenstand \"{1}\" mehrfach in yWriter."
-
-msgid "{0}Ambiguous yWriter location \"{1}\"."
-msgstr "{0}Schauplatz \"{1}\" mehrfach in yWriter."
-
-msgid "{0}Ambiguous yWriter scene title \"{1}\"."
-msgstr "{0}Szenetitel \"{1}\" mehrfach in yWriter."
-
-msgid "{}\"AD\" era is missing in the calendar."
-msgstr "{}\"AD\" Ära fehlt im Kalender"
 
