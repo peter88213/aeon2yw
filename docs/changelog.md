@@ -8,11 +8,11 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
-### v1.9.0
+### v2.0.0 Optional release
 
 Code optimization and library update. 
 
-Based on PyWriter v8.0.0
+Based on PyWriter v8.0.1
 
 ### v1.8.3 Bugfix release
 

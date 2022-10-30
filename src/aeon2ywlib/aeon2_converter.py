@@ -29,7 +29,7 @@ class Aeon2Converter(YwCnvUi):
         Only yWriter project files and Aeon Timeline 2 files are accepted.
         """
         if not os.path.isfile(sourcePath):
-            self.ui.set_info_how(f'{ERROR}{_("File not found")}: "{os.path.normpath(sourcePath)}".')
+            self.ui.set_info_how(f'!{_("File not found")}: "{os.path.normpath(sourcePath)}".')
             return
 
         fileName, fileExtension = os.path.splitext(sourcePath)
@@ -52,4 +52,4 @@ class Aeon2Converter(YwCnvUi):
             self.export_from_yw(sourceFile, targetFile)
         else:
             # Source file format is not supported
-            self.ui.set_info_how(f'{ERROR}{_("File type is not supported")}: "{os.path.normpath(sourcePath)}".')
+            self.ui.set_info_how(f'!{_("File type is not supported")}: "{os.path.normpath(sourcePath)}".')
