@@ -44,11 +44,14 @@ def save_timeline(jsonData, filePath):
         
     Raise the "Error" exception in case of error. 
     """
+    backedUp = False
     if os.path.isfile(filePath):
-        os.replace(filePath, f'{filePath}.bak')
-        backedUp = True
-    else:
-        backedUp = False
+        try:
+            os.replace(filePath, f'{filePath}.bak')
+        except:
+            raise Error(f'{_("Cannot overwrite file")}: "{os.path.normpath(filePath)}".')
+        else:
+            backedUp = True
     try:
         with zipfile.ZipFile(filePath, 'w', compression=zipfile.ZIP_DEFLATED) as f:
             f.writestr('timeline.json', json.dumps(jsonData))

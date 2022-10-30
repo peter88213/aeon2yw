@@ -302,4 +302,3 @@ class Yw7Target(Yw7File):
                     except:
                         pass
 
-        return 'Novel updated from timeline data.'
