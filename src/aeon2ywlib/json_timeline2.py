@@ -25,7 +25,7 @@ class JsonTimeline2(Novel):
     Represents the .aeonzip file containing 'timeline.json'.
     """
     EXTENSION = '.aeonzip'
-    DESCRIPTION = 'Aeon Timeline 2 project'
+    DESCRIPTION = _('Aeon Timeline 2 project')
     SUFFIX = ''
     VALUE_YES = '1'
     # JSON representation of "yes" in Aeon2 "yes/no" properties
