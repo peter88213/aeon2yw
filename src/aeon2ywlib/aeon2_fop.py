@@ -49,7 +49,7 @@ def save_timeline(jsonData, filePath):
         try:
             os.replace(filePath, f'{filePath}.bak')
         except:
-            raise Error(f'{_("Cannot overwrite file")}: "{os.path.normpath(filePath)}".')
+            raise Error(f'{_("Cannot overwrite file")}: "{norm_path(filePath)}".')
         else:
             backedUp = True
     try:
@@ -58,5 +58,5 @@ def save_timeline(jsonData, filePath):
     except:
         if backedUp:
             os.replace(f'{filePath}.bak', filePath)
-        raise Error(f'{_("Cannot write file")}: "{os.path.normpath(filePath)}".')
+        raise Error(f'{_("Cannot write file")}: "{norm_path(filePath)}".')
 
