@@ -8,13 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
-### v2.0.2
+### v2.0.3
 
 - Code optimization and library update. 
 - Fix a bug where attempting to save a write-protected file raises an uncaught exception.
 - Extend localization.
 
-Based on PyWriter v8.0.3
+Based on PyWriter v8.0.8
 
 ### v1.8.3 Bugfix release
 
