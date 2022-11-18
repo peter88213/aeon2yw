@@ -7,14 +7,18 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 from datetime import datetime
 from datetime import timedelta
 from pywriter.pywriter_globals import *
-from pywriter.model.novel import Novel
+from pywriter.model.chapter import Chapter
+from pywriter.model.scene import Scene
+from pywriter.model.character import Character
+from pywriter.model.world_element import WorldElement
+from pywriter.file.file import File
 from aeon2ywlib.aeon2_fop import open_timeline
 from aeon2ywlib.aeon2_fop import save_timeline
 from aeon2ywlib.uid_helper import get_uid
 from aeon2ywlib.moonphase import get_moon_phase_plus
 
 
-class JsonTimeline2(Novel):
+class JsonTimeline2(File):
     """File representation of an Aeon Timeline 2 project. 
 
     Public methods:
@@ -34,19 +38,19 @@ class JsonTimeline2(Novel):
     DEFAULT_TIMESTAMP = (datetime.today() - datetime.min).total_seconds()
     PROPERTY_MOONPHASE = 'Moon phase'
 
-    _SCN_KWVAR = (
+    _SCN_KWVAR = [
         'Field_SceneArcs',
-        )
-    _CRT_KWVAR = (
+        ]
+    _CRT_KWVAR = [
         'Field_BirthDate',
         'Field_DeathDate',
-        )
+        ]
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.
 
         Positional arguments:
-            filePath -- str: path to the file represented by the Novel instance.
+            filePath -- str: path to the file represented by the File instance.
             
         Required keyword arguments:
             narrative_arc -- str: name of the user-defined "Narrative" arc.
@@ -320,7 +324,7 @@ class JsonTimeline2(Novel):
                 characterCount += 1
                 crId = str(characterCount)
                 crIdsByGuid[ent['guid']] = crId
-                self.characters[crId] = self.CHARACTER_CLASS()
+                self.characters[crId] = Character()
                 self.characters[crId].title = ent['name']
                 self.characters[crId].title = ent['name']
                 self._characterGuidById[crId] = ent['guid']
@@ -338,7 +342,7 @@ class JsonTimeline2(Novel):
                 locationCount += 1
                 lcId = str(locationCount)
                 lcIdsByGuid[ent['guid']] = lcId
-                self.locations[lcId] = self.WE_CLASS()
+                self.locations[lcId] = WorldElement()
                 self.locations[lcId].title = ent['name']
                 self.srtLocations.append(lcId)
                 self._locationGuidById[lcId] = ent['guid']
@@ -351,7 +355,7 @@ class JsonTimeline2(Novel):
                 itemCount += 1
                 itId = str(itemCount)
                 itIdsByGuid[ent['guid']] = itId
-                self.items[itId] = self.WE_CLASS()
+                self.items[itId] = WorldElement()
                 self.items[itId].title = ent['name']
                 self.srtItems.append(itId)
                 self._itemGuidById[itId] = ent['guid']
@@ -428,7 +432,7 @@ class JsonTimeline2(Novel):
             scnTitles.append(evt['title'])
             eventCount += 1
             scId = str(eventCount)
-            self.scenes[scId] = self.SCENE_CLASS()
+            self.scenes[scId] = Scene()
             self.scenes[scId].title = evt['title']
             displayId = float(evt['displayId'])
             if displayId > self._displayIdMax:
@@ -562,16 +566,16 @@ class JsonTimeline2(Novel):
                     self.scenes[scId].items.append(itId)
 
             # Add arcs to the scene keyword variables.
-            self.scenes[scId].kwVar['Field_SceneArcs'] = list_to_string(scnArcs)
+            self.scenes[scId].scnArcs = list_to_string(scnArcs)
 
         #--- Sort scenes by date/time and place them in chapters.
         chIdNarrative = '1'
         chIdBackground = '2'
-        self.chapters[chIdNarrative] = self.CHAPTER_CLASS()
+        self.chapters[chIdNarrative] = Chapter()
         self.chapters[chIdNarrative].title = 'Chapter 1'
         self.chapters[chIdNarrative].chType = 0
         self.srtChapters.append(chIdNarrative)
-        self.chapters[chIdBackground] = self.CHAPTER_CLASS()
+        self.chapters[chIdBackground] = Chapter()
         self.chapters[chIdBackground].title = 'Background'
         self.chapters[chIdBackground].chType = 1
         self.srtChapters.append(chIdBackground)
@@ -589,7 +593,7 @@ class JsonTimeline2(Novel):
         """Update instance variables from a source instance.
         
         Positional arguments:
-            source -- Novel subclass instance to merge.
+            source -- NoveFileclass instance to merge.
                
         Update date/time/duration from the source,
         if the scene title matches.
@@ -666,7 +670,7 @@ class JsonTimeline2(Novel):
 
                 #--- Collect arcs from source.
                 try:
-                    arcs = string_to_list(source.scenes[scId].kwVar['Field_SceneArcs'])
+                    arcs = string_to_list(source.scenes[scId].scnArcs)
                     for arc in arcs:
                         if not arc in self._arcGuidsByName:
                             self._arcGuidsByName[arc] = None
@@ -844,7 +848,7 @@ class JsonTimeline2(Novel):
                     #--- Create a new scene.
                     totalEvents += 1
                     scId = str(totalEvents)
-                    self.scenes[scId] = self.SCENE_CLASS()
+                    self.scenes[scId] = Scene()
                     self.scenes[scId].title = source.scenes[srcId].title
                     newEvent = build_event(self.scenes[scId])
                     self._jsonData['events'].append(newEvent)
@@ -1100,8 +1104,8 @@ class JsonTimeline2(Novel):
                     evt['relationships'].append(narrativeArc)
 
                 #--- Assign events to arcs.
-                if self.scenes[scId].kwVar.get('Field_SceneArcs', None):
-                    sceneArcs = string_to_list(self.scenes[scId].kwVar['Field_SceneArcs'])
+                if self.scenes[scId].scnArcs is not None:
+                    sceneArcs = string_to_list(self.scenes[scId].scnArcs)
                 else:
                     sceneArcs = []
                 for arcName in arcs:

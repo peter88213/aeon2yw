@@ -11,11 +11,11 @@ class Yw7Source(Yw7File):
     """yWriter 7 project file representation.
     Extend the superclass
     """
-    _SCN_KWVAR = (
+    _SCN_KWVAR = [
         'Field_SceneArcs',
-        )
-    _CRT_KWVAR = (
+        ]
+    _CRT_KWVAR = [
         'Field_BirthDate',
         'Field_DeathDate',
-        )
+        ]
 

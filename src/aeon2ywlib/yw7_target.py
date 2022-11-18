@@ -5,6 +5,8 @@ For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 from pywriter.pywriter_globals import *
+from pywriter.model.chapter import Chapter
+from pywriter.model.scene import Scene
 from pywriter.yw.yw7_file import Yw7File
 
 
@@ -12,13 +14,13 @@ class Yw7Target(Yw7File):
     """yWriter 7 project file representation.
     Extend the superclass
     """
-    _SCN_KWVAR = (
+    _SCN_KWVAR = [
         'Field_SceneArcs',
-        )
-    _CRT_KWVAR = (
+        ]
+    _CRT_KWVAR = [
         'Field_BirthDate',
         'Field_DeathDate',
-        )
+        ]
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.
@@ -119,7 +121,7 @@ class Yw7Target(Yw7File):
             if int(chId) > chIdMax:
                 chIdMax = int(chId)
         newChapterId = str(chIdMax + 1)
-        newChapter = self.CHAPTER_CLASS()
+        newChapter = Chapter()
         newChapter.title = 'New scenes'
         newChapterExists = False
 
@@ -227,7 +229,7 @@ class Yw7Target(Yw7File):
                     #--- Create a new scene.
                     scIdMax += 1
                     scId = str(scIdMax)
-                    self.scenes[scId] = self.SCENE_CLASS()
+                    self.scenes[scId] = Scene()
                     self.scenes[scId].title = source.scenes[srcId].title
                     self.scenes[scId].status = 1
                     if not newChapterExists:
