@@ -214,21 +214,21 @@
   <CHAPTERS>
     <CHAPTER>
       <ID>1</ID>
-      <SortOrder>1</SortOrder>
       <Title><![CDATA[Chapter 1]]></Title>
-      <ChapterType>0</ChapterType>
+      <SortOrder>1</SortOrder>
       <Type>0</Type>
+      <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>4</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>2</ID>
-      <SortOrder>2</SortOrder>
       <Title><![CDATA[Background]]></Title>
-      <ChapterType>1</ChapterType>
-      <Type>1</Type>
       <Unused>-1</Unused>
+      <SortOrder>2</SortOrder>
+      <Type>1</Type>
+      <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>8</ScID>
         <ScID>5</ScID>
@@ -242,10 +242,10 @@
     </CHAPTER>
     <CHAPTER>
       <ID>3</ID>
-      <SortOrder>3</SortOrder>
       <Title><![CDATA[New scenes]]></Title>
-      <ChapterType>0</ChapterType>
+      <SortOrder>3</SortOrder>
       <Type>0</Type>
+      <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>10</ScID>
         <ScID>11</ScID>

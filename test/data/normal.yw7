@@ -2074,8 +2074,8 @@ This explains the different times of death and the different types of stabbing
   <CHAPTERS>
     <CHAPTER>
       <ID>1</ID>
-      <SortOrder>1</SortOrder>
       <Title><![CDATA[Chapter 1]]></Title>
+      <SortOrder>1</SortOrder>
       <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>76</ScID>
@@ -2113,8 +2113,8 @@ This explains the different times of death and the different types of stabbing
     </CHAPTER>
     <CHAPTER>
       <ID>2</ID>
-      <SortOrder>2</SortOrder>
       <Title><![CDATA[Background]]></Title>
+      <SortOrder>2</SortOrder>
       <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>20</ScID>

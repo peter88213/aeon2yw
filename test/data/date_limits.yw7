@@ -180,21 +180,21 @@
   <CHAPTERS>
     <CHAPTER>
       <ID>1</ID>
-      <SortOrder>1</SortOrder>
       <Title><![CDATA[Chapter 1]]></Title>
-      <ChapterType>0</ChapterType>
+      <SortOrder>1</SortOrder>
       <Type>0</Type>
+      <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>4</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>2</ID>
-      <SortOrder>2</SortOrder>
       <Title><![CDATA[Background]]></Title>
-      <ChapterType>1</ChapterType>
-      <Type>1</Type>
       <Unused>-1</Unused>
+      <SortOrder>2</SortOrder>
+      <Type>1</Type>
+      <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>8</ScID>
         <ScID>5</ScID>
