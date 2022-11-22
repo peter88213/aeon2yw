@@ -39,7 +39,6 @@ class Aeon2Converter(YwCnvUi):
             if os.path.isfile(f'{fileName}{Yw7Source.EXTENSION}'):
                 # Update existing yWriter project from timeline
                 targetFile = Yw7Target(f'{fileName}{Yw7Target.EXTENSION}', **kwargs)
-                sourceFile.ywProject = targetFile
                 self.import_to_yw(sourceFile, targetFile)
             else:
                 # Create new yWriter project from timeline
