@@ -1001,10 +1001,8 @@ class JsonTimeline2(File):
             }
 
         #--- Update events from scenes.
-        eventCount = 0
-        for evt in self._jsonData['events']:
-            eventCount += 1
-            scId = str(eventCount)
+        for i, evt in enumerate(self._jsonData['events']):
+            scId = str(i + 1)
 
             #--- Set event date/time/span.
             if evt['rangeValues'][0]['position']['timestamp'] >= self.DATE_LIMIT:
@@ -1063,35 +1061,32 @@ class JsonTimeline2(File):
             # Add characters.
             if self.novel.scenes[scId].characters:
                 for crId in self.novel.scenes[scId].characters:
-                    if self.novel.scenes[scId].characters:
-                        newRel.append(
-                            {
-                                'entity': self._characterGuidById[crId],
-                                'percentAllocated': 1,
-                                'role': self._roleCharacterGuid,
-                            })
+                    newRel.append(
+                        {
+                            'entity': self._characterGuidById[crId],
+                            'percentAllocated': 1,
+                            'role': self._roleCharacterGuid,
+                        })
 
             # Add locations.
             if self.novel.scenes[scId].locations:
                 for lcId in self.novel.scenes[scId].locations:
-                    if self.novel.scenes[scId].locations:
-                        newRel.append(
-                            {
-                                'entity': self._locationGuidById[lcId],
-                                'percentAllocated': 1,
-                                'role': self._roleLocationGuid,
-                            })
+                    newRel.append(
+                        {
+                            'entity': self._locationGuidById[lcId],
+                            'percentAllocated': 1,
+                            'role': self._roleLocationGuid,
+                        })
 
             # Add items.
             if self.novel.scenes[scId].items:
                 for itId in self.novel.scenes[scId].items:
-                    if self.novel.scenes[scId].items:
-                        newRel.append(
-                            {
-                                'entity': self._itemGuidById[itId],
-                                'percentAllocated': 1,
-                                'role': self._roleItemGuid,
-                            })
+                    newRel.append(
+                        {
+                            'entity': self._itemGuidById[itId],
+                            'percentAllocated': 1,
+                            'role': self._roleItemGuid,
+                        })
 
             evt['relationships'] = newRel
 

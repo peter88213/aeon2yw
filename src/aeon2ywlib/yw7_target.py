@@ -5,6 +5,7 @@ For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 from pywriter.pywriter_globals import *
+from pywriter.model.novel import Novel
 from pywriter.model.chapter import Chapter
 from pywriter.model.scene import Scene
 from pywriter.yw.yw7_file import Yw7File
@@ -37,16 +38,16 @@ class Yw7Target(Yw7File):
         super().__init__(filePath, **kwargs)
         self._scenesOnly = kwargs['scenes_only']
 
-    def merge(self, source):
+    def write(self):
         """Update instance variables from a source instance.
-        
-        Positional arguments:
-            source -- Novel subclass instance to merge.
         
         Update date/time/duration from the source, if the scene title matches.
         Raise the "Error" exception in case of error. 
         Overrides the superclass mehod.
         """
+        #--- Merge first.
+        source = self.novel
+        self.novel = Novel()
         self.read()
         linkedCharacters = []
         linkedLocations = []
@@ -106,18 +107,18 @@ class Yw7Target(Yw7File):
         #--- Analyze the target.
         # Check scenes.
         scIdMax = 0
-        for scId in self.scenes:
+        for scId in self.novel.scenes:
             if int(scId) > scIdMax:
                 scIdMax = int(scId)
 
             #--- Mark scenes associated with deleted events "Unused".
-            if not self.scenes[scId].title in srcScnTitles:
-                if not self.scenes[scId].scType == 1:
-                    self.scenes[scId].scType = 3
+            if not self.novel.scenes[scId].title in srcScnTitles:
+                if not self.novel.scenes[scId].scType == 1:
+                    self.novel.scenes[scId].scType = 3
 
         # Create a chapter for new scenes.
         chIdMax = 0
-        for chId in self.chapters:
+        for chId in self.novel.chapters:
             if int(chId) > chIdMax:
                 chIdMax = int(chId)
         newChapterId = str(chIdMax + 1)
@@ -128,48 +129,48 @@ class Yw7Target(Yw7File):
         #--- Check the target for ambiguous titles.
         # Check scenes.
         scIdsByTitle = {}
-        for chId in self.chapters:
-            for scId in self.chapters[chId].srtScenes:
-                if self.scenes[scId].scType == 3:
+        for chId in self.novel.chapters:
+            for scId in self.novel.chapters[chId].srtScenes:
+                if self.novel.scenes[scId].scType == 3:
                     continue
 
-                if self.scenes[scId].title in scIdsByTitle:
-                    raise Error(_('Ambiguous yWriter scene title "{}".').format(self.scenes[scId].title))
+                if self.novel.scenes[scId].title in scIdsByTitle:
+                    raise Error(_('Ambiguous yWriter scene title "{}".').format(self.novel.scenes[scId].title))
 
-                scIdsByTitle[self.scenes[scId].title] = scId
+                scIdsByTitle[self.novel.scenes[scId].title] = scId
 
         # Check characters.
         crIdsByName = {}
         crIdMax = 0
-        for crId in self.characters:
+        for crId in self.novel.characters:
             if int(crId) > crIdMax:
                 crIdMax = int(crId)
-            if self.characters[crId].title in crIdsByName:
-                raise Error(_('Ambiguous yWriter character "{}".').format(self.characters[crId].title))
+            if self.novel.characters[crId].title in crIdsByName:
+                raise Error(_('Ambiguous yWriter character "{}".').format(self.novel.characters[crId].title))
 
-            crIdsByName[self.characters[crId].title] = crId
+            crIdsByName[self.novel.characters[crId].title] = crId
 
         # Check locations.
         lcIdsByTitle = {}
         lcIdMax = 0
-        for lcId in self.locations:
+        for lcId in self.novel.locations:
             if int(lcId) > lcIdMax:
                 lcIdMax = int(lcId)
-            if self.locations[lcId].title in lcIdsByTitle:
-                raise Error(_('Ambiguous yWriter location "{}".').format(self.locations[lcId].title))
+            if self.novel.locations[lcId].title in lcIdsByTitle:
+                raise Error(_('Ambiguous yWriter location "{}".').format(self.novel.locations[lcId].title))
 
-            lcIdsByTitle[self.locations[lcId].title] = lcId
+            lcIdsByTitle[self.novel.locations[lcId].title] = lcId
 
         # Check items.
         itIdsByTitle = {}
         itIdMax = 0
-        for itId in self.items:
+        for itId in self.novel.items:
             if int(itId) > itIdMax:
                 itIdMax = int(itId)
-            if self.items[itId].title in itIdsByTitle:
-                raise Error(_('Ambiguous yWriter item "{}".').format(self.items[itId].title))
+            if self.novel.items[itId].title in itIdsByTitle:
+                raise Error(_('Ambiguous yWriter item "{}".').format(self.novel.items[itId].title))
 
-            itIdsByTitle[self.items[itId].title] = itId
+            itIdsByTitle[self.novel.items[itId].title] = itId
 
         #--- Update characters from the source.
         crIdsBySrcId = {}
@@ -181,8 +182,8 @@ class Yw7Target(Yw7File):
                 crIdMax += 1
                 crId = str(crIdMax)
                 crIdsBySrcId[srcCrId] = crId
-                self.characters[crId] = source.characters[srcCrId]
-                self.srtCharacters.append(crId)
+                self.novel.characters[crId] = source.characters[srcCrId]
+                self.novel.srtCharacters.append(crId)
 
         #--- Update locations from the source.
         lcIdsBySrcId = {}
@@ -194,8 +195,8 @@ class Yw7Target(Yw7File):
                 lcIdMax += 1
                 lcId = str(lcIdMax)
                 lcIdsBySrcId[srcLcId] = lcId
-                self.locations[lcId] = source.locations[srcLcId]
-                self.srtLocations.append(lcId)
+                self.novel.locations[lcId] = source.locations[srcLcId]
+                self.novel.srtLocations.append(lcId)
 
         #--- Update Items from the source.
         itIdsBySrcId = {}
@@ -207,8 +208,8 @@ class Yw7Target(Yw7File):
                 itIdMax += 1
                 itId = str(itIdMax)
                 itIdsBySrcId[srcItId] = itId
-                self.items[itId] = source.items[srcItId]
-                self.srtItems.append(itId)
+                self.novel.items[itId] = source.items[srcItId]
+                self.novel.srtItems.append(itId)
 
         #--- Update scenes from the source.
         for chId in source.chapters:
@@ -220,7 +221,7 @@ class Yw7Target(Yw7File):
                     # Make "non-Narative" event a "Notes" scene.
                     if source.scenes[srcId].title in scIdsByTitle:
                         scId = scIdsByTitle[source.scenes[srcId].title]
-                        self.scenes[scId].scType = 1
+                        self.novel.scenes[scId].scType = 1
                     continue
 
                 if source.scenes[srcId].title in scIdsByTitle:
@@ -229,78 +230,80 @@ class Yw7Target(Yw7File):
                     #--- Create a new scene.
                     scIdMax += 1
                     scId = str(scIdMax)
-                    self.scenes[scId] = Scene()
-                    self.scenes[scId].title = source.scenes[srcId].title
-                    self.scenes[scId].status = 1
+                    self.novel.scenes[scId] = Scene()
+                    self.novel.scenes[scId].title = source.scenes[srcId].title
+                    self.novel.scenes[scId].status = 1
                     if not newChapterExists:
-                        self.chapters[newChapterId] = newChapter
-                        self.srtChapters.append(newChapterId)
+                        self.novel.chapters[newChapterId] = newChapter
+                        self.novel.srtChapters.append(newChapterId)
                         newChapterExists = True
-                    self.chapters[newChapterId].srtScenes.append(scId)
+                    self.novel.chapters[newChapterId].srtScenes.append(scId)
 
                 #--- Update scene type.
-                self.scenes[scId].scType = source.scenes[srcId].scType
+                self.novel.scenes[scId].scType = source.scenes[srcId].scType
 
                 #--- Update scene start date/time.
-                self.scenes[scId].date = source.scenes[srcId].date
-                self.scenes[scId].time = source.scenes[srcId].time
+                self.novel.scenes[scId].date = source.scenes[srcId].date
+                self.novel.scenes[scId].time = source.scenes[srcId].time
 
                 #--- Update scene duration.
-                self.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
-                self.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
-                self.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
+                self.novel.scenes[scId].lastsMinutes = source.scenes[srcId].lastsMinutes
+                self.novel.scenes[scId].lastsHours = source.scenes[srcId].lastsHours
+                self.novel.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
 
                 #--- Update scene tags.
                 if source.scenes[srcId].tags is not None:
-                    self.scenes[scId].tags = source.scenes[srcId].tags
+                    self.novel.scenes[scId].tags = source.scenes[srcId].tags
 
                 #--- Update scene description.
                 if source.scenes[srcId].desc is not None:
-                    self.scenes[scId].desc = source.scenes[srcId].desc
+                    self.novel.scenes[scId].desc = source.scenes[srcId].desc
 
                 #--- Append event notes to scene notes.
                 if source.scenes[srcId].notes is not None:
-                    if self.scenes[scId].notes is not None:
-                        if not source.scenes[srcId].notes in self.scenes[scId].notes:
-                            self.scenes[scId].notes = f'{self.scenes[scId].notes}\n{source.scenes[srcId].notes}'
+                    if self.novel.scenes[scId].notes is not None:
+                        if not source.scenes[srcId].notes in self.novel.scenes[scId].notes:
+                            self.novel.scenes[scId].notes = f'{self.novel.scenes[scId].notes}\n{source.scenes[srcId].notes}'
                     else:
-                        self.scenes[scId].notes = source.scenes[srcId].notes
+                        self.novel.scenes[scId].notes = source.scenes[srcId].notes
 
                 #--- Update scene characters.
                 if source.scenes[srcId].characters is not None:
                     try:
-                        viewpoint = self.scenes[scId].characters[0]
+                        viewpoint = self.novel.scenes[scId].characters[0]
                     except:
                         viewpoint = ''
                     if viewpoint in crIdsBySrcId.values():
-                        self.scenes[scId].characters = [viewpoint]
+                        self.novel.scenes[scId].characters = [viewpoint]
                     else:
-                        self.scenes[scId].characters = []
+                        self.novel.scenes[scId].characters = []
                     for crId in source.scenes[srcId].characters:
                         try:
-                            if not crIdsBySrcId[crId] in self.scenes[scId].characters:
-                                self.scenes[scId].characters.append(crIdsBySrcId[crId])
+                            if not crIdsBySrcId[crId] in self.novel.scenes[scId].characters:
+                                self.novel.scenes[scId].characters.append(crIdsBySrcId[crId])
                         except:
                             pass
 
                 #--- Update scene locations.
                 if source.scenes[srcId].locations is not None:
-                    self.scenes[scId].locations = []
+                    self.novel.scenes[scId].locations = []
                     for lcId in source.scenes[srcId].locations:
                         if lcId in lcIdsBySrcId:
-                            self.scenes[scId].locations.append(lcIdsBySrcId[lcId])
+                            self.novel.scenes[scId].locations.append(lcIdsBySrcId[lcId])
 
                 #--- Update scene items.
                 if source.scenes[srcId].items is not None:
-                    self.scenes[scId].items = []
+                    self.novel.scenes[scId].items = []
                     for itId in source.scenes[srcId].items:
                         if itId in itIdsBySrcId:
-                            self.scenes[scId].items.append(itIdsBySrcId[itId])
+                            self.novel.scenes[scId].items.append(itIdsBySrcId[itId])
 
                 #--- Update scene keyword variables.
                 for fieldName in self._SCN_KWVAR:
                     try:
-                        self.scenes[scId].kwVar[fieldName] = source.scenes[srcId].kwVar[fieldName]
+                        self.novel.scenes[scId].kwVar[fieldName] = source.scenes[srcId].kwVar[fieldName]
                     except:
                         pass
+
+        super().write()
 
