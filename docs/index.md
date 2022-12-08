@@ -35,16 +35,17 @@ The application is ready for internationalization with GNU gettext. A German loc
  
 ## Requirements
 
-- [Python](https://www.python.org/) from version 3.6 to 3.10. Beware: Version 3.11 is not recommended.
+- Windows.
+- [Python](https://www.python.org/) from version 3.6.
 - [yWriter](http://spacejock.com/yWriter7.html).
 - Aeon Timeline 2. Note: There is now a separate [converter for Aeon Timeline 3](https://peter88213.github.io/aeon3yw). 
 
 
 ## Download and install
 
-[Download the latest release (version 3.0.1)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v3.0.1.zip)
+[Download the latest release (version 3.0.2)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v3.0.2.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v3.0.1.zip" into a new folder.
+- Unzip the downloaded zipfile "aeon2yw_v3.0.2.zip" into a new folder.
 - Move into this new folder and launch **setup.pyw**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.
