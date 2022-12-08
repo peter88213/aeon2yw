@@ -36,7 +36,7 @@ The application is ready for internationalization with GNU gettext. A German loc
 ## Requirements
 
 - Windows.
-- [Python](https://www.python.org/) from version 3.6.
+- [Python](https://www.python.org/) version 3.6+.
 - [yWriter](http://spacejock.com/yWriter7.html).
 - Aeon Timeline 2. Note: There is now a separate [converter for Aeon Timeline 3](https://peter88213.github.io/aeon3yw). 
 
