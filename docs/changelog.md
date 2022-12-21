@@ -12,7 +12,7 @@ See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projec
 
 Downgrade from v3.0.2 due to a regression that takes some tiome to fix.
 
-Based on PyWriter v8.0.108
+Based on PyWriter v8.0.10
 
 ### v2.0.3
 
