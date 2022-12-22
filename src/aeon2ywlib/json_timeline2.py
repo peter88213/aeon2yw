@@ -12,6 +12,7 @@ from pywriter.model.scene import Scene
 from pywriter.model.character import Character
 from pywriter.model.world_element import WorldElement
 from pywriter.model.novel import Novel
+from pywriter.model.id_generator import create_id
 from pywriter.file.file import File
 from aeon2ywlib.aeon2_fop import open_timeline
 from aeon2ywlib.aeon2_fop import save_timeline
@@ -129,7 +130,7 @@ class JsonTimeline2(File):
         Read the JSON part of the Aeon Timeline 2 file located at filePath, 
         and build a yWriter novel structure.
         - Events marked as scenes are converted to scenes in one single chapter.
-        - Other events are converted to “Notes” scenes in another chapter.
+        - Other events are converted to "Notes" scenes in another chapter.
         Raise the "Error" exception in case of error. 
         Overrides the superclass method.
         """
@@ -308,12 +309,57 @@ class JsonTimeline2(File):
                 })
 
         #--- Get arcs, characters, locations, and items.
+        # At the beginning, self.novel contains the  target data (if syncronizing an existing project),
+        # or a newly instantiated Novel object (if creating a project).
+        # This means, there may be already elements with IDs.
+        # In order to reuse them, they are collected in the "target element ID by title" dictionaries.
+
+        targetScIdByTitle = {}
+        for scId in self.novel.scenes:
+            title = self.novel.scenes[scId].title
+            if title:
+                if title in targetScIdByTitle:
+                    raise Error(_('Ambiguous yWriter scene title "{}".').format(title))
+
+                targetScIdByTitle[title] = scId
+
+        targetCrIdByTitle = {}
+        for crId in self.novel.characters:
+            title = self.novel.characters[crId].title
+            if title:
+                if title in targetCrIdByTitle:
+                    raise Error(_('Ambiguous yWriter character "{}".').format(title))
+
+                targetCrIdByTitle[title] = crId
+
+        targetLcIdByTitle = {}
+        for lcId in self.novel.locations:
+            title = self.novel.locations[lcId].title
+            if title:
+                if title in targetLcIdByTitle:
+                    raise Error(_('Ambiguous yWriter location "{}".').format(title))
+
+                targetLcIdByTitle[title] = lcId
+
+        targetItIdByTitle = {}
+        for itId in self.novel.items:
+            title = self.novel.items[itId].title
+            if title:
+                if title in targetItIdByTitle:
+                    raise Error(_('Ambiguous yWriter item "{}".').format(title))
+
+                targetItIdByTitle[title] = itId
+
+        # For scene relationship lookup:
         crIdsByGuid = {}
         lcIdsByGuid = {}
         itIdsByGuid = {}
-        characterCount = 0
-        locationCount = 0
-        itemCount = 0
+
+        # For ambiguity check:
+        characterNames = []
+        locationNames = []
+        itemNames = []
+
         for ent in self._jsonData['entities']:
             if ent['entityType'] == self._typeArcGuid:
                 self._arcCount += 1
@@ -321,13 +367,19 @@ class JsonTimeline2(File):
                     self._entityNarrativeGuid = ent['guid']
                 else:
                     self._arcGuidsByName[ent['name']] = ent['guid']
+
             elif ent['entityType'] == self._typeCharacterGuid:
-                characterCount += 1
-                crId = str(characterCount)
+                if ent['name'] in characterNames:
+                    raise Error(_('Ambiguous Aeon character "{}".').format(ent['name']))
+
+                characterNames.append(ent['name'])
+                if ent['name'] in targetCrIdByTitle:
+                    crId = targetCrIdByTitle[ent['name']]
+                else:
+                    crId = create_id(self.novel.characters)
+                    self.novel.characters[crId] = Character()
+                    self.novel.characters[crId].title = ent['name']
                 crIdsByGuid[ent['guid']] = crId
-                self.novel.characters[crId] = Character()
-                self.novel.characters[crId].title = ent['name']
-                self.novel.characters[crId].title = ent['name']
                 self._characterGuidById[crId] = ent['guid']
                 if ent['notes']:
                     self.novel.characters[crId].notes = ent['notes']
@@ -340,11 +392,17 @@ class JsonTimeline2(File):
                     self.novel.characters[crId].kwVar[fieldName] = None
 
             elif ent['entityType'] == self._typeLocationGuid:
-                locationCount += 1
-                lcId = str(locationCount)
+                if ent['name'] in locationNames:
+                    raise Error(_('Ambiguous Aeon location "{}".').format(ent['name']))
+
+                locationNames.append(ent['name'])
+                if ent['name'] in targetLcIdByTitle:
+                    lcId = targetLcIdByTitle[ent['name']]
+                else:
+                    lcId = create_id(self.novel.locations)
+                    self.novel.locations[lcId] = WorldElement()
+                    self.novel.locations[lcId].title = ent['name']
                 lcIdsByGuid[ent['guid']] = lcId
-                self.novel.locations[lcId] = WorldElement()
-                self.novel.locations[lcId].title = ent['name']
                 self.novel.srtLocations.append(lcId)
                 self._locationGuidById[lcId] = ent['guid']
 
@@ -353,11 +411,17 @@ class JsonTimeline2(File):
                     self.novel.locations[lcId].kwVar[fieldName] = None
 
             elif ent['entityType'] == self._typeItemGuid:
-                itemCount += 1
-                itId = str(itemCount)
+                if ent['name'] in itemNames:
+                    raise Error(_('Ambiguous Aeon item "{}".').format(ent['name']))
+
+                itemNames.append(ent['name'])
+                if ent['name'] in targetItIdByTitle:
+                    itId = targetItIdByTitle[ent['name']]
+                else:
+                    itId = create_id(self.novel.items)
+                    self.novel.items[itId] = WorldElement()
+                    self.novel.items[itId].title = ent['name']
                 itIdsByGuid[ent['guid']] = itId
-                self.novel.items[itId] = WorldElement()
-                self.novel.items[itId].title = ent['name']
                 self.novel.srtItems.append(itId)
                 self._itemGuidById[itId] = ent['guid']
 
@@ -424,23 +488,24 @@ class JsonTimeline2(File):
             })
 
         #--- Get scenes.
-        eventCount = 0
         scIdsByDate = {}
         scnTitles = []
         for evt in self._jsonData['events']:
             if evt['title'] in scnTitles:
                 raise Error(f'Ambiguous Aeon event title "{evt["title"]}".')
+
             scnTitles.append(evt['title'])
-            eventCount += 1
-            scId = str(eventCount)
-            self.novel.scenes[scId] = Scene()
-            self.novel.scenes[scId].title = evt['title']
+            if evt['title'] in targetScIdByTitle:
+                scId = targetScIdByTitle[evt['title']]
+            else:
+                scId = create_id(self.novel.scenes)
+                self.novel.scenes[scId] = Scene()
+                self.novel.scenes[scId].title = evt['title']
             displayId = float(evt['displayId'])
             if displayId > self._displayIdMax:
                 self._displayIdMax = displayId
             self.novel.scenes[scId].status = 1
             # Set scene status = "Outline".
-            scnArcs = []
 
             #--- Initialize custom keyword variables.
             for fieldName in self._SCN_KWVAR:
@@ -471,8 +536,7 @@ class JsonTimeline2(File):
 
             #--- Get scene tags.
             if evt['tags']:
-                if self.novel.scenes[scId].tags is None:
-                    self.novel.scenes[scId].tags = []
+                self.novel.scenes[scId].tags = []
                 for evtTag in evt['tags']:
                     self.novel.scenes[scId].tags.append(evtTag)
 
@@ -537,6 +601,10 @@ class JsonTimeline2(File):
             #--- Find scenes and get characters, locations, and items.
             self.novel.scenes[scId].scType = 1
             # type = "Notes"
+            self.novel.scenes[scId].characters = None
+            self.novel.scenes[scId].locations = None
+            self.novel.scenes[scId].items = None
+            scnArcs = []
             for evtRel in evt['relationships']:
                 if evtRel['role'] == self._roleArcGuid:
                     # Make scene event "Normal" type scene.
