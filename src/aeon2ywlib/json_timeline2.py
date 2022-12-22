@@ -379,13 +379,13 @@ class JsonTimeline2(File):
                     crId = create_id(self.novel.characters)
                     self.novel.characters[crId] = Character()
                     self.novel.characters[crId].title = ent['name']
+                    self.novel.srtCharacters.append(crId)
                 crIdsByGuid[ent['guid']] = crId
                 self._characterGuidById[crId] = ent['guid']
                 if ent['notes']:
                     self.novel.characters[crId].notes = ent['notes']
                 else:
                     ent['notes'] = ''
-                self.novel.srtCharacters.append(crId)
 
                 #  Initialize custom keyword variables.
                 for fieldName in self._CRT_KWVAR:
@@ -402,8 +402,8 @@ class JsonTimeline2(File):
                     lcId = create_id(self.novel.locations)
                     self.novel.locations[lcId] = WorldElement()
                     self.novel.locations[lcId].title = ent['name']
+                    self.novel.srtLocations.append(lcId)
                 lcIdsByGuid[ent['guid']] = lcId
-                self.novel.srtLocations.append(lcId)
                 self._locationGuidById[lcId] = ent['guid']
 
                 # Initialize custom keyword variables.
@@ -421,8 +421,8 @@ class JsonTimeline2(File):
                     itId = create_id(self.novel.items)
                     self.novel.items[itId] = WorldElement()
                     self.novel.items[itId].title = ent['name']
+                    self.novel.srtItems.append(itId)
                 itIdsByGuid[ent['guid']] = itId
-                self.novel.srtItems.append(itId)
                 self._itemGuidById[itId] = ent['guid']
 
                 # Initialize custom keyword variables.
@@ -638,12 +638,12 @@ class JsonTimeline2(File):
             self.novel.scenes[scId].scnArcs = list_to_string(scnArcs)
 
         #--- Sort scenes by date/time and place them in chapters.
-        chIdNarrative = '1'
-        chIdBackground = '2'
+        chIdNarrative = create_id(self.novel.chapters)
         self.novel.chapters[chIdNarrative] = Chapter()
         self.novel.chapters[chIdNarrative].title = 'Chapter 1'
         self.novel.chapters[chIdNarrative].chType = 0
         self.novel.srtChapters.append(chIdNarrative)
+        chIdBackground = create_id(self.novel.chapters)
         self.novel.chapters[chIdBackground] = Chapter()
         self.novel.chapters[chIdBackground].title = 'Background'
         self.novel.chapters[chIdBackground].chType = 1
