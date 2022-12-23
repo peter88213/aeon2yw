@@ -14,6 +14,18 @@ Downgrade from v3.0.2 due to a regression that takes some tiome to fix.
 
 Based on PyWriter v8.0.10
 
+### v3.0.2
+
+- Remove "shebang" line to make the script run with Python 3.11 under Windows.
+
+Based on PyWriter v9.0.5
+
+### v3.0.1
+
+- Code optimization and library update. 
+
+Based on PyWriter v9.0.4
+
 ### v2.0.3
 
 - Code optimization and library update. 
