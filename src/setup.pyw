@@ -59,6 +59,7 @@ python3 '$Apppath' %F
 
 SET_CONTEXT_MENU = f'''Windows Registry Editor Version 5.00
 
+[-HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\{_('Export to Aeon Timeline 2')}]
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\yWriter7\\shell\Sync with Aeon Timeline 2]
 [-HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\Export to Aeon Timeline 2]
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
