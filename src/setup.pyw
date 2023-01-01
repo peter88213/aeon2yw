@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Install the aeon2yw script and set up the registry files
 for extending the yWriter and Aeon Timeline 2 context menus. 
 
@@ -26,7 +27,11 @@ except ModuleNotFoundError:
 
 # Initialize localization.
 LOCALE_PATH = f'{os.path.dirname(sys.argv[0])}/locale/'
-CURRENT_LANGUAGE = locale.getlocale()[0][:2]
+try:
+    CURRENT_LANGUAGE = locale.getlocale()[0][:2]
+except:
+    # Fallback for old Windows versions.
+    CURRENT_LANGUAGE = locale.getdefaultlocale()[0][:2]
 try:
     t = gettext.translation('reg', LOCALE_PATH, languages=[CURRENT_LANGUAGE])
     _ = t.gettext
@@ -58,6 +63,7 @@ python3 '$Apppath' %F
 
 SET_CONTEXT_MENU = f'''Windows Registry Editor Version 5.00
 
+[-HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\{_('Export to Aeon Timeline 2')}]
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\yWriter7\\shell\Sync with Aeon Timeline 2]
 [-HKEY_CURRENT_USER\SOFTWARE\Classes\\yWriter7\\shell\\Export to Aeon Timeline 2]
 [-HKEY_CURRENT_USER\\SOFTWARE\\Classes\\Aeon2Project]
