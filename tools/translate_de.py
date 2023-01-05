@@ -16,6 +16,7 @@ File structure:
 │       └── msgfmt.py
 └── aeon2yw/
     ├── src/ 
+    ├── tools/ 
     │   └── translate_de.py
     └── i18n/
         ├── messages.pot
