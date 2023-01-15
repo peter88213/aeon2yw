@@ -8,6 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v3.1.0
+
+- Update the code for PyWriter v9+
+
+Based on pyWriter v10.0.1
+
+
 ### v2.0.5
 
 - Make it run on old Windows versions.
@@ -16,7 +23,7 @@ Based on PyWriter v8.0.11
 
 ### v2.0.4
 
-Downgrade from v3.0.2 due to a regression that takes some tiome to fix.
+Downgrade from v3.0.2 due to a regression that takes some time to fix.
 
 Based on PyWriter v8.0.10
 
