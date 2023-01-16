@@ -1,6 +1,6 @@
 """Provide a class for Aeon Timeline 2 JSON representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
@@ -501,11 +501,11 @@ class JsonTimeline2(File):
                 scId = create_id(self.novel.scenes)
                 self.novel.scenes[scId] = Scene()
                 self.novel.scenes[scId].title = evt['title']
+                self.novel.scenes[scId].status = 1
+                # set scene status = "Outline"
             displayId = float(evt['displayId'])
             if displayId > self._displayIdMax:
                 self._displayIdMax = displayId
-            self.novel.scenes[scId].status = 1
-            # Set scene status = "Outline".
 
             #--- Initialize custom keyword variables.
             for fieldName in self._SCN_KWVAR:
@@ -637,26 +637,52 @@ class JsonTimeline2(File):
             # Add arcs to the scene keyword variables.
             self.novel.scenes[scId].scnArcs = list_to_string(scnArcs)
 
-        #--- Sort scenes by date/time and place them in chapters.
-        chIdNarrative = create_id(self.novel.chapters)
-        self.novel.chapters[chIdNarrative] = Chapter()
-        self.novel.chapters[chIdNarrative].title = 'Chapter 1'
-        self.novel.chapters[chIdNarrative].chType = 0
-        self.novel.srtChapters.append(chIdNarrative)
-        chIdBackground = create_id(self.novel.chapters)
-        self.novel.chapters[chIdBackground] = Chapter()
-        self.novel.chapters[chIdBackground].title = 'Background'
-        self.novel.chapters[chIdBackground].chType = 1
-        self.novel.srtChapters.append(chIdBackground)
+        #--- Make sure every scene is assigned to a chapter.
+
+        # Sort scenes by date/time
         srtScenes = sorted(scIdsByDate.items())
-        for __, scList in srtScenes:
-            for scId in scList:
-                if self.novel.scenes[scId].scType == 1:
-                    self.novel.chapters[chIdBackground].srtScenes.append(scId)
-                else:
-                    self.novel.chapters[chIdNarrative].srtScenes.append(scId)
-        if self._timestampMax == 0:
-            self._timestampMax = self.DEFAULT_TIMESTAMP
+        if not self.novel.srtChapters:
+            # Put the scenes into newly created chapters.
+            chIdNarrative = create_id(self.novel.srtChapters)
+            self.novel.chapters[chIdNarrative] = Chapter()
+            self.novel.chapters[chIdNarrative].title = 'Chapter 1'
+            self.novel.chapters[chIdNarrative].chType = 0
+            self.novel.srtChapters.append(chIdNarrative)
+            chIdBackground = create_id(self.novel.srtChapters)
+            self.novel.chapters[chIdBackground] = Chapter()
+            self.novel.chapters[chIdBackground].title = 'Background'
+            self.novel.chapters[chIdBackground].chType = 1
+            self.novel.srtChapters.append(chIdBackground)
+            for __, scList in srtScenes:
+                for scId in scList:
+                    if self.novel.scenes[scId].scType == 1:
+                        self.novel.chapters[chIdBackground].srtScenes.append(scId)
+                    else:
+                        self.novel.chapters[chIdNarrative].srtScenes.append(scId)
+            if self._timestampMax == 0:
+                self._timestampMax = self.DEFAULT_TIMESTAMP
+        else:
+            # List all scenes already assigned to a chapter.
+            scenesInChapters = []
+            for chId in self.novel.srtChapters:
+                scenesInChapters.extend(self.novel.chapters[chId].srtScenes)
+
+            # Create a chapter for new scenes.
+            newChapterId = create_id(self.novel.srtChapters)
+            newChapter = Chapter()
+            newChapter.title = 'New scenes'
+            newChapterExists = False
+            for __, scList in srtScenes:
+                for scId in scList:
+                    if scId in scenesInChapters:
+                        continue
+
+                    else:
+                        if not newChapterExists:
+                            self.novel.chapters[newChapterId] = newChapter
+                            self.novel.srtChapters.append(newChapterId)
+                            newChapterExists = True
+                        self.novel.chapters[newChapterId].srtScenes.append(scId)
 
     def write(self):
         """Write instance variables to the file.
@@ -1167,10 +1193,7 @@ class JsonTimeline2(File):
                     evt['relationships'].append(narrativeArc)
 
                 #--- Assign events to arcs.
-                if self.novel.scenes[scId].scnArcs is not None:
-                    sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
-                else:
-                    sceneArcs = []
+                sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
                 for arcName in arcs:
                     if arcName in sceneArcs:
                         if arcs[arcName] not in evt['relationships']:

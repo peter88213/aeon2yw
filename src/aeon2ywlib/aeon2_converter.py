@@ -1,15 +1,14 @@
 """Provide a converter class for Aeon Timeline 2 and yWriter. 
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
 from pywriter.pywriter_globals import *
+from pywriter.yw.yw7_file import Yw7File
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from aeon2ywlib.json_timeline2 import JsonTimeline2
-from aeon2ywlib.yw7_target import Yw7Target
-from aeon2ywlib.yw7_source import Yw7Source
 
 
 class Aeon2Converter(YwCnvUi):
@@ -36,17 +35,17 @@ class Aeon2Converter(YwCnvUi):
         if fileExtension == JsonTimeline2.EXTENSION:
             # Source is a timeline
             sourceFile = JsonTimeline2(sourcePath, **kwargs)
-            if os.path.isfile(f'{fileName}{Yw7Source.EXTENSION}'):
+            if os.path.isfile(f'{fileName}{Yw7File.EXTENSION}'):
                 # Update existing yWriter project from timeline
-                targetFile = Yw7Target(f'{fileName}{Yw7Target.EXTENSION}', **kwargs)
+                targetFile = Yw7File(f'{fileName}{Yw7File.EXTENSION}', **kwargs)
                 self.import_to_yw(sourceFile, targetFile)
             else:
                 # Create new yWriter project from timeline
-                targetFile = Yw7Source(f'{fileName}{Yw7Source.EXTENSION}', **kwargs)
+                targetFile = Yw7File(f'{fileName}{Yw7File.EXTENSION}', **kwargs)
                 self.create_yw7(sourceFile, targetFile)
-        elif fileExtension == Yw7Source.EXTENSION:
+        elif fileExtension == Yw7File.EXTENSION:
             # Update existing timeline from yWriter project
-            sourceFile = Yw7Source(sourcePath, **kwargs)
+            sourceFile = Yw7File(sourcePath, **kwargs)
             targetFile = JsonTimeline2(f'{fileName}{JsonTimeline2.EXTENSION}', **kwargs)
             self.export_from_yw(sourceFile, targetFile)
         else:
