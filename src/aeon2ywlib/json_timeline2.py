@@ -1193,6 +1193,12 @@ class JsonTimeline2(File):
             if self.novel.scenes[scId].scType == 1:
                 if narrativeArc in evt['relationships']:
                     evt['relationships'].remove(narrativeArc)
+
+                #--- Clear arcs, if any.
+                sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
+                for arcName in sceneArcs:
+                    evt['relationships'].remove(arcs[arcName])
+
             else:
                 if narrativeArc not in evt['relationships']:
                     evt['relationships'].append(narrativeArc)
