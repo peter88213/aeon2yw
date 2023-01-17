@@ -31,6 +31,7 @@ MINIMAL_AEON = TEST_DATA_PATH + 'minimal.aeonzip'
 CREATED_AEON = TEST_DATA_PATH + 'created.aeonzip'
 DATE_LIMITS_AEON = TEST_DATA_PATH + 'date_limits.aeonzip'
 DATE_LIMITS_YW7 = TEST_DATA_PATH + 'date_limits.yw7'
+NORMAL_INI = TEST_DATA_PATH + 'aeon2yw.ini'
 SCENES_ONLY_INI = TEST_DATA_PATH + 'scenes_only.ini'
 UPDATE_NOTES_INI = TEST_DATA_PATH + 'update_notes.ini'
 UPDATED_AEON = TEST_DATA_PATH + 'updated.aeonzip'
@@ -116,19 +117,19 @@ class NormalOperation(unittest.TestCase):
             pass
         remove_all_testfiles()
 
-    def test_aeon2_aeonzip(self):
+    def test_ambiguous_aeon_event(self):
         copyfile(NORMAL_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertStderrEquals('FAIL: Ambiguous Aeon event title "Mrs Hubbard sleeps".')
 
-    def test_date_limits_aeonzip(self):
+    def test_create_yw7(self):
         copyfile(DATE_LIMITS_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertEqual(read_file(TEST_YW7), read_file(DATE_LIMITS_YW7))
 
-    def test_update_with_notes(self):
+    def test_update_yw7(self):
         copyfile(UPDATE_NOTES_INI, INI_FILE)
         copyfile(DATE_LIMITS_YW7, TEST_YW7)
         copyfile(UPDATED_AEON, TEST_AEON)
@@ -137,7 +138,8 @@ class NormalOperation(unittest.TestCase):
         self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_NOTES_YW7))
         self.assertEqual(read_file(TEST_YW7_BAK), read_file(DATE_LIMITS_YW7))
 
-    def test_update(self):
+    def test_update_yw7_scenes_only(self):
+        copyfile(SCENES_ONLY_INI, INI_FILE)
         copyfile(DATE_LIMITS_YW7, TEST_YW7)
         copyfile(UPDATED_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
@@ -145,7 +147,7 @@ class NormalOperation(unittest.TestCase):
         self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_YW7))
         self.assertEqual(read_file(TEST_YW7_BAK), read_file(DATE_LIMITS_YW7))
 
-    def test_create(self):
+    def test_create_aeon(self):
         copyfile(DATE_LIMITS_YW7, TEST_YW7)
         copyfile(MINIMAL_AEON, TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
