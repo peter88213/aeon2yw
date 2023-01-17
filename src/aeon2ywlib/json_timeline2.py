@@ -490,6 +490,7 @@ class JsonTimeline2(File):
         #--- Update/create scenes.
         scIdsByDate = {}
         scnTitles = []
+        narrativeEvents = []
         for evt in self._jsonData['events']:
 
             # Find out whether the event is associated to a normal scene:
@@ -498,8 +499,6 @@ class JsonTimeline2(File):
                 if evtRel['role'] == self._roleArcGuid:
                     if self._entityNarrativeGuid and evtRel['entity'] == self._entityNarrativeGuid:
                         isNarrative = True
-            if self._scenesOnly and not isNarrative:
-                continue
 
             if evt['title'] in scnTitles:
                 raise Error(f'Ambiguous Aeon event title "{evt["title"]}".')
@@ -508,10 +507,17 @@ class JsonTimeline2(File):
             if evt['title'] in targetScIdByTitle:
                 scId = targetScIdByTitle[evt['title']]
             else:
+                if self._scenesOnly and not isNarrative:
+                    # don't create a "Notes" scene
+                    continue
+
+                # Create a new scene.
                 scId = create_id(self.novel.scenes)
                 self.novel.scenes[scId] = Scene()
                 self.novel.scenes[scId].title = evt['title']
                 self.novel.scenes[scId].status = 1
+
+            narrativeEvents.append(scId)
             displayId = float(evt['displayId'])
             if displayId > self._displayIdMax:
                 self._displayIdMax = displayId
@@ -645,6 +651,12 @@ class JsonTimeline2(File):
 
             # Add arcs to the scene keyword variables.
             self.novel.scenes[scId].scnArcs = list_to_string(scnArcs)
+
+        #--- Mark scenes deleted in Aeon "Unused".
+        for scId in self.novel.scenes:
+            if not scId in narrativeEvents:
+                if self.novel.scenes[scId].scType == 0:
+                    self.novel.scenes[scId].scType = 3
 
         #--- Make sure every scene is assigned to a chapter.
 

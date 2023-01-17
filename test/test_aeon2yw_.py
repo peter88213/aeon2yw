@@ -110,13 +110,6 @@ class NormalOperation(unittest.TestCase):
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertStderrEquals('FAIL: Ambiguous Aeon event title "Mrs Hubbard sleeps".')
 
-    def test_ambiguous_aeon_event_scenes_only(self):
-        copyfile(TEST_DATA_PATH + 'scenes_only.ini', INI_FILE)
-        copyfile(TEST_DATA_PATH + 'normal.aeonzip', TEST_AEON)
-        os.chdir(TEST_EXEC_PATH)
-        aeon2yw_.run(TEST_AEON, silentMode=True)
-        self.assertStderrEquals('FAIL: Ambiguous Aeon event title "No one enters or leaves Rachett\'s apartment, according to the Conductor".')
-
     def test_create_yw7(self):
         copyfile(TEST_DATA_PATH + 'update_notes.ini', INI_FILE)
         copyfile(TEST_DATA_PATH + 'date_limits.aeonzip', TEST_AEON)
@@ -124,8 +117,8 @@ class NormalOperation(unittest.TestCase):
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'date_limits_notes.yw7'))
 
-    def test_create_yw7_scenes_only(self):
-        copyfile(TEST_DATA_PATH + 'scenes_only.ini', INI_FILE)
+    def test_create_yw7_narrative_only(self):
+        copyfile(TEST_DATA_PATH + 'narrative_only.ini', INI_FILE)
         copyfile(TEST_DATA_PATH + 'date_limits.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
@@ -140,8 +133,8 @@ class NormalOperation(unittest.TestCase):
         self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'updated_notes.yw7'))
         self.assertEqual(read_file(TEST_YW7_BAK), read_file(TEST_DATA_PATH + 'date_limits.yw7'))
 
-    def test_update_yw7_scenes_only(self):
-        copyfile(TEST_DATA_PATH + 'scenes_only.ini', INI_FILE)
+    def test_update_yw7_narrative_only(self):
+        copyfile(TEST_DATA_PATH + 'narrative_only.ini', INI_FILE)
         copyfile(TEST_DATA_PATH + 'date_limits.yw7', TEST_YW7)
         copyfile(TEST_DATA_PATH + 'updated.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)

@@ -134,6 +134,20 @@
     </SCENE>
     <SCENE>
       <ID>7</ID>
+      <Title><![CDATA[Narrative event]]></Title>
+      <BelongsToChID>1</BelongsToChID>
+      <SceneContent />
+      <WordCount>0</WordCount>
+      <LetterCount>0</LetterCount>
+      <Status>1</Status>
+      <SpecificDateTime>2021-11-02 15:00:00</SpecificDateTime>
+      <SpecificDateMode>-1</SpecificDateMode>
+      <LastsDays>0</LastsDays>
+      <LastsHours>0</LastsHours>
+      <LastsMinutes>0</LastsMinutes>
+    </SCENE>
+    <SCENE>
+      <ID>8</ID>
       <Title><![CDATA[Event 3]]></Title>
       <BelongsToChID>1</BelongsToChID>
       <SceneContent />
@@ -146,7 +160,7 @@
       <Status>1</Status>
     </SCENE>
     <SCENE>
-      <ID>8</ID>
+      <ID>9</ID>
       <Title><![CDATA[Event 1]]></Title>
       <BelongsToChID>1</BelongsToChID>
       <SceneContent />
@@ -159,7 +173,7 @@
       <Status>1</Status>
     </SCENE>
     <SCENE>
-      <ID>9</ID>
+      <ID>10</ID>
       <Title><![CDATA[Day 0]]></Title>
       <BelongsToChID>1</BelongsToChID>
       <SceneContent />
@@ -185,14 +199,15 @@
       <Type>0</Type>
       <ChapterType>0</ChapterType>
       <Scenes>
-        <ScID>8</ScID>
+        <ScID>9</ScID>
         <ScID>5</ScID>
-        <ScID>7</ScID>
+        <ScID>8</ScID>
         <ScID>6</ScID>
         <ScID>3</ScID>
         <ScID>2</ScID>
         <ScID>4</ScID>
-        <ScID>9</ScID>
+        <ScID>10</ScID>
+        <ScID>7</ScID>
         <ScID>1</ScID>
       </Scenes>
     </CHAPTER>
