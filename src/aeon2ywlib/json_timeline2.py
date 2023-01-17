@@ -503,6 +503,7 @@ class JsonTimeline2(File):
             if evt['title'] in scnTitles:
                 raise Error(f'Ambiguous Aeon event title "{evt["title"]}".')
 
+            evt['title'] = evt['title'].strip()
             scnTitles.append(evt['title'])
             if evt['title'] in targetScIdByTitle:
                 scId = targetScIdByTitle[evt['title']]
@@ -771,7 +772,7 @@ class JsonTimeline2(File):
         source = self.novel
         self.novel = Novel()
         self.read()
-        # initialize data
+        # create a new target novel from the aeon2 project file
 
         linkedCharacters = []
         linkedLocations = []
@@ -851,7 +852,7 @@ class JsonTimeline2(File):
             # This is to recognize "Trash" scenes.
             if not self.novel.scenes[scId].title in srcScnTitles:
                 if not self.novel.scenes[scId].scType == 1:
-                    self._trashEvents.append(int(scId) - 1)
+                    self._trashEvents.append(scId)
 
         # Check characters.
         crIdsByTitle = {}
@@ -978,6 +979,7 @@ class JsonTimeline2(File):
                     scId = str(totalEvents)
                     self.novel.scenes[scId] = Scene()
                     self.novel.scenes[scId].title = source.scenes[srcId].title
+                    scIdsByTitle[self.novel.scenes[scId].title] = scId
                     newEvent = build_event(self.novel.scenes[scId])
                     self._jsonData['events'].append(newEvent)
                 self.novel.scenes[scId].status = source.scenes[srcId].status
@@ -1095,8 +1097,11 @@ class JsonTimeline2(File):
             }
 
         #--- Update events from scenes.
-        for i, evt in enumerate(self._jsonData['events']):
-            scId = str(i + 1)
+        for evt in self._jsonData['events']:
+            try:
+                scId = scIdsByTitle[evt['title']]
+            except KeyError:
+                continue
 
             #--- Set event date/time/span.
             if evt['rangeValues'][0]['position']['timestamp'] >= self.DATE_LIMIT:
@@ -1206,8 +1211,13 @@ class JsonTimeline2(File):
 
         #--- Delete "Trash" scenes.
         events = []
-        for i, evt in enumerate(self._jsonData['events']):
-            if not i in self._trashEvents:
+        for evt in self._jsonData['events']:
+            try:
+                scId = scIdsByTitle[evt['title']]
+            except KeyError:
                 events.append(evt)
+            else:
+                if not scId in self._trashEvents:
+                    events.append(evt)
         self._jsonData['events'] = events
         save_timeline(self._jsonData, self.filePath)

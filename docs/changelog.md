@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v3.2.2
+
+- Fix a "KeyError" that might occur when writing events to aeonzip.
+
+Based on pyWriter v10.0.1
+
 ### v3.2.1
 
 - Fix a bug where scene arc assignments are not merged before writing events to aeonzip.
