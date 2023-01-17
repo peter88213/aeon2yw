@@ -33,7 +33,7 @@
     <SCENE>
       <ID>1</ID>
       <Title><![CDATA[The Great Crash]]></Title>
-      <BelongsToChID>2</BelongsToChID>
+      <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -51,7 +51,7 @@
     <SCENE>
       <ID>2</ID>
       <Title><![CDATA[Event 6]]></Title>
-      <BelongsToChID>2</BelongsToChID>
+      <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -69,7 +69,7 @@
     <SCENE>
       <ID>3</ID>
       <Title><![CDATA[Event 5]]></Title>
-      <BelongsToChID>2</BelongsToChID>
+      <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -109,7 +109,7 @@
     <SCENE>
       <ID>5</ID>
       <Title><![CDATA[Event 2]]></Title>
-      <BelongsToChID>2</BelongsToChID>
+      <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -122,7 +122,7 @@
     <SCENE>
       <ID>6</ID>
       <Title><![CDATA[Event 4]]></Title>
-      <BelongsToChID>2</BelongsToChID>
+      <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -135,7 +135,7 @@
     <SCENE>
       <ID>7</ID>
       <Title><![CDATA[Event 3]]></Title>
-      <BelongsToChID>2</BelongsToChID>
+      <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -148,7 +148,7 @@
     <SCENE>
       <ID>8</ID>
       <Title><![CDATA[Event 1]]></Title>
-      <BelongsToChID>2</BelongsToChID>
+      <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -161,7 +161,7 @@
     <SCENE>
       <ID>9</ID>
       <Title><![CDATA[Day 0]]></Title>
-      <BelongsToChID>2</BelongsToChID>
+      <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -180,21 +180,10 @@
   <CHAPTERS>
     <CHAPTER>
       <ID>1</ID>
-      <Title><![CDATA[Chapter 1]]></Title>
+      <Title><![CDATA[New scenes]]></Title>
       <SortOrder>1</SortOrder>
       <Type>0</Type>
       <ChapterType>0</ChapterType>
-      <Scenes>
-        <ScID>4</ScID>
-      </Scenes>
-    </CHAPTER>
-    <CHAPTER>
-      <ID>2</ID>
-      <Title><![CDATA[Background]]></Title>
-      <Unused>-1</Unused>
-      <SortOrder>2</SortOrder>
-      <Type>1</Type>
-      <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>8</ScID>
         <ScID>5</ScID>
@@ -202,6 +191,7 @@
         <ScID>6</ScID>
         <ScID>3</ScID>
         <ScID>2</ScID>
+        <ScID>4</ScID>
         <ScID>9</ScID>
         <ScID>1</ScID>
       </Scenes>

@@ -61,21 +61,13 @@
   <CHAPTERS>
     <CHAPTER>
       <ID>1</ID>
-      <Title><![CDATA[Chapter 1]]></Title>
+      <Title><![CDATA[New scenes]]></Title>
       <SortOrder>1</SortOrder>
       <Type>0</Type>
       <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>1</ScID>
       </Scenes>
-    </CHAPTER>
-    <CHAPTER>
-      <ID>2</ID>
-      <Title><![CDATA[Background]]></Title>
-      <Unused>-1</Unused>
-      <SortOrder>2</SortOrder>
-      <Type>1</Type>
-      <ChapterType>1</ChapterType>
     </CHAPTER>
   </CHAPTERS>
 </YWRITER7>

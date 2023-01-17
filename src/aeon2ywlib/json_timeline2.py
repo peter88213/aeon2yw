@@ -648,50 +648,29 @@ class JsonTimeline2(File):
 
         #--- Make sure every scene is assigned to a chapter.
 
-        # Sort scenes by date/time
+        # List all scenes already assigned to a chapter.
+        scenesInChapters = []
+        for chId in self.novel.srtChapters:
+            scenesInChapters.extend(self.novel.chapters[chId].srtScenes)
+
+        # Create a chapter for new scenes.
+        newChapterId = create_id(self.novel.srtChapters)
+        newChapter = Chapter()
+        newChapter.title = _('New scenes')
+        newChapter.chType = 0
+
+        # Sort scenes by date/time, then put the orphaned ones into the new chapter.
         srtScenes = sorted(scIdsByDate.items())
-        if not self.novel.srtChapters:
-            # Put the scenes into newly created chapters.
-            chIdNarrative = create_id(self.novel.srtChapters)
-            self.novel.chapters[chIdNarrative] = Chapter()
-            self.novel.chapters[chIdNarrative].title = 'Chapter 1'
-            self.novel.chapters[chIdNarrative].chType = 0
-            self.novel.srtChapters.append(chIdNarrative)
-            chIdBackground = create_id(self.novel.srtChapters)
-            self.novel.chapters[chIdBackground] = Chapter()
-            self.novel.chapters[chIdBackground].title = 'Background'
-            self.novel.chapters[chIdBackground].chType = 1
-            self.novel.srtChapters.append(chIdBackground)
-            for __, scList in srtScenes:
-                for scId in scList:
-                    if self.novel.scenes[scId].scType == 1:
-                        self.novel.chapters[chIdBackground].srtScenes.append(scId)
-                    else:
-                        self.novel.chapters[chIdNarrative].srtScenes.append(scId)
-            if self._timestampMax == 0:
-                self._timestampMax = self.DEFAULT_TIMESTAMP
-        else:
-            # List all scenes already assigned to a chapter.
-            scenesInChapters = []
-            for chId in self.novel.srtChapters:
-                scenesInChapters.extend(self.novel.chapters[chId].srtScenes)
+        for __, scList in srtScenes:
+            for scId in scList:
+                if not scId in scenesInChapters:
+                    if not newChapterId in self.novel.srtChapters:
+                        self.novel.chapters[newChapterId] = newChapter
+                        self.novel.srtChapters.append(newChapterId)
+                    self.novel.chapters[newChapterId].srtScenes.append(scId)
 
-            # Create a chapter for new scenes.
-            newChapterId = create_id(self.novel.srtChapters)
-            newChapter = Chapter()
-            newChapter.title = 'New scenes'
-            newChapterExists = False
-            for __, scList in srtScenes:
-                for scId in scList:
-                    if scId in scenesInChapters:
-                        continue
-
-                    else:
-                        if not newChapterExists:
-                            self.novel.chapters[newChapterId] = newChapter
-                            self.novel.srtChapters.append(newChapterId)
-                            newChapterExists = True
-                        self.novel.chapters[newChapterId].srtScenes.append(scId)
+        if self._timestampMax == 0:
+            self._timestampMax = self.DEFAULT_TIMESTAMP
 
     def write(self):
         """Write instance variables to the file.

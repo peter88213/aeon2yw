@@ -60,7 +60,7 @@
     <SCENE>
       <ID>2</ID>
       <Title><![CDATA[New scene]]></Title>
-      <BelongsToChID>3</BelongsToChID>
+      <BelongsToChID>2</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -74,7 +74,7 @@
     <SCENE>
       <ID>3</ID>
       <Title><![CDATA[Day 0]]></Title>
-      <BelongsToChID>3</BelongsToChID>
+      <BelongsToChID>2</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
@@ -89,7 +89,7 @@
   <CHAPTERS>
     <CHAPTER>
       <ID>1</ID>
-      <Title><![CDATA[Chapter 1]]></Title>
+      <Title><![CDATA[New scenes]]></Title>
       <SortOrder>1</SortOrder>
       <Type>0</Type>
       <ChapterType>0</ChapterType>
@@ -99,16 +99,8 @@
     </CHAPTER>
     <CHAPTER>
       <ID>2</ID>
-      <Title><![CDATA[Background]]></Title>
-      <Unused>-1</Unused>
-      <SortOrder>2</SortOrder>
-      <Type>1</Type>
-      <ChapterType>1</ChapterType>
-    </CHAPTER>
-    <CHAPTER>
-      <ID>3</ID>
       <Title><![CDATA[New scenes]]></Title>
-      <SortOrder>3</SortOrder>
+      <SortOrder>2</SortOrder>
       <Type>0</Type>
       <ChapterType>0</ChapterType>
       <Scenes>
