@@ -487,10 +487,20 @@ class JsonTimeline2(File):
                 'type': 'text'
             })
 
-        #--- Get scenes.
+        #--- Update/create scenes.
         scIdsByDate = {}
         scnTitles = []
         for evt in self._jsonData['events']:
+
+            # Find out whether the event is associated to a normal scene:
+            isNarrative = False
+            for evtRel in evt['relationships']:
+                if evtRel['role'] == self._roleArcGuid:
+                    if self._entityNarrativeGuid and evtRel['entity'] == self._entityNarrativeGuid:
+                        isNarrative = True
+            if self._scenesOnly and not isNarrative:
+                continue
+
             if evt['title'] in scnTitles:
                 raise Error(f'Ambiguous Aeon event title "{evt["title"]}".')
 
@@ -502,14 +512,13 @@ class JsonTimeline2(File):
                 self.novel.scenes[scId] = Scene()
                 self.novel.scenes[scId].title = evt['title']
                 self.novel.scenes[scId].status = 1
-                # set scene status = "Outline"
             displayId = float(evt['displayId'])
             if displayId > self._displayIdMax:
                 self._displayIdMax = displayId
 
             #--- Initialize custom keyword variables.
             for fieldName in self._SCN_KWVAR:
-                self.novel.scenes[scId].kwVar[fieldName] = None
+                self.novel.scenes[scId].kwVar[fieldName] = self.novel.scenes[scId].kwVar.get(fieldName, None)
 
             #--- Evaluate properties.
             hasDescription = False

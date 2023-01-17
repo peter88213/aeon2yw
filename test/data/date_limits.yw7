@@ -32,55 +32,6 @@
   <SCENES>
     <SCENE>
       <ID>1</ID>
-      <Title><![CDATA[The Great Crash]]></Title>
-      <BelongsToChID>2</BelongsToChID>
-      <SceneContent />
-      <WordCount>0</WordCount>
-      <LetterCount>0</LetterCount>
-      <Unused>-1</Unused>
-      <Fields>
-        <Field_SceneType>1</Field_SceneType>
-      </Fields>
-      <Status>1</Status>
-      <SpecificDateTime>2021-11-04 10:00:00</SpecificDateTime>
-      <SpecificDateMode>-1</SpecificDateMode>
-      <LastsDays>0</LastsDays>
-      <LastsHours>6</LastsHours>
-      <LastsMinutes>0</LastsMinutes>
-    </SCENE>
-    <SCENE>
-      <ID>2</ID>
-      <Title><![CDATA[Event 6]]></Title>
-      <BelongsToChID>2</BelongsToChID>
-      <SceneContent />
-      <WordCount>0</WordCount>
-      <LetterCount>0</LetterCount>
-      <Unused>-1</Unused>
-      <Fields>
-        <Field_SceneType>1</Field_SceneType>
-      </Fields>
-      <Status>1</Status>
-      <SpecificDateTime>0100-01-01 00:00:00</SpecificDateTime>
-      <SpecificDateMode>-1</SpecificDateMode>
-      <LastsDays>33</LastsDays>
-      <LastsHours>0</LastsHours>
-      <LastsMinutes>0</LastsMinutes>
-    </SCENE>
-    <SCENE>
-      <ID>3</ID>
-      <Title><![CDATA[Event 5]]></Title>
-      <BelongsToChID>2</BelongsToChID>
-      <SceneContent />
-      <WordCount>0</WordCount>
-      <LetterCount>0</LetterCount>
-      <Unused>-1</Unused>
-      <Fields>
-        <Field_SceneType>1</Field_SceneType>
-      </Fields>
-      <Status>1</Status>
-    </SCENE>
-    <SCENE>
-      <ID>4</ID>
       <Title><![CDATA[NaNoWriMo 2021]]></Title>
       <BelongsToChID>1</BelongsToChID>
       <Desc><![CDATA[Poirot interrogates Author B.C. Toyle at his home.]]></Desc>
@@ -106,76 +57,6 @@
         <ItemID>1</ItemID>
       </Items>
     </SCENE>
-    <SCENE>
-      <ID>5</ID>
-      <Title><![CDATA[Event 2]]></Title>
-      <BelongsToChID>2</BelongsToChID>
-      <SceneContent />
-      <WordCount>0</WordCount>
-      <LetterCount>0</LetterCount>
-      <Unused>-1</Unused>
-      <Fields>
-        <Field_SceneType>1</Field_SceneType>
-      </Fields>
-      <Status>1</Status>
-    </SCENE>
-    <SCENE>
-      <ID>6</ID>
-      <Title><![CDATA[Event 4]]></Title>
-      <BelongsToChID>2</BelongsToChID>
-      <SceneContent />
-      <WordCount>0</WordCount>
-      <LetterCount>0</LetterCount>
-      <Unused>-1</Unused>
-      <Fields>
-        <Field_SceneType>1</Field_SceneType>
-      </Fields>
-      <Status>1</Status>
-    </SCENE>
-    <SCENE>
-      <ID>7</ID>
-      <Title><![CDATA[Event 3]]></Title>
-      <BelongsToChID>2</BelongsToChID>
-      <SceneContent />
-      <WordCount>0</WordCount>
-      <LetterCount>0</LetterCount>
-      <Unused>-1</Unused>
-      <Fields>
-        <Field_SceneType>1</Field_SceneType>
-      </Fields>
-      <Status>1</Status>
-    </SCENE>
-    <SCENE>
-      <ID>8</ID>
-      <Title><![CDATA[Event 1]]></Title>
-      <BelongsToChID>2</BelongsToChID>
-      <SceneContent />
-      <WordCount>0</WordCount>
-      <LetterCount>0</LetterCount>
-      <Unused>-1</Unused>
-      <Fields>
-        <Field_SceneType>1</Field_SceneType>
-      </Fields>
-      <Status>1</Status>
-    </SCENE>
-    <SCENE>
-      <ID>9</ID>
-      <Title><![CDATA[Day 0]]></Title>
-      <BelongsToChID>2</BelongsToChID>
-      <SceneContent />
-      <WordCount>0</WordCount>
-      <LetterCount>0</LetterCount>
-      <Unused>-1</Unused>
-      <Fields>
-        <Field_SceneType>1</Field_SceneType>
-      </Fields>
-      <Status>1</Status>
-      <SpecificDateTime>2021-11-01 00:00:00</SpecificDateTime>
-      <SpecificDateMode>-1</SpecificDateMode>
-      <LastsDays>0</LastsDays>
-      <LastsHours>0</LastsHours>
-      <LastsMinutes>0</LastsMinutes>
-    </SCENE>
   </SCENES>
   <CHAPTERS>
     <CHAPTER>
@@ -185,7 +66,7 @@
       <Type>0</Type>
       <ChapterType>0</ChapterType>
       <Scenes>
-        <ScID>4</ScID>
+        <ScID>1</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
@@ -195,16 +76,6 @@
       <SortOrder>2</SortOrder>
       <Type>1</Type>
       <ChapterType>1</ChapterType>
-      <Scenes>
-        <ScID>8</ScID>
-        <ScID>5</ScID>
-        <ScID>7</ScID>
-        <ScID>6</ScID>
-        <ScID>3</ScID>
-        <ScID>2</ScID>
-        <ScID>9</ScID>
-        <ScID>1</ScID>
-      </Scenes>
     </CHAPTER>
   </CHAPTERS>
 </YWRITER7>

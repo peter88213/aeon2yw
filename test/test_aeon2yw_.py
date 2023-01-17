@@ -24,20 +24,6 @@ TEST_PATH = os.getcwd() + '/../test'
 TEST_DATA_PATH = TEST_PATH + '/data/'
 TEST_EXEC_PATH = TEST_PATH + '/yw7/'
 
-# To be placed in TEST_DATA_PATH:
-NORMAL_AEON = TEST_DATA_PATH + 'normal.aeonzip'
-NORMAL_YW7 = TEST_DATA_PATH + 'normal.yw7'
-MINIMAL_AEON = TEST_DATA_PATH + 'minimal.aeonzip'
-CREATED_AEON = TEST_DATA_PATH + 'created.aeonzip'
-DATE_LIMITS_AEON = TEST_DATA_PATH + 'date_limits.aeonzip'
-DATE_LIMITS_YW7 = TEST_DATA_PATH + 'date_limits.yw7'
-NORMAL_INI = TEST_DATA_PATH + 'aeon2yw.ini'
-SCENES_ONLY_INI = TEST_DATA_PATH + 'scenes_only.ini'
-UPDATE_NOTES_INI = TEST_DATA_PATH + 'update_notes.ini'
-UPDATED_AEON = TEST_DATA_PATH + 'updated.aeonzip'
-UPDATED_YW7 = TEST_DATA_PATH + 'updated.yw7'
-UPDATED_NOTES_YW7 = TEST_DATA_PATH + 'updated_notes.yw7'
-
 # Test data
 INI_FILE = TEST_EXEC_PATH + 'aeon2yw.ini'
 TEST_YW7 = TEST_EXEC_PATH + 'yw7 Sample Project.yw7'
@@ -118,41 +104,57 @@ class NormalOperation(unittest.TestCase):
         remove_all_testfiles()
 
     def test_ambiguous_aeon_event(self):
-        copyfile(NORMAL_AEON, TEST_AEON)
+        copyfile(TEST_DATA_PATH + 'update_notes.ini', INI_FILE)
+        copyfile(TEST_DATA_PATH + 'normal.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
         self.assertStderrEquals('FAIL: Ambiguous Aeon event title "Mrs Hubbard sleeps".')
 
-    def test_create_yw7(self):
-        copyfile(DATE_LIMITS_AEON, TEST_AEON)
+    def test_ambiguous_aeon_event_scenes_only(self):
+        copyfile(TEST_DATA_PATH + 'scenes_only.ini', INI_FILE)
+        copyfile(TEST_DATA_PATH + 'normal.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(DATE_LIMITS_YW7))
+        self.assertStderrEquals('FAIL: Ambiguous Aeon event title "No one enters or leaves Rachett\'s apartment, according to the Conductor".')
+
+    def test_create_yw7(self):
+        copyfile(TEST_DATA_PATH + 'update_notes.ini', INI_FILE)
+        copyfile(TEST_DATA_PATH + 'date_limits.aeonzip', TEST_AEON)
+        os.chdir(TEST_EXEC_PATH)
+        aeon2yw_.run(TEST_AEON, silentMode=True)
+        self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'date_limits_notes.yw7'))
+
+    def test_create_yw7_scenes_only(self):
+        copyfile(TEST_DATA_PATH + 'scenes_only.ini', INI_FILE)
+        copyfile(TEST_DATA_PATH + 'date_limits.aeonzip', TEST_AEON)
+        os.chdir(TEST_EXEC_PATH)
+        aeon2yw_.run(TEST_AEON, silentMode=True)
+        self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'date_limits.yw7'))
 
     def test_update_yw7(self):
-        copyfile(UPDATE_NOTES_INI, INI_FILE)
-        copyfile(DATE_LIMITS_YW7, TEST_YW7)
-        copyfile(UPDATED_AEON, TEST_AEON)
+        copyfile(TEST_DATA_PATH + 'update_notes.ini', INI_FILE)
+        copyfile(TEST_DATA_PATH + 'date_limits.yw7', TEST_YW7)
+        copyfile(TEST_DATA_PATH + 'updated.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_NOTES_YW7))
-        self.assertEqual(read_file(TEST_YW7_BAK), read_file(DATE_LIMITS_YW7))
+        self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'updated_notes.yw7'))
+        self.assertEqual(read_file(TEST_YW7_BAK), read_file(TEST_DATA_PATH + 'date_limits.yw7'))
 
     def test_update_yw7_scenes_only(self):
-        copyfile(SCENES_ONLY_INI, INI_FILE)
-        copyfile(DATE_LIMITS_YW7, TEST_YW7)
-        copyfile(UPDATED_AEON, TEST_AEON)
+        copyfile(TEST_DATA_PATH + 'scenes_only.ini', INI_FILE)
+        copyfile(TEST_DATA_PATH + 'date_limits.yw7', TEST_YW7)
+        copyfile(TEST_DATA_PATH + 'updated.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
-        self.assertEqual(read_file(TEST_YW7), read_file(UPDATED_YW7))
-        self.assertEqual(read_file(TEST_YW7_BAK), read_file(DATE_LIMITS_YW7))
+        self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'updated.yw7'))
+        self.assertEqual(read_file(TEST_YW7_BAK), read_file(TEST_DATA_PATH + 'date_limits.yw7'))
 
     def test_create_aeon(self):
-        copyfile(DATE_LIMITS_YW7, TEST_YW7)
-        copyfile(MINIMAL_AEON, TEST_AEON)
+        copyfile(TEST_DATA_PATH + 'date_limits.yw7', TEST_YW7)
+        copyfile(TEST_DATA_PATH + 'minimal.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_YW7, silentMode=True)
-        self.assertEqual(open_timeline(TEST_AEON), open_timeline(CREATED_AEON))
+        self.assertEqual(open_timeline(TEST_AEON), open_timeline(TEST_DATA_PATH + 'created.aeonzip'))
 
     def tearDown(self):
         sys.stdout = self.original_output
