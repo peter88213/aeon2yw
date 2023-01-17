@@ -142,12 +142,19 @@ class NormalOperation(unittest.TestCase):
         self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'updated.yw7'))
         self.assertEqual(read_file(TEST_YW7_BAK), read_file(TEST_DATA_PATH + 'date_limits.yw7'))
 
-    def test_create_aeon(self):
+    def test_create_date_limits_aeon(self):
         copyfile(TEST_DATA_PATH + 'date_limits.yw7', TEST_YW7)
         copyfile(TEST_DATA_PATH + 'minimal.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_YW7, silentMode=True)
         self.assertEqual(open_timeline(TEST_AEON), open_timeline(TEST_DATA_PATH + 'created.aeonzip'))
+
+    def test_create_arc_aeon(self):
+        copyfile(TEST_DATA_PATH + 'arc.yw7', TEST_YW7)
+        copyfile(TEST_DATA_PATH + 'minimal.aeonzip', TEST_AEON)
+        os.chdir(TEST_EXEC_PATH)
+        aeon2yw_.run(TEST_YW7, silentMode=True)
+        self.assertEqual(open_timeline(TEST_AEON), open_timeline(TEST_DATA_PATH + 'created_arc.aeonzip'))
 
     def tearDown(self):
         sys.stdout = self.original_output

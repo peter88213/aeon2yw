@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v3.2.1
+
+- Fix a bug where scene arc assignments are not merged before writing events to aeonzip.
+
+Based on pyWriter v10.0.1
+
 ### v3.2.0
 
 - The scenes_only parameter only affects the creation of new scenes, but not the update.
@@ -15,7 +21,6 @@ See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projec
 - Add v2 features missing in v3.1
 
 Based on pyWriter v10.0.1
-
 
 ### v3.1.0
 

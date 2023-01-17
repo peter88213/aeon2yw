@@ -659,9 +659,8 @@ class JsonTimeline2(File):
                     self.novel.scenes[scId].scType = 3
 
         #--- Make sure every scene is assigned to a chapter.
-
-        # List all scenes already assigned to a chapter.
         scenesInChapters = []
+        # List all scenes already assigned to a chapter.
         for chId in self.novel.srtChapters:
             scenesInChapters.extend(self.novel.chapters[chId].srtScenes)
 
@@ -800,13 +799,11 @@ class JsonTimeline2(File):
                     linkedItems = list(set(linkedItems + source.scenes[scId].items))
 
                 #--- Collect arcs from source.
-                try:
-                    arcs = string_to_list(source.scenes[scId].scnArcs)
-                    for arc in arcs:
-                        if not arc in self._arcGuidsByName:
-                            self._arcGuidsByName[arc] = None
-                except:
-                    pass
+                arcs = string_to_list(source.scenes[scId].scnArcs)
+                for arc in arcs:
+                    if not arc in self._arcGuidsByName:
+                        self._arcGuidsByName[arc] = None
+                        # new arc; GUID is generated on writing
 
         # Check characters.
         srcChrNames = []
@@ -1017,6 +1014,9 @@ class JsonTimeline2(File):
                     for itId in source.scenes[srcId].items:
                         if itId in itIdsBySrcId:
                             self.novel.scenes[scId].items.append(itIdsBySrcId[itId])
+
+                #--- Update scene arcs.
+                self.novel.scenes[scId].scnArcs = source.scenes[srcId].scnArcs
 
                 #--- Update scene start date/time.
                 if source.scenes[srcId].date or source.scenes[srcId].time:
