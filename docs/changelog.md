@@ -8,6 +8,13 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v3.2.3
+
+- Fix a bug where events are doubled on updating aeonzip when scenes have been changed to "Normal" type.
+- Fix JSONDecodeError handling.
+
+Based on pyWriter v10.0.1
+
 ### v3.2.2
 
 - Fix a "KeyError" that might occur when writing events to aeonzip.

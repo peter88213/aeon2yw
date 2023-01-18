@@ -9,6 +9,7 @@ import codecs
 import json
 import os
 from pywriter.pywriter_globals import *
+from json import JSONDecodeError
 
 
 def open_timeline(filePath):
@@ -30,7 +31,7 @@ def open_timeline(filePath):
         raise Error(f'{_("No JSON part found in timeline data")}.')
     try:
         jsonData = json.loads(jsonStr)
-    except('JSONDecodeError'):
+    except JSONDecodeError:
         raise Error(f'{_("Invalid JSON data in timeline")}.')
     return jsonData
 

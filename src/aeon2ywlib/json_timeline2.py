@@ -516,6 +516,7 @@ class JsonTimeline2(File):
                 scId = create_id(self.novel.scenes)
                 self.novel.scenes[scId] = Scene()
                 self.novel.scenes[scId].title = evt['title']
+                # print(f'read creates {self.novel.scenes[scId].title}')
                 self.novel.scenes[scId].status = 1
 
             narrativeEvents.append(scId)
@@ -774,6 +775,10 @@ class JsonTimeline2(File):
         self.read()
         # create a new target novel from the aeon2 project file
 
+        targetEvents = []
+        for evt in self._jsonData['events']:
+            targetEvents.append(evt['title'])
+
         linkedCharacters = []
         linkedLocations = []
         linkedItems = []
@@ -847,6 +852,7 @@ class JsonTimeline2(File):
                 raise Error(_('Ambiguous Aeon event title "{}".').format(self.novel.scenes[scId].title))
 
             scIdsByTitle[self.novel.scenes[scId].title] = scId
+            print(f'merge finds {self.novel.scenes[scId].title}')
 
             #--- Mark non-scene events.
             # This is to recognize "Trash" scenes.
@@ -973,12 +979,17 @@ class JsonTimeline2(File):
 
                 if source.scenes[srcId].title in scIdsByTitle:
                     scId = scIdsByTitle[source.scenes[srcId].title]
+                elif source.scenes[srcId].title in targetEvents:
+                    # catch non-narrative events in the target
+                    continue
+
                 else:
                     #--- Create a new scene.
                     totalEvents += 1
                     scId = str(totalEvents)
                     self.novel.scenes[scId] = Scene()
                     self.novel.scenes[scId].title = source.scenes[srcId].title
+                    print(f'merge creates {self.novel.scenes[scId].title}')
                     scIdsByTitle[self.novel.scenes[scId].title] = scId
                     newEvent = build_event(self.novel.scenes[scId])
                     self._jsonData['events'].append(newEvent)
