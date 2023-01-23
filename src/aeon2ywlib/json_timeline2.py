@@ -1032,18 +1032,10 @@ class JsonTimeline2(File):
                 self.novel.scenes[scId].scnArcs = source.scenes[srcId].scnArcs
 
                 #--- Update scene start date/time.
-                if source.scenes[srcId].date or source.scenes[srcId].time:
-                    if source.scenes[srcId].date is not None:
-                        self.novel.scenes[scId].date = source.scenes[srcId].date
-                    if source.scenes[srcId].time is not None:
-                        self.novel.scenes[scId].time = source.scenes[srcId].time
-                elif source.scenes[srcId].minute or source.scenes[srcId].hour or source.scenes[srcId].day:
-                    self.novel.scenes[scId].date = None
-                    self.novel.scenes[scId].time = None
-                if source.scenes[srcId].minute is not None:
-                    self.novel.scenes[scId].minute = source.scenes[srcId].minute
-                if source.scenes[srcId].hour is not None:
-                    self.novel.scenes[scId].hour = source.scenes[srcId].hour
+                if source.scenes[srcId].date is not None:
+                    self.novel.scenes[scId].date = source.scenes[srcId].date
+                if source.scenes[srcId].time is not None:
+                    self.novel.scenes[scId].time = source.scenes[srcId].time
                 if source.scenes[srcId].day is not None:
                     self.novel.scenes[scId].day = source.scenes[srcId].day
 
