@@ -852,7 +852,7 @@ class JsonTimeline2(File):
                 raise Error(_('Ambiguous Aeon event title "{}".').format(self.novel.scenes[scId].title))
 
             scIdsByTitle[self.novel.scenes[scId].title] = scId
-            print(f'merge finds {self.novel.scenes[scId].title}')
+            # print(f'merge finds {self.novel.scenes[scId].title}')
 
             #--- Mark non-scene events.
             # This is to recognize "Trash" scenes.
@@ -989,7 +989,7 @@ class JsonTimeline2(File):
                     scId = str(totalEvents)
                     self.novel.scenes[scId] = Scene()
                     self.novel.scenes[scId].title = source.scenes[srcId].title
-                    print(f'merge creates {self.novel.scenes[scId].title}')
+                    # print(f'merge creates {self.novel.scenes[scId].title}')
                     scIdsByTitle[self.novel.scenes[scId].title] = scId
                     newEvent = build_event(self.novel.scenes[scId])
                     self._jsonData['events'].append(newEvent)
