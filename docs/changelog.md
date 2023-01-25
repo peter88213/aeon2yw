@@ -8,7 +8,7 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
-### v3.3.0
+### v3.3.1
 
 - Process unspecific date (day/hour/minute).
 

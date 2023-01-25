@@ -1050,11 +1050,10 @@ class JsonTimeline2(File):
                     self.novel.scenes[scId].time = source.scenes[srcId].time
 
                 #--- Calculate event date from unspecific scene date, if any:
-                if source.scenes[scId].day is not None:
-                    dayInt = int(source.scenes[scId].day)
+                if source.scenes[srcId].day is not None:
+                    dayInt = int(source.scenes[srcId].day)
                     sceneDelta = timedelta(days=dayInt)
                     self.novel.scenes[scId].date = (self.referenceDate + sceneDelta).isoformat().split('T')[0]
-                    self.novel.scenes[scId].day = None
                 elif (source.scenes[srcId].date is None) and (source.scenes[srcId].time is not None):
                     self.novel.scenes[scId].date = self.referenceDate.isoformat().split('T')[0]
                 else:
