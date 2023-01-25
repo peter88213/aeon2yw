@@ -37,7 +37,6 @@ class JsonTimeline2(File):
     # JSON representation of "yes" in Aeon2 "yes/no" properties
     DATE_LIMIT = (datetime(100, 1, 1) - datetime.min).total_seconds()
     # Dates before 100-01-01 can not be displayed properly in yWriter
-    DEFAULT_TIMESTAMP = (datetime.today() - datetime.min).total_seconds()
     PROPERTY_MOONPHASE = 'Moon phase'
 
     _SCN_KWVAR = [
@@ -110,6 +109,11 @@ class JsonTimeline2(File):
         self._propertyMoonphaseGuid = None
 
         # Miscellaneous
+        self.referenceDateStr = kwargs['default_date_time']
+        try:
+            self.referenceDate = datetime.fromisoformat(self.referenceDateStr)
+        except ValueError:
+            self.referenceDate = datetime.today()
         self._scenesOnly = kwargs['scenes_only']
         self._addMoonphase = kwargs['add_moonphase']
         self._sceneColor = kwargs['color_scene']
@@ -566,7 +570,17 @@ class JsonTimeline2(File):
                         # Restrict date/time calculation to dates within yWriter's range
                         sceneStart = datetime.min + timedelta(seconds=timestamp)
                         startDateTime = sceneStart.isoformat().split('T')
-                        self.novel.scenes[scId].date = startDateTime[0]
+
+                        # Has the source an unspecific date?
+                        if self.novel.scenes[scId].day is not None:
+                            # Convert date to day.
+                            sceneDelta = sceneStart - self.referenceDate
+                            self.novel.scenes[scId].day = str(sceneDelta.days)
+                        elif (self.novel.scenes[scId].time is not None) and (self.novel.scenes[scId].date is None):
+                            # Use the default date.
+                            self.novel.scenes[scId].day = '0'
+                        else:
+                            self.novel.scenes[scId].date = startDateTime[0]
                         self.novel.scenes[scId].time = startDateTime[1]
 
                         # Calculate duration
@@ -683,7 +697,7 @@ class JsonTimeline2(File):
                     self.novel.chapters[newChapterId].srtScenes.append(scId)
 
         if self._timestampMax == 0:
-            self._timestampMax = self.DEFAULT_TIMESTAMP
+            self._timestampMax = (self.referenceDate - datetime.min).total_seconds()
 
     def write(self):
         """Write instance variables to the file.
@@ -1032,12 +1046,19 @@ class JsonTimeline2(File):
                 self.novel.scenes[scId].scnArcs = source.scenes[srcId].scnArcs
 
                 #--- Update scene start date/time.
-                if source.scenes[srcId].date is not None:
-                    self.novel.scenes[scId].date = source.scenes[srcId].date
                 if source.scenes[srcId].time is not None:
                     self.novel.scenes[scId].time = source.scenes[srcId].time
-                if source.scenes[srcId].day is not None:
-                    self.novel.scenes[scId].day = source.scenes[srcId].day
+
+                #--- Calculate event date from unspecific scene date, if any:
+                if source.scenes[scId].day is not None:
+                    dayInt = int(source.scenes[scId].day)
+                    sceneDelta = timedelta(days=dayInt)
+                    self.novel.scenes[scId].date = (self.referenceDate + sceneDelta).isoformat().split('T')[0]
+                    self.novel.scenes[scId].day = None
+                elif (source.scenes[srcId].date is None) and (source.scenes[srcId].time is not None):
+                    self.novel.scenes[scId].date = self.referenceDate.isoformat().split('T')[0]
+                else:
+                    self.novel.scenes[scId].date = source.scenes[srcId].date
 
                 #--- Update scene duration.
                 if source.scenes[srcId].lastsMinutes is not None:
@@ -1056,7 +1077,7 @@ class JsonTimeline2(File):
 
         #--- Begin writing
 
-        # Add "Narrative" arc, if missing.
+        #--- Add "Narrative" arc, if missing.
         if self._entityNarrativeGuid is None:
             self._entityNarrativeGuid = get_uid('entityNarrativeGuid')
             self._jsonData['entities'].append(

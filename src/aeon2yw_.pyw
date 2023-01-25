@@ -18,6 +18,7 @@ from aeon2ywlib.aeon2_converter import Aeon2Converter
 SUFFIX = ''
 APPNAME = 'aeon2yw'
 SETTINGS = dict(
+    default_date_time='2023-01-01 00:00:00',
     narrative_arc='Narrative',
     property_description='Description',
     property_notes='Notes',

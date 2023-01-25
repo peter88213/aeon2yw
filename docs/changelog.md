@@ -8,6 +8,12 @@
 
 See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
 
+### v3.3.0
+
+- Process unspecific date.
+
+Based on pyWriter v11.0.2
+
 ### v3.2.3
 
 - Fix a bug where events are doubled on updating aeonzip when scenes have been changed to "Normal" type.
