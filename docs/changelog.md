@@ -10,7 +10,7 @@ See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projec
 
 ### v3.3.0
 
-- Process unspecific date.
+- Process unspecific date (day/hour/minute).
 
 Based on pyWriter v11.0.2
 
