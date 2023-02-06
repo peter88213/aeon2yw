@@ -28,6 +28,10 @@ class JsonTimeline2(File):
         merge(source) -- update instance variables from a source instance.
         write() -- write instance variables to the file.
 
+    Public class constants:
+        SCN_KWVAR -- List of the names of the scene keyword variables.
+        CRT_KWVAR -- List of the names of the character keyword variables.
+    
     Represents the .aeonzip file containing 'timeline.json'.
     """
     EXTENSION = '.aeonzip'
@@ -39,10 +43,10 @@ class JsonTimeline2(File):
     # Dates before 100-01-01 can not be displayed properly in yWriter
     PROPERTY_MOONPHASE = 'Moon phase'
 
-    _SCN_KWVAR = [
+    SCN_KWVAR = [
         'Field_SceneArcs',
         ]
-    _CRT_KWVAR = [
+    CRT_KWVAR = [
         'Field_BirthDate',
         'Field_DeathDate',
         ]
@@ -392,7 +396,7 @@ class JsonTimeline2(File):
                     ent['notes'] = ''
 
                 #  Initialize custom keyword variables.
-                for fieldName in self._CRT_KWVAR:
+                for fieldName in self.CRT_KWVAR:
                     self.novel.characters[crId].kwVar[fieldName] = None
 
             elif ent['entityType'] == self._typeLocationGuid:
@@ -411,7 +415,7 @@ class JsonTimeline2(File):
                 self._locationGuidById[lcId] = ent['guid']
 
                 # Initialize custom keyword variables.
-                for fieldName in self._LOC_KWVAR:
+                for fieldName in self.LOC_KWVAR:
                     self.novel.locations[lcId].kwVar[fieldName] = None
 
             elif ent['entityType'] == self._typeItemGuid:
@@ -430,7 +434,7 @@ class JsonTimeline2(File):
                 self._itemGuidById[itId] = ent['guid']
 
                 # Initialize custom keyword variables.
-                for fieldName in self._ITM_KWVAR:
+                for fieldName in self.ITM_KWVAR:
                     self.novel.items[itId].kwVar[fieldName] = None
 
         #--- Get GUID of user defined properties.
@@ -529,7 +533,7 @@ class JsonTimeline2(File):
                 self._displayIdMax = displayId
 
             #--- Initialize custom keyword variables.
-            for fieldName in self._SCN_KWVAR:
+            for fieldName in self.SCN_KWVAR:
                 self.novel.scenes[scId].kwVar[fieldName] = self.novel.scenes[scId].kwVar.get(fieldName, None)
 
             #--- Evaluate properties.
@@ -1068,7 +1072,7 @@ class JsonTimeline2(File):
                     self.novel.scenes[scId].lastsDays = source.scenes[srcId].lastsDays
 
                 #--- Update scene keyword variables.
-                for fieldName in self._SCN_KWVAR:
+                for fieldName in self.SCN_KWVAR:
                     try:
                         self.novel.scenes[scId].kwVar[fieldName] = source.scenes[srcId].kwVar[fieldName]
                     except:
