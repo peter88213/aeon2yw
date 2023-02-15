@@ -6,7 +6,7 @@
 
 ### Planned features
 
-See the [GitHub "features" project](https://github.com/peter88213/aeon2yw/projects/1).
+See the [GitHub "Features" project](https://github.com/users/peter88213/projects/9/views/1).
 
 ### v3.3.2
 
