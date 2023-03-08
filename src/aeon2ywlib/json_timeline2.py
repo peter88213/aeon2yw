@@ -1221,16 +1221,7 @@ class JsonTimeline2(File):
             evt['relationships'] = newRel
 
             #--- Assign "scene" events to the "Narrative" arc.
-            if self.novel.scenes[scId].scType == 1:
-                if narrativeArc in evt['relationships']:
-                    evt['relationships'].remove(narrativeArc)
-
-                #--- Clear arcs, if any.
-                sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
-                for arcName in sceneArcs:
-                    evt['relationships'].remove(arcs[arcName])
-
-            else:
+            if self.novel.scenes[scId].scType == 0:
                 if narrativeArc not in evt['relationships']:
                     evt['relationships'].append(narrativeArc)
 
@@ -1245,6 +1236,31 @@ class JsonTimeline2(File):
                             evt['relationships'].remove(arcs[arcName])
                         except:
                             pass
+
+            elif self.novel.scenes[scId].scType == 2:
+                if narrativeArc in evt['relationships']:
+                    evt['relationships'].remove(narrativeArc)
+
+                #--- Assign events to arcs.
+                sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
+                for arcName in arcs:
+                    if arcName in sceneArcs:
+                        if arcs[arcName] not in evt['relationships']:
+                            evt['relationships'].append(arcs[arcName])
+                    else:
+                        try:
+                            evt['relationships'].remove(arcs[arcName])
+                        except:
+                            pass
+
+            elif self.novel.scenes[scId].scType == 1:
+                if narrativeArc in evt['relationships']:
+                    evt['relationships'].remove(narrativeArc)
+
+                #--- Clear arcs, if any.
+                sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
+                for arcName in sceneArcs:
+                    evt['relationships'].remove(arcs[arcName])
 
         #--- Delete "Trash" scenes.
         events = []
