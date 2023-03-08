@@ -30,6 +30,7 @@ SETTINGS = dict(
     type_item='Item',
     color_scene='Red',
     color_event='Yellow',
+    color_point='Blue',
 )
 OPTIONS = dict(
     scenes_only=True,

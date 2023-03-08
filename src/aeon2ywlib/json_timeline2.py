@@ -122,6 +122,7 @@ class JsonTimeline2(File):
         self._addMoonphase = kwargs['add_moonphase']
         self._sceneColor = kwargs['color_scene']
         self._eventColor = kwargs['color_event']
+        self._pointColor = kwargs['color_point']
         self._timestampMax = 0
         self._displayIdMax = 0.0
         self._colors = {}
@@ -783,6 +784,8 @@ class JsonTimeline2(File):
             }
             if scene.scType == 1:
                 event['color'] = self._colors[self._eventColor]
+            elif scene.scType == 2:
+                event['color'] = self._colors[self._pointColor]
             else:
                 event['color'] = self._colors[self._sceneColor]
             return event
@@ -1009,6 +1012,7 @@ class JsonTimeline2(File):
                     self.novel.scenes[scId].title = source.scenes[srcId].title
                     # print(f'merge creates {self.novel.scenes[scId].title}')
                     scIdsByTitle[self.novel.scenes[scId].title] = scId
+                    self.novel.scenes[scId].scType = source.scenes[srcId].scType
                     newEvent = build_event(self.novel.scenes[scId])
                     self._jsonData['events'].append(newEvent)
                 self.novel.scenes[scId].status = source.scenes[srcId].status
