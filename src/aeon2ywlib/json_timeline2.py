@@ -998,6 +998,13 @@ class JsonTimeline2(File):
                         self.novel.scenes[scId].scType = 1
                     continue
 
+                if source.scenes[srcId].scType == 2 and source.scenes[srcId].scnArcs is None:
+                    # Remove "non-point" Todo scene from the "Narrative" arc.
+                    if source.scenes[srcId].title in scIdsByTitle:
+                        scId = scIdsByTitle[source.scenes[srcId].title]
+                        self.novel.scenes[scId].scType = 1
+                    continue
+
                 if source.scenes[srcId].title in scIdsByTitle:
                     scId = scIdsByTitle[source.scenes[srcId].title]
                 elif source.scenes[srcId].title in targetEvents:

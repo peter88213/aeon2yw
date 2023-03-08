@@ -8,6 +8,14 @@
 
 See the [GitHub "Features" project](https://github.com/users/peter88213/projects/9/views/1).
 
+### v3.4.0
+
+- New arc points in yw7 are assigned a different color when converting to aeonzip.
+- New arc points in yw7 are no longer assigned to the "Narrative" arc when converting to aeonzip.
+- Arc points existing in aeonzip are not synchronized with yw7.
+
+Based on PyWriter v12.1.2
+
 ### v3.3.3
 
 - Reduce the memory use by discarding the docstrings on building.
