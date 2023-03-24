@@ -13,8 +13,8 @@ def get_sub_guid(key, size):
     """Return a string generated from a bytes key.
     
     Positional arguments:
-        key -- bytes: key.
-        size -- length of the returned string.
+        key: bytes -- key.
+        size: int -- length of the returned string.
     """
     keyInt = int.from_bytes(key, byteorder='big')
     guid = ''

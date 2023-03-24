@@ -55,22 +55,22 @@ class JsonTimeline2(File):
         """Initialize instance variables.
 
         Positional arguments:
-            filePath -- str: path to the file represented by the File instance.
+            filePath: str -- path to the file represented by the File instance.
             
         Required keyword arguments:
-            narrative_arc -- str: name of the user-defined "Narrative" arc.
-            property_description -- str: name of the user-defined scene description property.
-            property_notes -- str: name of the user-defined scene notes property.
-            role_location -- str: name of the user-defined role for scene locations.
-            role_item -- str: name of the user-defined role for items in a scene.
-            role_character -- str: name of the user-defined role for characters in a scene.
-            type_character -- str: name of the user-defined "Character" type.
-            type_location -- str: name of the user-defined "Location" type.
-            type_item -- str: name of the user-defined "Item" type.
-            scenes_only -- bool: synchronize only "Normal" scenes.
-            color_scene -- str: color of new scene events.
-            color_event -- str: color of new non-scene events.
-            add_moonphase -- bool: add a moon phase property to each event.
+            narrative_arc: str -- name of the user-defined "Narrative" arc.
+            property_description: str -- name of the user-defined scene description property.
+            property_notes: str -- name of the user-defined scene notes property.
+            role_location: str -- name of the user-defined role for scene locations.
+            role_item: str -- name of the user-defined role for items in a scene.
+            role_character: str -- name of the user-defined role for characters in a scene.
+            type_character: str -- name of the user-defined "Character" type.
+            type_location: str -- name of the user-defined "Location" type.
+            type_item: str -- name of the user-defined "Item" type.
+            scenes_only: bool -- synchronize only "Normal" scenes.
+            color_scene: str -- color of new scene events.
+            color_event: str -- color of new non-scene events.
+            add_moonphase: bool -- add a moon phase property to each event.
         
         If scenes_only is True: synchronize only "Normal" scenes.
         If scenes_only is False: synchronize "Notes" scenes as well.            
