@@ -8,6 +8,12 @@
 
 See the [GitHub "Features" project](https://github.com/users/peter88213/projects/9/views/1).
 
+### v3.4.1
+
+- Library update.
+
+Based on PyWriter v12.4.1
+
 ### v3.4.0
 
 - New arc points in yw7 are assigned a different color when converting to aeonzip.

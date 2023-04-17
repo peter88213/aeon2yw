@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="aeon2yw" basedir=".">
-	<property name="version" value="3.4.0" />
+	<property name="version" value="3.4.1" />
 	<property name="test-app" value="aeon2yw" />
 	
 	<property name="source-path" location="../src" />
@@ -62,7 +62,7 @@
 			<fileset dir="${source-path}/icons" />
 		</copy>
 		
-		<zip destfile="${dist-path}/${release}.zip" basedir="${build-path}/${release}" />
+		<zip destfile="${dist-path}/${release}.zip" basedir="${build-path}" />
 		
 		<copy file="${docs-path}/template/index.md" overwrite="True" todir="${docs-path}" />
 		<replace encoding="utf-8" file="${docs-path}/index.md" token="0.99.0" value="${version}" />

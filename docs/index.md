@@ -1,3 +1,5 @@
+# aeon2yw
+
 [![Screenshot: Example](Screenshots/screen01.png)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/docs/Screenshots/screen01.png)
 
 [yWriter](http://spacejock.com/yWriter7.html) is a free word processor written by Australian author and programmer Simon Haynes. yWriter's strengths are structuring novels and controlling the progress during the writing process. With the *aeon2yw* Python script, you can convert a novel outline created with Aeon Timeline 2 into a new yWriter project.
@@ -43,12 +45,12 @@ The application is ready for internationalization with GNU gettext. A German loc
 
 ## Download and install
 
-[Download the latest release (version 3.4.0)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v3.4.0.zip)
+[Download the latest release (version 3.4.1)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v3.4.1.zip)
 
-- Unzip the downloaded zipfile "aeon2yw_v3.4.0.zip" into a new folder.
+- Extract the "aeon2yw_v3.4.1" folder from the downloaded zipfile "aeon2yw_v3.4.1.zip".
 - Move into this new folder and launch **setup.pyw**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
-- Open "README.md" for usage instructions.
+- Open "README.md" for further instructions.
 
 ### Note for Linux users
 
