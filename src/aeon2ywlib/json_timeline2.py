@@ -400,6 +400,24 @@ class JsonTimeline2(File):
                 for fieldName in self.CRT_KWVAR:
                     self.novel.characters[crId].kwVar[fieldName] = None
 
+                # Get birth date.
+                entitiesCreateRangePosition = ent.get('createRangePosition', None)
+                if entitiesCreateRangePosition:
+                    birthTimestamp = entitiesCreateRangePosition.get('timestamp')
+                    if birthTimestamp:
+                        birthDate = datetime.min + timedelta(seconds=birthTimestamp)
+                        birthDate, __ = birthDate.isoformat().split('T')
+                        self.novel.characters[crId].kwVar['Field_BirthDate'] = birthDate
+
+                # Get death date.
+                entitiesDestroyRangePosition = ent.get('destroyRangePosition', None)
+                if entitiesDestroyRangePosition:
+                    deathTimestamp = entitiesDestroyRangePosition.get('timestamp')
+                    if deathTimestamp:
+                        deathDate = datetime.min + timedelta(seconds=deathTimestamp)
+                        deathDate, __ = deathDate.isoformat().split('T')
+                        self.novel.characters[crId].kwVar['Field_DeathDate'] = deathDate
+
             elif ent['entityType'] == self._typeLocationGuid:
                 if ent['name'] in locationNames:
                     raise Error(_('Ambiguous Aeon location "{}".').format(ent['name']))
