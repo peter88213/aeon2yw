@@ -20,6 +20,7 @@ APPNAME = 'aeon2yw'
 SETTINGS = dict(
     default_date_time='2023-01-01 00:00:00',
     narrative_arc='Narrative',
+    property_yw7_sync='yW7sync',
     property_description='Description',
     property_notes='Notes',
     role_location='Location',

@@ -4,6 +4,7 @@ Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
+import re
 from datetime import datetime
 from datetime import timedelta
 from pywriter.pywriter_globals import *
@@ -83,6 +84,7 @@ class JsonTimeline2(File):
         self._entityNarrative = kwargs['narrative_arc']
 
         # JSON[template][properties][name]
+        self._propertyYw7sync = kwargs['property_yw7_sync']
         self._propertyDesc = kwargs['property_description']
         self._propertyNotes = kwargs['property_notes']
 
@@ -108,6 +110,7 @@ class JsonTimeline2(File):
         self._roleLocationGuid = None
         self._roleItemGuid = None
         self._entityNarrativeGuid = None
+        self._propertyYw7syncGuid = None
         self._propertyDescGuid = None
         self._propertyNotesGuid = None
         self._propertyMoonphaseGuid = None
@@ -457,12 +460,16 @@ class JsonTimeline2(File):
                     self.novel.items[itId].kwVar[fieldName] = None
 
         #--- Get GUID of user defined properties.
+        hasPropertyYw7sysnc = False
         hasPropertyNotes = False
         hasPropertyDesc = False
         for tplPrp in self._jsonData['template']['properties']:
             if tplPrp['name'] == self._propertyDesc:
                 self._propertyDescGuid = tplPrp['guid']
                 hasPropertyDesc = True
+            elif tplPrp['name'] == self._propertyYw7sync:
+                self._propertyYw7syncGuid = tplPrp['guid']
+                hasPropertyYw7sysnc = True
             elif tplPrp['name'] == self._propertyNotes:
                 self._propertyNotesGuid = tplPrp['guid']
                 hasPropertyNotes = True
@@ -484,6 +491,20 @@ class JsonTimeline2(File):
                 'name': self._propertyNotes,
                 'sortOrder': 0,
                 'type': 'multitext'
+            })
+        if not hasPropertyYw7sysnc:
+            n = len(self._jsonData['template']['properties'])
+            self._propertyYw7syncGuid = get_uid('_propertyYw7syncGuid')
+            self._jsonData['template']['properties'].insert(0, {
+                'calcMode': '',
+                'calculate': False,
+                'fadeEvents': False,
+                'guid': self._propertyYw7syncGuid,
+                'icon': 'tag',
+                'isMandatory': False,
+                'name': self._propertyYw7sync,
+                'sortOrder': n,
+                'type': 'text'
             })
         if not hasPropertyDesc:
             n = len(self._jsonData['template']['properties'])
@@ -533,7 +554,8 @@ class JsonTimeline2(File):
             evt['title'] = evt['title'].strip()
             scnTitles.append(evt['title'])
             if evt['title'] in targetScIdByTitle:
-                scId = targetScIdByTitle[evt['title']]
+                existingScId = targetScIdByTitle[evt['title']]
+                actualScene = self.novel.scenes[existingScId]
             else:
                 if self._scenesOnly and not isNarrative:
                     # don't create a "Notes" scene
@@ -541,10 +563,10 @@ class JsonTimeline2(File):
 
                 # Create a new scene.
                 scId = create_id(self.novel.scenes)
-                self.novel.scenes[scId] = Scene()
-                self.novel.scenes[scId].title = evt['title']
-                # print(f'read creates {self.novel.scenes[scId].title}')
-                self.novel.scenes[scId].status = 1
+                actualScene = Scene()
+                actualScene.title = evt['title']
+                # print(f'read creates {actualScene.title}')
+                actualScene.status = 1
 
             narrativeEvents.append(scId)
             displayId = float(evt['displayId'])
@@ -553,24 +575,32 @@ class JsonTimeline2(File):
 
             #--- Initialize custom keyword variables.
             for fieldName in self.SCN_KWVAR:
-                self.novel.scenes[scId].kwVar[fieldName] = self.novel.scenes[scId].kwVar.get(fieldName, None)
+                actualScene.kwVar[fieldName] = actualScene.kwVar.get(fieldName, None)
 
             #--- Evaluate properties.
             hasDescription = False
             hasNotes = False
+            ywScId = None
             for evtVal in evt['values']:
 
                 # Get scene description.
                 if evtVal['property'] == self._propertyDescGuid:
                     hasDescription = True
                     if evtVal['value']:
-                        self.novel.scenes[scId].desc = evtVal['value']
+                        actualScene.desc = evtVal['value']
 
                 # Get scene notes.
                 elif evtVal['property'] == self._propertyNotesGuid:
                     hasNotes = True
                     if evtVal['value']:
-                        self.novel.scenes[scId].notes = evtVal['value']
+                        actualScene.notes = evtVal['value']
+
+                # Get scene ID.
+                elif evtVal['property'] == self._propertyYw7syncGuid:
+                    if evtVal['value']:
+                        sceneMatch = re.search('ScID\:([0-9]+)', evtVal['value'])
+                        if sceneMatch is not None:
+                            ywScId = sceneMatch.group(1)
 
             #--- Add description and scene notes, if missing.
             if not hasDescription:
@@ -580,9 +610,9 @@ class JsonTimeline2(File):
 
             #--- Get scene tags.
             if evt['tags']:
-                self.novel.scenes[scId].tags = []
+                actualScene.tags = []
                 for evtTag in evt['tags']:
-                    self.novel.scenes[scId].tags.append(evtTag)
+                    actualScene.tags.append(evtTag)
 
             #--- Get date/time/duration
             timestamp = 0
@@ -595,16 +625,16 @@ class JsonTimeline2(File):
                         startDateTime = sceneStart.isoformat().split('T')
 
                         # Has the source an unspecific date?
-                        if self.novel.scenes[scId].day is not None:
+                        if actualScene.day is not None:
                             # Convert date to day.
                             sceneDelta = sceneStart - self.referenceDate
-                            self.novel.scenes[scId].day = str(sceneDelta.days)
-                        elif (self.novel.scenes[scId].time is not None) and (self.novel.scenes[scId].date is None):
+                            actualScene.day = str(sceneDelta.days)
+                        elif (actualScene.time is not None) and (actualScene.date is None):
                             # Use the default date.
-                            self.novel.scenes[scId].day = '0'
+                            actualScene.day = '0'
                         else:
-                            self.novel.scenes[scId].date = startDateTime[0]
-                        self.novel.scenes[scId].time = startDateTime[1]
+                            actualScene.date = startDateTime[0]
+                        actualScene.time = startDateTime[1]
 
                         # Calculate duration
                         if 'years' in evtRgv['span'] or 'months' in evtRgv['span']:
@@ -642,28 +672,23 @@ class JsonTimeline2(File):
                         lastsMinutes %= 60
                         lastsDays += lastsHours // 24
                         lastsHours %= 24
-                        self.novel.scenes[scId].lastsDays = str(lastsDays)
-                        self.novel.scenes[scId].lastsHours = str(lastsHours)
-                        self.novel.scenes[scId].lastsMinutes = str(lastsMinutes)
+                        actualScene.lastsDays = str(lastsDays)
+                        actualScene.lastsHours = str(lastsHours)
+                        actualScene.lastsMinutes = str(lastsMinutes)
                     break
 
-            # Use the timestamp for chronological sorting.
-            if not timestamp in scIdsByDate:
-                scIdsByDate[timestamp] = []
-            scIdsByDate[timestamp].append(scId)
-
             #--- Find scenes and get characters, locations, and items.
-            self.novel.scenes[scId].scType = 1
+            actualScene.scType = 1
             # type = "Notes"
-            self.novel.scenes[scId].characters = None
-            self.novel.scenes[scId].locations = None
-            self.novel.scenes[scId].items = None
+            actualScene.characters = None
+            actualScene.locations = None
+            actualScene.items = None
             scnArcs = []
             for evtRel in evt['relationships']:
                 if evtRel['role'] == self._roleArcGuid:
                     # Make scene event "Normal" type scene.
                     if self._entityNarrativeGuid and evtRel['entity'] == self._entityNarrativeGuid:
-                        self.novel.scenes[scId].scType = 0
+                        actualScene.scType = 0
                         # type = "Normal"
                         if timestamp > self._timestampMax:
                             self._timestampMax = timestamp
@@ -673,23 +698,32 @@ class JsonTimeline2(File):
                         if evtRel['entity'] == self._arcGuidsByName[arcName]:
                             scnArcs.append(arcName)
                 elif evtRel['role'] == self._roleCharacterGuid:
-                    if self.novel.scenes[scId].characters is None:
-                        self.novel.scenes[scId].characters = []
+                    if actualScene.characters is None:
+                        actualScene.characters = []
                     crId = crIdsByGuid[evtRel['entity']]
-                    self.novel.scenes[scId].characters.append(crId)
+                    actualScene.characters.append(crId)
                 elif evtRel['role'] == self._roleLocationGuid:
-                    if self.novel.scenes[scId].locations is None:
-                        self.novel.scenes[scId].locations = []
+                    if actualScene.locations is None:
+                        actualScene.locations = []
                     lcId = lcIdsByGuid[evtRel['entity']]
-                    self.novel.scenes[scId].locations.append(lcId)
+                    actualScene.locations.append(lcId)
                 elif evtRel['role'] == self._roleItemGuid:
-                    if self.novel.scenes[scId].items is None:
-                        self.novel.scenes[scId].items = []
+                    if actualScene.items is None:
+                        actualScene.items = []
                     itId = itIdsByGuid[evtRel['entity']]
-                    self.novel.scenes[scId].items.append(itId)
+                    actualScene.items.append(itId)
 
             # Add arcs to the scene keyword variables.
-            self.novel.scenes[scId].scnArcs = list_to_string(scnArcs)
+            actualScene.scnArcs = list_to_string(scnArcs)
+
+            if ywScId is not None:
+                scId = ywScId
+            self.novel.scenes[scId] = actualScene
+
+            # Use the timestamp for chronological sorting.
+            if not timestamp in scIdsByDate:
+                scIdsByDate[timestamp] = []
+            scIdsByDate[timestamp].append(scId)
 
         #--- Mark scenes deleted in Aeon "Unused".
         for scId in self.novel.scenes:
@@ -798,6 +832,10 @@ class JsonTimeline2(File):
                     {
                     'property': self._propertyDescGuid,
                     'value': ''
+                },
+                    {
+                    'property': self._propertyYw7syncGuid,
+                    'value': ''
                 }],
             }
             if scene.scType == 1:
@@ -824,16 +862,16 @@ class JsonTimeline2(File):
 
         #--- Check the source for ambiguous titles.
         # Check scenes.
-        srcScnTitles = []
+        srcScIdsByTitles = {}
         for chId in source.chapters:
             if source.chapters[chId].isTrash:
                 continue
 
             for scId in source.chapters[chId].srtScenes:
-                if source.scenes[scId].title in srcScnTitles:
+                if source.scenes[scId].title in srcScIdsByTitles:
                     raise Error(_('Ambiguous yWriter scene title "{}".').format(source.scenes[scId].title))
 
-                srcScnTitles.append(source.scenes[scId].title)
+                srcScIdsByTitles[source.scenes[scId].title] = scId
 
                 #--- Collect characters, locations, and items assigned to scenes.
                 if source.scenes[scId].characters:
@@ -895,7 +933,7 @@ class JsonTimeline2(File):
 
             #--- Mark non-scene events.
             # This is to recognize "Trash" scenes.
-            if not self.novel.scenes[scId].title in srcScnTitles:
+            if not self.novel.scenes[scId].title in srcScIdsByTitles:
                 if not self.novel.scenes[scId].scType == 1:
                     self._trashEvents.append(scId)
 
@@ -1172,6 +1210,7 @@ class JsonTimeline2(File):
 
             #--- Set scene description, notes, and moon phase.
             hasMoonphase = False
+            hasYw7sync = False
             for evtVal in evt['values']:
 
                 # Set scene description.
@@ -1189,9 +1228,16 @@ class JsonTimeline2(File):
                         evtVal['value'] = eventMoonphase
                         hasMoonphase = True
 
+                # Set yw7 sync ID.
+                elif evtVal['property'] == self._propertyYw7syncGuid:
+                        evtVal['value'] = f'ScID:{srcScIdsByTitles[evt["title"]]}'
+                        hasYw7sync = True
+
             #--- Add missing event properties.
             if not hasMoonphase and self._propertyMoonphaseGuid is not None:
                 evt['values'].append({'property': self._propertyMoonphaseGuid, 'value': eventMoonphase})
+            if not hasYw7sync and self._propertyYw7syncGuid is not None:
+                evt['values'].append({'property': self._propertyYw7syncGuid, 'value': scId})
 
             #--- Set scene tags.
             if self.novel.scenes[scId].tags:
