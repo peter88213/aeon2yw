@@ -166,6 +166,8 @@ class JsonTimeline2(File):
         #--- Get GUID of user defined types and roles.
         for tplTyp in self._jsonData['template']['types']:
             if tplTyp['name'] == 'Arc':
+
+                # Identify arc type.
                 self._typeArcGuid = tplTyp['guid']
                 for tplTypRol in tplTyp['roles']:
                     if tplTypRol['name'] == 'Arc':
@@ -173,19 +175,33 @@ class JsonTimeline2(File):
                     elif tplTypRol['name'] == 'Storyline':
                         self._roleStorylineGuid = tplTypRol['guid']
             elif tplTyp['name'] == self._typeCharacter:
+
+                # Identify character type.
                 self._typeCharacterGuid = tplTyp['guid']
+
+                # Identify character role.
                 for tplTypRol in tplTyp['roles']:
                     if tplTypRol['name'] == self._roleCharacter:
                         self._roleCharacterGuid = tplTypRol['guid']
+                        break
+
             elif tplTyp['name'] == self._typeLocation:
+
+                # Identify location type.
                 self._typeLocationGuid = tplTyp['guid']
+
+                # Identify location role.
                 for tplTypRol in tplTyp['roles']:
                     if tplTypRol['name'] == self._roleLocation:
                         self._roleLocationGuid = tplTypRol['guid']
                         break
 
             elif tplTyp['name'] == self._typeItem:
+
+                # Identify item type.
                 self._typeItemGuid = tplTyp['guid']
+
+                # Identify item role.
                 for tplTypRol in tplTyp['roles']:
                     if tplTypRol['name'] == self._roleItem:
                         self._roleItemGuid = tplTypRol['guid']
@@ -326,6 +342,7 @@ class JsonTimeline2(File):
         # This means, there may be already elements with IDs.
         # In order to reuse them, they are collected in the "target element ID by title" dictionaries.
 
+        #--- Analyze the target yw7 data.
         targetScIdByTitle = {}
         for scId in self.novel.scenes:
             title = self.novel.scenes[scId].title
@@ -374,6 +391,8 @@ class JsonTimeline2(File):
 
         for ent in self._jsonData['entities']:
             if ent['entityType'] == self._typeArcGuid:
+
+                #--- Get arc.
                 self._arcCount += 1
                 if ent['name'] == self._entityNarrative:
                     self._entityNarrativeGuid = ent['guid']
@@ -381,6 +400,8 @@ class JsonTimeline2(File):
                     self._arcGuidsByName[ent['name']] = ent['guid']
 
             elif ent['entityType'] == self._typeCharacterGuid:
+
+                #--- Get character.
                 if ent['name'] in characterNames:
                     raise Error(_('Ambiguous Aeon character "{}".').format(ent['name']))
 
@@ -422,6 +443,8 @@ class JsonTimeline2(File):
                         self.novel.characters[crId].kwVar['Field_DeathDate'] = deathDate
 
             elif ent['entityType'] == self._typeLocationGuid:
+
+                #--- Get location.
                 if ent['name'] in locationNames:
                     raise Error(_('Ambiguous Aeon location "{}".').format(ent['name']))
 
@@ -441,6 +464,8 @@ class JsonTimeline2(File):
                     self.novel.locations[lcId].kwVar[fieldName] = None
 
             elif ent['entityType'] == self._typeItemGuid:
+
+                #--- Get item.
                 if ent['name'] in itemNames:
                     raise Error(_('Ambiguous Aeon item "{}".').format(ent['name']))
 
@@ -478,6 +503,8 @@ class JsonTimeline2(File):
 
         #--- Create user defined properties, if missing.
         if not hasPropertyNotes:
+
+            # Create Notes property.
             for tplPrp in self._jsonData['template']['properties']:
                 tplPrp['sortOrder'] += 1
             self._propertyNotesGuid = get_uid('_propertyNotesGuid')
@@ -493,6 +520,8 @@ class JsonTimeline2(File):
                 'type': 'multitext'
             })
         if not hasPropertyYw7sysnc:
+
+            # Create yw7sync property.
             n = len(self._jsonData['template']['properties'])
             self._propertyYw7syncGuid = get_uid('_propertyYw7syncGuid')
             self._jsonData['template']['properties'].insert(0, {
@@ -507,6 +536,8 @@ class JsonTimeline2(File):
                 'type': 'text'
             })
         if not hasPropertyDesc:
+
+            # Create Description property.
             n = len(self._jsonData['template']['properties'])
             self._propertyDescGuid = get_uid('_propertyDescGuid')
             self._jsonData['template']['properties'].append({
@@ -521,6 +552,8 @@ class JsonTimeline2(File):
                 'type': 'multitext'
             })
         if self._addMoonphase and self._propertyMoonphaseGuid is None:
+
+            # Add moonphase property.
             n = len(self._jsonData['template']['properties'])
             self._propertyMoonphaseGuid = get_uid('_propertyMoonphaseGuid')
             self._jsonData['template']['properties'].append({
@@ -541,7 +574,7 @@ class JsonTimeline2(File):
         narrativeEvents = []
         for evt in self._jsonData['events']:
 
-            # Find out whether the event is associated to a normal scene:
+            # Find out whether the event is associated to a normal scene.
             isNarrative = False
             for evtRel in evt['relationships']:
                 if evtRel['role'] == self._roleArcGuid:
@@ -554,21 +587,22 @@ class JsonTimeline2(File):
             evt['title'] = evt['title'].strip()
             scnTitles.append(evt['title'])
             if evt['title'] in targetScIdByTitle:
+
+                # Reuse a target scene.
                 existingScId = targetScIdByTitle[evt['title']]
                 actualScene = self.novel.scenes[existingScId]
-            else:
-                if self._scenesOnly and not isNarrative:
-                    # don't create a "Notes" scene
-                    continue
+            elif self._scenesOnly and not isNarrative:
 
+                # Don't create a "Notes" scene.
+                continue
+
+            else:
                 # Create a new scene.
-                scId = create_id(self.novel.scenes)
                 actualScene = Scene()
                 actualScene.title = evt['title']
                 # print(f'read creates {actualScene.title}')
                 actualScene.status = 1
 
-            narrativeEvents.append(scId)
             displayId = float(evt['displayId'])
             if displayId > self._displayIdMax:
                 self._displayIdMax = displayId
@@ -718,12 +752,17 @@ class JsonTimeline2(File):
 
             if ywScId is not None:
                 scId = ywScId
+            else:
+                # TODO: create scene ID.
+                pass
             self.novel.scenes[scId] = actualScene
 
             # Use the timestamp for chronological sorting.
             if not timestamp in scIdsByDate:
                 scIdsByDate[timestamp] = []
             scIdsByDate[timestamp].append(scId)
+
+            narrativeEvents.append(scId)
 
         #--- Mark scenes deleted in Aeon "Unused".
         for scId in self.novel.scenes:
