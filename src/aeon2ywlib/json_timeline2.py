@@ -137,18 +137,13 @@ class JsonTimeline2(File):
         self._itemGuidById = {}
         self._trashEvents = []
         self._arcGuidsByName = {}
+        self._scIdByTitle = {}
+        self._crIdByTitle = {}
+        self._lcIdByTitle = {}
+        self._itIdByTitle = {}
 
-    def read(self):
-        """Parse the file and get the instance variables.
-        
-        Read the JSON part of the Aeon Timeline 2 file located at filePath, 
-        and build a yWriter novel structure.
-        - Events marked as scenes are converted to scenes in one single chapter.
-        - Other events are converted to "Notes" scenes in another chapter.
-        Raise the "Error" exception in case of error. 
-        Overrides the superclass method.
-        """
-        self._jsonData = open_timeline(self.filePath)
+    def _analyze_json_data(self):
+        """Get definitions and GUIDs; add missing properties and types."""
 
         #--- Get the color definitions.
         for tplCol in self._jsonData['template']['colors']:
@@ -338,48 +333,172 @@ class JsonTimeline2(File):
                     'sortOrder': typeCount
                 })
 
+        #--- Get GUID of user defined properties.
+        hasPropertyYw7sysnc = False
+        hasPropertyNotes = False
+        hasPropertyDesc = False
+        for tplPrp in self._jsonData['template']['properties']:
+            if tplPrp['name'] == self._propertyDesc:
+                self._propertyDescGuid = tplPrp['guid']
+                hasPropertyDesc = True
+            elif tplPrp['name'] == self._propertyYw7sync:
+                self._propertyYw7syncGuid = tplPrp['guid']
+                hasPropertyYw7sysnc = True
+            elif tplPrp['name'] == self._propertyNotes:
+                self._propertyNotesGuid = tplPrp['guid']
+                hasPropertyNotes = True
+            elif tplPrp['name'] == self._propertyMoonphase:
+                self._propertyMoonphaseGuid = tplPrp['guid']
+
+        #--- Create user defined properties, if missing.
+        if not hasPropertyNotes:
+
+            # Create Notes property.
+            for tplPrp in self._jsonData['template']['properties']:
+                tplPrp['sortOrder'] += 1
+            self._propertyNotesGuid = get_uid('_propertyNotesGuid')
+            self._jsonData['template']['properties'].insert(0, {
+                'calcMode': 'default',
+                'calculate': False,
+                'fadeEvents': False,
+                'guid': self._propertyNotesGuid,
+                'icon': 'tag',
+                'isMandatory': False,
+                'name': self._propertyNotes,
+                'sortOrder': 0,
+                'type': 'multitext'
+            })
+        if not hasPropertyDesc:
+
+            # Create Description property.
+            n = len(self._jsonData['template']['properties'])
+            self._propertyDescGuid = get_uid('_propertyDescGuid')
+            self._jsonData['template']['properties'].append({
+                'calcMode': 'default',
+                'calculate': False,
+                'fadeEvents': False,
+                'guid': self._propertyDescGuid,
+                'icon': 'tag',
+                'isMandatory': False,
+                'name': self._propertyDesc,
+                'sortOrder': n,
+                'type': 'multitext'
+            })
+        if self._addMoonphase and self._propertyMoonphaseGuid is None:
+
+            # Add moonphase property.
+            n = len(self._jsonData['template']['properties'])
+            self._propertyMoonphaseGuid = get_uid('_propertyMoonphaseGuid')
+            self._jsonData['template']['properties'].append({
+                'calcMode': 'default',
+                'calculate': False,
+                'fadeEvents': False,
+                'guid': self._propertyMoonphaseGuid,
+                'icon': 'flag',
+                'isMandatory': False,
+                'name': self._propertyMoonphase,
+                'sortOrder': n,
+                'type': 'text'
+            })
+        if not hasPropertyYw7sysnc:
+
+            # Create yw7sync property.
+            n = len(self._jsonData['template']['properties'])
+            self._propertyYw7syncGuid = get_uid('_propertyYw7syncGuid')
+            self._jsonData['template']['properties'].insert(0, {
+                'calcMode': '',
+                'calculate': False,
+                'fadeEvents': False,
+                'guid': self._propertyYw7syncGuid,
+                'icon': 'tag',
+                'isMandatory': False,
+                'name': self._propertyYw7sync,
+                'sortOrder': n,
+                'type': 'text'
+            })
+        else:
+            self._get_json_ids()
+
+    def _get_json_ids(self):
+        """Get scene/character/location/item IDs by title."""
+        for evt in self._jsonData['events']:
+            if evt['title']:
+                title = evt['title'].strip()
+                if title in self._scIdByTitle:
+                    raise Error(_('Ambiguous Aeon scene title "{}".').format(title))
+                for evtVal in evt['values']:
+                    if evtVal['property'] == self._propertyYw7syncGuid:
+                        if evtVal['value']:
+                            sceneMatch = re.search('ScID\:([0-9]+)', evtVal['value'])
+                            if sceneMatch is not None:
+                                scId = sceneMatch.group(1)
+                                self._scIdByTitle[title] = scId
+                        break
+
+        for ent in self._jsonData['entities']:
+            if ent['entityType'] == self._typeCharacterGuid:
+                pass
+            elif ent['entityType'] == self._typeLocationGuid:
+                pass
+            elif ent['entityType'] == self._typeItemGuid:
+                pass
+
+    def _get_yw7_ids(self):
+        """Get scene/character/location/item IDs by title."""
+        self._scIdByTitle = {}
+        for scId in self.novel.scenes:
+            title = self.novel.scenes[scId].title
+            if title:
+                if title in self._scIdByTitle:
+                    raise Error(_('Ambiguous yWriter scene title "{}".').format(title))
+
+                self._scIdByTitle[title] = scId
+
+        self._crIdByTitle = {}
+        for crId in self.novel.characters:
+            title = self.novel.characters[crId].title
+            if title:
+                if title in self._crIdByTitle:
+                    raise Error(_('Ambiguous yWriter character "{}".').format(title))
+
+                self._crIdByTitle[title] = crId
+
+        self._lcIdByTitle = {}
+        for lcId in self.novel.locations:
+            title = self.novel.locations[lcId].title
+            if title:
+                if title in self._lcIdByTitle:
+                    raise Error(_('Ambiguous yWriter location "{}".').format(title))
+
+                self._lcIdByTitle[title] = lcId
+
+        self._ItIdByTitle = {}
+        for itId in self.novel.items:
+            title = self.novel.items[itId].title
+            if title:
+                if title in self._ItIdByTitle:
+                    raise Error(_('Ambiguous yWriter item "{}".').format(title))
+
+                self._ItIdByTitle[title] = itId
+
+    def read(self):
+        """Parse the file and get the instance variables.
+        
+        Read the JSON part of the Aeon Timeline 2 file located at filePath, 
+        and build a yWriter novel structure.
+        - Events marked as scenes are converted to scenes in one single chapter.
+        - Other events are converted to "Notes" scenes in another chapter.
+        Raise the "Error" exception in case of error. 
+        Overrides the superclass method.
+        """
+        self._jsonData = open_timeline(self.filePath)
+        self._analyze_json_data()
+
         #--- Get arcs, characters, locations, and items.
         # At the beginning, self.novel contains the  target data (if syncronizing an existing project),
         # or a newly instantiated Novel object (if creating a project).
         # This means, there may be already elements with IDs.
         # In order to reuse them, they are collected in the "target element ID by title" dictionaries.
-
-        #--- Analyze the target yw7 data.
-        targetScIdByTitle = {}
-        for scId in self.novel.scenes:
-            title = self.novel.scenes[scId].title
-            if title:
-                if title in targetScIdByTitle:
-                    raise Error(_('Ambiguous yWriter scene title "{}".').format(title))
-
-                targetScIdByTitle[title] = scId
-
-        targetCrIdByTitle = {}
-        for crId in self.novel.characters:
-            title = self.novel.characters[crId].title
-            if title:
-                if title in targetCrIdByTitle:
-                    raise Error(_('Ambiguous yWriter character "{}".').format(title))
-
-                targetCrIdByTitle[title] = crId
-
-        targetLcIdByTitle = {}
-        for lcId in self.novel.locations:
-            title = self.novel.locations[lcId].title
-            if title:
-                if title in targetLcIdByTitle:
-                    raise Error(_('Ambiguous yWriter location "{}".').format(title))
-
-                targetLcIdByTitle[title] = lcId
-
-        targetItIdByTitle = {}
-        for itId in self.novel.items:
-            title = self.novel.items[itId].title
-            if title:
-                if title in targetItIdByTitle:
-                    raise Error(_('Ambiguous yWriter item "{}".').format(title))
-
-                targetItIdByTitle[title] = itId
 
         # For scene relationship lookup:
         crIdsByGuid = {}
@@ -408,8 +527,8 @@ class JsonTimeline2(File):
                     raise Error(_('Ambiguous Aeon character "{}".').format(ent['name']))
 
                 characterNames.append(ent['name'])
-                if ent['name'] in targetCrIdByTitle:
-                    crId = targetCrIdByTitle[ent['name']]
+                if ent['name'] in self._crIdByTitle:
+                    crId = self._crIdByTitle[ent['name']]
                 else:
                     crId = create_id(self.novel.characters)
                     self.novel.characters[crId] = Character()
@@ -451,8 +570,8 @@ class JsonTimeline2(File):
                     raise Error(_('Ambiguous Aeon location "{}".').format(ent['name']))
 
                 locationNames.append(ent['name'])
-                if ent['name'] in targetLcIdByTitle:
-                    lcId = targetLcIdByTitle[ent['name']]
+                if ent['name'] in self._lcIdByTitle:
+                    lcId = self._lcIdByTitle[ent['name']]
                 else:
                     lcId = create_id(self.novel.locations)
                     self.novel.locations[lcId] = WorldElement()
@@ -472,8 +591,8 @@ class JsonTimeline2(File):
                     raise Error(_('Ambiguous Aeon item "{}".').format(ent['name']))
 
                 itemNames.append(ent['name'])
-                if ent['name'] in targetItIdByTitle:
-                    itId = targetItIdByTitle[ent['name']]
+                if ent['name'] in self._ItIdByTitle:
+                    itId = self._ItIdByTitle[ent['name']]
                 else:
                     itId = create_id(self.novel.items)
                     self.novel.items[itId] = WorldElement()
@@ -485,90 +604,6 @@ class JsonTimeline2(File):
                 # Initialize custom keyword variables.
                 for fieldName in self.ITM_KWVAR:
                     self.novel.items[itId].kwVar[fieldName] = None
-
-        #--- Get GUID of user defined properties.
-        hasPropertyYw7sysnc = False
-        hasPropertyNotes = False
-        hasPropertyDesc = False
-        for tplPrp in self._jsonData['template']['properties']:
-            if tplPrp['name'] == self._propertyDesc:
-                self._propertyDescGuid = tplPrp['guid']
-                hasPropertyDesc = True
-            elif tplPrp['name'] == self._propertyYw7sync:
-                self._propertyYw7syncGuid = tplPrp['guid']
-                hasPropertyYw7sysnc = True
-            elif tplPrp['name'] == self._propertyNotes:
-                self._propertyNotesGuid = tplPrp['guid']
-                hasPropertyNotes = True
-            elif tplPrp['name'] == self._propertyMoonphase:
-                self._propertyMoonphaseGuid = tplPrp['guid']
-
-        #--- Create user defined properties, if missing.
-        if not hasPropertyNotes:
-
-            # Create Notes property.
-            for tplPrp in self._jsonData['template']['properties']:
-                tplPrp['sortOrder'] += 1
-            self._propertyNotesGuid = get_uid('_propertyNotesGuid')
-            self._jsonData['template']['properties'].insert(0, {
-                'calcMode': 'default',
-                'calculate': False,
-                'fadeEvents': False,
-                'guid': self._propertyNotesGuid,
-                'icon': 'tag',
-                'isMandatory': False,
-                'name': self._propertyNotes,
-                'sortOrder': 0,
-                'type': 'multitext'
-            })
-        if not hasPropertyYw7sysnc:
-
-            # Create yw7sync property.
-            n = len(self._jsonData['template']['properties'])
-            self._propertyYw7syncGuid = get_uid('_propertyYw7syncGuid')
-            self._jsonData['template']['properties'].insert(0, {
-                'calcMode': '',
-                'calculate': False,
-                'fadeEvents': False,
-                'guid': self._propertyYw7syncGuid,
-                'icon': 'tag',
-                'isMandatory': False,
-                'name': self._propertyYw7sync,
-                'sortOrder': n,
-                'type': 'text'
-            })
-        if not hasPropertyDesc:
-
-            # Create Description property.
-            n = len(self._jsonData['template']['properties'])
-            self._propertyDescGuid = get_uid('_propertyDescGuid')
-            self._jsonData['template']['properties'].append({
-                'calcMode': 'default',
-                'calculate': False,
-                'fadeEvents': False,
-                'guid': self._propertyDescGuid,
-                'icon': 'tag',
-                'isMandatory': False,
-                'name': self._propertyDesc,
-                'sortOrder': n,
-                'type': 'multitext'
-            })
-        if self._addMoonphase and self._propertyMoonphaseGuid is None:
-
-            # Add moonphase property.
-            n = len(self._jsonData['template']['properties'])
-            self._propertyMoonphaseGuid = get_uid('_propertyMoonphaseGuid')
-            self._jsonData['template']['properties'].append({
-                'calcMode': 'default',
-                'calculate': False,
-                'fadeEvents': False,
-                'guid': self._propertyMoonphaseGuid,
-                'icon': 'flag',
-                'isMandatory': False,
-                'name': self._propertyMoonphase,
-                'sortOrder': n,
-                'type': 'text'
-            })
 
         #--- Update/create scenes.
         scIdsByDate = {}
@@ -588,10 +623,10 @@ class JsonTimeline2(File):
 
             evt['title'] = evt['title'].strip()
             scnTitles.append(evt['title'])
-            if evt['title'] in targetScIdByTitle:
+            if evt['title'] in self._scIdByTitle:
 
                 # Reuse a target scene.
-                existingScId = targetScIdByTitle[evt['title']]
+                existingScId = self._scIdByTitle[evt['title']]
                 actualScene = self.novel.scenes[existingScId]
             elif self._scenesOnly and not isNarrative:
 
@@ -756,7 +791,7 @@ class JsonTimeline2(File):
                 scId = ywScId
             else:
                 # TODO: create scene ID.
-                pass
+                scId = existingScId
             self.novel.scenes[scId] = actualScene
 
             # Use the timestamp for chronological sorting.
@@ -797,7 +832,7 @@ class JsonTimeline2(File):
         if self._timestampMax == 0:
             self._timestampMax = (self.referenceDate - datetime.min).total_seconds()
 
-    def write(self):
+    def merge(self):
         """Write instance variables to the file.
         
         Update instance variables from a source instance.              
@@ -806,91 +841,10 @@ class JsonTimeline2(File):
         Overrides the superclass method.
         """
 
-        def get_timestamp(scene):
-            """Return a timestamp integer from the scene date.
-            
-            Positional arguments:
-                scene -- Scene instance
-            """
-            self._timestampMax += 1
-            timestamp = int(self._timestampMax)
-            try:
-                if scene.date:
-                    isoDt = scene.date
-                    if scene.time:
-                        isoDt = (f'{isoDt} {scene.time}')
-                timestamp = int((datetime.fromisoformat(isoDt) - datetime.min).total_seconds())
-            except:
-                pass
-            return timestamp
-
-        def get_span(scene):
-            """Return a time span dictionary from the scene duration.
-            
-            Positional arguments:
-                scene -- Scene instance
-            """
-            span = {}
-            if scene.lastsDays:
-                span['days'] = int(scene.lastsDays)
-            if scene.lastsHours:
-                span['hours'] = int(scene.lastsHours)
-            if scene.lastsMinutes:
-                span['minutes'] = int(scene.lastsMinutes)
-            return span
-
-        def get_display_id():
-            self._displayIdMax += 1
-            return str(int(self._displayIdMax))
-
-        def build_event(scene):
-            """Create a new event from a scene.
-            """
-            event = {
-                'attachments': [],
-                'color': '',
-                'displayId': get_display_id(),
-                'guid': get_uid(f'scene{scene.title}'),
-                'links': [],
-                'locked': False,
-                'priority': 500,
-                'rangeValues': [{
-                    'minimumZoom':-1,
-                    'position': {
-                        'precision': 'minute',
-                        'timestamp': self.DATE_LIMIT
-                    },
-                    'rangeProperty': self._tplDateGuid,
-                    'span': {},
-                }],
-                'relationships': [],
-                'tags': [],
-                'title': scene.title,
-                'values': [{
-                    'property': self._propertyNotesGuid,
-                    'value': ''
-                },
-                    {
-                    'property': self._propertyDescGuid,
-                    'value': ''
-                },
-                    {
-                    'property': self._propertyYw7syncGuid,
-                    'value': ''
-                }],
-            }
-            if scene.scType == 1:
-                event['color'] = self._colors[self._eventColor]
-            elif scene.scType == 2:
-                event['color'] = self._colors[self._pointColor]
-            else:
-                event['color'] = self._colors[self._sceneColor]
-            return event
-
         #--- Merge first.
         source = self.novel
         self.novel = Novel()
-        self.read()
+        self._jsonData = open_timeline(self.filePath)
         # create a new target novel from the aeon2 project file
 
         targetEvents = []
@@ -1386,3 +1340,101 @@ class JsonTimeline2(File):
                     events.append(evt)
         self._jsonData['events'] = events
         save_timeline(self._jsonData, self.filePath)
+
+    def write(self):
+        """Write instance variables to the file.
+        
+        Update instance variables from a source instance.              
+        Update date/time/duration from the source,
+        if the scene title matches.
+        Overrides the superclass method.
+        """
+
+        def get_timestamp(scene):
+            """Return a timestamp integer from the scene date.
+            
+            Positional arguments:
+                scene -- Scene instance
+            """
+            self._timestampMax += 1
+            timestamp = int(self._timestampMax)
+            try:
+                if scene.date:
+                    isoDt = scene.date
+                    if scene.time:
+                        isoDt = (f'{isoDt} {scene.time}')
+                timestamp = int((datetime.fromisoformat(isoDt) - datetime.min).total_seconds())
+            except:
+                pass
+            return timestamp
+
+        def get_span(scene):
+            """Return a time span dictionary from the scene duration.
+            
+            Positional arguments:
+                scene -- Scene instance
+            """
+            span = {}
+            if scene.lastsDays:
+                lastsDays = int(scene.lastsDays)
+                span['days'] = lastsDays
+            if scene.lastsHours:
+                lastsHours = int(scene.lastsHours)
+                span['hours'] = lastsHours
+            if scene.lastsMinutes:
+                lastsMinutes = int(scene.lastsMinutes)
+                span['minutes'] = lastsMinutes
+            return span
+
+        def get_display_id():
+            self._displayIdMax += 1
+            return str(int(self._displayIdMax))
+
+        def build_event(scene):
+            """Create a new event from a scene.
+            """
+            event = {
+                'attachments': [],
+                'color': '',
+                'displayId': get_display_id(),
+                'guid': get_uid(f'scene{scene.title}'),
+                'links': [],
+                'locked': False,
+                'priority': 500,
+                'rangeValues': [{
+                    'minimumZoom':-1,
+                    'position': {
+                        'precision': 'minute',
+                        'timestamp': self.DATE_LIMIT
+                    },
+                    'rangeProperty': self._tplDateGuid,
+                    'span': {},
+                }],
+                'relationships': [],
+                'tags': [],
+                'title': scene.title,
+                'values': [{
+                    'property': self._propertyNotesGuid,
+                    'value': ''
+                },
+                    {
+                    'property': self._propertyDescGuid,
+                    'value': ''
+                },
+                    {
+                    'property': self._propertyYw7syncGuid,
+                    'value': ''
+                }],
+            }
+            if scene.scType == 1:
+                event['color'] = self._colors[self._eventColor]
+            elif scene.scType == 2:
+                event['color'] = self._colors[self._pointColor]
+            else:
+                event['color'] = self._colors[self._sceneColor]
+            return event
+
+        #--- Begin writing.
+        self._jsonData = open_timeline(self.filePath)
+        self.analyze_json_data()
+        self._get_yw7_ids()
