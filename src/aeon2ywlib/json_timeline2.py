@@ -42,7 +42,6 @@ class JsonTimeline2(File):
     # JSON representation of "yes" in Aeon2 "yes/no" properties
     DATE_LIMIT = (datetime(100, 1, 1) - datetime.min).total_seconds()
     # Dates before 100-01-01 can not be displayed properly in yWriter
-    PROPERTY_MOONPHASE = 'Moon phase'
 
     SCN_KWVAR = [
         'Field_SceneArcs',
@@ -62,6 +61,8 @@ class JsonTimeline2(File):
             narrative_arc: str -- name of the user-defined "Narrative" arc.
             property_description: str -- name of the user-defined scene description property.
             property_notes: str -- name of the user-defined scene notes property.
+            property_yw7_sync: str -- name of the user-defined yw7 ID property.
+            property_moonphase: str -- name of the user-defined moon phase property.
             role_location: str -- name of the user-defined role for scene locations.
             role_item: str -- name of the user-defined role for items in a scene.
             role_character: str -- name of the user-defined role for characters in a scene.
@@ -87,6 +88,7 @@ class JsonTimeline2(File):
         self._propertyYw7sync = kwargs['property_yw7_sync']
         self._propertyDesc = kwargs['property_description']
         self._propertyNotes = kwargs['property_notes']
+        self._propertyMoonphase = kwargs['property_moonphase']
 
         # JSON[template][types][name][roles]
         self._roleLocation = kwargs['role_location']
@@ -498,7 +500,7 @@ class JsonTimeline2(File):
             elif tplPrp['name'] == self._propertyNotes:
                 self._propertyNotesGuid = tplPrp['guid']
                 hasPropertyNotes = True
-            elif tplPrp['name'] == self.PROPERTY_MOONPHASE:
+            elif tplPrp['name'] == self._propertyMoonphase:
                 self._propertyMoonphaseGuid = tplPrp['guid']
 
         #--- Create user defined properties, if missing.
@@ -563,7 +565,7 @@ class JsonTimeline2(File):
                 'guid': self._propertyMoonphaseGuid,
                 'icon': 'flag',
                 'isMandatory': False,
-                'name': self.PROPERTY_MOONPHASE,
+                'name': self._propertyMoonphase,
                 'sortOrder': n,
                 'type': 'text'
             })
