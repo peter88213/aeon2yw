@@ -1436,5 +1436,5 @@ class JsonTimeline2(File):
 
         #--- Begin writing.
         self._jsonData = open_timeline(self.filePath)
-        self.analyze_json_data()
+        self._analyze_json_data()
         self._get_yw7_ids()
