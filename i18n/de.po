@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 3.4.1\n"
-"POT-Creation-Date: 2023-04-17 11:32:27\n"
-"PO-Revision-Date: 2023-04-17 11:32:27\n"
+"Project-Id-Version: unknown\n"
+"POT-Creation-Date: 2023-06-01 21:42:22\n"
+"PO-Revision-Date: 2023-06-01 21:42:22\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,9 @@ msgstr "Gegenstand \"{}\" mehrfach in Aeon."
 
 msgid "Ambiguous Aeon location \"{}\"."
 msgstr "Schauplatz \"{}\" mehrfach in Aeon."
+
+msgid "Ambiguous Aeon scene title \"{}\"."
+msgstr "Szenentitel \"{}\" mehrfach in Aeon."
 
 msgid "Ambiguous yWriter character \"{}\"."
 msgstr "Figur \"{}\" mehrfach in yWriter."
