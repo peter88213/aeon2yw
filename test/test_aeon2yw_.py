@@ -22,7 +22,7 @@ from json import JSONDecodeError
 
 TEST_PATH = os.getcwd() + '/../test'
 TEST_DATA_PATH = TEST_PATH + '/data/'
-TEST_EXEC_PATH = TEST_PATH + '/yw7/'
+TEST_EXEC_PATH = TEST_PATH + '/'
 
 # Test data
 INI_FILE = TEST_EXEC_PATH + 'aeon2yw.ini'
