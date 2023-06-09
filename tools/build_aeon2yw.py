@@ -1,16 +1,14 @@
-""" Build a python script for the aeon2yw distribution.
+"""Build a Python script for the aeon2yw distribution.
         
 In order to distribute a single script without dependencies, 
 this script "inlines" all modules imported from the pywriter package.
 
-The PyWriter project (see see https://github.com/peter88213/PyWriter)
-must be located on the same directory level as the aeon2yw project. 
-
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/aeon2yw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
-import sys 
+import sys
 sys.path.insert(0, f'{os.getcwd()}/../../PyWriter/src')
 import inliner
 
