@@ -1,4 +1,4 @@
-""" Python unit tests for the aeon2yw project.
+""" Regression test for the aeon2yw project.
 
 Test suite for aeon2yw.pyw.
 
