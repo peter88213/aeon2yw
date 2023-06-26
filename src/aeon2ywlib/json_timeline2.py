@@ -100,7 +100,7 @@ class JsonTimeline2(File):
         self._typeLocation = kwargs['type_location']
         self._typeItem = kwargs['type_item']
 
-        # GUIDs
+        # UIDs
         self._tplDateGuid = None
         self._typeArcGuid = None
         self._typeCharacterGuid = None
@@ -143,63 +143,63 @@ class JsonTimeline2(File):
         self._itIdByTitle = {}
 
     def _analyze_json_data(self):
-        """Get definitions and GUIDs; add missing properties and types."""
+        """Get definitions and UIDs; add missing properties and types."""
 
         #--- Get the color definitions.
-        for tplCol in self._jsonData['template']['colors']:
-            self._colors[tplCol['name']] = tplCol['guid']
+        for jTemplateColor in self._jsonData['template']['colors']:
+            self._colors[jTemplateColor['name']] = jTemplateColor['guid']
 
         #--- Get the date definition.
-        for tplRgp in self._jsonData['template']['rangeProperties']:
-            if tplRgp['type'] == 'date':
-                for tplRgpCalEra in tplRgp['calendar']['eras']:
+        for jTemplaterangeProperty in self._jsonData['template']['rangeProperties']:
+            if jTemplaterangeProperty['type'] == 'date':
+                for tplRgpCalEra in jTemplaterangeProperty['calendar']['eras']:
                     if tplRgpCalEra['name'] == 'AD':
-                        self._tplDateGuid = tplRgp['guid']
+                        self._tplDateGuid = jTemplaterangeProperty['guid']
                         break
 
         if self._tplDateGuid is None:
             raise Error(_('"AD" era is missing in the calendar.'))
 
-        #--- Get GUID of user defined types and roles.
-        for tplTyp in self._jsonData['template']['types']:
-            if tplTyp['name'] == 'Arc':
+        #--- Get UID of user defined types and roles.
+        for jTemplateType in self._jsonData['template']['types']:
+            if jTemplateType['name'] == 'Arc':
 
                 # Identify arc type.
-                self._typeArcGuid = tplTyp['guid']
-                for tplTypRol in tplTyp['roles']:
+                self._typeArcGuid = jTemplateType['guid']
+                for tplTypRol in jTemplateType['roles']:
                     if tplTypRol['name'] == 'Arc':
                         self._roleArcGuid = tplTypRol['guid']
                     elif tplTypRol['name'] == 'Storyline':
                         self._roleStorylineGuid = tplTypRol['guid']
-            elif tplTyp['name'] == self._typeCharacter:
+            elif jTemplateType['name'] == self._typeCharacter:
 
                 # Identify character type.
-                self._typeCharacterGuid = tplTyp['guid']
+                self._typeCharacterGuid = jTemplateType['guid']
 
                 # Identify character role.
-                for tplTypRol in tplTyp['roles']:
+                for tplTypRol in jTemplateType['roles']:
                     if tplTypRol['name'] == self._roleCharacter:
                         self._roleCharacterGuid = tplTypRol['guid']
                         break
 
-            elif tplTyp['name'] == self._typeLocation:
+            elif jTemplateType['name'] == self._typeLocation:
 
                 # Identify location type.
-                self._typeLocationGuid = tplTyp['guid']
+                self._typeLocationGuid = jTemplateType['guid']
 
                 # Identify location role.
-                for tplTypRol in tplTyp['roles']:
+                for tplTypRol in jTemplateType['roles']:
                     if tplTypRol['name'] == self._roleLocation:
                         self._roleLocationGuid = tplTypRol['guid']
                         break
 
-            elif tplTyp['name'] == self._typeItem:
+            elif jTemplateType['name'] == self._typeItem:
 
                 # Identify item type.
-                self._typeItemGuid = tplTyp['guid']
+                self._typeItemGuid = jTemplateType['guid']
 
                 # Identify item role.
-                for tplTypRol in tplTyp['roles']:
+                for tplTypRol in jTemplateType['roles']:
                     if tplTypRol['name'] == self._roleItem:
                         self._roleItemGuid = tplTypRol['guid']
                         break
@@ -218,11 +218,11 @@ class JsonTimeline2(File):
                     'roles': [],
                     'sortOrder': typeCount
                 })
-        for entityType in self._jsonData['template']['types']:
-            if entityType['name'] == 'Arc':
+        for jTemplateType in self._jsonData['template']['types']:
+            if jTemplateType['name'] == 'Arc':
                 if self._roleArcGuid is None:
                     self._roleArcGuid = get_uid('_roleArcGuid')
-                    entityType['roles'].append(
+                    jTemplateType['roles'].append(
                         {
                         'allowsMultipleForEntity': True,
                         'allowsMultipleForEvent': True,
@@ -236,7 +236,7 @@ class JsonTimeline2(File):
                         })
                 if self._roleStorylineGuid is None:
                     self._roleStorylineGuid = get_uid('_roleStorylineGuid')
-                    entityType['roles'].append(
+                    jTemplateType['roles'].append(
                         {
                         'allowsMultipleForEntity': True,
                         'allowsMultipleForEvent': True,
@@ -333,29 +333,29 @@ class JsonTimeline2(File):
                     'sortOrder': typeCount
                 })
 
-        #--- Get GUID of user defined properties.
+        #--- Get UID of user defined properties.
         hasPropertyYw7sysnc = False
         hasPropertyNotes = False
         hasPropertyDesc = False
-        for tplPrp in self._jsonData['template']['properties']:
-            if tplPrp['name'] == self._propertyDesc:
-                self._propertyDescGuid = tplPrp['guid']
+        for jTemplateProperty in self._jsonData['template']['properties']:
+            if jTemplateProperty['name'] == self._propertyDesc:
+                self._propertyDescGuid = jTemplateProperty['guid']
                 hasPropertyDesc = True
-            elif tplPrp['name'] == self._propertyYw7sync:
-                self._propertyYw7syncGuid = tplPrp['guid']
+            elif jTemplateProperty['name'] == self._propertyYw7sync:
+                self._propertyYw7syncGuid = jTemplateProperty['guid']
                 hasPropertyYw7sysnc = True
-            elif tplPrp['name'] == self._propertyNotes:
-                self._propertyNotesGuid = tplPrp['guid']
+            elif jTemplateProperty['name'] == self._propertyNotes:
+                self._propertyNotesGuid = jTemplateProperty['guid']
                 hasPropertyNotes = True
-            elif tplPrp['name'] == self._propertyMoonphase:
-                self._propertyMoonphaseGuid = tplPrp['guid']
+            elif jTemplateProperty['name'] == self._propertyMoonphase:
+                self._propertyMoonphaseGuid = jTemplateProperty['guid']
 
         #--- Create user defined properties, if missing.
         if not hasPropertyNotes:
 
             # Create Notes property.
-            for tplPrp in self._jsonData['template']['properties']:
-                tplPrp['sortOrder'] += 1
+            for jTemplateProperty in self._jsonData['template']['properties']:
+                jTemplateProperty['sortOrder'] += 1
             self._propertyNotesGuid = get_uid('_propertyNotesGuid')
             self._jsonData['template']['properties'].insert(0, {
                 'calcMode': 'default',
@@ -421,12 +421,12 @@ class JsonTimeline2(File):
 
     def _get_json_ids(self):
         """Get scene/character/location/item IDs by title."""
-        for evt in self._jsonData['events']:
-            if evt['title']:
-                title = evt['title'].strip()
+        for jEvent in self._jsonData['events']:
+            if jEvent['title']:
+                title = jEvent['title'].strip()
                 if title in self._scIdByTitle:
                     raise Error(_('Ambiguous Aeon scene title "{}".').format(title))
-                for evtVal in evt['values']:
+                for evtVal in jEvent['values']:
                     if evtVal['property'] == self._propertyYw7syncGuid:
                         if evtVal['value']:
                             sceneMatch = re.search('ScID\:([0-9]+)', evtVal['value'])
@@ -435,12 +435,12 @@ class JsonTimeline2(File):
                                 self._scIdByTitle[title] = scId
                         break
 
-        for ent in self._jsonData['entities']:
-            if ent['entityType'] == self._typeCharacterGuid:
+        for jEntity in self._jsonData['entities']:
+            if jEntity['entityType'] == self._typeCharacterGuid:
                 pass
-            elif ent['entityType'] == self._typeLocationGuid:
+            elif jEntity['entityType'] == self._typeLocationGuid:
                 pass
-            elif ent['entityType'] == self._typeItemGuid:
+            elif jEntity['entityType'] == self._typeItemGuid:
                 pass
 
     def _get_yw7_ids(self):
@@ -510,43 +510,43 @@ class JsonTimeline2(File):
         locationNames = []
         itemNames = []
 
-        for ent in self._jsonData['entities']:
-            if ent['entityType'] == self._typeArcGuid:
+        for jEntity in self._jsonData['entities']:
+            if jEntity['entityType'] == self._typeArcGuid:
 
                 #--- Get arc.
                 self._arcCount += 1
-                if ent['name'] == self._entityNarrative:
-                    self._entityNarrativeGuid = ent['guid']
+                if jEntity['name'] == self._entityNarrative:
+                    self._entityNarrativeGuid = jEntity['guid']
                 else:
-                    self._arcGuidsByName[ent['name']] = ent['guid']
+                    self._arcGuidsByName[jEntity['name']] = jEntity['guid']
 
-            elif ent['entityType'] == self._typeCharacterGuid:
+            elif jEntity['entityType'] == self._typeCharacterGuid:
 
                 #--- Get character.
-                if ent['name'] in characterNames:
-                    raise Error(_('Ambiguous Aeon character "{}".').format(ent['name']))
+                if jEntity['name'] in characterNames:
+                    raise Error(_('Ambiguous Aeon character "{}".').format(jEntity['name']))
 
-                characterNames.append(ent['name'])
-                if ent['name'] in self._crIdByTitle:
-                    crId = self._crIdByTitle[ent['name']]
+                characterNames.append(jEntity['name'])
+                if jEntity['name'] in self._crIdByTitle:
+                    crId = self._crIdByTitle[jEntity['name']]
                 else:
                     crId = create_id(self.novel.characters)
                     self.novel.characters[crId] = Character()
-                    self.novel.characters[crId].title = ent['name']
+                    self.novel.characters[crId].title = jEntity['name']
                     self.novel.srtCharacters.append(crId)
-                crIdsByGuid[ent['guid']] = crId
-                self._characterGuidById[crId] = ent['guid']
-                if ent['notes']:
-                    self.novel.characters[crId].notes = ent['notes']
+                crIdsByGuid[jEntity['guid']] = crId
+                self._characterGuidById[crId] = jEntity['guid']
+                if jEntity['notes']:
+                    self.novel.characters[crId].notes = jEntity['notes']
                 else:
-                    ent['notes'] = ''
+                    jEntity['notes'] = ''
 
                 #  Initialize custom keyword variables.
                 for fieldName in self.CRT_KWVAR:
                     self.novel.characters[crId].kwVar[fieldName] = None
 
                 # Get birth date.
-                entitiesCreateRangePosition = ent.get('createRangePosition', None)
+                entitiesCreateRangePosition = jEntity.get('createRangePosition', None)
                 if entitiesCreateRangePosition:
                     birthTimestamp = entitiesCreateRangePosition.get('timestamp')
                     if birthTimestamp:
@@ -555,7 +555,7 @@ class JsonTimeline2(File):
                         self.novel.characters[crId].kwVar['Field_BirthDate'] = birthDate
 
                 # Get death date.
-                entitiesDestroyRangePosition = ent.get('destroyRangePosition', None)
+                entitiesDestroyRangePosition = jEntity.get('destroyRangePosition', None)
                 if entitiesDestroyRangePosition:
                     deathTimestamp = entitiesDestroyRangePosition.get('timestamp')
                     if deathTimestamp:
@@ -563,43 +563,43 @@ class JsonTimeline2(File):
                         deathDate, __ = deathDate.isoformat().split('T')
                         self.novel.characters[crId].kwVar['Field_DeathDate'] = deathDate
 
-            elif ent['entityType'] == self._typeLocationGuid:
+            elif jEntity['entityType'] == self._typeLocationGuid:
 
                 #--- Get location.
-                if ent['name'] in locationNames:
-                    raise Error(_('Ambiguous Aeon location "{}".').format(ent['name']))
+                if jEntity['name'] in locationNames:
+                    raise Error(_('Ambiguous Aeon location "{}".').format(jEntity['name']))
 
-                locationNames.append(ent['name'])
-                if ent['name'] in self._lcIdByTitle:
-                    lcId = self._lcIdByTitle[ent['name']]
+                locationNames.append(jEntity['name'])
+                if jEntity['name'] in self._lcIdByTitle:
+                    lcId = self._lcIdByTitle[jEntity['name']]
                 else:
                     lcId = create_id(self.novel.locations)
                     self.novel.locations[lcId] = WorldElement()
-                    self.novel.locations[lcId].title = ent['name']
+                    self.novel.locations[lcId].title = jEntity['name']
                     self.novel.srtLocations.append(lcId)
-                lcIdsByGuid[ent['guid']] = lcId
-                self._locationGuidById[lcId] = ent['guid']
+                lcIdsByGuid[jEntity['guid']] = lcId
+                self._locationGuidById[lcId] = jEntity['guid']
 
                 # Initialize custom keyword variables.
                 for fieldName in self.LOC_KWVAR:
                     self.novel.locations[lcId].kwVar[fieldName] = None
 
-            elif ent['entityType'] == self._typeItemGuid:
+            elif jEntity['entityType'] == self._typeItemGuid:
 
                 #--- Get item.
-                if ent['name'] in itemNames:
-                    raise Error(_('Ambiguous Aeon item "{}".').format(ent['name']))
+                if jEntity['name'] in itemNames:
+                    raise Error(_('Ambiguous Aeon item "{}".').format(jEntity['name']))
 
-                itemNames.append(ent['name'])
-                if ent['name'] in self._ItIdByTitle:
-                    itId = self._ItIdByTitle[ent['name']]
+                itemNames.append(jEntity['name'])
+                if jEntity['name'] in self._ItIdByTitle:
+                    itId = self._ItIdByTitle[jEntity['name']]
                 else:
                     itId = create_id(self.novel.items)
                     self.novel.items[itId] = WorldElement()
-                    self.novel.items[itId].title = ent['name']
+                    self.novel.items[itId].title = jEntity['name']
                     self.novel.srtItems.append(itId)
-                itIdsByGuid[ent['guid']] = itId
-                self._itemGuidById[itId] = ent['guid']
+                itIdsByGuid[jEntity['guid']] = itId
+                self._itemGuidById[itId] = jEntity['guid']
 
                 # Initialize custom keyword variables.
                 for fieldName in self.ITM_KWVAR:
@@ -609,24 +609,24 @@ class JsonTimeline2(File):
         scIdsByDate = {}
         scnTitles = []
         narrativeEvents = []
-        for evt in self._jsonData['events']:
+        for jEvent in self._jsonData['events']:
 
             # Find out whether the event is associated to a normal scene.
             isNarrative = False
-            for evtRel in evt['relationships']:
-                if evtRel['role'] == self._roleArcGuid:
-                    if self._entityNarrativeGuid and evtRel['entity'] == self._entityNarrativeGuid:
+            for jEventRelationship in jEvent['relationships']:
+                if jEventRelationship['role'] == self._roleArcGuid:
+                    if self._entityNarrativeGuid and jEventRelationship['entity'] == self._entityNarrativeGuid:
                         isNarrative = True
 
-            if evt['title'] in scnTitles:
-                raise Error(f'Ambiguous Aeon event title "{evt["title"]}".')
+            if jEvent['title'] in scnTitles:
+                raise Error(f'Ambiguous Aeon event title "{jEvent["title"]}".')
 
-            evt['title'] = evt['title'].strip()
-            scnTitles.append(evt['title'])
-            if evt['title'] in self._scIdByTitle:
+            jEvent['title'] = jEvent['title'].strip()
+            scnTitles.append(jEvent['title'])
+            if jEvent['title'] in self._scIdByTitle:
 
                 # Reuse a target scene.
-                existingScId = self._scIdByTitle[evt['title']]
+                existingScId = self._scIdByTitle[jEvent['title']]
                 actualScene = self.novel.scenes[existingScId]
             elif self._scenesOnly and not isNarrative:
 
@@ -636,11 +636,11 @@ class JsonTimeline2(File):
             else:
                 # Create a new scene.
                 actualScene = Scene()
-                actualScene.title = evt['title']
+                actualScene.title = jEvent['title']
                 # print(f'read creates {actualScene.title}')
                 actualScene.status = 1
 
-            displayId = float(evt['displayId'])
+            displayId = float(jEvent['displayId'])
             if displayId > self._displayIdMax:
                 self._displayIdMax = displayId
 
@@ -652,44 +652,44 @@ class JsonTimeline2(File):
             hasDescription = False
             hasNotes = False
             ywScId = None
-            for evtVal in evt['values']:
+            for jEventValue in jEvent['values']:
 
                 # Get scene description.
-                if evtVal['property'] == self._propertyDescGuid:
+                if jEventValue['property'] == self._propertyDescGuid:
                     hasDescription = True
-                    if evtVal['value']:
-                        actualScene.desc = evtVal['value']
+                    if jEventValue['value']:
+                        actualScene.desc = jEventValue['value']
 
                 # Get scene notes.
-                elif evtVal['property'] == self._propertyNotesGuid:
+                elif jEventValue['property'] == self._propertyNotesGuid:
                     hasNotes = True
-                    if evtVal['value']:
-                        actualScene.notes = evtVal['value']
+                    if jEventValue['value']:
+                        actualScene.notes = jEventValue['value']
 
                 # Get scene ID.
-                elif evtVal['property'] == self._propertyYw7syncGuid:
-                    if evtVal['value']:
-                        sceneMatch = re.search('ScID\:([0-9]+)', evtVal['value'])
+                elif jEventValue['property'] == self._propertyYw7syncGuid:
+                    if jEventValue['value']:
+                        sceneMatch = re.search('ScID\:([0-9]+)', jEventValue['value'])
                         if sceneMatch is not None:
                             ywScId = sceneMatch.group(1)
 
             #--- Add description and scene notes, if missing.
             if not hasDescription:
-                evt['values'].append({'property': self._propertyDescGuid, 'value': ''})
+                jEvent['values'].append({'property': self._propertyDescGuid, 'value': ''})
             if not hasNotes:
-                evt['values'].append({'property': self._propertyNotesGuid, 'value': ''})
+                jEvent['values'].append({'property': self._propertyNotesGuid, 'value': ''})
 
             #--- Get scene tags.
-            if evt['tags']:
+            if jEvent['tags']:
                 actualScene.tags = []
-                for evtTag in evt['tags']:
-                    actualScene.tags.append(evtTag)
+                for jEventTag in jEvent['tags']:
+                    actualScene.tags.append(jEventTag)
 
             #--- Get date/time/duration
             timestamp = 0
-            for evtRgv in evt['rangeValues']:
-                if evtRgv['rangeProperty'] == self._tplDateGuid:
-                    timestamp = evtRgv['position']['timestamp']
+            for jEventRangeValue in jEvent['rangeValues']:
+                if jEventRangeValue['rangeProperty'] == self._tplDateGuid:
+                    timestamp = jEventRangeValue['position']['timestamp']
                     if timestamp >= self.DATE_LIMIT:
                         # Restrict date/time calculation to dates within yWriter's range
                         sceneStart = datetime.min + timedelta(seconds=timestamp)
@@ -708,13 +708,13 @@ class JsonTimeline2(File):
                         actualScene.time = startDateTime[1]
 
                         # Calculate duration
-                        if 'years' in evtRgv['span'] or 'months' in evtRgv['span']:
+                        if 'years' in jEventRangeValue['span'] or 'months' in jEventRangeValue['span']:
                             endYear = sceneStart.year
                             endMonth = sceneStart.month
-                            if 'years' in evtRgv['span']:
-                                endYear += evtRgv['span']['years']
-                            if 'months' in evtRgv['span']:
-                                endMonth += evtRgv['span']['months']
+                            if 'years' in jEventRangeValue['span']:
+                                endYear += jEventRangeValue['span']['years']
+                            if 'months' in jEventRangeValue['span']:
+                                endMonth += jEventRangeValue['span']['months']
                                 while endMonth > 12:
                                     endMonth -= 12
                                     endYear += 1
@@ -727,18 +727,18 @@ class JsonTimeline2(File):
                             lastsDays = 0
                             lastsHours = 0
                             lastsMinutes = 0
-                        if 'weeks' in evtRgv['span']:
-                            lastsDays += evtRgv['span']['weeks'] * 7
-                        if 'days' in evtRgv['span']:
-                            lastsDays += evtRgv['span']['days']
-                        if 'hours' in evtRgv['span']:
-                            lastsDays += evtRgv['span']['hours'] // 24
-                            lastsHours += evtRgv['span']['hours'] % 24
-                        if 'minutes' in evtRgv['span']:
-                            lastsHours += evtRgv['span']['minutes'] // 60
-                            lastsMinutes += evtRgv['span']['minutes'] % 60
-                        if 'seconds' in evtRgv['span']:
-                            lastsMinutes += evtRgv['span']['seconds'] // 60
+                        if 'weeks' in jEventRangeValue['span']:
+                            lastsDays += jEventRangeValue['span']['weeks'] * 7
+                        if 'days' in jEventRangeValue['span']:
+                            lastsDays += jEventRangeValue['span']['days']
+                        if 'hours' in jEventRangeValue['span']:
+                            lastsDays += jEventRangeValue['span']['hours'] // 24
+                            lastsHours += jEventRangeValue['span']['hours'] % 24
+                        if 'minutes' in jEventRangeValue['span']:
+                            lastsHours += jEventRangeValue['span']['minutes'] // 60
+                            lastsMinutes += jEventRangeValue['span']['minutes'] % 60
+                        if 'seconds' in jEventRangeValue['span']:
+                            lastsMinutes += jEventRangeValue['span']['seconds'] // 60
                         lastsHours += lastsMinutes // 60
                         lastsMinutes %= 60
                         lastsDays += lastsHours // 24
@@ -755,33 +755,33 @@ class JsonTimeline2(File):
             actualScene.locations = None
             actualScene.items = None
             scnArcs = []
-            for evtRel in evt['relationships']:
-                if evtRel['role'] == self._roleArcGuid:
+            for jEventRelationship in jEvent['relationships']:
+                if jEventRelationship['role'] == self._roleArcGuid:
                     # Make scene event "Normal" type scene.
-                    if self._entityNarrativeGuid and evtRel['entity'] == self._entityNarrativeGuid:
+                    if self._entityNarrativeGuid and jEventRelationship['entity'] == self._entityNarrativeGuid:
                         actualScene.scType = 0
                         # type = "Normal"
                         if timestamp > self._timestampMax:
                             self._timestampMax = timestamp
-                if evtRel['role'] == self._roleStorylineGuid:
+                if jEventRelationship['role'] == self._roleStorylineGuid:
                     # Collect scene arcs.
                     for arcName in self._arcGuidsByName:
-                        if evtRel['entity'] == self._arcGuidsByName[arcName]:
+                        if jEventRelationship['entity'] == self._arcGuidsByName[arcName]:
                             scnArcs.append(arcName)
-                elif evtRel['role'] == self._roleCharacterGuid:
+                elif jEventRelationship['role'] == self._roleCharacterGuid:
                     if actualScene.characters is None:
                         actualScene.characters = []
-                    crId = crIdsByGuid[evtRel['entity']]
+                    crId = crIdsByGuid[jEventRelationship['entity']]
                     actualScene.characters.append(crId)
-                elif evtRel['role'] == self._roleLocationGuid:
+                elif jEventRelationship['role'] == self._roleLocationGuid:
                     if actualScene.locations is None:
                         actualScene.locations = []
-                    lcId = lcIdsByGuid[evtRel['entity']]
+                    lcId = lcIdsByGuid[jEventRelationship['entity']]
                     actualScene.locations.append(lcId)
-                elif evtRel['role'] == self._roleItemGuid:
+                elif jEventRelationship['role'] == self._roleItemGuid:
                     if actualScene.items is None:
                         actualScene.items = []
-                    itId = itIdsByGuid[evtRel['entity']]
+                    itId = itIdsByGuid[jEventRelationship['entity']]
                     actualScene.items.append(itId)
 
             # Add arcs to the scene keyword variables.
@@ -848,8 +848,8 @@ class JsonTimeline2(File):
         # create a new target novel from the aeon2 project file
 
         targetEvents = []
-        for evt in self._jsonData['events']:
-            targetEvents.append(evt['title'])
+        for jEvent in self._jsonData['events']:
+            targetEvents.append(jEvent['title'])
 
         linkedCharacters = []
         linkedLocations = []
@@ -881,7 +881,7 @@ class JsonTimeline2(File):
                 for arc in arcs:
                     if not arc in self._arcGuidsByName:
                         self._arcGuidsByName[arc] = None
-                        # new arc; GUID is generated on writing
+                        # new arc; UID is generated on writing
 
         # Check characters.
         srcChrNames = []
@@ -1186,16 +1186,16 @@ class JsonTimeline2(File):
             }
 
         #--- Update events from scenes.
-        for evt in self._jsonData['events']:
+        for jEvent in self._jsonData['events']:
             try:
-                scId = scIdsByTitle[evt['title']]
+                scId = scIdsByTitle[jEvent['title']]
             except KeyError:
                 continue
 
             #--- Set event date/time/span.
-            if evt['rangeValues'][0]['position']['timestamp'] >= self.DATE_LIMIT:
-                evt['rangeValues'][0]['span'] = get_span(self.novel.scenes[scId])
-                evt['rangeValues'][0]['position']['timestamp'] = get_timestamp(self.novel.scenes[scId])
+            if jEvent['rangeValues'][0]['position']['timestamp'] >= self.DATE_LIMIT:
+                jEvent['rangeValues'][0]['span'] = get_span(self.novel.scenes[scId])
+                jEvent['rangeValues'][0]['position']['timestamp'] = get_timestamp(self.novel.scenes[scId])
 
             #--- Calculate moon phase.
             if self._propertyMoonphaseGuid is not None:
@@ -1206,7 +1206,7 @@ class JsonTimeline2(File):
             #--- Set scene description, notes, and moon phase.
             hasMoonphase = False
             hasYw7sync = False
-            for evtVal in evt['values']:
+            for evtVal in jEvent['values']:
 
                 # Set scene description.
                 if evtVal['property'] == self._propertyDescGuid:
@@ -1225,23 +1225,23 @@ class JsonTimeline2(File):
 
                 # Set yw7 sync ID.
                 elif evtVal['property'] == self._propertyYw7syncGuid:
-                        evtVal['value'] = f'ScID:{srcScIdsByTitles[evt["title"]]}'
+                        evtVal['value'] = f'ScID:{srcScIdsByTitles[jEvent["title"]]}'
                         hasYw7sync = True
 
             #--- Add missing event properties.
             if not hasMoonphase and self._propertyMoonphaseGuid is not None:
-                evt['values'].append({'property': self._propertyMoonphaseGuid, 'value': eventMoonphase})
+                jEvent['values'].append({'property': self._propertyMoonphaseGuid, 'value': eventMoonphase})
             if not hasYw7sync and self._propertyYw7syncGuid is not None:
-                evt['values'].append({'property': self._propertyYw7syncGuid, 'value': scId})
+                jEvent['values'].append({'property': self._propertyYw7syncGuid, 'value': scId})
 
             #--- Set scene tags.
             if self.novel.scenes[scId].tags:
-                evt['tags'] = self.novel.scenes[scId].tags
+                jEvent['tags'] = self.novel.scenes[scId].tags
 
             #--- Update characters, locations, and items.
             # Delete assignments.
             newRel = []
-            for evtRel in evt['relationships']:
+            for evtRel in jEvent['relationships']:
                 if evtRel['role'] == self._roleCharacterGuid:
                     continue
 
@@ -1284,60 +1284,60 @@ class JsonTimeline2(File):
                             'role': self._roleItemGuid,
                         })
 
-            evt['relationships'] = newRel
+            jEvent['relationships'] = newRel
 
             #--- Assign "scene" events to the "Narrative" arc.
             if self.novel.scenes[scId].scType == 0:
-                if narrativeArc not in evt['relationships']:
-                    evt['relationships'].append(narrativeArc)
+                if narrativeArc not in jEvent['relationships']:
+                    jEvent['relationships'].append(narrativeArc)
 
                 #--- Assign events to arcs.
                 sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
                 for arcName in arcs:
                     if arcName in sceneArcs:
-                        if arcs[arcName] not in evt['relationships']:
-                            evt['relationships'].append(arcs[arcName])
+                        if arcs[arcName] not in jEvent['relationships']:
+                            jEvent['relationships'].append(arcs[arcName])
                     else:
                         try:
-                            evt['relationships'].remove(arcs[arcName])
+                            jEvent['relationships'].remove(arcs[arcName])
                         except:
                             pass
 
             elif self.novel.scenes[scId].scType == 2:
-                if narrativeArc in evt['relationships']:
-                    evt['relationships'].remove(narrativeArc)
+                if narrativeArc in jEvent['relationships']:
+                    jEvent['relationships'].remove(narrativeArc)
 
                 #--- Assign events to arcs.
                 sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
                 for arcName in arcs:
                     if arcName in sceneArcs:
-                        if arcs[arcName] not in evt['relationships']:
-                            evt['relationships'].append(arcs[arcName])
+                        if arcs[arcName] not in jEvent['relationships']:
+                            jEvent['relationships'].append(arcs[arcName])
                     else:
                         try:
-                            evt['relationships'].remove(arcs[arcName])
+                            jEvent['relationships'].remove(arcs[arcName])
                         except:
                             pass
 
             elif self.novel.scenes[scId].scType == 1:
-                if narrativeArc in evt['relationships']:
-                    evt['relationships'].remove(narrativeArc)
+                if narrativeArc in jEvent['relationships']:
+                    jEvent['relationships'].remove(narrativeArc)
 
                 #--- Clear arcs, if any.
                 sceneArcs = string_to_list(self.novel.scenes[scId].scnArcs)
                 for arcName in sceneArcs:
-                    evt['relationships'].remove(arcs[arcName])
+                    jEvent['relationships'].remove(arcs[arcName])
 
         #--- Delete "Trash" scenes.
         events = []
-        for evt in self._jsonData['events']:
+        for jEvent in self._jsonData['events']:
             try:
-                scId = scIdsByTitle[evt['title']]
+                scId = scIdsByTitle[jEvent['title']]
             except KeyError:
-                events.append(evt)
+                events.append(jEvent)
             else:
                 if not scId in self._trashEvents:
-                    events.append(evt)
+                    events.append(jEvent)
         self._jsonData['events'] = events
         save_timeline(self._jsonData, self.filePath)
 
