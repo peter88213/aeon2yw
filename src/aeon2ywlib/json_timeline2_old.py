@@ -131,9 +131,24 @@ class JsonTimeline2(File):
         self._timestampMax = 0
         self._displayIdMax = 0.0
         self._colors = {}
+        self._arcCount = 0
+        self._characterGuidById = {}
+        self._locationGuidById = {}
+        self._itemGuidById = {}
+        self._trashEvents = []
+        self._arcGuidsByName = {}
+        self._scIdByTitle = {}
+        self._crIdByTitle = {}
+        self._lcIdByTitle = {}
+        self._itIdByTitle = {}
+        self._hasYw7Ids = None
+        self._itIds = []
+        self._lcIds = []
+        self._crIds = []
+        self._scIds = []
 
     def _analyze_json_data(self):
-        """Get definitions and UIDs."""
+        """Get definitions and UIDs; add missing properties and types."""
 
         #--- Get the color definitions.
         for jTemplateColor in self._jsonData['template']['colors']:
@@ -194,10 +209,134 @@ class JsonTimeline2(File):
                         self._roleItemGuid = tplTypRol['guid']
                         break
 
-        if not self.novel.scenes:
-            isOutline = True
-        else:
-            isOutline = False
+        #--- Add "Arc" type, if missing.
+        if self._typeArcGuid is None:
+            self._typeArcGuid = get_uid('typeArcGuid')
+            typeCount = len(self._jsonData['template']['types'])
+            self._jsonData['template']['types'].append(
+                {
+                    'color': 'iconYellow',
+                    'guid': self._typeArcGuid,
+                    'icon': 'book',
+                    'name': 'Arc',
+                    'persistent': True,
+                    'roles': [],
+                    'sortOrder': typeCount
+                })
+        for jTemplateType in self._jsonData['template']['types']:
+            if jTemplateType['name'] == 'Arc':
+                if self._roleArcGuid is None:
+                    self._roleArcGuid = get_uid('_roleArcGuid')
+                    jTemplateType['roles'].append(
+                        {
+                        'allowsMultipleForEntity': True,
+                        'allowsMultipleForEvent': True,
+                        'allowsPercentAllocated': False,
+                        'guid': self._roleArcGuid,
+                        'icon': 'circle text',
+                        'mandatoryForEntity': False,
+                        'mandatoryForEvent': False,
+                        'name': 'Arc',
+                        'sortOrder': 0
+                        })
+                if self._roleStorylineGuid is None:
+                    self._roleStorylineGuid = get_uid('_roleStorylineGuid')
+                    jTemplateType['roles'].append(
+                        {
+                        'allowsMultipleForEntity': True,
+                        'allowsMultipleForEvent': True,
+                        'allowsPercentAllocated': False,
+                        'guid': self._roleStorylineGuid,
+                        'icon': 'circle filled text',
+                        'mandatoryForEntity': False,
+                        'mandatoryForEvent': False,
+                        'name': 'Storyline',
+                        'sortOrder': 0
+                        })
+
+        #--- Add "Character" type, if missing.
+        if self._typeCharacterGuid is None:
+            self._typeCharacterGuid = get_uid('_typeCharacterGuid')
+            self._roleCharacterGuid = get_uid('_roleCharacterGuid')
+            typeCount = len(self._jsonData['template']['types'])
+            self._jsonData['template']['types'].append(
+                {
+                    'color': 'iconRed',
+                    'guid': self._typeCharacterGuid,
+                    'icon': 'person',
+                    'name': self._typeCharacter,
+                    'persistent': False,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self._roleCharacterGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self._roleCharacter,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount
+                })
+
+        #--- Add "Location" type, if missing.
+        if self._typeLocationGuid is None:
+            self._typeLocationGuid = get_uid('_typeLocationGuid')
+            self._roleLocationGuid = get_uid('_roleLocationGuid')
+            typeCount = len(self._jsonData['template']['types'])
+            self._jsonData['template']['types'].append(
+                {
+                    'color': 'iconOrange',
+                    'guid': self._typeLocationGuid,
+                    'icon': 'map',
+                    'name': self._typeLocation,
+                    'persistent': True,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self._roleLocationGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self._roleLocation,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount
+                })
+
+        #--- Add "Item" type, if missing.
+        if self._typeItemGuid is None:
+            self._typeItemGuid = get_uid('_typeItemGuid')
+            self._roleItemGuid = get_uid('_roleItemGuid')
+            typeCount = len(self._jsonData['template']['types'])
+            self._jsonData['template']['types'].append(
+                {
+                    'color': 'iconPurple',
+                    'guid': self._typeItemGuid,
+                    'icon': 'cube',
+                    'name': self._typeItem,
+                    'persistent': True,
+                    'roles': [
+                        {
+                            'allowsMultipleForEntity': True,
+                            'allowsMultipleForEvent': True,
+                            'allowsPercentAllocated': False,
+                            'guid': self._roleItemGuid,
+                            'icon': 'circle text',
+                            'mandatoryForEntity': False,
+                            'mandatoryForEvent': False,
+                            'name': self._roleItem,
+                            'sortOrder': 0
+                        }
+                    ],
+                    'sortOrder': typeCount
+                })
 
         #--- Get UID of user defined properties.
         self._hasYw7Ids = False
