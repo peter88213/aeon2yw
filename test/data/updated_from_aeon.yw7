@@ -63,21 +63,34 @@
     </SCENE>
     <SCENE>
       <ID>2</ID>
-      <Title><![CDATA[Narrative event]]></Title>
+      <Title><![CDATA[NaNoWriMo 2021]]></Title>
       <BelongsToChID>1</BelongsToChID>
       <SceneContent />
       <WordCount>0</WordCount>
       <LetterCount>0</LetterCount>
       <Status>1</Status>
-      <SpecificDateTime>2021-11-02 15:00:00</SpecificDateTime>
+      <SpecificDateTime>2021-11-01 00:00:00</SpecificDateTime>
       <SpecificDateMode>-1</SpecificDateMode>
-      <LastsDays>0</LastsDays>
-      <LastsHours>0</LastsHours>
+      <LastsDays>25</LastsDays>
+      <LastsHours>5</LastsHours>
       <LastsMinutes>0</LastsMinutes>
+      <Desc><![CDATA[Poirot interrogates Author B.C. Toyle at his home.]]></Desc>
       <Unused>-1</Unused>
       <Fields>
-        <Field_SceneType>0</Field_SceneType>
+        <Field_SceneType>1</Field_SceneType>
       </Fields>
+      <Notes><![CDATA[To be continued]]></Notes>
+      <Tags><![CDATA[Work]]></Tags>
+      <Characters>
+        <CharID>1</CharID>
+        <CharID>2</CharID>
+      </Characters>
+      <Locations>
+        <LocID>1</LocID>
+      </Locations>
+      <Items>
+        <ItemID>1</ItemID>
+      </Items>
     </SCENE>
     <SCENE>
       <ID>3</ID>

@@ -16,6 +16,8 @@ import json
 import aeon2yw_
 from json import JSONDecodeError
 
+UPDATE = False
+
 # Test environment
 
 # The paths are relative to the "test" directory,
@@ -105,6 +107,8 @@ class NormalOperation(unittest.TestCase):
         copyfile(TEST_DATA_PATH + 'date_limits.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
+        if UPDATE:
+            copyfile(TEST_YW7, TEST_DATA_PATH + 'date_limits_notes.yw7')
         self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'date_limits_notes.yw7'))
 
     # @unittest.skip('')
@@ -113,6 +117,8 @@ class NormalOperation(unittest.TestCase):
         copyfile(TEST_DATA_PATH + 'date_limits.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
+        if UPDATE:
+            copyfile(TEST_YW7, TEST_DATA_PATH + 'date_limits.yw7')
         self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'date_limits.yw7'))
 
     # @unittest.skip('')
@@ -122,6 +128,8 @@ class NormalOperation(unittest.TestCase):
         copyfile(TEST_DATA_PATH + 'updated.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
+        if UPDATE:
+            copyfile(TEST_YW7, TEST_DATA_PATH + 'updated_from_aeon_notes.yw7')
         self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'updated_from_aeon_notes.yw7'))
         self.assertEqual(read_file(TEST_YW7_BAK), read_file(TEST_DATA_PATH + 'date_limits.yw7'))
 
@@ -132,6 +140,8 @@ class NormalOperation(unittest.TestCase):
         copyfile(TEST_DATA_PATH + 'updated.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_AEON, silentMode=True)
+        if UPDATE:
+            copyfile(TEST_YW7, TEST_DATA_PATH + 'updated_from_aeon.yw7')
         self.assertEqual(read_file(TEST_YW7), read_file(TEST_DATA_PATH + 'updated_from_aeon.yw7'))
         self.assertEqual(read_file(TEST_YW7_BAK), read_file(TEST_DATA_PATH + 'date_limits.yw7'))
 
@@ -141,6 +151,8 @@ class NormalOperation(unittest.TestCase):
         copyfile(TEST_DATA_PATH + 'minimal.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_YW7, silentMode=True)
+        if UPDATE:
+            copyfile(TEST_AEON, TEST_DATA_PATH + 'created.aeonzip')
         self.assertEqual(open_timeline(TEST_AEON), open_timeline(TEST_DATA_PATH + 'created.aeonzip'))
 
     # @unittest.skip('')
@@ -149,6 +161,8 @@ class NormalOperation(unittest.TestCase):
         copyfile(TEST_DATA_PATH + 'minimal.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_YW7, silentMode=True)
+        if UPDATE:
+            copyfile(TEST_AEON, TEST_DATA_PATH + 'created_arc.aeonzip')
         self.assertEqual(open_timeline(TEST_AEON), open_timeline(TEST_DATA_PATH + 'created_arc.aeonzip'))
 
     # @unittest.skip('')
@@ -157,6 +171,8 @@ class NormalOperation(unittest.TestCase):
         copyfile(TEST_DATA_PATH + 'created.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_YW7, silentMode=True)
+        if UPDATE:
+            copyfile(TEST_AEON, TEST_DATA_PATH + 'updated_from_yw.aeonzip')
         self.assertEqual(open_timeline(TEST_AEON), open_timeline(TEST_DATA_PATH + 'updated_from_yw.aeonzip'))
 
     # @unittest.skip('')
@@ -165,6 +181,8 @@ class NormalOperation(unittest.TestCase):
         copyfile(TEST_DATA_PATH + 'updated_from_yw.aeonzip', TEST_AEON)
         os.chdir(TEST_EXEC_PATH)
         aeon2yw_.run(TEST_YW7, silentMode=True)
+        if UPDATE:
+            copyfile(TEST_AEON, TEST_DATA_PATH + 'updated1_from_yw.aeonzip')
         self.assertEqual(open_timeline(TEST_AEON), open_timeline(TEST_DATA_PATH + 'updated1_from_yw.aeonzip'))
 
     def tearDown(self):
