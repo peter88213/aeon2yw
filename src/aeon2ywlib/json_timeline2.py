@@ -591,18 +591,18 @@ class JsonTimeline2(File):
                 # Reuse a target scene.
                 existingScId = targetScIdByTitle[evt['title']]
                 actualScene = self.novel.scenes[existingScId]
-            elif self._scenesOnly and not isNarrative:
-
-                # Don't create a "Notes" scene.
-                continue
-
             else:
+                if self._scenesOnly and not isNarrative:
+                    # don't create a "Notes" scene
+                    continue
+
                 # Create a new scene.
+                scId = create_id(self.novel.scenes)
                 actualScene = Scene()
                 actualScene.title = evt['title']
                 # print(f'read creates {actualScene.title}')
                 actualScene.status = 1
-
+            narrativeEvents.append(scId)
             displayId = float(evt['displayId'])
             if displayId > self._displayIdMax:
                 self._displayIdMax = displayId
@@ -752,17 +752,12 @@ class JsonTimeline2(File):
 
             if ywScId is not None:
                 scId = ywScId
-            else:
-                # TODO: create scene ID.
-                pass
             self.novel.scenes[scId] = actualScene
 
             # Use the timestamp for chronological sorting.
             if not timestamp in scIdsByDate:
                 scIdsByDate[timestamp] = []
             scIdsByDate[timestamp].append(scId)
-
-            narrativeEvents.append(scId)
 
         #--- Mark scenes deleted in Aeon "Unused".
         for scId in self.novel.scenes:
@@ -1276,7 +1271,8 @@ class JsonTimeline2(File):
             if not hasMoonphase and self._propertyMoonphaseGuid is not None:
                 evt['values'].append({'property': self._propertyMoonphaseGuid, 'value': eventMoonphase})
             if not hasYw7sync and self._propertyYw7syncGuid is not None:
-                evt['values'].append({'property': self._propertyYw7syncGuid, 'value': scId})
+                scIdStr = f'ScID:{srcScIdsByTitles[evt["title"]]}'
+                evt['values'].append({'property': self._propertyYw7syncGuid, 'value': scIdStr})
 
             #--- Set scene tags.
             if self.novel.scenes[scId].tags:
