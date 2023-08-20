@@ -23,6 +23,7 @@ SETTINGS = dict(
     property_yw7_sync='yW7sync',
     property_description='Description',
     property_notes='Notes',
+    property_moonphase='Moon phase',
     role_location='Location',
     role_item='Item',
     role_character='Participant',
