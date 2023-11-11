@@ -45,9 +45,9 @@ The application is ready for internationalization with GNU gettext. A German loc
 
 ## Download and install
 
-[Download the latest release (version 3.4.1)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v3.4.1.zip)
+[Download the latest release (version 3.4.2)](https://raw.githubusercontent.com/peter88213/aeon2yw/main/dist/aeon2yw_v3.4.2.zip)
 
-- Extract the "aeon2yw_v3.4.1" folder from the downloaded zipfile "aeon2yw_v3.4.1.zip".
+- Extract the "aeon2yw_v3.4.2" folder from the downloaded zipfile "aeon2yw_v3.4.2.zip".
 - Move into this new folder and launch **setup.pyw**. This installs the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for further instructions.
