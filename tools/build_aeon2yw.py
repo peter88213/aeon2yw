@@ -11,7 +11,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 import os
 import sys
-sys.path.insert(0, f'{os.getcwd()}/../../PyWriter/src')
+# sys.path.insert(0, f'{os.getcwd()}/../../PyWriter/src')
 import inliner
 
 SRC = '../src/'
@@ -21,10 +21,10 @@ TARGET_FILE = f'{BUILD}aeon2yw.pyw'
 
 
 def main():
-    inliner.run(SOURCE_FILE, TARGET_FILE, 'aeon2ywlib', '../src/', copyPyWriter=True)
-    inliner.run(TARGET_FILE, TARGET_FILE, 'pywriter', '../../PyWriter/src/', copyPyWriter=True)
-    # inliner.run(SOURCE_FILE, TARGET_FILE, 'aeon2ywlib', '../src/')
-    # inliner.run(TARGET_FILE, TARGET_FILE, 'pywriter', '../src/')
+    # inliner.run(SOURCE_FILE, TARGET_FILE, 'aeon2ywlib', '../src/', copyPyWriter=True)
+    # inliner.run(TARGET_FILE, TARGET_FILE, 'pywriter', '../../PyWriter/src/', copyPyWriter=True)
+    inliner.run(SOURCE_FILE, TARGET_FILE, 'aeon2ywlib', '../src/')
+    inliner.run(TARGET_FILE, TARGET_FILE, 'pywriter', '../src/')
     print('Done.')
 
 
