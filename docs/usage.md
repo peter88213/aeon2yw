@@ -153,7 +153,7 @@ The aeon2yw distribution comes with a sample configuration file located in the `
 
 This is the configuration explained: 
 
-```
+```ini
 [SETTINGS]
 
 default_date_time = 2023-01-01 00:00:00
